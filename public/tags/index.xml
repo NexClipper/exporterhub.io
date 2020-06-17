@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Tags on Prometheus Exporter Hub</title>
+    <link>https://exporterhub.io/tags/</link>
+    <description>Recent content in Tags on Prometheus Exporter Hub</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>The Hugo Documents are copyright © [gethugothemes](https://gethugothemes.com/) 2020.</copyright>
+    
+	<atom:link href="https://exporterhub.io/tags/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+  </channel>
+</rss>
