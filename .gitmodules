@@ -1,0 +1,4 @@
+[submodule "public"]
+	path = public
+	url = git@github.com:NexClipper/exporterhub.io.git
+	branch = master
