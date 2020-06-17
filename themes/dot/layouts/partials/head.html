@@ -1,0 +1,60 @@
+<head>
+  <meta charset="utf-8">
+  <title>{{ .Title }}</title>
+
+  {{ hugo.Generator }}
+
+  {{ "<!-- mobile responsive meta -->" | safeHTML }}
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+  {{ "<!-- ** Plugins Needed for the Project ** -->" | safeHTML }}
+  {{ "<!-- Bootstrap -->" | safeHTML }}
+  <link rel="stylesheet" href="{{ `plugins/bootstrap/bootstrap.min.css` | absURL }}">
+
+  {{ "<!-- themefy-icon -->" | safeHTML }}
+  <link rel="stylesheet" href="{{ `plugins/themify-icons/themify-icons.css` | absURL }}">
+
+  {{ "<!-- highlight -->" | safeHTML }}
+  <link rel="stylesheet" href="{{ `plugins/highlight/hybrid.css` | absURL }}">
+
+  {{ "<!--Favicon-->" | safeHTML }}
+  <link rel="icon" href="{{ `images/favicon.png` | absURL }}" type="image/x-icon">
+
+  {{ "<!-- fonts -->" | safeHTML }}
+  <link href="https://fonts.googleapis.com/css?family={{replace .Site.Params.font_family ' ' '+' | title}}:300,400,700&display=swap" rel="stylesheet">
+  
+  <style>
+  :root{
+    --primary-color:{{ .Site.Params.primary_color }};
+    --body-color:{{ .Site.Params.body_color }};
+    --text-color:{{ .Site.Params.text_color }};
+    --text-color-dark:{{ .Site.Params.text_color_dark }};
+    --white-color:{{ .Site.Params.white_color }};
+    --light-color:{{ .Site.Params.light_color }};
+    --font-family:{{ replace .Site.Params.font_family ' ' '+' | title }};
+  }
+  </style>
+
+{{ "<!-- Main Stylesheet -->" | safeHTML }}
+{{ $css := resources.Get "css/style.css" | minify }}
+<link href="{{ $css.Permalink }}" rel="stylesheet" media="screen"/>
+
+{{ "<!-- jquiry -->" | safeHTML }}
+<script src="{{ `plugins/jquery/jquery-1.12.4.js` | absURL }}"></script>
+
+{{ "<!-- jquary ui -->" | safeHTML }}
+<script src="{{ `plugins/jquery/jquery-ui.js`| absURL }}"></script>
+
+{{ "<!-- Bootstrap JS -->" | safeHTML }}
+<script src="{{ `plugins/bootstrap/bootstrap.min.js` | absURL }}"></script>
+
+{{ "<!-- match-height JS -->" | safeHTML }}
+<script src="{{ `plugins/match-height/jquery.matchHeight-min.js` | absURL }}"></script>
+
+{{ "<!-- highlight -->" | safeHTML }}
+<script src="{{ `plugins/highlight/highlight.pack.js` | absURL }}"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+{{ template "_internal/google_analytics.html" . }}
+
+</head>
