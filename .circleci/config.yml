@@ -24,9 +24,8 @@ jobs:
           command: |
             rm -rf public/*
       # build with Hugo
-      - run: HUGO_ENV=production hugo -v -d $HUGO_BUILD_DIR
-      - run:
-          name: test our generated HTML files
+      - run: hugo
+      - run: 
+          name: Removing existing files
           command: |
-            htmlproofer $HUGO_BUILD_DIR --allow-hash-href --check-html \
-            --empty-alt-ignore --disable-external
+            cd public && git add --all && git commit -m "Publishing to gh-pages" && cd ..
