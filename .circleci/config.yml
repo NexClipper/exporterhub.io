@@ -18,7 +18,7 @@ jobs:
       - run: 
           name: Checking out gh-pages branch into public
           command: |
-            git worktree add -B gh-pages public upstream/gh-pages
+            git worktree add -B gh-pages public origin/gh-pages
       - run: 
           name: Removing existing files
           command: |
