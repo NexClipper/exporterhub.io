@@ -1,13 +1,37 @@
-version: 2.1
+version: 2
 jobs:
   build:
     docker:
       - image: cibuilds/hugo:0.72
+    working_directory: ~/project
+    environment:
+      HUGO_BUILD_DIR: ~/project/public
     steps:
       - checkout
+      # install git
+      - run: 
+          name: apt update & install git
+          command: |
+            apk update && apk add git
+      - run: 
+          name: Deleting old publication
+          command: |
+            rm -rf public
+            mkdir public
+            git worktree prune
+            rm -rf .git/worktrees/public/
+      - run: 
+          name: Checking out gh-pages branch into public
+          command: |
+            git worktree add -B gh-pages public upstream/gh-pages
+      - run: 
+          name: Removing existing files
+          command: |
+            rm -rf public/*
+      # build with Hugo
+      - run: HUGO_ENV=production hugo -v -d $HUGO_BUILD_DIR
       - run:
-          name: "Run Hugo"
-          command: HUGO_ENV=production hugo -v -s src/
-      - run:
-          name: "Test Website"
-          command: htmlproofer src/public --allow-hash-href --check-html --empty-alt-ignore --disable-external
+          name: test our generated HTML files
+          command: |
+            htmlproofer $HUGO_BUILD_DIR --allow-hash-href --check-html \
+            --empty-alt-ignore --disable-external
