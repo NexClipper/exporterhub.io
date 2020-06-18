@@ -8,11 +8,6 @@ jobs:
       HUGO_BUILD_DIR: ~/project/public
     steps:
       - checkout
-      # install git 
-      - run: 
-          name: apt update & install git
-          command: |
-            apt update && apt install git
       - run: 
           name: Deleting old publication
           command: |
