@@ -7,6 +7,9 @@ jobs:
     environment:
       HUGO_BUILD_DIR: ~/project/public
     steps:
+      - add_ssh_keys:
+          fingerprints:
+            - "20:b4:2f:80:43:12:74:a5:c6:2f:65:ac:19:31:69:1b"
       - checkout
       - run: 
           name: Deleting old publication
@@ -23,8 +26,10 @@ jobs:
           name: Removing existing files
           command: |
             rm -rf public/*
-      # build with Hugo
-      - run: hugo
+      - run: 
+          name: build with Hugo
+          command: |
+            hugo
       - run: 
           name: Removing existing files
           command: |
