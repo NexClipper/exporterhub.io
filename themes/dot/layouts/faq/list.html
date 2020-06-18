@@ -1,0 +1,20 @@
+{{ define "main" }}
+
+  {{ $data := index .Site.Data .Site.Language.Lang }}
+  {{ "<!-- faq -->" | safeHTML }}
+  <section class="section pb-0">
+    <div class="container">
+      <div class="row">
+        <div class="col-12">
+        <h2 class="section-title text-primary">{{ .Title }}</h2>
+          {{ "<!-- accordion -->" | safeHTML }}
+          <div id="accordion">
+            {{ .Content }}
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  {{ "<!-- /faq -->" | safeHTML }}
+
+{{ end }}

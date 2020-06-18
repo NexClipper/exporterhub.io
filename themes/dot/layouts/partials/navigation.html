@@ -1,0 +1,71 @@
+<nav class="navbar navbar-expand-md {{ if .IsHome }}navbar-dark{{ else }}navbar-light{{ end }}">
+  <div class="container">
+    <a class="navbar-brand px-2" href="{{ .Site.BaseURL | relLangURL }}">
+      {{ $logo:= .Site.Params.logo }}
+      {{ $logoWhite:= .Site.Params.logo_white }}
+      {{ if (or $logo $logoWhite) }}
+      {{ if .IsHome }}
+      <img class="img-fluid" src="{{if $logoWhite }}{{ $logoWhite | absURL }} {{ else }} {{ $logo | absURL }}{{ end }}"
+        alt="{{ .Site.Title }}">
+      {{ else }}
+      <img class="img-fluid" src="{{ $logo | absURL }}" alt="{{ .Site.Title }}">
+      {{ end }}
+      {{ else }}
+      {{ .Site.Title }}
+      {{ end }}
+    </a>
+    <button class="navbar-toggler border-0" type="button" data-toggle="collapse" data-target="#navigation"
+      aria-controls="navigation" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse text-center" id="navigation">
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item">
+          <a class="nav-link text-dark" href="{{ .Site.BaseURL | relLangURL }}">{{ .Site.Params.home }}</a>
+        </li>
+        {{ range .Site.Menus.main }}
+        {{ if .HasChildren }}
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle text-dark" href="#" role="button" data-toggle="dropdown"
+            aria-haspopup="true" aria-expanded="false">
+            {{ .Name }}
+          </a>
+          <div class="dropdown-menu">
+            {{ range .Children }}
+            <a class="dropdown-item" href="{{ .URL | relLangURL }}">{{ .Name }}</a>
+            {{ end }}
+          </div>
+        </li>
+        {{ else }}
+        <li class="nav-item">
+          <a class="nav-link text-dark" href="{{ .URL | relLangURL }}">{{ .Name }}</a>
+        </li>
+        {{ end }}
+        {{ end }}
+      </ul>
+      <!-- Language List -->
+      {{- if .Site.IsMultiLingual }}
+      <select class="lang-list {{ if not .IsHome }}dark{{ end }}" id="select-language"
+        onchange="location = this.value;">
+        {{ $siteLanguages := .Site.Languages}}
+        {{ $pageLang := .Page.Lang}}
+        {{ range .Page.AllTranslations }}
+        {{ $translation := .}}
+        {{ range $siteLanguages }}
+        {{ if eq $translation.Lang .Lang }}
+        {{ $selected := false }}
+        {{ if eq $pageLang .Lang}}
+        <option id="{{ $translation.Language }}" value="{{ $translation.Permalink }}" selected>{{ .LanguageName }}
+        </option>
+        {{ else }}
+        <option id="{{ $translation.Language }}" value="{{ $translation.Permalink }}">{{ .LanguageName }}</option>
+        {{ end }}
+        {{ end }}
+        {{ end }}
+        {{ end }}
+      </select>
+      {{ end }}
+    </div>
+  </div>
+</nav>

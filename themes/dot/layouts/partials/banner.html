@@ -1,0 +1,39 @@
+{{ "<!-- banner -->" | safeHTML }}
+<div class="container section">
+	<div class="row">
+		<div class="col-lg-8 text-center mx-auto">
+			<h1 class="text-white mb-3">{{ .Site.Params.banner.title | markdownify }}</h1>
+			<p class="text-white mb-4">{{ .Site.Params.banner.subtitle | markdownify }}</p>
+			<div class="position-relative">
+				<input id="search" class="form-control" placeholder="{{ .Site.Params.banner.placeholder }}">
+				<i class="ti-search search-icon"></i>
+				<!-- Javascript -->
+				{{ $currentNode := . }}
+				{{ $currentNode.Scratch.Set "pages" .Site.Pages }}
+				{{ $pages := ($currentNode.Scratch.Get "pages") }}
+				<script>
+					$(function() {
+					var projects = [
+						{{ range $pages }}
+						{
+							value: "{{ .Title }}",
+							label: "<p>{{.Plain}}</p>{{range.Params.Keywords}}<p>{{.}}</p>{{end}}",
+							url:"{{ .Permalink }}"
+						},
+						{{ end }}
+					];
+					$( "#search" ).autocomplete({
+						source: projects
+					})
+					.data( "ui-autocomplete" )._renderItem = function( ul, item ) {
+						return $( "<li>" )
+						.append( "<a href=" + item.url + " + \" &quot;\" +  >" + item.value + "</a>" + item.label )
+						.appendTo( ul );
+					};
+					});
+				</script>
+			</div>
+		</div>
+	</div>
+</div>
+{{ "<!-- /banner -->" | safeHTML }}
