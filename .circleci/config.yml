@@ -8,7 +8,7 @@ jobs:
       HUGO_BUILD_DIR: ~/project/public
     steps:
       - checkout
-      # install git
+      # install git 
       - run: 
           name: apt update & install git
           command: |
