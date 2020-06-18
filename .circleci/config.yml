@@ -18,21 +18,9 @@ jobs:
             mkdir public
             git worktree prune
             rm -rf .git/worktrees/public/
-      - run: 
-          name: Checking out gh-pages branch into public
-          command: |
             git worktree add -B gh-pages public origin/gh-pages
-      - run: 
-          name: Removing existing files
-          command: |
             rm -rf public/*
-      - run: 
-          name: build with Hugo
-          command: |
             hugo
-      - run: 
-          name: Removing existing files
-          command: |
             git config credential.helper 'cache --timeout=120'
             git config user.email "ddiiwoong@gmail.com"
             git config user.name "Deployment Bot"
