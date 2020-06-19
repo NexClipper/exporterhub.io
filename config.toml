@@ -126,19 +126,19 @@ home = "Home"
 copyright = "The Hugo Documents are copyright © [gethugothemes](https://gethugothemes.com/) 2020."
 
 # banner
-[Languages.en.params.banner]
+[Languages.ko.params.banner]
 title = "ExporterHub에 오신것을 환영합니다"
 subtitle = "공식 exporter를 찾아보세요"
 bg_image = "images/banner.jpg"
 placeholder = "ExporterHub 검색"
 
 # call to action
-[Languages.en.params.cta]
+[Languages.ko.params.cta]
 enable = true
 title = "Didn't find an answer to your question?"
 content = "Musce libero nunc, dignissim quis turpis quis, semper vehicula dolor. Suspendisse tincidunt consequat quam."
 # call to action button
-[Languages.en.params.cta.button]
+[Languages.ko.params.cta.button]
 enable = true
 label = "contact us"
 link = "contact"
