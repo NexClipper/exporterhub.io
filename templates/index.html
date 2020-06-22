@@ -1,11 +1,208 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+    integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+  <!-- Optional JavaScript -->
+  <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+    integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+    crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+    integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+    crossorigin="anonymous"></script>
+
+  <link href="https://fonts.googleapis.com/css?family=Stylish&display=swap" rel="stylesheet">
+
+  <title>ExporterHub Test</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono&display=swap" rel="stylesheet">
+
+  <style>
+    * {
+      font-family: 'Roboto Mono', sans-serif;
+    }
+
+    .wrap {
+      margin: auto;
+      width: 600px;
+    }
+
+    .comment {
+      font-weight: bold;
+      color: blue;
+    }
+
+    .input_body {
+      margin: auto;
+      margin-top: 10px;
+      margin-bottom: 10px;
+      width: 650px;
+    }
+
+    .repos-box {
+      width: 650px;
+      text-align: center;
+    }
+
+    .repos {
+      margin-top: 50px;
+    }
+
+    .card-img {
+      background-image: url('https://store-cf.pinkfong.com/__sized__/products/IT267/b3/32/5b/12514fafb867652560728715-crop-c0-5__0-5-600x600-85.jpg');
+      background-position: center;
+      background-color: cover;
+      margin: auto;
+      width: 600px;
+      height: 600px;
+    }
+  </style>
+  <script>
+
+    $(document).ready(function () {
+      $('#repos-box').html('');
+      getRepo();
+    })
+
+    function validURL(exporterURL) {
+      var pattern = new RegExp('^(https?:\\/\\/)?' + // protocol
+        '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.?)+[a-z]{2,}|' + // domain name
+        '((\\d{1,3}\\.){3}\\d{1,3}))' + // ip (v4) address
+        '(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*' + //port
+        '(\\?[;&amp;a-z\\d%_.~+=-]*)?' + // query string
+        '(\\#[-a-z\\d_]*)?$', 'i');
+      return pattern.test(exporterURL);
+    }
+
+    function registExporter() {
+      let exporterGithubUrl = $('#exporterGithubUrl').val();
+      let exporterComment = $('#exporterComment').val();
+      if (exporterGithubUrl == '') {
+        alert('Github URL을 입력하세요');
+        $('#exporterGithubUrl').focus();
+        return;
+      } else if (validURL(exporterGithubUrl) != true) {
+        alert('올바른 URL 형식을 입력해주세요');
+        $('#exporterGithubUrl').focus();
+        // parsing 해서 api 형태로 바꿈, 백엔드에서 구현하는게 더 맞을것 같음.
+        return;
+      } else if (exporterComment == '') {
+        alert('Comment를 입력해주세요');
+        $('#exporterComment').focus();
+        return;
+      }
+
+      $.ajax({
+        type: "GET",
+        url: exporterGithubUrl,
+        data: {},
+        success: function (response) {
+          let repoName = response['name']
+          let repoFullName = response['full_name']
+          let repoUrl = response['html_url']
+          let repoDescription = response['description']
+          let starred = response['stargazers_count']
+          // 화면에 현재 입력된 exporter 정보를 보여줘야함
+          console.log(starred);
+        }
+      })
+
+      $.ajax({
+        type: "POST",
+        url: "/addRepo",
+        data: { exporterGithubUrl: exporterGithubUrl, exporterComment: exporterComment },
+        success: function (response) {
+          if (response['result'] == 'success') {
+            alert(response['msg']);
+            window.location.reload();
+          }
+        }
+      })
+    }
+
+    function getRepo() {
+      $('#repos-box').html('');
+      $.ajax({
+        type: "GET",
+        url: "/getRepo",
+        data: {},
+        success: function (response) {
+          if (response['result'] == 'success') {
+            let repos = response['repos'];
+            for (let i = 0; i < repos.length; i++) {
+              make_list(repos[i]['exporterGithubUrl'], repos[i]['exporterComment']);
+            }
+            // alert('success');
+          } else {
+            alert('정보를 받아오지 못함');
+          }
+        }
+      })
+    }
+
+    function make_list(exporterGithubUrl, exporterComment) {
+      let temp_html = `<tr>
+                        <td>${exporterGithubUrl}</td>
+                        <td>${exporterComment}</td>
+                      </tr>`;
+      $('#repos-box').append(temp_html);
+    }
+
+  </script>
 </head>
+
 <body>
-  Hi!
+  <div class="input_body">
+    <span style="font-weight: bold; font-size: 30px;">Exporter Register</span>
+    <p>exporter register test</p>
+
+    <span style="font-weight: bold; font-size: 30px;">Exporter</span>
+    <p>
+
+    <div class="input-group mb-3">
+      <div class="input-group-prepend">
+        <span class="input-group-text" id="inputGroup-sizing-default">Exporter Github URL</span>
+      </div>
+      <input type="text" id="exporterGithubUrl" class="form-control" aria-label="Sizing example input"
+        aria-describedby="inputGroup-sizing-default">
+    </div>
+    <div class="input-group mb-3">
+      <div class="input-group-prepend">
+        <span class="input-group-text" id="inputGroup-sizing-default">Comment</span>
+      </div>
+      <input type="text" id="exporterComment" class="form-control" aria-label="Sizing example input"
+        aria-describedby="inputGroup-sizing-default">
+    </div>
+    <div class="order-box">
+      <button onclick="registExporter()" type="button" class="btn btn-primary">Summit</button>
+      <button onclick="getRepo()" type="button" class="btn btn-primary">GET Repo</button>
+    </div>
+    <div class="repos">
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">URL</th>
+            <th scope="col">Comment</th>
+          </tr>
+        </thead>
+        <tbody id="repos-box">
+          <tr>
+            <td>Mark</td>
+            <td>Mark</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
 </body>
+
 </html>

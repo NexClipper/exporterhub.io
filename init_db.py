@@ -7,4 +7,5 @@ client = MongoClient('localhost', 27017)
 db = client.exporterhub
 
 def get_urls():
+
     return urls
