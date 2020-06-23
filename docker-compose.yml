@@ -1,0 +1,13 @@
+web:
+  image: ddiiwoong/exporterhub:0.26
+  ports:
+    - "5000:5000"
+  volumes:
+    - .:/app
+  environment:
+    - MONGO_HOST=db
+    - MONGO_PORT=27017
+  links:
+    - db
+db:
+  image: mongo:4.2.1

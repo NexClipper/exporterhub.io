@@ -1,9 +1,12 @@
 from pymongo import MongoClient
-
 from flask import Flask, render_template, jsonify, request
+import os
+
 app = Flask(__name__)
 
-client = MongoClient('localhost', 27017)
+mongodb_host = os.environ.get('MONGO_HOST', 'localhost')
+mongodb_port = int(os.environ.get('MONGO_PORT', '27017'))
+client = MongoClient(mongodb_host, mongodb_port)
 db = client.exporterhub
 
 @app.route('/')
