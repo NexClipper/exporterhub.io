@@ -9,7 +9,7 @@ spec:
   replicas: 1
   selector:
     matchLabels:
-     app: mongo
+      app: mongo
   template:
     metadata:
       labels:
@@ -30,4 +30,4 @@ spec:
     - port: 27017
       targetPort: 27017
   selector:
-    name: mongo
+    app: mongo

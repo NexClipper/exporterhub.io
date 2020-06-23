@@ -37,6 +37,6 @@ spec:
       targetPort: 5000
       nodePort: 32001
       name: http
-  type: NodePort
+  type: LoadBalancer
   selector:
-    name: exporterhub
+    app: exporterhub
