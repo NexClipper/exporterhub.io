@@ -1,4 +1,5 @@
-import requests
+import requests, json
+from urllib.request import urlopen
 
 client_token = 'token 517d413e9c97d986ad0839084d9a2d2cf2dbd0f9'
 
@@ -13,4 +14,3 @@ if(response.status_code == 200):
     print(data['current_user_url'])
 else:
     print("Error Code:" + response.status_code)
-

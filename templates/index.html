@@ -130,7 +130,7 @@
           if (response['result'] == 'success') {
             let repos = response['repos'];
             for (let i = 0; i < repos.length; i++) {
-              make_list(repos[i]['exporterGithubUrl'], repos[i]['exporterComment']);
+              make_list(repos[i]['exporterContent']['html_url'], repos[i]['exporterComment']);
             }
             // alert('success');
           } else {
@@ -153,12 +153,12 @@
 
 <body>
   <div class="input_body">
-    <span style="font-weight: bold; font-size: 30px;">Exporter Registery</span>
+    <span style="font-weight: bold; font-size: 30px;">Exporter Registry</span>
     <p>
 
     <div class="input-group mb-3">
       <div class="input-group-prepend">
-        <span class="input-group-text" id="inputGroup-sizing-default">Exporter Github URL</span>
+        <span class="input-group-text" id="inputGroup-sizing-default">Exporter</span>
       </div>
       <input type="text" id="exporterGithubUrl" class="form-control" aria-label="Sizing example input"
         aria-describedby="inputGroup-sizing-default">

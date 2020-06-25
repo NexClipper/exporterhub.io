@@ -1,6 +1,7 @@
 from pymongo import MongoClient
 from flask import Flask, render_template, jsonify, request
 import os
+import parsecontent
 
 app = Flask(__name__)
 
@@ -19,8 +20,12 @@ def write_repo():
     exporterGithubUrl_receive = request.form['exporterGithubUrl']
     exporterComment_receive = request.form['exporterComment']
 
+    exporterContent = parsecontent.getContent(exporterGithubUrl_receive)
+    exporterReadme = parsecontent.getReadme(exporterGithubUrl_receive)
+
     repo = {
-        'exporterGithubUrl': exporterGithubUrl_receive,
+        'exporterContent': exporterContent,
+        'exporterReadme': exporterReadme,
         'exporterComment': exporterComment_receive
     }
 
