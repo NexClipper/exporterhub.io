@@ -11,3 +11,5 @@ web:
     - db
 db:
   image: mongo:4.2.1
+  ports:
+    - "27017:27017"
