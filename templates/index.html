@@ -20,6 +20,9 @@
     integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
     crossorigin="anonymous"></script>
 
+  <!-- showdown.js for Markdown to HTML-->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/showdown/1.9.1/showdown.js"></script>
+
   <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono&display=swap" rel="stylesheet">
   <!-- <link type="text/css" href="static/css/style.css" rel="stylesheet"> -->
   <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
@@ -52,24 +55,42 @@
       <button type="button" id="submit" class="btn btn-primary">Submit</button>
       <button onclick="getRepo()" type="button" class="btn btn-primary">GET Repo</button>
     </div>
-    <div class="repos">
-      <table class="table">
-        <thead>
-          <tr>
-            <th scope="col">URL</th>
-            <th scope="col">Comment</th>
-          </tr>
-        </thead>
-        <tbody id="repos-box">
-          <tr>
-            <td>Mark</td>
-            <td>Mark</td>
-          </tr>
-        </tbody>
-      </table>
+  </div>
+  <div class="repos">
+    <div class="card-deck" id="repos-box">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">Klevr</h5>
+          <p class="card-text">사랑합니다.</p>
+          <p class="card-text">git</p>
+          <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+          <a href="#" class="btn btn-primary">Go</a>
+        </div>
+      </div>
+      <div class="card" >
+        <div class="card-body">
+          <h5 class="card-title">Card title</h5>
+          <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional
+            content.
+            This card has even longer content than the first to show that equal height action.</p>
+          <p class="card-text">git</p>
+          <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+          <a href="#" class="btn btn-primary">Go</a>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">Card title</h5>
+          <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional
+            content.
+            This card has even longer content than the first to show that equal height action.</p>
+          <p class="card-text">git</p>
+          <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+          <a href="#" class="btn btn-primary">Go</a>
+        </div>
+      </div>
     </div>
   </div>
-
 </body>
 
 </html>

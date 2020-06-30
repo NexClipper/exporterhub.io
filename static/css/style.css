@@ -30,5 +30,13 @@
 }
 
 .repos {
-  margin-top: 50px;
+  margin: auto;
+  margin-top: 100px;
+  margin-bottom: 10px;
+  background-position: center;
+  background-size: cover;
+  border-radius: 10px;
+  text-align: left;
+  padding-top: 40px;
+  width: 900px;
 }

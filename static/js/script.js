@@ -75,9 +75,9 @@ function getRepo() {
       if (response['result'] == 'success') {
         let repos = response['repos'];
         for (let i = 0; i < repos.length; i++) {
-          make_list(repos[i]['exporterContent']['html_url'], repos[i]['exporterComment']);
+          make_list(repos[i]['exporterContent']['name'], repos[i]['exporterContent']['html_url'], repos[i]['exporterContent']['description'], repos[i]['exporterContent']['stargazers_count'], repos[i]['exporterContent']['language'], repos[i]['exporterComment']);
         }
-        // alert('success');
+        // alert('success2');
       } else {
         alert('정보를 받아오지 못함');
       }
@@ -85,10 +85,17 @@ function getRepo() {
   })
 }
 
-function make_list(exporterGithubUrl, exporterComment) {
-  let temp_html = `<tr>
-    <td>${exporterGithubUrl}</td>
-    <td>${exporterComment}</td>
-  </tr>`;
+function make_list(exporterName, exporterGithubUrl, exporterDesc, exporterStar, exporterLang, exporterComment) {
+  let temp_html = `<div class="card">
+                    <div class="card-body">
+                    <h5 class="card-title">${exporterName}</h5>
+                    <p class="card-text">${exporterGithubUrl}</p>
+                    <p class="card-text">${exporterDesc}</p>
+                    <p class="card-text">${exporterStar}</p>
+                    <p class="card-text">${exporterLang}</p>
+                    <p class="card-text"><small class="text-muted">${exporterComment}</small></p>
+                    <a href="#" class="btn btn-primary">Detail</a>
+                    </div>
+                    </div>`;
   $('#repos-box').append(temp_html);
 }
