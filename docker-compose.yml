@@ -13,7 +13,7 @@ db:
   image: mongo:4.2.1
   restart: always
   environment:
-    MONGO_INITDB_ROOT_USERNAME: admin
+    # MONGO_INITDB_ROOT_USERNAME: admin
     # MONGO_INITDB_ROOT_PASSWORD: 
   volumes:
     - type: bind 
