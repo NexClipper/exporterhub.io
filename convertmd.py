@@ -1,10 +1,11 @@
 import requests, json, base64
 import parsecontent
 
-def convert_markdown():
+
+def convert_markdown(githubUrl):
 
     # Parse Github Repository URL
-    exporterReadme = parsecontent.getReadme('https://github.com/NexClipper/NexClipper')
+    exporterReadme = parsecontent.getReadme(githubUrl)
 
     # Get Markdown base64 raw text
     # Decode base64 and utf-8
@@ -19,7 +20,4 @@ def convert_markdown():
         # Github Flavored Markdown Spec (https://github.github.com/gfm/)
     }
     res = requests.post(readmeURL, data=json.dumps(data))
-
-    return res.text
-
-convert_markdown()
+    return res

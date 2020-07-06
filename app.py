@@ -1,7 +1,7 @@
 from pymongo import MongoClient
 from flask import Flask, render_template, jsonify, request
 import os
-import parsecontent
+import parsecontent, convertmd
 
 app = Flask(__name__)
 
@@ -22,11 +22,13 @@ def write_repo():
 
     exporterContent = parsecontent.getContent(exporterGithubUrl_receive)
     exporterReadme = parsecontent.getReadme(exporterGithubUrl_receive)
+    # exporterReadmeHtml = convertmd.convert_markdown(exporterGithubUrl_receive)
 
     repo = {
         'exporterContent': exporterContent,
         'exporterReadme': exporterReadme,
-        'exporterComment': exporterComment_receive
+        'exporterComment': exporterComment_receive,
+        # 'exporterReadmeHtml': exporterReadmeHtml
     }
 
     db.repos.insert_one(repo)
@@ -43,8 +45,9 @@ def read_repo():
 
 @app.route('/getExporter', methods=['POST'])
 def read_exporter():
-    repos = list(db.repos.find({}, {'_id': 0}))
-    return jsonify({'result': 'success', 'repos': repos})
+    exporterGithubUrl_receive = request.form['exporterGithubUrl']
+    res = convertmd.convert_markdown(exporterGithubUrl_receive)
+    return jsonify({'result': 'success', 'msg': '추가완료'})
 
 
 if __name__ == '__main__':
