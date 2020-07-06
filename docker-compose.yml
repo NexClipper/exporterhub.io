@@ -1,16 +1,28 @@
-web:
-  image: ddiiwoong/exporterhub:0.31
-  ports:
-    - "5000:5000"
-  volumes:
-    - .:/app
-  environment:
-    - MONGO_HOST=db
-    - MONGO_PORT=27017
-  links:
-    - db
-db:
-  image: mongo:4.2.1
-  restart: always
-  ports:
-    - "27017:27017"
+version: '3'
+
+services:
+  web:
+    image: ddiiwoong/exporterhub:0.31
+    ports:
+      - "5000:5000"
+    volumes:
+      - .:/app
+    environment:
+      - MONGO_HOST=db
+      - MONGO_PORT=27017
+    links:
+      - db
+  db:
+    image: mongo:4.2.1
+    container_name: db
+    restart: always
+    env_file: .env
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=$DATABASE_ROOT_USERNAME
+      - MONGO_INITDB_ROOT_PASSWORD=$DATABASE_ROOT_PASSWORD
+      - MONGO_INITDB_DATABASE=$DATABASE
+      - DATABASE_USERNAME=$DATABASE_USERNAME
+      - DATABASE_PASSWORD=$DATABASE_PASSWORD
+      # - MONGO_PORT=$DATABASE_PORT
+    ports:
+      - "27017:27017"
