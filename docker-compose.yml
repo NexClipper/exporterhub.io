@@ -2,7 +2,7 @@ version: '3.4'
 
 services:
   web:
-    image: ddiiwoong/exporterhub:0.31
+    image: ddiiwoong/exporterhub:0.32
     ports:
       - "5000:5000"
     volumes:
