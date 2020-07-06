@@ -1,5 +1,5 @@
 web:
-  image: ddiiwoong/exporterhub:build
+  image: ddiiwoong/exporterhub:0.31
   ports:
     - "5000:5000"
   volumes:
