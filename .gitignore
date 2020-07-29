@@ -151,6 +151,9 @@ dmypy.json
 # pytype static type analyzer
 .pytype/
 
+# docker
+.dockerignore
+
 ### Python ###
 # Byte-compiled / optimized / DLL files
 

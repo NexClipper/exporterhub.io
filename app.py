@@ -1,13 +1,19 @@
 from pymongo import MongoClient
 from flask import Flask, render_template, jsonify, request
+from dotenv import load_dotenv
 import os
 import parsecontent, convertmd
 
 app = Flask(__name__)
+load_dotenv(verbose=True)
 
 mongodb_host = os.environ.get('MONGO_HOST', 'localhost')
 mongodb_port = int(os.environ.get('MONGO_PORT', '27017'))
+username = os.getenv('MONGO_INITDB_ROOT_USERNAME')
+password = os.getenv('MONGO_INITDB_ROOT_PASSWORD')
+
 client = MongoClient(mongodb_host, mongodb_port)
+client.admin.authenticate(username, password, mechanism='SCRAM-SHA-1', source='source_database')
 db = client.exporterhub
 
 @app.route('/')

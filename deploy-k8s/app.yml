@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
         - name: exporterhub
-          image: ddiiwoong/exporterhub:0.3
+          image: ddiiwoong/exporterhub:0.32
           imagePullPolicy: Always
           ports:
             - containerPort: 5000
