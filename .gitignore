@@ -5,6 +5,10 @@
 ### Test ###
 test.*
 
+### direnv ###
+.envrc
+.direnv
+
 ### Flask ###
 instance/*
 !instance/.gitignore
