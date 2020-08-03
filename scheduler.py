@@ -25,9 +25,3 @@ def convert_markdown():
   
     
 convert_markdown()
-
-""" def 
-  with open('filename.txt', 'r') as f:
-      list_file = []
-      for line in f:
-          list_file.append(line) """
