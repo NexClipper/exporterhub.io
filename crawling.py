@@ -3,7 +3,7 @@ from urllib.request import urlopen
 
 client_token = 'token 517d413e9c97d986ad0839084d9a2d2cf2dbd0f9'
 
-githup_api = 'https://api.github.com/'
+githup_api = 'https://api.github.com'
 
 header_params = {"Authorization": client_token}
 

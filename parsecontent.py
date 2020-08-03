@@ -3,6 +3,8 @@ from urllib.request import urlopen
 from urllib import parse
 
 
+client_token = 'token 517d413e9c97d986ad0839084d9a2d2cf2dbd0f9'
+
 def parseGiturl(githubUrl):
   url = parse.urlparse(githubUrl)
   return url.path
@@ -10,7 +12,7 @@ def parseGiturl(githubUrl):
 def getReadme(githubUrl):  # get content repository readme markdown
   url = 'https://api.github.com/repos' + parseGiturl(githubUrl)
   url += '/readme'
-  # https://api.github.com/repos/prometheus/mysqld_exporter/readme
+  # example : https://api.github.com/repos/prometheus/mysqld_exporter/readme
   response = urlopen(url).read().decode('utf-8')
   responseJson = json.loads(response)
   return responseJson
