@@ -7,10 +7,13 @@ import markdown
 
 def write_repo():
 
-    exporterContent = parsecontent.getContent(
-        'https://github.com/NexClipper/NexClipper')
-    exporterReadme = parsecontent.getReadme(
-        'https://github.com/NexClipper/NexClipper')
+    client_token = 'token 517d413e9c97d986ad0839084d9a2d2cf2dbd0f9'
+    headers = {'Authorization': client_token}
+    login = requests.get('https://api.github.com/repos/prometheus/docs', headers=headers)
+    # print(login.json())
+
+    exporterContent = parsecontent.getContent('https://github.com/NexClipper/NexClipper')
+    exporterReadme = parsecontent.getReadme('https://github.com/NexClipper/NexClipper')
 
     print(exporterContent.get('fork'))
     print(exporterReadme.get('type'))

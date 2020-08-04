@@ -2,8 +2,9 @@ import json
 from urllib.request import urlopen
 from urllib import parse
 
-
 client_token = 'token 517d413e9c97d986ad0839084d9a2d2cf2dbd0f9'
+headers = {'Authorization': client_token}
+login = requests.get('https://api.github.com/repos/prometheus/docs', headers=headers)
 
 def parseGiturl(githubUrl):
   url = parse.urlparse(githubUrl)
