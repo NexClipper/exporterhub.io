@@ -3,17 +3,6 @@ https://github.com/prometheus/consul_exporter
 
 # Resource
 
-## Run
-Export Consul service health to Prometheus.
-
-To run it:
-
-```bash
-make
-./cons
-```
-
-
 ## Docker
 
 You can deploy this exporter using the [prom/consul-exporter](https://registry.hub.docker.com/r/prom/consul-exporter) Docker image.
