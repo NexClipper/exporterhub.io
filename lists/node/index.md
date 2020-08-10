@@ -248,10 +248,8 @@ TBD ...
 
 # Dashboard
 
+[https://grafana.com/grafana/dashboards/1860](https://grafana.com/grafana/dashboards/1860)
 
+[Download JSON](https://grafana.com/api/dashboards/1860/revisions/21/download)
 
-[https://grafana.com/grafana/dashboards/37](https://grafana.com/grafana/dashboards/37)
-
-[Download JSON](https://grafana.com/api/dashboards/37/revisions/1/download)
-
-Grafana Dashboard ID : 37
+Grafana Dashboard ID : 1860
