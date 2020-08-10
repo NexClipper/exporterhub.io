@@ -37,10 +37,10 @@ License
 
 ## Official Exporters
 ---
-[Consul Exporter](https://github.com/prometheus/consul_exporter) - Export Consul service health to Prometheus.   
-[Memcached Exporter](https://github.com/prometheus/memcached_exporter) - Exports metrics from memcached servers for consumption by Prometheus.   
-[MySQL Server Exporter](https://github.com/prometheus/mysqld_exporter) - Exporter for MySQL server metrics   
-[Node Exporter](https://github.com/prometheus/node_exporter) - Exporter for machine metrics   
+[Consul Exporter](https://github.com/NexClipper/exporterhub.io/blob/master/lists/consul/index.md) - Export Consul service health to Prometheus.   
+[Memcached Exporter](https://github.com/NexClipper/exporterhub.io/blob/master/lists/memcached/index.md) - Exports metrics from memcached servers for consumption by Prometheus.   
+[MySQL Server Exporter](https://github.com/NexClipper/exporterhub.io/blob/master/lists/mysql/index.md) - Exporter for MySQL server metrics   
+[Node Exporter](https://github.com/NexClipper/exporterhub.io/blob/master/lists/node/index.md) - Exporter for machine metrics   
 [HAProxy Exporter](https://github.com/prometheus/haproxy_exporter) - About
 Simple server that scrapes HAProxy stats and exports them via HTTP for Prometheus consumption   
 [CloudWatch Exporter](https://github.com/prometheus/cloudwatch_exporter) - Metrics exporter for Amazon AWS CloudWatch   
