@@ -1,5 +1,6 @@
 # [Exporterhub.io](https://exporterhub.io/)
-> ### A Smart Uses of Curated List about all things Prometheus Exporter.   (powered by [nexclipper](https://nexclipper.io))
+> ### A Smart Uses of Curated List about all things Prometheus Exporter. 
+> #### (powered by [nexclipper](https://nexclipper.io))
 
 ## Contents
 
@@ -16,8 +17,6 @@
 
 ### Exporterhub provides not only curated lists, but also various contents such as installing exporters, configuring alert rules, and configuring dashboards.
 
-ExporterHub.io is the front-end for the Community Prometheus Exporter Repository.
-
 Each exporter's detail page contains the following.
 
 - Official Github (Origin Repository)
@@ -25,6 +24,7 @@ Each exporter's detail page contains the following.
 - Alert-rule (Recommended)
 - Dashboard (Grafana)
 
+ExporterHub.io is the front-end for the Community Prometheus Exporter Repository.   
 If you have Specific exporter to contribute to ExporterHub.io, feel free to send issues or pull requests.   
 Please read the pull request requirements before creating one to ensure all required files are present.
 
