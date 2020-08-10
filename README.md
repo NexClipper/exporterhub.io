@@ -43,7 +43,6 @@ Recommends the best-fit exporter(s) to support Prometheus monitoring needs in en
   * [ ] Automated Installation
   * [ ] Generate Alert Rule
   * [ ] Recommend best-fit exporter
-  * [ ] 
 
 ![exporterhub](./media/exporterhub.png)
 
