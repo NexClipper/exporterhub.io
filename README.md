@@ -16,9 +16,9 @@
 ## What is [ExporterHub.io](https://exporterhub.io/)
 
 ### ExporterHub.io is the front-end for the Community Prometheus Exporters.
-### Exporterhub.io provides not only curated lists, but also various contents such as installing exporters, configuring alert rules, and configuring dashboards.
+### ExporterHub.io is not just a curated list, but also provides exporter installation guide, alert rule configuration, and dashboard configuration.
 
-Each exporter's detail page contains the following.
+Each exporter's page contains the followings:
 
 - Official Github (Origin Repository)
 - Resource (Install, Exported Metrics)
@@ -28,21 +28,21 @@ Each exporter's detail page contains the following.
 
 ## Roadmap
 
-To help and ease you with best-practice Prometheus, ExporterHub.io discovers & recommends the best-fit exporter(s) available to expose metrics data from your specific systems and services being monitored.
+To help and ease you with best-practice Prometheus, ExporterHub.io discovers and recommends the best-fit exporter(s) available to expose metrics data from your specific systems and services being monitored.
 
-Using the best-fit exporter(s) helps standardize metrics data exposition practices, maximizing monitoring experience with minimal manual inputs.
+Using the best-fit exporter(s) helps standardizing metrics data exposition practices, maximizing monitoring experience with minimal manual inputs.
 
-Recommends the best-fit exporter(s) to support Prometheus monitoring needs in enterprise environments comprised of complex/closed network security settings.
+ExporterHub.io recommends the best-fit exporter(s) to support Prometheus monitoring needs in enterprise environments with complex and closed network security settings.
 
 
-* [x] Installation Guide, Metric Collection Flags, Recommend Alert-rule
-* [ ] Card-Styled Github Pages
-* [ ] Search Official Exporters
+* [x] Installation Guide, Metric Collection Flags, Recommended Alert-rule
+* [ ] Card Style Github Page
+* [ ] Easy search of Exporters
 * [ ] Personalization
-* [ ] NexClipper Cloud Integration
-  * [ ] Automated Installation
-  * [ ] Generate Alert Rule
-  * [ ] Recommend best-fit exporter
+* [ ] NexClipper Cloud Integration (coming soon)
+  * [ ] Install exporters automatically
+  * [ ] Generate Alert Rules
+  * [ ] Recommend best-fit exporter(s)
 
 ![exporterhub](./media/exporterhub.png)
 
