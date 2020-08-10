@@ -89,5 +89,13 @@ Contributions are welcome!
 ## Useful site, Tools
 
 
+## References
+- [Officail EXPORTERS AND INTEGRATIONS](https://prometheus.io/docs/instrumenting/exporters/)
+- [Awesome Prometheus alerts](https://awesome-prometheus-alerts.grep.to/)
+- [SLOs with Prometheus](https://promtools.dev/)
+- [Awesome Prometheus](https://github.com/roaldnefs/awesome-prometheus)
+- [Promcat](https://promcat.io/)
+
+
 ## License
 Exporterhub.io is licensed under the MIT License. See [LICENSE](https://github.com/NexClipper/exporterhub.io/blob/master/LICENSE) for the full license text.
