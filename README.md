@@ -28,11 +28,13 @@ Each exporter's detail page contains the following.
 
 ## Roadmap
 
-Please see the gh-pages website to view lists of card styles.
-- Search Official Exporters
-- Personalization
-- Installation Guide, Metric Collection Flags, Recommend Alert-rule
-- NexClipper Cloud Integration
+[x] Installation Guide, Metric Collection Flags, Recommend Alert-rule
+[ ] Card-Styled Github Pages
+[ ] Search Official Exporters
+[ ] Personalization
+[ ] NexClipper Cloud Integration
+
+![exporterhub](./media/exporterhub.png)
 
 ## Official Exporters
 
