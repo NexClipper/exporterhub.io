@@ -3,7 +3,6 @@
 [exporterthub.io](https://exporterthub.io/)
 
 ## What is ExporterHub.io
----
 
 Exporterthub.io is a curated list of resources about things Prometheus Exporter.
 
@@ -17,7 +16,7 @@ Each exporter's detail page contains the following.
 - Dashboard (Grafana)
 
 ## Roadmap
----
+
 Please see the gh-pages website to view lists of card styles.
 - Search Official Exporters
 - Personalization
@@ -36,7 +35,7 @@ Useful site, Tools
 License
 
 ## Official Exporters
----
+
 [Consul Exporter](https://github.com/prometheus/consul_exporter) - Export Consul service health to Prometheus.   
 [Memcached Exporter](https://github.com/prometheus/memcached_exporter) - Exports metrics from memcached servers for consumption by Prometheus.   
 [MySQL Server Exporter](https://github.com/prometheus/mysqld_exporter) - Exporter for MySQL server metrics   
