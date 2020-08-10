@@ -1,4 +1,4 @@
-# exporterhub.io
+# Exporterhub.io
 
 [exporterthub.io](https://exporterthub.io/)
 
@@ -7,7 +7,7 @@
 
 Exporterthub.io is a curated list of resources about things Prometheus Exporter.
 
-Feel free to send issues or pull requests. (power by nexclipper)
+Feel free to send issues or pull requests. (powered by [nexclipper](https://nexclipper.io)
 
 Each exporter's detail page contains the following.
 
