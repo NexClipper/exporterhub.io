@@ -28,11 +28,22 @@ Each exporter's detail page contains the following.
 
 ## Roadmap
 
+To help and ease you with best-practice Prometheus, ExporterHub.io discovers & recommends the best-fit exporter(s) available to expose metrics data from your specific systems and services being monitored.
+
+Using the best-fit exporter(s) helps standardize metrics data exposition practices, maximizing monitoring experience with minimal manual inputs.
+
+Recommends the best-fit exporter(s) to support Prometheus monitoring needs in enterprise environments comprised of complex/closed network security settings.
+
+
 * [x] Installation Guide, Metric Collection Flags, Recommend Alert-rule
 * [ ] Card-Styled Github Pages
 * [ ] Search Official Exporters
 * [ ] Personalization
 * [ ] NexClipper Cloud Integration
+  * [ ] Automated Installation
+  * [ ] Generate Alert Rule
+  * [ ] Recommend best-fit exporter
+  * [ ] 
 
 ![exporterhub](./media/exporterhub.png)
 
