@@ -4,14 +4,14 @@
 
 ## Contents
 
-- What is ExporterHub.io
-- Roadmap
-- Official Exporters
-- Exporters
-- Integration Lists
-- Contribute
-- Useful site, Tools
-- License
+- [What is ExporterHub.io](https://github.com/NexClipper/exporterhub.io#what-is-exporterhubio)
+- [Roadmap](https://github.com/NexClipper/exporterhub.io#roadmap)
+- [Official Exporters](https://github.com/NexClipper/exporterhub.io#official-exporters)
+- [Exporters](https://github.com/NexClipper/exporterhub.io#exporters)
+- [Integration Lists](https://github.com/NexClipper/exporterhub.io#integration-lists)
+- [Contribute](https://github.com/NexClipper/exporterhub.io#contribute)
+- [Useful site, Tools](https://github.com/NexClipper/exporterhub.io#useful-site-tools)
+- [License](https://github.com/NexClipper/exporterhub.io#license)
 
 ## What is ExporterHub.io
 
@@ -90,3 +90,4 @@ Contributions are welcome!
 
 
 ## License
+Exporterhub.io is licensed under the MIT License. See [LICENSE](https://github.com/NexClipper/exporterhub.io/blob/master/LICENSE) for the full license text.
