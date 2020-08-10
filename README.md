@@ -1,6 +1,6 @@
 # Exporterhub.io
 > A curated list of resources about all things Prometheus Exporter.   
-[exporterthub.io](https://exporterthub.io/)
+[exporterhub.io](https://exporterhub.io/)
 
 ## Contents
 
