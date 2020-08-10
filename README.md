@@ -10,7 +10,7 @@
 - [Exporters](https://github.com/NexClipper/exporterhub.io#exporters)
 - [Integration Lists](https://github.com/NexClipper/exporterhub.io#integration-lists)
 - [Contribute](https://github.com/NexClipper/exporterhub.io#contribute)
-- [Useful site, Tools](https://github.com/NexClipper/exporterhub.io#useful-site-tools)
+- [References](https://github.com/NexClipper/exporterhub.io#references)
 - [License](https://github.com/NexClipper/exporterhub.io#license)
 
 ## What is ExporterHub.io
@@ -85,9 +85,6 @@ https://github.com/prometheus/client_python
 
 ## Contribute
 Contributions are welcome!
-
-## Useful site, Tools
-
 
 ## References
 - [Officail EXPORTERS AND INTEGRATIONS](https://prometheus.io/docs/instrumenting/exporters/)
