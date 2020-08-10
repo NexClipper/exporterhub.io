@@ -28,11 +28,11 @@ Each exporter's detail page contains the following.
 
 ## Roadmap
 
-[x] Installation Guide, Metric Collection Flags, Recommend Alert-rule
-[ ] Card-Styled Github Pages
-[ ] Search Official Exporters
-[ ] Personalization
-[ ] NexClipper Cloud Integration
+* [x] Installation Guide, Metric Collection Flags, Recommend Alert-rule
+* [ ] Card-Styled Github Pages
+* [ ] Search Official Exporters
+* [ ] Personalization
+* [ ] NexClipper Cloud Integration
 
 ![exporterhub](./media/exporterhub.png)
 
