@@ -41,11 +41,11 @@ Please see the gh-pages website to view lists of card styles.
 [MySQL Server Exporter](https://github.com/NexClipper/exporterhub.io/blob/master/lists/mysql/index.md) - Exporter for MySQL server metrics   
 [Node Exporter](https://github.com/NexClipper/exporterhub.io/blob/master/lists/node/index.md) - Exporter for machine metrics   
 [HAProxy Exporter](https://github.com/prometheus/haproxy_exporter) - About
-Simple server that scrapes HAProxy stats and exports them via HTTP for Prometheus consumption   
+Simple server that scrapes HAProxy stats and exports them via HTTP
 [CloudWatch Exporter](https://github.com/prometheus/cloudwatch_exporter) - Metrics exporter for Amazon AWS CloudWatch   
-[Collectd Exporter](https://github.com/prometheus/collectd_exporter) - A server that accepts collectd stats via HTTP POST and exports them via HTTP for Prometheus consumption   
-[Graphite Exporter](https://github.com/prometheus/graphite_exporter) - Server that accepts metrics via the Graphite protocol and exports them as Prometheus metrics   
-[InfluxDB Exporter](https://github.com/prometheus/influxdb_exporter) - A server that accepts InfluxDB metrics via the HTTP API and exports them via HTTP for Prometheus consumption   
+[Collectd Exporter](https://github.com/prometheus/collectd_exporter) - A server that accepts collectd stats via HTTP POST and exports them via HTTP
+[Graphite Exporter](https://github.com/prometheus/graphite_exporter) - Server that accepts metrics via the Graphite protocol and exports them   
+[InfluxDB Exporter](https://github.com/prometheus/influxdb_exporter) - A server that accepts InfluxDB metrics via the HTTP API and exports them via HTTP  
 [JMX Exporter](https://github.com/prometheus/jmx_exporter) - A process for exposing JMX Beans via HTTP for Prometheus consumption   
 [SNMP Exporter](https://github.com/prometheus/snmp_exporter) - SNMP Exporter for Prometheus   
 [Statsd Exporter](https://github.com/prometheus/statsd_exporter) - StatsD to Prometheus metrics exporter   
