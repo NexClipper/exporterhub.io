@@ -1,6 +1,17 @@
 # Exporterhub.io
-
+> A curated list of resources about all things Prometheus Exporter.   
 [exporterthub.io](https://exporterthub.io/)
+
+## Contents
+
+- What is ExporterHub.io
+- Roadmap
+- Official Exporters
+- Exporters
+- Integration Lists
+- Contribute
+- Useful site, Tools
+- License
 
 ## What is ExporterHub.io
 
@@ -22,17 +33,6 @@ Please see the gh-pages website to view lists of card styles.
 - Personalization
 - Installation Guide, Metric Collection Flags, Recommend Alert-rule
 - NexClipper Cloud Integration
-
-## Contents
-
-What is ExporterHub.io
-Roadmap
-Official Exporters
-Exporters
-Integration Lists
-Contribute
-Useful site, Tools
-License
 
 ## Official Exporters
 
@@ -83,3 +83,10 @@ https://micrometer.io/docs/registry/prometheus
 https://github.com/prometheus/client_python   
 
 
+## Contribute
+Contributions are welcome!
+
+## Useful site, Tools
+
+
+## License
