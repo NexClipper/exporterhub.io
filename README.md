@@ -1,5 +1,5 @@
 # [Exporterhub.io](https://exporterhub.io/)
-> ### A Smart Uses of Curated List about all things Prometheus Exporter. 
+> ### Smart Uses of Curated List about all things Prometheus Exporter. 
 > #### (powered by [nexclipper](https://nexclipper.io))
 
 ## Contents
