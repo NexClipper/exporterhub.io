@@ -1,6 +1,5 @@
-# Exporterhub.io
-> A curated list of resources about all things Prometheus Exporter.   
-[exporterhub.io](https://exporterhub.io/)
+# [Exporterhub.io](https://exporterhub.io/)
+> ### A Smart Uses of Curated List about all things Prometheus Exporter.   (powered by [nexclipper](https://nexclipper.io))
 
 ## Contents
 
@@ -13,11 +12,11 @@
 - [References](https://github.com/NexClipper/exporterhub.io#references)
 - [License](https://github.com/NexClipper/exporterhub.io#license)
 
-## What is ExporterHub.io
+## What is [ExporterHub.io](https://exporterhub.io/)
 
-Exporterthub.io is a curated list of resources about things Prometheus Exporter.
+### Exporterhub provides not only curated lists, but also various contents such as installing exporters, configuring alert rules, and configuring dashboards.
 
-Feel free to send issues or pull requests. (powered by [nexclipper](https://nexclipper.io))
+ExporterHub.io is the front-end for the Community Prometheus Exporter Repository.
 
 Each exporter's detail page contains the following.
 
@@ -25,6 +24,9 @@ Each exporter's detail page contains the following.
 - Resource (Install, Exported Metrics)
 - Alert-rule (Recommended)
 - Dashboard (Grafana)
+
+If you have Specific exporter to contribute to ExporterHub.io, feel free to send issues or pull requests.   
+Please read the pull request requirements before creating one to ensure all required files are present.
 
 ## Roadmap
 
@@ -86,7 +88,8 @@ https://github.com/prometheus/client_python
 
 
 ## Contribute
-Contributions are welcome!
+Contributions are welcome!   
+Feel free to send issues or pull requests.
 
 ## References
 - [Official Exporters AND Integrations](https://prometheus.io/docs/instrumenting/exporters/)
