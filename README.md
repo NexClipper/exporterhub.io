@@ -66,37 +66,38 @@ Simple server that scrapes HAProxy stats and exports them via HTTP
 
 ## Exporters
 
-https://github.com/prometheus-community/windows_exporter   
-https://github.com/prometheus-community/stackdriver_exporter   
-https://github.com/oliver006/redis_exporter   
-https://github.com/wrouesnel/postgres_exporter   
-https://github.com/NVIDIA/gpu-monitoring-tools   
-https://github.com/kbudde/rabbitmq_exporter   
-https://github.com/digitalocean/ceph_exporter   
-https://github.com/nginxinc/nginx-prometheus-exporter   
-https://github.com/fstab/grok_exporter   
-https://github.com/RobustPerception/azure_metrics_exporter   
-https://github.com/google/cadvisor   
-https://github.com/cloudflare/ebpf_exporter   
-https://github.com/prometheus-community/json_exporter   
-https://github.com/kubernetes/kube-state-metrics   
-https://github.com/openstack-exporter/openstack-exporter   
-https://github.com/ncabatoff/process-exporter   
-https://github.com/Kong/kong-plugin-prometheus   
+[Windows Exporter](https://github.com/prometheus-community/windows_exporter) - A Prometheus exporter for Windows machines.    
+[JSON Exporter](https://github.com/prometheus-community/json_exporter) - A prometheus exporter which scrapes remote JSON by JSONPath   
+[kube-state-metrics](https://github.com/kubernetes/kube-state-metrics) - Add-on agent to generate and expose cluster-level metrics.    
+[cAdvisor](https://github.com/google/cadvisor) - Analyzes resource usage and performance characteristics of running containers.   
+[Google Stackdriver Exporter](https://github.com/prometheus-community/stackdriver_exporter) - Google Stackdriver Prometheus exporter   
+[Redis Metrics Exporter](https://github.com/oliver006/redis_exporter) - Prometheus exporter for Redis metrics.   
+[PostgreSQL Server Exporter](https://github.com/wrouesnel/postgres_exporter) - Prometheus exporter for PostgreSQL server metrics.   
+[NVIDIA GPU Monitoring Tools](https://github.com/NVIDIA/gpu-monitoring-tools) - NVIDIA GPU Monitoring Tools   
+[RabbitMQ Exporter](https://github.com/kbudde/rabbitmq_exporter) - Prometheus exporter for RabbitMQ     
+[Ceph Exporter](https://github.com/digitalocean/ceph_exporter) - Prometheus exporter that scrapes meta information about a ceph cluster.
+[NGINX Exporter](https://github.com/nginxinc/nginx-prometheus-exporter) - NGINX Prometheus Exporter for NGINX and NGINX Plus   
+[Grok Exporter](https://github.com/fstab/grok_exporter) - Export Prometheus metrics from arbitrary unstructured log data.    
+[Azure Metrics Exporter](https://github.com/RobustPerception/azure_metrics_exporter) - Azure metrics exporter for Prometheus.   
+[eBPF Exporter](https://github.com/cloudflare/ebpf_exporter) - Prometheus exporter for custom eBPF metrics   
+[OpenStack Exporter](https://github.com/openstack-exporter/openstack-exporter) - OpenStack Exporter for Prometheus    
+[Process Exporter](https://github.com/ncabatoff/process-exporter) - Prometheus exporter that mines /proc to report on selected processes    
+[Kong Prometheus Plugin](https://github.com/Kong/kong-plugin-prometheus) - Prometheus plugin for Kong    
 
 ## Integration Lists
 
-https://docs.ansible.com/ansible-tower/latest/html/administration/metrics.html   
-https://github.com/purpleidea/mgmt/blob/master/docs/prometheus.md   
-https://github.com/containous/traefik   
-https://github.com/clj-commons/iapetos   
-https://github.com/armon/go-metrics   
-https://micrometer.io/docs/registry/prometheus   
-https://github.com/prometheus/client_python   
-
+[Go client library](https://github.com/prometheus/client_golang) - Prometheus instrumentation library for Go applications   
+[Prometheus JVM Client](https://github.com/prometheus/client_java) - Prometheus instrumentation library for JVM applications   
+[Prometheus Python Client](https://github.com/prometheus/client_python) - Prometheus instrumentation library for Python applications   
+[Prometheus Ruby Client](https://github.com/prometheus/client_ruby) - Prometheus instrumentation library for Ruby applications   
+[Ansible Tower, AWX](https://docs.ansible.com/ansible-tower/latest/html/administration/metrics.html) - a metrics endpoint in the Ansible Tower API   
+[The Cloud Native Edge Router](https://github.com/containous/traefik) - Provides metrics   
+[iapetos](https://github.com/clj-commons/iapetos) - A Clojure Prometheus Client   
+[go-metrics](https://github.com/armon/go-metrics) - A Golang library for exporting performance and runtime metrics   
+[Micrometer Application Metrics](https://micrometer.io/docs/registry/prometheus) - An application metrics facade for the most popular monitoring tools.   
 
 ## Contribute
-Contributions are welcome!   
+### Contributions are welcome!   
 If you have Specific exporter to contribute to [ExporterHub.io](https://exporterhub.io/), feel free to [send issues](https://github.com/NexClipper/exporterhub.io/issues) or [pull requests](https://github.com/NexClipper/exporterhub.io/pulls).  
 
 ## References
