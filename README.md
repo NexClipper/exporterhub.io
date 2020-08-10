@@ -36,7 +36,7 @@ Please see the gh-pages website to view lists of card styles.
 
 ## Official Exporters
 
-[Consul Exporter](https://github.com/NexClipper/exporterhub.io/blob/master/lists/consul/index.md) - Export Consul service health to Prometheus.   
+[Consul Exporter](https://github.com/NexClipper/exporterhub.io/blob/master/lists/consul/index.md) - Export Consul service health to Prometheus.  
 [Memcached Exporter](https://github.com/NexClipper/exporterhub.io/blob/master/lists/memcached/index.md) - Exports metrics from memcached servers for consumption by Prometheus.   
 [MySQL Server Exporter](https://github.com/NexClipper/exporterhub.io/blob/master/lists/mysql/index.md) - Exporter for MySQL server metrics   
 [Node Exporter](https://github.com/NexClipper/exporterhub.io/blob/master/lists/node/index.md) - Exporter for machine metrics   
@@ -87,7 +87,7 @@ https://github.com/prometheus/client_python
 Contributions are welcome!
 
 ## References
-- [Officail EXPORTERS AND INTEGRATIONS](https://prometheus.io/docs/instrumenting/exporters/)
+- [Official Exporters AND Integrations](https://prometheus.io/docs/instrumenting/exporters/)
 - [Awesome Prometheus alerts](https://awesome-prometheus-alerts.grep.to/)
 - [SLOs with Prometheus](https://promtools.dev/)
 - [Awesome Prometheus](https://github.com/roaldnefs/awesome-prometheus)
