@@ -1,5 +1,5 @@
 # [Exporterhub.io](https://exporterhub.io/)
-> ### Smart Uses of Curated List about all things Prometheus Exporter. 
+> ### A Curated List of Prometheus Exporters 
 > #### (powered by [nexclipper](https://nexclipper.io))
 
 ## Contents
@@ -15,8 +15,9 @@
 
 ## What is [ExporterHub.io](https://exporterhub.io/)
 
-### ExporterHub.io is the front-end for the Community Prometheus Exporters.
-### ExporterHub.io is not just a curated list, but also provides exporter installation guide, alert rule configuration, and dashboard configuration.
+### ExporterHub.io is a front-end application for the Prometheus Exporters community .
+
+ExporterHub.io is not just a curated list, but also provides exporter installation guide, alert rule configuration, and dashboard configuration.
 
 Each exporter's page contains the followings:
 
