@@ -53,7 +53,7 @@ ExporterHub.io recommends the best-fit exporter(s) to support Prometheus monitor
 [Memcached Exporter](https://github.com/NexClipper/exporterhub.io/blob/master/lists/memcached/index.md) - Exports metrics from memcached servers for consumption by Prometheus.   
 [MySQL Server Exporter](https://github.com/NexClipper/exporterhub.io/blob/master/lists/mysql/index.md) - Exporter for MySQL server metrics   
 [Node Exporter](https://github.com/NexClipper/exporterhub.io/blob/master/lists/node/index.md) - Exporter for machine metrics   
-[HAProxy Exporter](https://github.com/prometheus/haproxy_exporter) - About
+[HAProxy Exporter](https://github.com/NexClipper/exporterhub.io/blob/master/lists/haproxy/index.md) - About
 Simple server that scrapes HAProxy stats and exports them via HTTP   
 [CloudWatch Exporter](https://github.com/prometheus/cloudwatch_exporter) - Metrics exporter for Amazon AWS CloudWatch   
 [Collectd Exporter](https://github.com/prometheus/collectd_exporter) - A server that accepts collectd stats via HTTP POST and exports them via HTTP   
