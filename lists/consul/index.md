@@ -48,6 +48,8 @@ docker run -d -p 9107:9107 --dns=172.17.0.1 --dns-search=service.consul \
 
 # Recommend Alert-Rule
 
+[https://awesome-prometheus-alerts.grep.to/rules#consul](https://awesome-prometheus-alerts.grep.to/rules#consul)
+
 Consul service healthcheck failed
 
 ```yaml
