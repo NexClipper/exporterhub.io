@@ -90,8 +90,5 @@ Consul agent unhealthy
 
 # Dashboard
 
+![consul](https://grafana.com/api/dashboards/12049/images/7856/image)
 [https://grafana.com/grafana/dashboards/12049](https://grafana.com/grafana/dashboards/12049)
-
-[Download JSON](https://grafana.com/api/dashboards/12049/revisions/2/download)
-
-Grafana Dashboard ID : 12049
