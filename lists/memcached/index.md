@@ -13,7 +13,7 @@ docker run -p 9150:9150 quay.io/prometheus/memcached-exporter:v0.7.0
 
 [https://github.com/helm/charts/tree/master/stable/memcached](https://github.com/helm/charts/tree/master/stable/memcached)
 
-## Collectors
+# Collectors
 
 The exporter collects a number of statistics from the server:
 
@@ -170,10 +170,6 @@ TBD
 
 # Dashboard
 
-
+![memcached](https://grafana.com/api/dashboards/37/images/25/image)
 
 [https://grafana.com/grafana/dashboards/37](https://grafana.com/grafana/dashboards/37)
-
-[Download JSON](https://grafana.com/api/dashboards/37/revisions/1/download)
-
-Grafana Dashboard ID : 37

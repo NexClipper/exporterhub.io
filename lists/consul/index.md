@@ -31,7 +31,7 @@ docker run -d -p 9107:9107 --dns=172.17.0.1 --dns-search=service.consul \
 
 [https://github.com/helm/charts/blob/master/stable/prometheus-consul-exporter/README.md](https://github.com/helm/charts/blob/master/stable/prometheus-consul-exporter/README.md)
 
-## Exported Metrics
+# Exported Metrics
 
 | Metric                              | Meaning                                                                                              | Labels                                        |
 | ----------------------------------- | ---------------------------------------------------------------------------------------------------- | --------------------------------------------- |

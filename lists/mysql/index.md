@@ -24,7 +24,7 @@ docker run -d \
 
 [https://github.com/helm/charts/tree/master/stable/prometheus-mysql-exporter](https://github.com/helm/charts/tree/master/stable/prometheus-mysql-exporter)
 
-## Collector Flags
+# Collector Flags
 
 Name                                                         | MySQL Version | Description
 -------------------------------------------------------------|---------------|------------------------------------------------------------------------------------
@@ -70,7 +70,9 @@ collect.heartbeat.table                                      | 5.1           | T
 collect.heartbeat.utc                                        | 5.1           | Use UTC for timestamps of the current server (`pt-heartbeat` is called with `--utc`). (default: false)
 
 
-## Recommend Alert-Rule
+# Recommend Alert-Rule
+
+[https://awesome-prometheus-alerts.grep.to/rules#mysql](https://awesome-prometheus-alerts.grep.to/rules#mysql)
 
 ### MySQL down
 ```yaml
@@ -171,8 +173,5 @@ collect.heartbeat.utc                                        | 5.1           | U
 
 # Dashboard
 
+![mysql](https://grafana.com/api/dashboards/6239/images/3986/image)
 [https://grafana.com/grafana/dashboards/6239](https://grafana.com/grafana/dashboards/6239)
-
-[Download JSON](https://grafana.com/api/dashboards/6239/revisions/1/download)
-
-Grafana Dashboard ID : 6239

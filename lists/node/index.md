@@ -66,7 +66,7 @@ spec:
     k8s-app: node-exporter
 ```
 
-## Collectors (Enabled by default)
+# Collectors (Enabled by default)
 
 Name     | Description | OS
 ---------|-------------|----
@@ -110,7 +110,9 @@ vmstat | Exposes statistics from `/proc/vmstat`. | Linux
 xfs | Exposes XFS runtime statistics. | Linux (kernel 4.4+)
 zfs | Exposes [ZFS](http://open-zfs.org/) performance statistics. | [Linux](http://zfsonlinux.org/), Solaris
 
-## Recommend Alert-Rule
+# Recommend Alert-Rule
+
+[https://awesome-prometheus-alerts.grep.to/rules](https://awesome-prometheus-alerts.grep.to/rules)
 
 ### Host out of memory (< 10% left)
 
@@ -243,13 +245,10 @@ zfs | Exposes [ZFS](http://open-zfs.org/) performance statistics. | [Linux](http
       summary: "Host high CPU load (instance {{ $labels.instance }})"
       description: "CPU load is > 80%\n  VALUE = {{ $value }}\n  LABELS: {{ $labels }}"
 ```
-TBD ...
 
 
 # Dashboard
 
+![node](https://grafana.com/api/dashboards/1860/images/7994/image)
+
 [https://grafana.com/grafana/dashboards/1860](https://grafana.com/grafana/dashboards/1860)
-
-[Download JSON](https://grafana.com/api/dashboards/1860/revisions/21/download)
-
-Grafana Dashboard ID : 1860
