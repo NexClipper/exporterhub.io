@@ -91,6 +91,7 @@ Simple server that scrapes HAProxy stats and exports them via HTTP
 [Prometheus JVM Client](https://github.com/prometheus/client_java) - Prometheus instrumentation library for JVM applications   
 [Prometheus Python Client](https://github.com/prometheus/client_python) - Prometheus instrumentation library for Python applications   
 [Prometheus Ruby Client](https://github.com/prometheus/client_ruby) - Prometheus instrumentation library for Ruby applications   
+[MinIO Server](https://github.com/minio/minio/blob/master/docs/metrics/prometheus/README.md) - How to monitor MinIO server with Prometheus   
 [Ansible Tower, AWX](https://docs.ansible.com/ansible-tower/latest/html/administration/metrics.html) - a metrics endpoint in the Ansible Tower API   
 [The Cloud Native Edge Router](https://github.com/containous/traefik) - Provides metrics   
 [iapetos](https://github.com/clj-commons/iapetos) - A Clojure Prometheus Client   
