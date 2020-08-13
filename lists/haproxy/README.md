@@ -5,7 +5,7 @@ https://github.com/prometheus/haproxy_exporter
 - [Resource](https://github.com/NexClipper/exporterhub.io/tree/master/lists/haproxy#resource)
 - [Collector Flags](https://github.com/NexClipper/exporterhub.io/tree/master/lists/haproxy#collector-flags)
 - [Recommend Alert-Rule](https://github.com/NexClipper/exporterhub.io/tree/master/lists/haproxy#recommend-alert-rule)
-- [Grafana Dashboard](https://github.com/NexClipper/exporterhub.io/tree/master/lists/haproxy#dashboard)
+- [Grafana Dashboard](https://github.com/NexClipper/exporterhub.io/tree/master/lists/haproxy#grafana-dashboard)
 
 
 # Resource
