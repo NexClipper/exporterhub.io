@@ -1,6 +1,12 @@
 # MySQL Server Github
 https://github.com/prometheus/mysqld_exporter
 
+# Table of contents
+- [Resource](https://github.com/NexClipper/exporterhub.io/tree/master/lists/mysql#resource)
+- [Collector Flags](https://github.com/NexClipper/exporterhub.io/tree/master/lists/mysql#collector-flags)
+- [Recommend Alert-Rule](https://github.com/NexClipper/exporterhub.io/tree/master/lists/mysql#recommend-alert-rule)
+- [Grafana Dashboard](https://github.com/NexClipper/exporterhub.io/tree/master/lists/mysql#grafana-dashboard)
+
 # Resource
 
 ## Using Docker
@@ -171,7 +177,7 @@ collect.heartbeat.utc                                        | 5.1           | U
       description: "MySQL has just been restarted, less than one minute ago on {{ $labels.instance }}.\n  VALUE = {{ $value }}\n  LABELS: {{ $labels }}"
 ```
 
-# Dashboard
+# Grafana Dashboard
 
 ![mysql](https://grafana.com/api/dashboards/6239/images/3986/image)
 [https://grafana.com/grafana/dashboards/6239](https://grafana.com/grafana/dashboards/6239)
