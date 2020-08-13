@@ -53,8 +53,7 @@ ExporterHub.io recommends the best-fit exporter(s) to support Prometheus monitor
 [Memcached Exporter](https://github.com/NexClipper/exporterhub.io/blob/master/lists/memcached/README.md) - Exports metrics from memcached servers for consumption by Prometheus.   
 [MySQL Server Exporter](https://github.com/NexClipper/exporterhub.io/blob/master/lists/mysql/README.md) - Exporter for MySQL server metrics   
 [Node Exporter](https://github.com/NexClipper/exporterhub.io/blob/master/lists/node/README.md) - Exporter for machine metrics   
-[HAProxy Exporter](https://github.com/NexClipper/exporterhub.io/blob/master/lists/haproxy/README.md) - About
-Simple server that scrapes HAProxy stats and exports them via HTTP   
+[HAProxy Exporter](https://github.com/NexClipper/exporterhub.io/blob/master/lists/haproxy/README.md) - About Simple server that scrapes HAProxy stats and exports them via HTTP   
 [CloudWatch Exporter](https://github.com/prometheus/cloudwatch_exporter) - Metrics exporter for Amazon AWS CloudWatch   
 [Collectd Exporter](https://github.com/prometheus/collectd_exporter) - A server that accepts collectd stats via HTTP POST and exports them via HTTP   
 [Graphite Exporter](https://github.com/prometheus/graphite_exporter) - Server that accepts metrics via the Graphite protocol and exports them   
@@ -93,7 +92,7 @@ Simple server that scrapes HAProxy stats and exports them via HTTP
 [Prometheus Ruby Client](https://github.com/prometheus/client_ruby) - Prometheus instrumentation library for Ruby applications   
 [MinIO Server](https://github.com/minio/minio/blob/master/docs/metrics/prometheus/README.md) - How to monitor MinIO server with Prometheus   
 [Ansible Tower, AWX](https://docs.ansible.com/ansible-tower/latest/html/administration/metrics.html) - a metrics endpoint in the Ansible Tower API   
-[The Cloud Native Edge Router](https://github.com/containous/traefik) - Provides metrics   
+[Traefik](https://github.com/containous/traefik) - Provides metrics   
 [iapetos](https://github.com/clj-commons/iapetos) - A Clojure Prometheus Client   
 [go-metrics](https://github.com/armon/go-metrics) - A Golang library for exporting performance and runtime metrics   
 [Micrometer Application Metrics](https://micrometer.io/docs/registry/prometheus) - An application metrics facade for the most popular monitoring tools.   
