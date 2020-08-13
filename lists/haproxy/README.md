@@ -2,10 +2,10 @@
 https://github.com/prometheus/haproxy_exporter
 
 # Table of contents
-- [Resource](https://github.com/NexClipper/exporterhub.io/blob/master/lists/consul/README.md#resource)
-- [Exported Metrics](https://github.com/NexClipper/exporterhub.io/blob/master/lists/consul/README.md#exported-metrics)
-- [Recommend Alert-Rule](https://github.com/NexClipper/exporterhub.io/blob/master/lists/consul/README.md#recommend-alert-rule)
-- [Grafana Dashboard](https://github.com/NexClipper/exporterhub.io/blob/master/lists/consul/README.md#dashboard)
+- [Resource](https://github.com/NexClipper/exporterhub.io/tree/master/lists/haproxy#resource)
+- [Collector Flags](https://github.com/NexClipper/exporterhub.io/tree/master/lists/haproxy#collector-flags)
+- [Recommend Alert-Rule](https://github.com/NexClipper/exporterhub.io/tree/master/lists/haproxy#recommend-alert-rule)
+- [Grafana Dashboard](https://github.com/NexClipper/exporterhub.io/tree/master/lists/haproxy#dashboard)
 
 
 # Resource
@@ -88,7 +88,7 @@ Exported metrics
       description: "Average request time is increasing\n  VALUE = {{ $value }}\n  LABELS: {{ $labels }}"
 ```
 
-# Dashboard
+# Grafana Dashboard
 
 ![haproxy](https://grafana.com/api/dashboards/12693/images/8600/image)
 
