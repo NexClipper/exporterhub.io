@@ -1,6 +1,6 @@
 # [Exporterhub.io](https://exporterhub.io/)
 > ### A Curated List of Prometheus Exporters 
-> #### (powered by [nexclipper](https://nexclipper.io))
+> #### (powered by [nexclipper](https://nexclipper.io))  
 
 ## Contents
 
