@@ -1,6 +1,12 @@
 # Memcached Exporter Github
 https://github.com/prometheus/memcached_exporter
 
+# Table of contents
+- [Resource](https://github.com/NexClipper/exporterhub.io/tree/master/lists/memcached#resource)
+- [Collectors](https://github.com/NexClipper/exporterhub.io/tree/master/lists/memcached#collectors)
+- [Recommend Alert-Rule](https://github.com/NexClipper/exporterhub.io/tree/master/lists/memcached#recommend-alert-rule)
+- [Grafana Dashboard](https://github.com/NexClipper/exporterhub.io/tree/master/lists/memcached#grafana-dashboard)
+
 # Resource
 
 ## Docker
@@ -168,7 +174,7 @@ memcached process, then the following metrics will be exported additionally.
 
 TBD
 
-# Dashboard
+# Grafana Dashboard
 
 ![memcached](https://grafana.com/api/dashboards/37/images/25/image)
 
