@@ -2,7 +2,7 @@
 > ### A Curated List of Prometheus Exporters 
 > #### (powered by [nexclipper](https://nexclipper.io))  
 
-## Contents222
+## Contents
 
 - [What is ExporterHub.io](https://github.com/NexClipper/exporterhub.io#what-is-exporterhubio)
 - [Roadmap](https://github.com/NexClipper/exporterhub.io#roadmap)

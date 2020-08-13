@@ -1,0 +1,57 @@
+ul.vertical-nav-list {
+  list-style-type: none;
+  padding-left: 0px;
+  margin-left: 0;
+  font-family: 'Montserrat';
+}
+
+div.vertical-nav {
+  position: absolute;
+  display: block;
+  background-color: #222222;
+  margin-right: 90%;
+  height: 100%;
+  z-index: 1;
+}
+
+span.active-link {
+  width: 0;
+  height: 0;
+  float: right;
+  border-top: 10px solid transparent;
+  border-right: 20px solid white;
+  border-bottom: 10px solid transparent;
+}
+
+li.vnav-li {
+  padding-top: 10px;
+  padding-left: 10px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  padding-bottom: 10px;
+  border-top: 1px solid grey;
+  border-bottom: 1px solid grey;
+}
+
+a.vnav-link {
+  color: grey;
+  font-size: 12px;
+}
+
+a.active-link.vnav-link {
+  color: white;
+}
+
+h4 {
+  color: white;
+  padding-left: 10px;
+}
+
+li.vnav-li:HOVER {
+  background-color: black;
+}
+
+a.vnav-link:HOVER {
+  color: white;
+}
+
