@@ -1,4 +1,4 @@
-# Github
+# Memcached Exporter Github
 https://github.com/prometheus/memcached_exporter
 
 # Resource

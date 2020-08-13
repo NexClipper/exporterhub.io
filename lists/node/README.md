@@ -1,4 +1,4 @@
-# Github
+# Node Exporter Github
 https://github.com/prometheus/node_exporter
 
 # Resource

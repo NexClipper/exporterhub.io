@@ -1,4 +1,4 @@
-# Github
+# MySQL Server Github
 https://github.com/prometheus/mysqld_exporter
 
 # Resource

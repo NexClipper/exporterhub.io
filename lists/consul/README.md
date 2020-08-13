@@ -1,5 +1,13 @@
-# Github
+
+
+# Consul Exporter Github
 https://github.com/prometheus/consul_exporter
+
+# Table of contents
+- [Resource](https://github.com/NexClipper/exporterhub.io/blob/master/lists/consul/README.md#resource)
+- [Exported Metrics](https://github.com/NexClipper/exporterhub.io/blob/master/lists/consul/README.md#exported-metrics)
+- [Recommend Alert-Rule](https://github.com/NexClipper/exporterhub.io/blob/master/lists/consul/README.md#recommend-alert-rule)
+- [Grafana Dashboard](https://github.com/NexClipper/exporterhub.io/blob/master/lists/consul/README.md#dashboard)
 
 # Resource
 
@@ -90,7 +98,7 @@ Consul agent unhealthy
 ```
 
 
-# Dashboard
+# Grafana Dashboard
 
 ![consul](https://grafana.com/api/dashboards/12049/images/7856/image)
 [https://grafana.com/grafana/dashboards/12049](https://grafana.com/grafana/dashboards/12049)
