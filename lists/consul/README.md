@@ -7,7 +7,7 @@ https://github.com/prometheus/consul_exporter
 - [Resource](https://github.com/NexClipper/exporterhub.io/blob/master/lists/consul/README.md#resource)
 - [Exported Metrics](https://github.com/NexClipper/exporterhub.io/blob/master/lists/consul/README.md#exported-metrics)
 - [Recommend Alert-Rule](https://github.com/NexClipper/exporterhub.io/blob/master/lists/consul/README.md#recommend-alert-rule)
-- [Grafana Dashboard](https://github.com/NexClipper/exporterhub.io/blob/master/lists/consul/README.md#dashboard)
+- [Grafana Dashboard](https://github.com/NexClipper/exporterhub.io/blob/master/lists/consul/README.md#grafana-dashboard)
 
 # Resource
 
