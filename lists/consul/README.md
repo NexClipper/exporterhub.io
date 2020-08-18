@@ -1,5 +1,4 @@
 
-![exporterhub](../../media/exporterhub_logo.png)
 # Consul Exporter Github
 https://github.com/prometheus/consul_exporter
 
