@@ -1,3 +1,4 @@
+![exporterhub](./media/exporterhub_logo.png)
 # [Exporterhub.io](https://exporterhub.io/)
 > ### A Curated List of Prometheus Exporters 
 > #### (powered by [nexclipper](https://nexclipper.io))
