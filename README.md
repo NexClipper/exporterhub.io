@@ -75,7 +75,7 @@ ExporterHub.io recommends the best-fit exporter(s) to support Prometheus monitor
 [PostgreSQL Server Exporter](https://github.com/wrouesnel/postgres_exporter) - Prometheus exporter for PostgreSQL server metrics.   
 [NVIDIA GPU Monitoring Tools](https://github.com/NVIDIA/gpu-monitoring-tools) - NVIDIA GPU Monitoring Tools   
 [RabbitMQ Exporter](https://github.com/kbudde/rabbitmq_exporter) - Prometheus exporter for RabbitMQ     
-[Ceph Exporter](https://github.com/digitalocean/ceph_exporter) - Prometheus exporter that scrapes meta information about a ceph cluster.
+[Ceph Exporter](https://github.com/digitalocean/ceph_exporter) - Prometheus exporter that scrapes meta information about a ceph cluster.   
 [NGINX Exporter](https://github.com/nginxinc/nginx-prometheus-exporter) - NGINX Prometheus Exporter for NGINX and NGINX Plus   
 [Grok Exporter](https://github.com/fstab/grok_exporter) - Export Prometheus metrics from arbitrary unstructured log data.    
 [Azure Metrics Exporter](https://github.com/RobustPerception/azure_metrics_exporter) - Azure metrics exporter for Prometheus.   
