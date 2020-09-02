@@ -9,6 +9,14 @@ https://github.com/prometheus/node_exporter
 
 # Resource
 
+## Using for MacOS
+```bash
+curl -O https://github.com/prometheus/node_exporter/releases/download/v1.0.1/node_exporter-1.0.1.darwin-amd64.tar.gz
+tar -xzf node_exporter-1.0.1.darwin-amd64.tar.gz
+cd node_exporter-1.0.1.darwin-amd64
+./node_exporter
+```
+
 ## Using Docker
 The `node_exporter` is designed to monitor the host system. It's not recommended
 to deploy it as a Docker container because it requires access to the host system.
