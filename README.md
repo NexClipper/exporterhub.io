@@ -84,6 +84,7 @@ ExporterHub.io recommends the best-fit exporter(s) to support Prometheus monitor
 [OpenStack Exporter](https://github.com/openstack-exporter/openstack-exporter) - OpenStack Exporter for Prometheus    
 [Process Exporter](https://github.com/ncabatoff/process-exporter) - Prometheus exporter that mines /proc to report on selected processes    
 [Kong Prometheus Plugin](https://github.com/Kong/kong-plugin-prometheus) - Prometheus plugin for Kong    
+[K8s Image Availability Exporter](https://github.com/flant/k8s-image-availability-exporter) - Prometheus exporter for container images defined in Kubernetes objects    
 
 ## Integration Lists
 
