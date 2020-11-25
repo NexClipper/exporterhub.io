@@ -32,6 +32,7 @@ function Routes() {
         <Switch>
           <Route exact path="/" component={ExporterHubPage} />
           <Route exact path="/detail/:id" component={ReadmePage} />
+          <Route exact path="/detail" component={ReadmePage} />
         </Switch>
         <Footer />
       </Router>
