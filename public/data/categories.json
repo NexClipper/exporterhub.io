@@ -1,0 +1,44 @@
+{
+  "categories": [
+      {
+          "category_id": 1,
+          "category_name": "Database"
+      },
+      {
+          "category_id": 2,
+          "category_name": "Hardware"
+      },
+      {
+          "category_id": 3,
+          "category_name": "HTTP"
+      },
+      {
+          "category_id": 4,
+          "category_name": "Library"
+      },
+      {
+          "category_id": 5,
+          "category_name": "Logging"
+      },
+      {
+          "category_id": 6,
+          "category_name": "Messaging"
+      },
+      {
+          "category_id": 7,
+          "category_name": "Miscellaneous"
+      },
+      {
+          "category_id": 8,
+          "category_name": "Monitoring"
+      },
+      {
+          "category_id": 9,
+          "category_name": "Software"
+      },
+      {
+          "category_id": 10,
+          "category_name": "Storage"
+      }
+  ]
+}

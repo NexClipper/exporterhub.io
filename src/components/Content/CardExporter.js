@@ -36,7 +36,6 @@ const CardExporter = ({ exporter, history }) => {
     </Div>
   );
 };
-
 const Div = styled.div`
   width: 270px;
   height: 230px;
