@@ -31,7 +31,7 @@ function Routes() {
         <Header />
         <Switch>
           <Route exact path="/" component={ExporterHubPage} />
-          <Route exact path="/detail" component={ReadmePage} />
+          <Route exact path="/detail/:id" component={ReadmePage} />
         </Switch>
         <Footer />
       </Router>

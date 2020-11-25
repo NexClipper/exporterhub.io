@@ -25,11 +25,18 @@ const flexCenter = css`
   align-items: center;
 `;
 
+const flexCenterTop = css`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
+
 const theme = {
   color,
   container,
   positionCenter,
-  flexCenter
+  flexCenter,
+  flexCenterTop
 };
 
 export default theme;
