@@ -7,7 +7,9 @@ const ContentExporters = ({ exporters }) => {
     <Section>
       <ExporterContainer>
         {exporters &&
-          exporters.map(exporter => <CardExporter exporter={exporter} />)}
+          exporters.map(exporter => (
+            <CardExporter key={exporter.exporter_id} exporter={exporter} />
+          ))}
       </ExporterContainer>
     </Section>
   );
