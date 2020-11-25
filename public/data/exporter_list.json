@@ -1,43 +1,3326 @@
 {
-    "name": "mysqld_exporter",
-    "logo_url": "https://avatars3.githubusercontent.com/u/3380462?v=4",
-    "category": "category",
-    "official": "official",
-    "stars": 997,
-    "repository_url": "https://github.com/prometheus/mysqld_exporter",
-    "description": "Exporter for MySQL server metrics",
-    "release_version": [
-        "v0.12.1",
-        "v0.12.0",
-        "v0.11.0",
-        "v0.10.0",
-        "v0.9.0",
-        "0.8.1",
-        "0.8.0",
-        "0.7.1",
-        "0.7.0",
-        "0.6.0",
-        "0.5.0",
-        "0.4.0",
-        "0.3.0",
-        "0.2.0",
-        "0.1.0"
-    ],
-    "release_date": [
-        "2019-07-29T12:33:53Z",
-        "2019-07-10T11:48:42Z",
-        "2018-06-29T14:59:35Z",
-        "2017-04-25T11:21:55Z",
-        "2016-09-26T18:24:34Z",
-        "2016-05-10T07:31:55Z",
-        "2016-04-19T17:41:18Z",
-        "2016-02-16T13:35:50Z",
-        "2016-02-12T16:46:45Z",
-        "2015-10-28T14:27:15Z",
-        "2015-09-22T15:10:24Z",
-        "2015-09-21T09:04:27Z",
-        "2015-08-31T14:03:58Z",
-        "2015-06-24T10:38:35Z",
-        "2015-05-05T10:37:10Z"
+    "exporters": [
+        {
+            "exporter_id": 1,
+            "name": "eBPF Exporter",
+            "logo_url": "https://avatars3.githubusercontent.com/u/3380462?v=4",
+            "category": "Miscellaneous",
+            "official": "Unofficial",
+            "stars": 731,
+            "repository_url": "https://github.com/cloudflare/ebpf_exporter",
+            "description": " Prometheus exporter for custom eBPF metrics",
+            "release": [
+                {
+                    "release_version": "v1.0.0",
+                    "release_date": "2018-08-20T23:52:34Z",
+                    "release_url": "https://github.com/cloudflare/ebpf_exporter/releases/tag/v1.0.0"
+                },
+                {
+                    "release_version": "v1.1.0",
+                    "release_date": "2019-01-08T23:18:28Z",
+                    "release_url": "https://github.com/cloudflare/ebpf_exporter/releases/tag/v1.1.0"
+                },
+                {
+                    "release_version": "v1.2.0",
+                    "release_date": "2019-10-17T18:04:43Z",
+                    "release_url": "https://github.com/cloudflare/ebpf_exporter/releases/tag/v1.2.0"
+                },
+                {
+                    "release_version": "v1.2.1",
+                    "release_date": "2019-11-26T07:56:00Z",
+                    "release_url": "https://github.com/cloudflare/ebpf_exporter/releases/tag/v1.2.1"
+                },
+                {
+                    "release_version": "v1.2.2",
+                    "release_date": "2019-12-17T00:04:28Z",
+                    "release_url": "https://github.com/cloudflare/ebpf_exporter/releases/tag/v1.2.2"
+                },
+                {
+                    "release_version": "v1.2.3",
+                    "release_date": "2020-11-20T21:42:46Z",
+                    "release_url": "https://github.com/cloudflare/ebpf_exporter/releases/tag/v1.2.3"
+                }
+            ]
+        },
+        {
+            "exporter_id": 2,
+            "name": "Ceph Exporter",
+            "logo_url": "https://avatars3.githubusercontent.com/u/3380462?v=4",
+            "category": "Storage",
+            "official": "Unofficial",
+            "stars": 295,
+            "repository_url": "https://github.com/digitalocean/ceph_exporter",
+            "description": "Prometheus exporter that scrapes meta information about a ceph cluster.",
+            "release": []
+        },
+        {
+            "exporter_id": 3,
+            "name": "Grok Exporter",
+            "logo_url": "https://avatars3.githubusercontent.com/u/3380462?v=4",
+            "category": "Logging",
+            "official": "Unofficial",
+            "stars": 569,
+            "repository_url": "https://github.com/fstab/grok_exporter",
+            "description": "Export Prometheus metrics from arbitrary unstructured log data.",
+            "release": [
+                {
+                    "release_version": "v0.0.1",
+                    "release_date": "2016-05-08T18:59:52Z",
+                    "release_url": "https://github.com/fstab/grok_exporter/releases/tag/v0.0.1"
+                },
+                {
+                    "release_version": "v0.0.2",
+                    "release_date": "2016-05-15T19:12:47Z",
+                    "release_url": "https://github.com/fstab/grok_exporter/releases/tag/v0.0.2"
+                },
+                {
+                    "release_version": "v0.0.3",
+                    "release_date": "2016-07-26T20:07:10Z",
+                    "release_url": "https://github.com/fstab/grok_exporter/releases/tag/v0.0.3"
+                },
+                {
+                    "release_version": "v0.1.0",
+                    "release_date": "2016-07-30T18:31:24Z",
+                    "release_url": "https://github.com/fstab/grok_exporter/releases/tag/v0.1.0"
+                },
+                {
+                    "release_version": "v0.1.1",
+                    "release_date": "2016-08-23T15:31:38Z",
+                    "release_url": "https://github.com/fstab/grok_exporter/releases/tag/v0.1.1"
+                },
+                {
+                    "release_version": "v0.1.2",
+                    "release_date": "2016-09-02T09:32:13Z",
+                    "release_url": "https://github.com/fstab/grok_exporter/releases/tag/v0.1.2"
+                },
+                {
+                    "release_version": "v0.1.3",
+                    "release_date": "2016-10-25T19:15:03Z",
+                    "release_url": "https://github.com/fstab/grok_exporter/releases/tag/v0.1.3"
+                },
+                {
+                    "release_version": "v0.1.4",
+                    "release_date": "2016-11-05T15:11:39Z",
+                    "release_url": "https://github.com/fstab/grok_exporter/releases/tag/v0.1.4"
+                },
+                {
+                    "release_version": "v0.2.0",
+                    "release_date": "2017-01-03T20:39:50Z",
+                    "release_url": "https://github.com/fstab/grok_exporter/releases/tag/v0.2.0"
+                },
+                {
+                    "release_version": "v0.2.1",
+                    "release_date": "2017-01-30T13:27:49Z",
+                    "release_url": "https://github.com/fstab/grok_exporter/releases/tag/v0.2.1"
+                },
+                {
+                    "release_version": "v0.2.2",
+                    "release_date": "2017-09-22T18:22:05Z",
+                    "release_url": "https://github.com/fstab/grok_exporter/releases/tag/v0.2.2"
+                },
+                {
+                    "release_version": "v0.2.3",
+                    "release_date": "2017-11-14T20:47:12Z",
+                    "release_url": "https://github.com/fstab/grok_exporter/releases/tag/v0.2.3"
+                },
+                {
+                    "release_version": "v0.2.4",
+                    "release_date": "2018-02-11T16:08:11Z",
+                    "release_url": "https://github.com/fstab/grok_exporter/releases/tag/v0.2.4"
+                },
+                {
+                    "release_version": "v0.2.5",
+                    "release_date": "2018-05-31T20:23:22Z",
+                    "release_url": "https://github.com/fstab/grok_exporter/releases/tag/v0.2.5"
+                },
+                {
+                    "release_version": "v0.2.7",
+                    "release_date": "2019-04-08T20:36:50Z",
+                    "release_url": "https://github.com/fstab/grok_exporter/releases/tag/v0.2.7"
+                },
+                {
+                    "release_version": "v0.2.8",
+                    "release_date": "2019-06-28T19:40:14Z",
+                    "release_url": "https://github.com/fstab/grok_exporter/releases/tag/v0.2.8"
+                },
+                {
+                    "release_version": "v1.0.0.RC1",
+                    "release_date": "2020-01-05T22:52:34Z",
+                    "release_url": "https://github.com/fstab/grok_exporter/releases/tag/v1.0.0.RC1"
+                },
+                {
+                    "release_version": "v1.0.0.RC2",
+                    "release_date": "2020-01-12T20:44:10Z",
+                    "release_url": "https://github.com/fstab/grok_exporter/releases/tag/v1.0.0.RC2"
+                },
+                {
+                    "release_version": "v1.0.0.RC3",
+                    "release_date": "2020-02-14T21:12:44Z",
+                    "release_url": "https://github.com/fstab/grok_exporter/releases/tag/v1.0.0.RC3"
+                },
+                {
+                    "release_version": "v1.0.0.RC4",
+                    "release_date": "2020-07-07T20:45:02Z",
+                    "release_url": "https://github.com/fstab/grok_exporter/releases/tag/v1.0.0.RC4"
+                },
+                {
+                    "release_version": "v1.0.0.RC5",
+                    "release_date": "2020-09-21T19:59:34Z",
+                    "release_url": "https://github.com/fstab/grok_exporter/releases/tag/v1.0.0.RC5"
+                }
+            ]
+        },
+        {
+            "exporter_id": 4,
+            "name": "cAdvisor Exporter",
+            "logo_url": "https://avatars3.githubusercontent.com/u/3380462?v=4",
+            "category": "Miscellaneous",
+            "official": "Unofficial",
+            "stars": 11442,
+            "repository_url": "https://github.com/google/cadvisor",
+            "description": "Analyzes resource usage and performance characteristics of running containers.",
+            "release": [
+                {
+                    "release_version": "v0.27.1",
+                    "release_date": "2017-09-06T23:35:56Z",
+                    "release_url": "https://github.com/google/cadvisor/releases/tag/v0.27.1"
+                },
+                {
+                    "release_version": "v0.27.2",
+                    "release_date": "2017-10-23T17:44:56Z",
+                    "release_url": "https://github.com/google/cadvisor/releases/tag/v0.27.2"
+                },
+                {
+                    "release_version": "v0.26.2",
+                    "release_date": "2017-11-01T19:02:40Z",
+                    "release_url": "https://github.com/google/cadvisor/releases/tag/v0.26.2"
+                },
+                {
+                    "release_version": "v0.28.0",
+                    "release_date": "2017-11-06T23:08:09Z",
+                    "release_url": "https://github.com/google/cadvisor/releases/tag/v0.28.0"
+                },
+                {
+                    "release_version": "v0.28.1",
+                    "release_date": "2017-11-20T23:15:23Z",
+                    "release_url": "https://github.com/google/cadvisor/releases/tag/v0.28.1"
+                },
+                {
+                    "release_version": "v0.28.2",
+                    "release_date": "2017-11-22T00:34:21Z",
+                    "release_url": "https://github.com/google/cadvisor/releases/tag/v0.28.2"
+                },
+                {
+                    "release_version": "v0.27.3",
+                    "release_date": "2017-11-27T18:04:11Z",
+                    "release_url": "https://github.com/google/cadvisor/releases/tag/v0.27.3"
+                },
+                {
+                    "release_version": "v0.26.3",
+                    "release_date": "2017-11-27T18:09:46Z",
+                    "release_url": "https://github.com/google/cadvisor/releases/tag/v0.26.3"
+                },
+                {
+                    "release_version": "v0.28.3",
+                    "release_date": "2017-12-07T17:54:57Z",
+                    "release_url": "https://github.com/google/cadvisor/releases/tag/v0.28.3"
+                },
+                {
+                    "release_version": "v0.27.4",
+                    "release_date": "2018-01-10T00:00:03Z",
+                    "release_url": "https://github.com/google/cadvisor/releases/tag/v0.27.4"
+                },
+                {
+                    "release_version": "v0.29.0",
+                    "release_date": "2018-02-20T22:59:45Z",
+                    "release_url": "https://github.com/google/cadvisor/releases/tag/v0.29.0"
+                },
+                {
+                    "release_version": "v0.28.4",
+                    "release_date": "2018-05-23T19:36:30Z",
+                    "release_url": "https://github.com/google/cadvisor/releases/tag/v0.28.4"
+                },
+                {
+                    "release_version": "v0.30.0",
+                    "release_date": "2018-06-05T18:07:56Z",
+                    "release_url": "https://github.com/google/cadvisor/releases/tag/v0.30.0"
+                },
+                {
+                    "release_version": "untagged-6617326b215cfd83af9b",
+                    "release_date": "2018-06-20T16:40:21Z",
+                    "release_url": "https://github.com/google/cadvisor/releases/tag/untagged-6617326b215cfd83af9b"
+                },
+                {
+                    "release_version": "untagged-ad1b26abddaffe76ca44",
+                    "release_date": "2018-06-20T16:40:21Z",
+                    "release_url": "https://github.com/google/cadvisor/releases/tag/untagged-ad1b26abddaffe76ca44"
+                },
+                {
+                    "release_version": "untagged-ea64a390962dd82b3913",
+                    "release_date": "2018-06-20T16:40:21Z",
+                    "release_url": "https://github.com/google/cadvisor/releases/tag/untagged-ea64a390962dd82b3913"
+                },
+                {
+                    "release_version": "v0.31.0",
+                    "release_date": "2018-09-07T23:05:43Z",
+                    "release_url": "https://github.com/google/cadvisor/releases/tag/v0.31.0"
+                },
+                {
+                    "release_version": "v0.32.0",
+                    "release_date": "2018-11-12T21:57:27Z",
+                    "release_url": "https://github.com/google/cadvisor/releases/tag/v0.32.0"
+                },
+                {
+                    "release_version": "v0.33.0",
+                    "release_date": "2019-02-27T18:39:17Z",
+                    "release_url": "https://github.com/google/cadvisor/releases/tag/v0.33.0"
+                },
+                {
+                    "release_version": "v0.34.0",
+                    "release_date": "2019-08-26T22:53:52Z",
+                    "release_url": "https://github.com/google/cadvisor/releases/tag/v0.34.0"
+                },
+                {
+                    "release_version": "v0.35.0",
+                    "release_date": "2019-11-27T21:41:46Z",
+                    "release_url": "https://github.com/google/cadvisor/releases/tag/v0.35.0"
+                },
+                {
+                    "release_version": "v0.36.0",
+                    "release_date": "2020-02-29T01:07:11Z",
+                    "release_url": "https://github.com/google/cadvisor/releases/tag/v0.36.0"
+                },
+                {
+                    "release_version": "v0.37.0",
+                    "release_date": "2020-07-08T01:46:52Z",
+                    "release_url": "https://github.com/google/cadvisor/releases/tag/v0.37.0"
+                },
+                {
+                    "release_version": "v0.35.1",
+                    "release_date": "2020-11-05T21:33:55Z",
+                    "release_url": "https://github.com/google/cadvisor/releases/tag/v0.35.1"
+                },
+                {
+                    "release_version": "v0.38.0",
+                    "release_date": "2020-11-10T06:25:45Z",
+                    "release_url": "https://github.com/google/cadvisor/releases/tag/v0.38.0"
+                },
+                {
+                    "release_version": "v0.38.1",
+                    "release_date": "2020-11-10T22:52:29Z",
+                    "release_url": "https://github.com/google/cadvisor/releases/tag/v0.38.1"
+                },
+                {
+                    "release_version": "v0.38.2",
+                    "release_date": "2020-11-11T19:53:03Z",
+                    "release_url": "https://github.com/google/cadvisor/releases/tag/v0.38.2"
+                },
+                {
+                    "release_version": "v0.38.3",
+                    "release_date": "2020-11-12T21:41:11Z",
+                    "release_url": "https://github.com/google/cadvisor/releases/tag/v0.38.3"
+                },
+                {
+                    "release_version": "v0.38.4",
+                    "release_date": "2020-11-13T06:07:20Z",
+                    "release_url": "https://github.com/google/cadvisor/releases/tag/v0.38.4"
+                },
+                {
+                    "release_version": "v0.37.1",
+                    "release_date": "2020-11-18T19:27:09Z",
+                    "release_url": "https://github.com/google/cadvisor/releases/tag/v0.37.1"
+                }
+            ]
+        },
+        {
+            "exporter_id": 5,
+            "name": "RabbitMQ Exporter",
+            "logo_url": "https://avatars3.githubusercontent.com/u/3380462?v=4",
+            "category": "Messaging",
+            "official": "Unofficial",
+            "stars": 441,
+            "repository_url": "https://github.com/kbudde/rabbitmq_exporter",
+            "description": "Prometheus exporter for RabbitMQ",
+            "release": [
+                {
+                    "release_version": "0.12.0",
+                    "release_date": "2016-06-23T08:04:55Z",
+                    "release_url": "https://github.com/kbudde/rabbitmq_exporter/releases/tag/0.12.0"
+                },
+                {
+                    "release_version": "0.13.0",
+                    "release_date": "2016-07-17T19:40:19Z",
+                    "release_url": "https://github.com/kbudde/rabbitmq_exporter/releases/tag/0.13.0"
+                },
+                {
+                    "release_version": "0.13.1",
+                    "release_date": "2016-07-18T18:45:19Z",
+                    "release_url": "https://github.com/kbudde/rabbitmq_exporter/releases/tag/0.13.1"
+                },
+                {
+                    "release_version": "0.14.0",
+                    "release_date": "2016-09-04T09:45:48Z",
+                    "release_url": "https://github.com/kbudde/rabbitmq_exporter/releases/tag/0.14.0"
+                },
+                {
+                    "release_version": "0.15-beta1",
+                    "release_date": "2016-09-12T20:16:16Z",
+                    "release_url": "https://github.com/kbudde/rabbitmq_exporter/releases/tag/0.15-beta1"
+                },
+                {
+                    "release_version": "0.15.0",
+                    "release_date": "2016-10-06T18:57:50Z",
+                    "release_url": "https://github.com/kbudde/rabbitmq_exporter/releases/tag/0.15.0"
+                },
+                {
+                    "release_version": "0.16.0",
+                    "release_date": "2016-11-19T21:33:22Z",
+                    "release_url": "https://github.com/kbudde/rabbitmq_exporter/releases/tag/0.16.0"
+                },
+                {
+                    "release_version": "v0.17.1",
+                    "release_date": "2017-01-07T21:19:53Z",
+                    "release_url": "https://github.com/kbudde/rabbitmq_exporter/releases/tag/v0.17.1"
+                },
+                {
+                    "release_version": "v0.18.0",
+                    "release_date": "2017-04-02T18:48:28Z",
+                    "release_url": "https://github.com/kbudde/rabbitmq_exporter/releases/tag/v0.18.0"
+                },
+                {
+                    "release_version": "v0.19.0",
+                    "release_date": "2017-04-17T20:08:01Z",
+                    "release_url": "https://github.com/kbudde/rabbitmq_exporter/releases/tag/v0.19.0"
+                },
+                {
+                    "release_version": "v0.20.0",
+                    "release_date": "2017-05-12T19:22:24Z",
+                    "release_url": "https://github.com/kbudde/rabbitmq_exporter/releases/tag/v0.20.0"
+                },
+                {
+                    "release_version": "v0.21.0",
+                    "release_date": "2017-09-24T20:18:34Z",
+                    "release_url": "https://github.com/kbudde/rabbitmq_exporter/releases/tag/v0.21.0"
+                },
+                {
+                    "release_version": "v0.22.0",
+                    "release_date": "2017-10-03T18:58:04Z",
+                    "release_url": "https://github.com/kbudde/rabbitmq_exporter/releases/tag/v0.22.0"
+                },
+                {
+                    "release_version": "v0.23.0",
+                    "release_date": "2017-10-09T20:00:14Z",
+                    "release_url": "https://github.com/kbudde/rabbitmq_exporter/releases/tag/v0.23.0"
+                },
+                {
+                    "release_version": "v0.24.0",
+                    "release_date": "2017-11-17T05:09:58Z",
+                    "release_url": "https://github.com/kbudde/rabbitmq_exporter/releases/tag/v0.24.0"
+                },
+                {
+                    "release_version": "v0.25.0",
+                    "release_date": "2017-11-25T21:54:49Z",
+                    "release_url": "https://github.com/kbudde/rabbitmq_exporter/releases/tag/v0.25.0"
+                },
+                {
+                    "release_version": "v0.25.1",
+                    "release_date": "2017-11-30T20:30:45Z",
+                    "release_url": "https://github.com/kbudde/rabbitmq_exporter/releases/tag/v0.25.1"
+                },
+                {
+                    "release_version": "v0.25.2",
+                    "release_date": "2017-12-02T21:41:49Z",
+                    "release_url": "https://github.com/kbudde/rabbitmq_exporter/releases/tag/v0.25.2"
+                },
+                {
+                    "release_version": "v0.26.0",
+                    "release_date": "2018-02-26T21:38:04Z",
+                    "release_url": "https://github.com/kbudde/rabbitmq_exporter/releases/tag/v0.26.0"
+                },
+                {
+                    "release_version": "v0.27.0",
+                    "release_date": "2018-04-08T09:56:23Z",
+                    "release_url": "https://github.com/kbudde/rabbitmq_exporter/releases/tag/v0.27.0"
+                },
+                {
+                    "release_version": "v0.27.1",
+                    "release_date": "2018-04-10T07:57:22Z",
+                    "release_url": "https://github.com/kbudde/rabbitmq_exporter/releases/tag/v0.27.1"
+                },
+                {
+                    "release_version": "v0.28.0",
+                    "release_date": "2018-04-25T19:58:59Z",
+                    "release_url": "https://github.com/kbudde/rabbitmq_exporter/releases/tag/v0.28.0"
+                },
+                {
+                    "release_version": "v0.29.0",
+                    "release_date": "2018-08-23T03:34:01Z",
+                    "release_url": "https://github.com/kbudde/rabbitmq_exporter/releases/tag/v0.29.0"
+                },
+                {
+                    "release_version": "v1.0-wip1",
+                    "release_date": "2018-11-04T09:31:42Z",
+                    "release_url": "https://github.com/kbudde/rabbitmq_exporter/releases/tag/v1.0-wip1"
+                },
+                {
+                    "release_version": "v1.0-wip2",
+                    "release_date": "2019-02-04T21:25:26Z",
+                    "release_url": "https://github.com/kbudde/rabbitmq_exporter/releases/tag/v1.0-wip2"
+                },
+                {
+                    "release_version": "v1.0.0-RC4",
+                    "release_date": "2019-03-11T21:26:56Z",
+                    "release_url": "https://github.com/kbudde/rabbitmq_exporter/releases/tag/v1.0.0-RC4"
+                },
+                {
+                    "release_version": "v1.0.0-RC5",
+                    "release_date": "2019-04-23T22:59:16Z",
+                    "release_url": "https://github.com/kbudde/rabbitmq_exporter/releases/tag/v1.0.0-RC5"
+                },
+                {
+                    "release_version": "v1.0.0-RC6.1",
+                    "release_date": "2019-04-26T18:48:23Z",
+                    "release_url": "https://github.com/kbudde/rabbitmq_exporter/releases/tag/v1.0.0-RC6.1"
+                },
+                {
+                    "release_version": "v1.0.0-RC7.1",
+                    "release_date": "2020-04-20T20:47:24Z",
+                    "release_url": "https://github.com/kbudde/rabbitmq_exporter/releases/tag/v1.0.0-RC7.1"
+                },
+                {
+                    "release_version": "v1.0.0-RC7",
+                    "release_date": "2020-04-20T20:47:24Z",
+                    "release_url": "https://github.com/kbudde/rabbitmq_exporter/releases/tag/v1.0.0-RC7"
+                }
+            ]
+        },
+        {
+            "exporter_id": 6,
+            "name": "Kong Prometheus Plugin",
+            "logo_url": "https://avatars3.githubusercontent.com/u/3380462?v=4",
+            "category": "Software",
+            "official": "Unofficial",
+            "stars": 91,
+            "repository_url": "https://github.com/Kong/kong-plugin-prometheus",
+            "description": "Prometheus plugin for Kong",
+            "release": [
+                {
+                    "release_version": "0.1.0",
+                    "release_date": "2018-06-15T01:22:26Z",
+                    "release_url": "https://github.com/Kong/kong-plugin-prometheus/releases/tag/0.1.0"
+                },
+                {
+                    "release_version": "0.2.0",
+                    "release_date": "2018-09-24T19:50:53Z",
+                    "release_url": "https://github.com/Kong/kong-plugin-prometheus/releases/tag/0.2.0"
+                },
+                {
+                    "release_version": "0.3.0",
+                    "release_date": "2018-10-15T16:40:14Z",
+                    "release_url": "https://github.com/Kong/kong-plugin-prometheus/releases/tag/0.3.0"
+                },
+                {
+                    "release_version": "0.3.1",
+                    "release_date": "2018-10-17T19:19:05Z",
+                    "release_url": "https://github.com/Kong/kong-plugin-prometheus/releases/tag/0.3.1"
+                },
+                {
+                    "release_version": "0.3.2",
+                    "release_date": "2018-11-01T15:53:41Z",
+                    "release_url": "https://github.com/Kong/kong-plugin-prometheus/releases/tag/0.3.2"
+                },
+                {
+                    "release_version": "0.3.3",
+                    "release_date": "2018-12-14T17:03:07Z",
+                    "release_url": "https://github.com/Kong/kong-plugin-prometheus/releases/tag/0.3.3"
+                },
+                {
+                    "release_version": "0.3.4",
+                    "release_date": "2018-12-17T22:50:54Z",
+                    "release_url": "https://github.com/Kong/kong-plugin-prometheus/releases/tag/0.3.4"
+                },
+                {
+                    "release_version": "0.4.0",
+                    "release_date": "2019-06-05T16:26:31Z",
+                    "release_url": "https://github.com/Kong/kong-plugin-prometheus/releases/tag/0.4.0"
+                },
+                {
+                    "release_version": "0.4.1",
+                    "release_date": "2019-08-01T21:04:11Z",
+                    "release_url": "https://github.com/Kong/kong-plugin-prometheus/releases/tag/0.4.1"
+                },
+                {
+                    "release_version": "0.5.0",
+                    "release_date": "2019-09-16T17:44:48Z",
+                    "release_url": "https://github.com/Kong/kong-plugin-prometheus/releases/tag/0.5.0"
+                },
+                {
+                    "release_version": "0.6.0",
+                    "release_date": "2019-09-29T20:01:03Z",
+                    "release_url": "https://github.com/Kong/kong-plugin-prometheus/releases/tag/0.6.0"
+                },
+                {
+                    "release_version": "0.7.0",
+                    "release_date": "2019-12-04T23:37:41Z",
+                    "release_url": "https://github.com/Kong/kong-plugin-prometheus/releases/tag/0.7.0"
+                },
+                {
+                    "release_version": "0.7.1",
+                    "release_date": "2020-01-05T22:52:45Z",
+                    "release_url": "https://github.com/Kong/kong-plugin-prometheus/releases/tag/0.7.1"
+                },
+                {
+                    "release_version": "0.8.0",
+                    "release_date": "2020-04-24T23:17:51Z",
+                    "release_url": "https://github.com/Kong/kong-plugin-prometheus/releases/tag/0.8.0"
+                },
+                {
+                    "release_version": "1.0.0",
+                    "release_date": "2020-08-20T17:22:11Z",
+                    "release_url": "https://github.com/Kong/kong-plugin-prometheus/releases/tag/1.0.0"
+                }
+            ]
+        },
+        {
+            "exporter_id": 7,
+            "name": "kube-state-metrics",
+            "logo_url": "https://avatars3.githubusercontent.com/u/3380462?v=4",
+            "category": "Miscellaneous",
+            "official": "Unofficial",
+            "stars": 2576,
+            "repository_url": "https://github.com/kubernetes/kube-state-metrics",
+            "description": "Add-on agent to generate and expose cluster-level metrics.",
+            "release": [
+                {
+                    "release_version": "v1.4.0",
+                    "release_date": "2018-08-23T09:15:57Z",
+                    "release_url": "https://github.com/kubernetes/kube-state-metrics/releases/tag/v1.4.0"
+                },
+                {
+                    "release_version": "v1.5.0-alpha.0",
+                    "release_date": "2018-11-30T09:57:57Z",
+                    "release_url": "https://github.com/kubernetes/kube-state-metrics/releases/tag/v1.5.0-alpha.0"
+                },
+                {
+                    "release_version": "v1.5.0-beta.0",
+                    "release_date": "2018-12-11T18:27:15Z",
+                    "release_url": "https://github.com/kubernetes/kube-state-metrics/releases/tag/v1.5.0-beta.0"
+                },
+                {
+                    "release_version": "v1.5.0",
+                    "release_date": "2019-01-11T08:56:22Z",
+                    "release_url": "https://github.com/kubernetes/kube-state-metrics/releases/tag/v1.5.0"
+                },
+                {
+                    "release_version": "v1.6.0-rc.0",
+                    "release_date": "2019-04-08T11:06:51Z",
+                    "release_url": "https://github.com/kubernetes/kube-state-metrics/releases/tag/v1.6.0-rc.0"
+                },
+                {
+                    "release_version": "v1.6.0-rc.2",
+                    "release_date": "2019-04-26T11:07:49Z",
+                    "release_url": "https://github.com/kubernetes/kube-state-metrics/releases/tag/v1.6.0-rc.2"
+                },
+                {
+                    "release_version": "v1.6.0-rc.1",
+                    "release_date": "2019-04-26T11:10:16Z",
+                    "release_url": "https://github.com/kubernetes/kube-state-metrics/releases/tag/v1.6.0-rc.1"
+                },
+                {
+                    "release_version": "v1.6.0",
+                    "release_date": "2019-05-06T12:48:57Z",
+                    "release_url": "https://github.com/kubernetes/kube-state-metrics/releases/tag/v1.6.0"
+                },
+                {
+                    "release_version": "v1.7.0-rc.0",
+                    "release_date": "2019-07-10T17:16:36Z",
+                    "release_url": "https://github.com/kubernetes/kube-state-metrics/releases/tag/v1.7.0-rc.0"
+                },
+                {
+                    "release_version": "v1.7.0-rc.1",
+                    "release_date": "2019-07-10T18:39:32Z",
+                    "release_url": "https://github.com/kubernetes/kube-state-metrics/releases/tag/v1.7.0-rc.1"
+                },
+                {
+                    "release_version": "v1.7.0",
+                    "release_date": "2019-07-18T03:23:48Z",
+                    "release_url": "https://github.com/kubernetes/kube-state-metrics/releases/tag/v1.7.0"
+                },
+                {
+                    "release_version": "v1.7.1",
+                    "release_date": "2019-07-19T23:40:43Z",
+                    "release_url": "https://github.com/kubernetes/kube-state-metrics/releases/tag/v1.7.1"
+                },
+                {
+                    "release_version": "v1.7.2",
+                    "release_date": "2019-08-05T15:16:56Z",
+                    "release_url": "https://github.com/kubernetes/kube-state-metrics/releases/tag/v1.7.2"
+                },
+                {
+                    "release_version": "v1.8.0-rc.0",
+                    "release_date": "2019-09-10T15:16:51Z",
+                    "release_url": "https://github.com/kubernetes/kube-state-metrics/releases/tag/v1.8.0-rc.0"
+                },
+                {
+                    "release_version": "v1.8.0-rc.1",
+                    "release_date": "2019-09-24T09:17:27Z",
+                    "release_url": "https://github.com/kubernetes/kube-state-metrics/releases/tag/v1.8.0-rc.1"
+                },
+                {
+                    "release_version": "v1.8.0",
+                    "release_date": "2019-10-01T14:31:34Z",
+                    "release_url": "https://github.com/kubernetes/kube-state-metrics/releases/tag/v1.8.0"
+                },
+                {
+                    "release_version": "v1.9.0-rc.0",
+                    "release_date": "2019-12-09T13:46:02Z",
+                    "release_url": "https://github.com/kubernetes/kube-state-metrics/releases/tag/v1.9.0-rc.0"
+                },
+                {
+                    "release_version": "v1.9.0-rc.1",
+                    "release_date": "2019-12-13T14:02:46Z",
+                    "release_url": "https://github.com/kubernetes/kube-state-metrics/releases/tag/v1.9.0-rc.1"
+                },
+                {
+                    "release_version": "v1.9.0",
+                    "release_date": "2019-12-20T14:33:32Z",
+                    "release_url": "https://github.com/kubernetes/kube-state-metrics/releases/tag/v1.9.0"
+                },
+                {
+                    "release_version": "v1.9.1",
+                    "release_date": "2020-01-10T11:24:34Z",
+                    "release_url": "https://github.com/kubernetes/kube-state-metrics/releases/tag/v1.9.1"
+                },
+                {
+                    "release_version": "v1.9.2",
+                    "release_date": "2020-01-13T19:39:38Z",
+                    "release_url": "https://github.com/kubernetes/kube-state-metrics/releases/tag/v1.9.2"
+                },
+                {
+                    "release_version": "v1.9.3",
+                    "release_date": "2020-01-22T12:30:35Z",
+                    "release_url": "https://github.com/kubernetes/kube-state-metrics/releases/tag/v1.9.3"
+                },
+                {
+                    "release_version": "v1.9.4",
+                    "release_date": "2020-02-04T15:11:59Z",
+                    "release_url": "https://github.com/kubernetes/kube-state-metrics/releases/tag/v1.9.4"
+                },
+                {
+                    "release_version": "v1.9.5",
+                    "release_date": "2020-02-20T10:25:03Z",
+                    "release_url": "https://github.com/kubernetes/kube-state-metrics/releases/tag/v1.9.5"
+                },
+                {
+                    "release_version": "v1.9.6",
+                    "release_date": "2020-05-15T13:37:36Z",
+                    "release_url": "https://github.com/kubernetes/kube-state-metrics/releases/tag/v1.9.6"
+                },
+                {
+                    "release_version": "v1.9.7",
+                    "release_date": "2020-05-28T04:08:02Z",
+                    "release_url": "https://github.com/kubernetes/kube-state-metrics/releases/tag/v1.9.7"
+                },
+                {
+                    "release_version": "v2.0.0-alpha",
+                    "release_date": "2020-09-16T14:43:20Z",
+                    "release_url": "https://github.com/kubernetes/kube-state-metrics/releases/tag/v2.0.0-alpha"
+                },
+                {
+                    "release_version": "v2.0.0-alpha.1",
+                    "release_date": "2020-10-07T07:58:42Z",
+                    "release_url": "https://github.com/kubernetes/kube-state-metrics/releases/tag/v2.0.0-alpha.1"
+                },
+                {
+                    "release_version": "v2.0.0-alpha.2",
+                    "release_date": "2020-10-28T09:33:56Z",
+                    "release_url": "https://github.com/kubernetes/kube-state-metrics/releases/tag/v2.0.0-alpha.2"
+                },
+                {
+                    "release_version": "v2.0.0-alpha.3",
+                    "release_date": "2020-11-20T10:02:50Z",
+                    "release_url": "https://github.com/kubernetes/kube-state-metrics/releases/tag/v2.0.0-alpha.3"
+                }
+            ]
+        },
+        {
+            "exporter_id": 8,
+            "name": "Process Exporter",
+            "logo_url": "https://avatars3.githubusercontent.com/u/3380462?v=4",
+            "category": "Miscellaneous",
+            "official": "Unofficial",
+            "stars": 656,
+            "repository_url": "https://github.com/ncabatoff/process-exporter",
+            "description": "Prometheus exporter that mines /proc to report on selected processes ",
+            "release": [
+                {
+                    "release_version": "v0.0.1",
+                    "release_date": "2016-10-23T00:41:01Z",
+                    "release_url": "https://github.com/ncabatoff/process-exporter/releases/tag/v0.0.1"
+                },
+                {
+                    "release_version": "v0.0.2",
+                    "release_date": "2016-10-25T00:51:23Z",
+                    "release_url": "https://github.com/ncabatoff/process-exporter/releases/tag/v0.0.2"
+                },
+                {
+                    "release_version": "v0.1.0",
+                    "release_date": "2016-11-15T22:13:07Z",
+                    "release_url": "https://github.com/ncabatoff/process-exporter/releases/tag/v0.1.0"
+                },
+                {
+                    "release_version": "v0.2.4",
+                    "release_date": "2018-05-13T20:35:29Z",
+                    "release_url": "https://github.com/ncabatoff/process-exporter/releases/tag/v0.2.4"
+                },
+                {
+                    "release_version": "v0.2.5",
+                    "release_date": "2018-05-13T22:41:41Z",
+                    "release_url": "https://github.com/ncabatoff/process-exporter/releases/tag/v0.2.5"
+                },
+                {
+                    "release_version": "v0.2.6",
+                    "release_date": "2018-05-15T02:10:24Z",
+                    "release_url": "https://github.com/ncabatoff/process-exporter/releases/tag/v0.2.6"
+                },
+                {
+                    "release_version": "v0.2.9",
+                    "release_date": "2018-05-15T04:06:14Z",
+                    "release_url": "https://github.com/ncabatoff/process-exporter/releases/tag/v0.2.9"
+                },
+                {
+                    "release_version": "v0.2.10",
+                    "release_date": "2018-05-15T04:09:16Z",
+                    "release_url": "https://github.com/ncabatoff/process-exporter/releases/tag/v0.2.10"
+                },
+                {
+                    "release_version": "v0.2.11",
+                    "release_date": "2018-05-19T16:14:14Z",
+                    "release_url": "https://github.com/ncabatoff/process-exporter/releases/tag/v0.2.11"
+                },
+                {
+                    "release_version": "v0.2.12",
+                    "release_date": "2018-08-04T22:35:10Z",
+                    "release_url": "https://github.com/ncabatoff/process-exporter/releases/tag/v0.2.12"
+                },
+                {
+                    "release_version": "v0.3.1",
+                    "release_date": "2018-08-05T15:15:13Z",
+                    "release_url": "https://github.com/ncabatoff/process-exporter/releases/tag/v0.3.1"
+                },
+                {
+                    "release_version": "v0.3.2",
+                    "release_date": "2018-08-07T23:02:59Z",
+                    "release_url": "https://github.com/ncabatoff/process-exporter/releases/tag/v0.3.2"
+                },
+                {
+                    "release_version": "v0.3.6",
+                    "release_date": "2018-08-11T02:05:52Z",
+                    "release_url": "https://github.com/ncabatoff/process-exporter/releases/tag/v0.3.6"
+                },
+                {
+                    "release_version": "v0.3.7",
+                    "release_date": "2018-08-12T15:44:59Z",
+                    "release_url": "https://github.com/ncabatoff/process-exporter/releases/tag/v0.3.7"
+                },
+                {
+                    "release_version": "v0.3.8",
+                    "release_date": "2018-08-26T22:35:00Z",
+                    "release_url": "https://github.com/ncabatoff/process-exporter/releases/tag/v0.3.8"
+                },
+                {
+                    "release_version": "v0.3.9",
+                    "release_date": "2018-08-26T23:57:31Z",
+                    "release_url": "https://github.com/ncabatoff/process-exporter/releases/tag/v0.3.9"
+                },
+                {
+                    "release_version": "v0.3.10",
+                    "release_date": "2018-08-31T00:04:46Z",
+                    "release_url": "https://github.com/ncabatoff/process-exporter/releases/tag/v0.3.10"
+                },
+                {
+                    "release_version": "v0.3.11",
+                    "release_date": "2018-09-01T00:24:23Z",
+                    "release_url": "https://github.com/ncabatoff/process-exporter/releases/tag/v0.3.11"
+                },
+                {
+                    "release_version": "v0.4.0",
+                    "release_date": "2018-09-03T22:00:30Z",
+                    "release_url": "https://github.com/ncabatoff/process-exporter/releases/tag/v0.4.0"
+                },
+                {
+                    "release_version": "v0.5.0",
+                    "release_date": "2019-04-13T21:26:58Z",
+                    "release_url": "https://github.com/ncabatoff/process-exporter/releases/tag/v0.5.0"
+                },
+                {
+                    "release_version": "v0.6.0",
+                    "release_date": "2020-01-01T15:54:56Z",
+                    "release_url": "https://github.com/ncabatoff/process-exporter/releases/tag/v0.6.0"
+                },
+                {
+                    "release_version": "v0.7.2",
+                    "release_date": "2020-08-05T00:03:05Z",
+                    "release_url": "https://github.com/ncabatoff/process-exporter/releases/tag/v0.7.2"
+                },
+                {
+                    "release_version": "v0.7.3",
+                    "release_date": "2020-11-03T15:39:45Z",
+                    "release_url": "https://github.com/ncabatoff/process-exporter/releases/tag/v0.7.3"
+                },
+                {
+                    "release_version": "v0.7.4",
+                    "release_date": "2020-11-05T00:11:32Z",
+                    "release_url": "https://github.com/ncabatoff/process-exporter/releases/tag/v0.7.4"
+                },
+                {
+                    "release_version": "v0.7.5",
+                    "release_date": "2020-11-05T12:41:15Z",
+                    "release_url": "https://github.com/ncabatoff/process-exporter/releases/tag/v0.7.5"
+                }
+            ]
+        },
+        {
+            "exporter_id": 9,
+            "name": "NGINX Exporter",
+            "logo_url": "https://avatars3.githubusercontent.com/u/3380462?v=4",
+            "category": "HTTP",
+            "official": "Unofficial",
+            "stars": 519,
+            "repository_url": "https://github.com/nginxinc/nginx-prometheus-exporter",
+            "description": "NGINX Prometheus Exporter for NGINX and NGINX Plus",
+            "release": [
+                {
+                    "release_version": "v0.1.0",
+                    "release_date": "2018-05-30T13:52:59Z",
+                    "release_url": "https://github.com/nginxinc/nginx-prometheus-exporter/releases/tag/v0.1.0"
+                },
+                {
+                    "release_version": "v0.2.0",
+                    "release_date": "2018-11-13T12:43:54Z",
+                    "release_url": "https://github.com/nginxinc/nginx-prometheus-exporter/releases/tag/v0.2.0"
+                },
+                {
+                    "release_version": "v0.3.0",
+                    "release_date": "2019-02-07T11:46:47Z",
+                    "release_url": "https://github.com/nginxinc/nginx-prometheus-exporter/releases/tag/v0.3.0"
+                },
+                {
+                    "release_version": "v0.4.0",
+                    "release_date": "2019-05-30T10:23:31Z",
+                    "release_url": "https://github.com/nginxinc/nginx-prometheus-exporter/releases/tag/v0.4.0"
+                },
+                {
+                    "release_version": "v0.4.1",
+                    "release_date": "2019-06-12T10:06:21Z",
+                    "release_url": "https://github.com/nginxinc/nginx-prometheus-exporter/releases/tag/v0.4.1"
+                },
+                {
+                    "release_version": "v0.4.2",
+                    "release_date": "2019-07-22T15:16:01Z",
+                    "release_url": "https://github.com/nginxinc/nginx-prometheus-exporter/releases/tag/v0.4.2"
+                },
+                {
+                    "release_version": "v0.5.0",
+                    "release_date": "2019-12-06T19:55:58Z",
+                    "release_url": "https://github.com/nginxinc/nginx-prometheus-exporter/releases/tag/v0.5.0"
+                },
+                {
+                    "release_version": "v0.6.0",
+                    "release_date": "2020-02-19T18:00:46Z",
+                    "release_url": "https://github.com/nginxinc/nginx-prometheus-exporter/releases/tag/v0.6.0"
+                },
+                {
+                    "release_version": "v0.7.0",
+                    "release_date": "2020-04-23T16:13:24Z",
+                    "release_url": "https://github.com/nginxinc/nginx-prometheus-exporter/releases/tag/v0.7.0"
+                },
+                {
+                    "release_version": "v0.8.0",
+                    "release_date": "2020-06-18T13:54:09Z",
+                    "release_url": "https://github.com/nginxinc/nginx-prometheus-exporter/releases/tag/v0.8.0"
+                }
+            ]
+        },
+        {
+            "exporter_id": 10,
+            "name": "NVIDIA GPU Monitoring Tools",
+            "logo_url": "https://avatars3.githubusercontent.com/u/3380462?v=4",
+            "category": "Hardware",
+            "official": "Unofficial",
+            "stars": 610,
+            "repository_url": "https://github.com/NVIDIA/gpu-monitoring-tools",
+            "description": "Tools for monitoring NVIDIA GPUs on Linux ",
+            "release": []
+        },
+        {
+            "exporter_id": 11,
+            "name": "Redis Metrics Exporter",
+            "logo_url": "https://avatars3.githubusercontent.com/u/3380462?v=4",
+            "category": "Database",
+            "official": "Unofficial",
+            "stars": 1558,
+            "repository_url": "https://github.com/oliver006/redis_exporter",
+            "description": "Prometheus Exporter for Redis Metrics. Supports Redis 2.x, 3.x, 4.x, 5.x and 6.x",
+            "release": [
+                {
+                    "release_version": "v1.0.3",
+                    "release_date": "2019-06-21T01:10:34Z",
+                    "release_url": "https://github.com/oliver006/redis_exporter/releases/tag/v1.0.3"
+                },
+                {
+                    "release_version": "v1.0.4",
+                    "release_date": "2019-08-07T20:14:08Z",
+                    "release_url": "https://github.com/oliver006/redis_exporter/releases/tag/v1.0.4"
+                },
+                {
+                    "release_version": "v1.1.0",
+                    "release_date": "2019-08-20T21:15:34Z",
+                    "release_url": "https://github.com/oliver006/redis_exporter/releases/tag/v1.1.0"
+                },
+                {
+                    "release_version": "v1.1.1",
+                    "release_date": "2019-09-07T00:35:43Z",
+                    "release_url": "https://github.com/oliver006/redis_exporter/releases/tag/v1.1.1"
+                },
+                {
+                    "release_version": "v1.2.0",
+                    "release_date": "2019-09-19T19:10:12Z",
+                    "release_url": "https://github.com/oliver006/redis_exporter/releases/tag/v1.2.0"
+                },
+                {
+                    "release_version": "v1.2.1",
+                    "release_date": "2019-09-24T19:22:50Z",
+                    "release_url": "https://github.com/oliver006/redis_exporter/releases/tag/v1.2.1"
+                },
+                {
+                    "release_version": "v1.2.2",
+                    "release_date": "2019-10-01T19:21:48Z",
+                    "release_url": "https://github.com/oliver006/redis_exporter/releases/tag/v1.2.2"
+                },
+                {
+                    "release_version": "v1.3.0",
+                    "release_date": "2019-10-03T15:08:41Z",
+                    "release_url": "https://github.com/oliver006/redis_exporter/releases/tag/v1.3.0"
+                },
+                {
+                    "release_version": "v1.3.1",
+                    "release_date": "2019-10-08T14:21:07Z",
+                    "release_url": "https://github.com/oliver006/redis_exporter/releases/tag/v1.3.1"
+                },
+                {
+                    "release_version": "v1.3.2",
+                    "release_date": "2019-11-06T02:21:02Z",
+                    "release_url": "https://github.com/oliver006/redis_exporter/releases/tag/v1.3.2"
+                },
+                {
+                    "release_version": "v1.3.3",
+                    "release_date": "2019-11-14T02:00:28Z",
+                    "release_url": "https://github.com/oliver006/redis_exporter/releases/tag/v1.3.3"
+                },
+                {
+                    "release_version": "v1.3.4",
+                    "release_date": "2019-11-15T19:30:14Z",
+                    "release_url": "https://github.com/oliver006/redis_exporter/releases/tag/v1.3.4"
+                },
+                {
+                    "release_version": "v1.3.5",
+                    "release_date": "2019-12-16T18:40:13Z",
+                    "release_url": "https://github.com/oliver006/redis_exporter/releases/tag/v1.3.5"
+                },
+                {
+                    "release_version": "v1.4.0",
+                    "release_date": "2020-02-22T02:01:05Z",
+                    "release_url": "https://github.com/oliver006/redis_exporter/releases/tag/v1.4.0"
+                },
+                {
+                    "release_version": "v1.5.0",
+                    "release_date": "2020-03-15T22:58:01Z",
+                    "release_url": "https://github.com/oliver006/redis_exporter/releases/tag/v1.5.0"
+                },
+                {
+                    "release_version": "v1.5.1",
+                    "release_date": "2020-03-16T14:16:09Z",
+                    "release_url": "https://github.com/oliver006/redis_exporter/releases/tag/v1.5.1"
+                },
+                {
+                    "release_version": "v1.5.2",
+                    "release_date": "2020-03-16T16:48:54Z",
+                    "release_url": "https://github.com/oliver006/redis_exporter/releases/tag/v1.5.2"
+                },
+                {
+                    "release_version": "v1.5.3",
+                    "release_date": "2020-04-16T02:32:07Z",
+                    "release_url": "https://github.com/oliver006/redis_exporter/releases/tag/v1.5.3"
+                },
+                {
+                    "release_version": "v1.6.0",
+                    "release_date": "2020-05-03T16:42:33Z",
+                    "release_url": "https://github.com/oliver006/redis_exporter/releases/tag/v1.6.0"
+                },
+                {
+                    "release_version": "v1.6.1",
+                    "release_date": "2020-05-13T01:40:58Z",
+                    "release_url": "https://github.com/oliver006/redis_exporter/releases/tag/v1.6.1"
+                },
+                {
+                    "release_version": "v1.7.0",
+                    "release_date": "2020-06-12T23:41:44Z",
+                    "release_url": "https://github.com/oliver006/redis_exporter/releases/tag/v1.7.0"
+                },
+                {
+                    "release_version": "v1.8.0",
+                    "release_date": "2020-06-18T01:44:07Z",
+                    "release_url": "https://github.com/oliver006/redis_exporter/releases/tag/v1.8.0"
+                },
+                {
+                    "release_version": "v1.9.0",
+                    "release_date": "2020-07-07T02:19:14Z",
+                    "release_url": "https://github.com/oliver006/redis_exporter/releases/tag/v1.9.0"
+                },
+                {
+                    "release_version": "v1.10.0",
+                    "release_date": "2020-08-18T01:04:06Z",
+                    "release_url": "https://github.com/oliver006/redis_exporter/releases/tag/v1.10.0"
+                },
+                {
+                    "release_version": "v1.11.0",
+                    "release_date": "2020-08-26T00:50:26Z",
+                    "release_url": "https://github.com/oliver006/redis_exporter/releases/tag/v1.11.0"
+                },
+                {
+                    "release_version": "v1.11.1",
+                    "release_date": "2020-08-28T17:16:19Z",
+                    "release_url": "https://github.com/oliver006/redis_exporter/releases/tag/v1.11.1"
+                },
+                {
+                    "release_version": "v1.12.0",
+                    "release_date": "2020-09-30T17:29:04Z",
+                    "release_url": "https://github.com/oliver006/redis_exporter/releases/tag/v1.12.0"
+                },
+                {
+                    "release_version": "v1.12.1",
+                    "release_date": "2020-10-16T02:14:39Z",
+                    "release_url": "https://github.com/oliver006/redis_exporter/releases/tag/v1.12.1"
+                },
+                {
+                    "release_version": "v1.13.0",
+                    "release_date": "2020-11-01T13:12:44Z",
+                    "release_url": "https://github.com/oliver006/redis_exporter/releases/tag/v1.13.0"
+                },
+                {
+                    "release_version": "v1.13.1",
+                    "release_date": "2020-11-02T14:41:24Z",
+                    "release_url": "https://github.com/oliver006/redis_exporter/releases/tag/v1.13.1"
+                }
+            ]
+        },
+        {
+            "exporter_id": 12,
+            "name": "OpenStack Exporter",
+            "logo_url": "https://avatars3.githubusercontent.com/u/3380462?v=4",
+            "category": "Miscellaneous",
+            "official": "Unofficial",
+            "stars": 85,
+            "repository_url": "https://github.com/openstack-exporter/openstack-exporter",
+            "description": "OpenStack Exporter for Prometheus",
+            "release": [
+                {
+                    "release_version": "v0.0.6",
+                    "release_date": "2019-02-21T13:14:41Z",
+                    "release_url": "https://github.com/openstack-exporter/openstack-exporter/releases/tag/v0.0.6"
+                },
+                {
+                    "release_version": "v0.0.7",
+                    "release_date": "2019-03-08T14:01:02Z",
+                    "release_url": "https://github.com/openstack-exporter/openstack-exporter/releases/tag/v0.0.7"
+                },
+                {
+                    "release_version": "v0.0.8",
+                    "release_date": "2019-06-13T17:28:16Z",
+                    "release_url": "https://github.com/openstack-exporter/openstack-exporter/releases/tag/v0.0.8"
+                },
+                {
+                    "release_version": "v0.0.9",
+                    "release_date": "2019-06-27T15:46:45Z",
+                    "release_url": "https://github.com/openstack-exporter/openstack-exporter/releases/tag/v0.0.9"
+                },
+                {
+                    "release_version": "v0.1.0",
+                    "release_date": "2019-06-28T17:08:57Z",
+                    "release_url": "https://github.com/openstack-exporter/openstack-exporter/releases/tag/v0.1.0"
+                },
+                {
+                    "release_version": "v0.2.0",
+                    "release_date": "2019-07-23T20:59:48Z",
+                    "release_url": "https://github.com/openstack-exporter/openstack-exporter/releases/tag/v0.2.0"
+                },
+                {
+                    "release_version": "v0.2.1",
+                    "release_date": "2019-07-29T15:11:49Z",
+                    "release_url": "https://github.com/openstack-exporter/openstack-exporter/releases/tag/v0.2.1"
+                },
+                {
+                    "release_version": "v0.3.0",
+                    "release_date": "2019-09-30T16:16:47Z",
+                    "release_url": "https://github.com/openstack-exporter/openstack-exporter/releases/tag/v0.3.0"
+                },
+                {
+                    "release_version": "v0.5.0",
+                    "release_date": "2019-10-02T12:12:56Z",
+                    "release_url": "https://github.com/openstack-exporter/openstack-exporter/releases/tag/v0.5.0"
+                },
+                {
+                    "release_version": "v0.6.0",
+                    "release_date": "2019-10-11T12:50:19Z",
+                    "release_url": "https://github.com/openstack-exporter/openstack-exporter/releases/tag/v0.6.0"
+                },
+                {
+                    "release_version": "v0.7.0",
+                    "release_date": "2019-10-30T15:33:36Z",
+                    "release_url": "https://github.com/openstack-exporter/openstack-exporter/releases/tag/v0.7.0"
+                },
+                {
+                    "release_version": "v0.8.0",
+                    "release_date": "2019-12-06T19:07:32Z",
+                    "release_url": "https://github.com/openstack-exporter/openstack-exporter/releases/tag/v0.8.0"
+                },
+                {
+                    "release_version": "v0.9.0",
+                    "release_date": "2019-12-23T21:55:03Z",
+                    "release_url": "https://github.com/openstack-exporter/openstack-exporter/releases/tag/v0.9.0"
+                },
+                {
+                    "release_version": "v1.0.0",
+                    "release_date": "2020-03-27T19:17:00Z",
+                    "release_url": "https://github.com/openstack-exporter/openstack-exporter/releases/tag/v1.0.0"
+                },
+                {
+                    "release_version": "v1.1.0",
+                    "release_date": "2020-07-02T16:22:09Z",
+                    "release_url": "https://github.com/openstack-exporter/openstack-exporter/releases/tag/v1.1.0"
+                },
+                {
+                    "release_version": "v1.2.0",
+                    "release_date": "2020-10-06T13:31:04Z",
+                    "release_url": "https://github.com/openstack-exporter/openstack-exporter/releases/tag/v1.2.0"
+                }
+            ]
+        },
+        {
+            "exporter_id": 13,
+            "name": "JSON Exporter",
+            "logo_url": "https://avatars3.githubusercontent.com/u/3380462?v=4",
+            "category": "Miscellaneous",
+            "official": "Unofficial",
+            "stars": 172,
+            "repository_url": "https://github.com/prometheus-community/json_exporter",
+            "description": "A prometheus exporter which scrapes remote JSON by JSONPath",
+            "release": [
+                {
+                    "release_version": "v0.1.0",
+                    "release_date": "2020-07-27T10:14:26Z",
+                    "release_url": "https://github.com/prometheus-community/json_exporter/releases/tag/v0.1.0"
+                },
+                {
+                    "release_version": "v0.2.0",
+                    "release_date": "2020-11-03T17:03:58Z",
+                    "release_url": "https://github.com/prometheus-community/json_exporter/releases/tag/v0.2.0"
+                }
+            ]
+        },
+        {
+            "exporter_id": 14,
+            "name": "Google Stackdriver Exporter",
+            "logo_url": "https://avatars3.githubusercontent.com/u/3380462?v=4",
+            "category": "Monitoring",
+            "official": "Unofficial",
+            "stars": 150,
+            "repository_url": "https://github.com/prometheus-community/stackdriver_exporter",
+            "description": "Google Stackdriver Prometheus exporter",
+            "release": [
+                {
+                    "release_version": "v0.1.0",
+                    "release_date": "2017-06-03T18:37:09Z",
+                    "release_url": "https://github.com/prometheus-community/stackdriver_exporter/releases/tag/v0.1.0"
+                },
+                {
+                    "release_version": "v0.1.1",
+                    "release_date": "2017-07-15T22:16:57Z",
+                    "release_url": "https://github.com/prometheus-community/stackdriver_exporter/releases/tag/v0.1.1"
+                },
+                {
+                    "release_version": "v0.1.2",
+                    "release_date": "2017-08-12T11:53:00Z",
+                    "release_url": "https://github.com/prometheus-community/stackdriver_exporter/releases/tag/v0.1.2"
+                },
+                {
+                    "release_version": "v0.2.0",
+                    "release_date": "2017-08-13T14:04:03Z",
+                    "release_url": "https://github.com/prometheus-community/stackdriver_exporter/releases/tag/v0.2.0"
+                },
+                {
+                    "release_version": "v0.3.0",
+                    "release_date": "2017-08-27T15:14:34Z",
+                    "release_url": "https://github.com/prometheus-community/stackdriver_exporter/releases/tag/v0.3.0"
+                },
+                {
+                    "release_version": "v0.4.0",
+                    "release_date": "2017-09-07T13:50:32Z",
+                    "release_url": "https://github.com/prometheus-community/stackdriver_exporter/releases/tag/v0.4.0"
+                },
+                {
+                    "release_version": "v0.4.1",
+                    "release_date": "2017-09-14T09:26:00Z",
+                    "release_url": "https://github.com/prometheus-community/stackdriver_exporter/releases/tag/v0.4.1"
+                },
+                {
+                    "release_version": "v0.5.0",
+                    "release_date": "2018-02-19T09:03:06Z",
+                    "release_url": "https://github.com/prometheus-community/stackdriver_exporter/releases/tag/v0.5.0"
+                },
+                {
+                    "release_version": "v0.5.1",
+                    "release_date": "2018-03-13T09:04:17Z",
+                    "release_url": "https://github.com/prometheus-community/stackdriver_exporter/releases/tag/v0.5.1"
+                },
+                {
+                    "release_version": "v0.6.0",
+                    "release_date": "2018-12-02T06:22:49Z",
+                    "release_url": "https://github.com/prometheus-community/stackdriver_exporter/releases/tag/v0.6.0"
+                },
+                {
+                    "release_version": "v0.7.0",
+                    "release_date": "2020-05-01T12:38:19Z",
+                    "release_url": "https://github.com/prometheus-community/stackdriver_exporter/releases/tag/v0.7.0"
+                },
+                {
+                    "release_version": "v0.8.0",
+                    "release_date": "2020-05-14T16:26:25Z",
+                    "release_url": "https://github.com/prometheus-community/stackdriver_exporter/releases/tag/v0.8.0"
+                },
+                {
+                    "release_version": "v0.9.0",
+                    "release_date": "2020-05-26T08:17:35Z",
+                    "release_url": "https://github.com/prometheus-community/stackdriver_exporter/releases/tag/v0.9.0"
+                },
+                {
+                    "release_version": "v0.9.1",
+                    "release_date": "2020-06-02T12:12:05Z",
+                    "release_url": "https://github.com/prometheus-community/stackdriver_exporter/releases/tag/v0.9.1"
+                },
+                {
+                    "release_version": "v0.10.0",
+                    "release_date": "2020-06-29T08:30:08Z",
+                    "release_url": "https://github.com/prometheus-community/stackdriver_exporter/releases/tag/v0.10.0"
+                },
+                {
+                    "release_version": "v0.11.0",
+                    "release_date": "2020-09-02T14:36:02Z",
+                    "release_url": "https://github.com/prometheus-community/stackdriver_exporter/releases/tag/v0.11.0"
+                }
+            ]
+        },
+        {
+            "exporter_id": 15,
+            "name": "Windows Exporter",
+            "logo_url": "https://avatars3.githubusercontent.com/u/3380462?v=4",
+            "category": "Hardware",
+            "official": "Unofficial",
+            "stars": 1090,
+            "repository_url": "https://github.com/prometheus-community/windows_exporter",
+            "description": "Prometheus exporter for Windows machines",
+            "release": [
+                {
+                    "release_version": "v0.2.9",
+                    "release_date": "2018-02-14T11:24:52Z",
+                    "release_url": "https://github.com/prometheus-community/windows_exporter/releases/tag/v0.2.9"
+                },
+                {
+                    "release_version": "v0.2.10",
+                    "release_date": "2018-02-21T16:06:12Z",
+                    "release_url": "https://github.com/prometheus-community/windows_exporter/releases/tag/v0.2.10"
+                },
+                {
+                    "release_version": "v0.3.0",
+                    "release_date": "2018-04-06T05:19:44Z",
+                    "release_url": "https://github.com/prometheus-community/windows_exporter/releases/tag/v0.3.0"
+                },
+                {
+                    "release_version": "v0.3.1",
+                    "release_date": "2018-04-18T05:50:05Z",
+                    "release_url": "https://github.com/prometheus-community/windows_exporter/releases/tag/v0.3.1"
+                },
+                {
+                    "release_version": "v0.3.2",
+                    "release_date": "2018-04-30T07:29:00Z",
+                    "release_url": "https://github.com/prometheus-community/windows_exporter/releases/tag/v0.3.2"
+                },
+                {
+                    "release_version": "v0.3.3",
+                    "release_date": "2018-05-18T06:46:13Z",
+                    "release_url": "https://github.com/prometheus-community/windows_exporter/releases/tag/v0.3.3"
+                },
+                {
+                    "release_version": "v0.3.4",
+                    "release_date": "2018-07-19T18:27:26Z",
+                    "release_url": "https://github.com/prometheus-community/windows_exporter/releases/tag/v0.3.4"
+                },
+                {
+                    "release_version": "v0.4.0",
+                    "release_date": "2018-08-02T06:42:02Z",
+                    "release_url": "https://github.com/prometheus-community/windows_exporter/releases/tag/v0.4.0"
+                },
+                {
+                    "release_version": "v0.4.1",
+                    "release_date": "2018-08-03T14:27:40Z",
+                    "release_url": "https://github.com/prometheus-community/windows_exporter/releases/tag/v0.4.1"
+                },
+                {
+                    "release_version": "v0.4.2",
+                    "release_date": "2018-08-04T06:33:23Z",
+                    "release_url": "https://github.com/prometheus-community/windows_exporter/releases/tag/v0.4.2"
+                },
+                {
+                    "release_version": "v0.4.3",
+                    "release_date": "2018-08-08T07:14:27Z",
+                    "release_url": "https://github.com/prometheus-community/windows_exporter/releases/tag/v0.4.3"
+                },
+                {
+                    "release_version": "v0.4.4",
+                    "release_date": "2018-08-31T16:16:43Z",
+                    "release_url": "https://github.com/prometheus-community/windows_exporter/releases/tag/v0.4.4"
+                },
+                {
+                    "release_version": "v0.5.0",
+                    "release_date": "2018-11-18T17:29:42Z",
+                    "release_url": "https://github.com/prometheus-community/windows_exporter/releases/tag/v0.5.0"
+                },
+                {
+                    "release_version": "v0.6.0",
+                    "release_date": "2019-01-27T20:28:50Z",
+                    "release_url": "https://github.com/prometheus-community/windows_exporter/releases/tag/v0.6.0"
+                },
+                {
+                    "release_version": "v0.7.0",
+                    "release_date": "2019-03-13T20:31:29Z",
+                    "release_url": "https://github.com/prometheus-community/windows_exporter/releases/tag/v0.7.0"
+                },
+                {
+                    "release_version": "v0.7.999-preview.2",
+                    "release_date": "2019-05-25T12:43:36Z",
+                    "release_url": "https://github.com/prometheus-community/windows_exporter/releases/tag/v0.7.999-preview.2"
+                },
+                {
+                    "release_version": "v0.8.0",
+                    "release_date": "2019-08-04T15:12:44Z",
+                    "release_url": "https://github.com/prometheus-community/windows_exporter/releases/tag/v0.8.0"
+                },
+                {
+                    "release_version": "v0.8.1",
+                    "release_date": "2019-08-09T08:24:36Z",
+                    "release_url": "https://github.com/prometheus-community/windows_exporter/releases/tag/v0.8.1"
+                },
+                {
+                    "release_version": "v0.8.2",
+                    "release_date": "2019-08-28T20:13:23Z",
+                    "release_url": "https://github.com/prometheus-community/windows_exporter/releases/tag/v0.8.2"
+                },
+                {
+                    "release_version": "v0.8.3",
+                    "release_date": "2019-08-28T20:18:47Z",
+                    "release_url": "https://github.com/prometheus-community/windows_exporter/releases/tag/v0.8.3"
+                },
+                {
+                    "release_version": "v0.9.0",
+                    "release_date": "2019-10-09T19:16:46Z",
+                    "release_url": "https://github.com/prometheus-community/windows_exporter/releases/tag/v0.9.0"
+                },
+                {
+                    "release_version": "v0.10.0",
+                    "release_date": "2020-03-03T18:40:10Z",
+                    "release_url": "https://github.com/prometheus-community/windows_exporter/releases/tag/v0.10.0"
+                },
+                {
+                    "release_version": "v0.10.1",
+                    "release_date": "2020-03-04T13:54:49Z",
+                    "release_url": "https://github.com/prometheus-community/windows_exporter/releases/tag/v0.10.1"
+                },
+                {
+                    "release_version": "v0.10.2",
+                    "release_date": "2020-03-05T20:30:25Z",
+                    "release_url": "https://github.com/prometheus-community/windows_exporter/releases/tag/v0.10.2"
+                },
+                {
+                    "release_version": "v0.11.0",
+                    "release_date": "2020-03-28T12:35:46Z",
+                    "release_url": "https://github.com/prometheus-community/windows_exporter/releases/tag/v0.11.0"
+                },
+                {
+                    "release_version": "v0.11.1",
+                    "release_date": "2020-04-19T19:51:47Z",
+                    "release_url": "https://github.com/prometheus-community/windows_exporter/releases/tag/v0.11.1"
+                },
+                {
+                    "release_version": "v0.12.0",
+                    "release_date": "2020-05-24T18:04:02Z",
+                    "release_url": "https://github.com/prometheus-community/windows_exporter/releases/tag/v0.12.0"
+                },
+                {
+                    "release_version": "v0.13.0",
+                    "release_date": "2020-06-02T13:17:56Z",
+                    "release_url": "https://github.com/prometheus-community/windows_exporter/releases/tag/v0.13.0"
+                },
+                {
+                    "release_version": "v0.14.0",
+                    "release_date": "2020-09-07T07:21:27Z",
+                    "release_url": "https://github.com/prometheus-community/windows_exporter/releases/tag/v0.14.0"
+                },
+                {
+                    "release_version": "v0.15.0",
+                    "release_date": "2020-11-07T07:13:00Z",
+                    "release_url": "https://github.com/prometheus-community/windows_exporter/releases/tag/v0.15.0"
+                }
+            ]
+        },
+        {
+            "exporter_id": 16,
+            "name": "Blackbox Exporter",
+            "logo_url": "https://avatars3.githubusercontent.com/u/3380462?v=4",
+            "category": "Miscellaneous",
+            "official": "Official",
+            "stars": 1908,
+            "repository_url": "https://github.com/prometheus/blackbox_exporter",
+            "description": "Blackbox prober exporter",
+            "release": [
+                {
+                    "release_version": "0.1.0",
+                    "release_date": "2016-04-04T11:01:15Z",
+                    "release_url": "https://github.com/prometheus/blackbox_exporter/releases/tag/0.1.0"
+                },
+                {
+                    "release_version": "v0.2.0",
+                    "release_date": "2016-07-16T15:56:00Z",
+                    "release_url": "https://github.com/prometheus/blackbox_exporter/releases/tag/v0.2.0"
+                },
+                {
+                    "release_version": "v0.3.0",
+                    "release_date": "2016-11-07T12:38:45Z",
+                    "release_url": "https://github.com/prometheus/blackbox_exporter/releases/tag/v0.3.0"
+                },
+                {
+                    "release_version": "v0.4.0",
+                    "release_date": "2017-01-12T15:20:07Z",
+                    "release_url": "https://github.com/prometheus/blackbox_exporter/releases/tag/v0.4.0"
+                },
+                {
+                    "release_version": "v0.5.0",
+                    "release_date": "2017-05-03T10:46:56Z",
+                    "release_url": "https://github.com/prometheus/blackbox_exporter/releases/tag/v0.5.0"
+                },
+                {
+                    "release_version": "v0.6.0",
+                    "release_date": "2017-07-04T10:29:58Z",
+                    "release_url": "https://github.com/prometheus/blackbox_exporter/releases/tag/v0.6.0"
+                },
+                {
+                    "release_version": "v0.7.0",
+                    "release_date": "2017-07-14T14:38:09Z",
+                    "release_url": "https://github.com/prometheus/blackbox_exporter/releases/tag/v0.7.0"
+                },
+                {
+                    "release_version": "v0.8.0",
+                    "release_date": "2017-08-08T13:25:15Z",
+                    "release_url": "https://github.com/prometheus/blackbox_exporter/releases/tag/v0.8.0"
+                },
+                {
+                    "release_version": "v0.8.1",
+                    "release_date": "2017-08-08T13:38:23Z",
+                    "release_url": "https://github.com/prometheus/blackbox_exporter/releases/tag/v0.8.1"
+                },
+                {
+                    "release_version": "v0.9.0",
+                    "release_date": "2017-09-20T13:37:05Z",
+                    "release_url": "https://github.com/prometheus/blackbox_exporter/releases/tag/v0.9.0"
+                },
+                {
+                    "release_version": "v0.9.1",
+                    "release_date": "2017-09-21T13:17:10Z",
+                    "release_url": "https://github.com/prometheus/blackbox_exporter/releases/tag/v0.9.1"
+                },
+                {
+                    "release_version": "v0.10.0",
+                    "release_date": "2017-10-09T13:33:51Z",
+                    "release_url": "https://github.com/prometheus/blackbox_exporter/releases/tag/v0.10.0"
+                },
+                {
+                    "release_version": "v0.11.0",
+                    "release_date": "2017-11-28T13:45:46Z",
+                    "release_url": "https://github.com/prometheus/blackbox_exporter/releases/tag/v0.11.0"
+                },
+                {
+                    "release_version": "v0.12.0",
+                    "release_date": "2018-02-27T11:47:57Z",
+                    "release_url": "https://github.com/prometheus/blackbox_exporter/releases/tag/v0.12.0"
+                },
+                {
+                    "release_version": "v0.13.0",
+                    "release_date": "2018-12-04T15:05:56Z",
+                    "release_url": "https://github.com/prometheus/blackbox_exporter/releases/tag/v0.13.0"
+                },
+                {
+                    "release_version": "v0.14.0",
+                    "release_date": "2019-03-15T13:18:54Z",
+                    "release_url": "https://github.com/prometheus/blackbox_exporter/releases/tag/v0.14.0"
+                },
+                {
+                    "release_version": "v0.15.0",
+                    "release_date": "2019-09-11T12:51:13Z",
+                    "release_url": "https://github.com/prometheus/blackbox_exporter/releases/tag/v0.15.0"
+                },
+                {
+                    "release_version": "v0.15.1",
+                    "release_date": "2019-09-17T12:30:30Z",
+                    "release_url": "https://github.com/prometheus/blackbox_exporter/releases/tag/v0.15.1"
+                },
+                {
+                    "release_version": "v0.16.0",
+                    "release_date": "2019-11-11T16:26:27Z",
+                    "release_url": "https://github.com/prometheus/blackbox_exporter/releases/tag/v0.16.0"
+                },
+                {
+                    "release_version": "v0.17.0",
+                    "release_date": "2020-06-19T11:31:21Z",
+                    "release_url": "https://github.com/prometheus/blackbox_exporter/releases/tag/v0.17.0"
+                },
+                {
+                    "release_version": "v0.18.0",
+                    "release_date": "2020-10-12T09:45:30Z",
+                    "release_url": "https://github.com/prometheus/blackbox_exporter/releases/tag/v0.18.0"
+                }
+            ]
+        },
+        {
+            "exporter_id": 17,
+            "name": "CloudWatch Exporter",
+            "logo_url": "https://avatars3.githubusercontent.com/u/3380462?v=4",
+            "category": "Monitoring",
+            "official": "Official",
+            "stars": 492,
+            "repository_url": "https://github.com/prometheus/cloudwatch_exporter",
+            "description": "Metrics exporter for Amazon AWS CloudWatch",
+            "release": [
+                {
+                    "release_version": "cloudwatch_exporter-0.2",
+                    "release_date": "2016-10-27T09:35:03Z",
+                    "release_url": "https://github.com/prometheus/cloudwatch_exporter/releases/tag/cloudwatch_exporter-0.2"
+                },
+                {
+                    "release_version": "cloudwatch_exporter-0.3",
+                    "release_date": "2017-03-24T16:34:50Z",
+                    "release_url": "https://github.com/prometheus/cloudwatch_exporter/releases/tag/cloudwatch_exporter-0.3"
+                },
+                {
+                    "release_version": "cloudwatch_exporter-0.4",
+                    "release_date": "2017-04-10T11:40:35Z",
+                    "release_url": "https://github.com/prometheus/cloudwatch_exporter/releases/tag/cloudwatch_exporter-0.4"
+                },
+                {
+                    "release_version": "cloudwatch_exporter-0.1.0",
+                    "release_date": "2018-01-02T12:20:55Z",
+                    "release_url": "https://github.com/prometheus/cloudwatch_exporter/releases/tag/cloudwatch_exporter-0.1.0"
+                },
+                {
+                    "release_version": "cloudwatch_exporter-0.5.0",
+                    "release_date": "2018-08-15T13:11:21Z",
+                    "release_url": "https://github.com/prometheus/cloudwatch_exporter/releases/tag/cloudwatch_exporter-0.5.0"
+                },
+                {
+                    "release_version": "cloudwatch_exporter-0.6.0",
+                    "release_date": "2019-09-24T13:37:05Z",
+                    "release_url": "https://github.com/prometheus/cloudwatch_exporter/releases/tag/cloudwatch_exporter-0.6.0"
+                },
+                {
+                    "release_version": "cloudwatch_exporter-0.7.0",
+                    "release_date": "2019-11-27T11:50:07Z",
+                    "release_url": "https://github.com/prometheus/cloudwatch_exporter/releases/tag/cloudwatch_exporter-0.7.0"
+                },
+                {
+                    "release_version": "cloudwatch_exporter-0.8.0",
+                    "release_date": "2020-02-17T09:50:31Z",
+                    "release_url": "https://github.com/prometheus/cloudwatch_exporter/releases/tag/cloudwatch_exporter-0.8.0"
+                },
+                {
+                    "release_version": "cloudwatch_exporter-0.9.0",
+                    "release_date": "2020-08-26T12:27:42Z",
+                    "release_url": "https://github.com/prometheus/cloudwatch_exporter/releases/tag/cloudwatch_exporter-0.9.0"
+                }
+            ]
+        },
+        {
+            "exporter_id": 18,
+            "name": "Collectd Exporter",
+            "logo_url": "https://avatars3.githubusercontent.com/u/3380462?v=4",
+            "category": "Monitoring",
+            "official": "Official",
+            "stars": 189,
+            "repository_url": "https://github.com/prometheus/collectd_exporter",
+            "description": "A server that accepts collectd stats via HTTP POST and exports them via HTTP for Prometheus consumption",
+            "release": [
+                {
+                    "release_version": "0.1.0",
+                    "release_date": "2015-03-28T00:14:55Z",
+                    "release_url": "https://github.com/prometheus/collectd_exporter/releases/tag/0.1.0"
+                },
+                {
+                    "release_version": "0.2.0",
+                    "release_date": "2015-09-02T22:21:45Z",
+                    "release_url": "https://github.com/prometheus/collectd_exporter/releases/tag/0.2.0"
+                },
+                {
+                    "release_version": "0.3.0",
+                    "release_date": "2016-06-06T08:42:59Z",
+                    "release_url": "https://github.com/prometheus/collectd_exporter/releases/tag/0.3.0"
+                },
+                {
+                    "release_version": "0.3.1",
+                    "release_date": "2016-06-06T09:20:24Z",
+                    "release_url": "https://github.com/prometheus/collectd_exporter/releases/tag/0.3.1"
+                },
+                {
+                    "release_version": "v0.4.0",
+                    "release_date": "2018-01-22T15:03:09Z",
+                    "release_url": "https://github.com/prometheus/collectd_exporter/releases/tag/v0.4.0"
+                },
+                {
+                    "release_version": "v0.5.0",
+                    "release_date": "2020-05-11T13:20:11Z",
+                    "release_url": "https://github.com/prometheus/collectd_exporter/releases/tag/v0.5.0"
+                }
+            ]
+        },
+        {
+            "exporter_id": 19,
+            "name": "Consul Exporter",
+            "logo_url": "https://avatars3.githubusercontent.com/u/3380462?v=4",
+            "category": "Database",
+            "official": "Official",
+            "stars": 308,
+            "repository_url": "https://github.com/prometheus/consul_exporter",
+            "description": "Exporter for Consul metrics",
+            "release": [
+                {
+                    "release_version": "0.1.0",
+                    "release_date": "2015-04-07T12:54:20Z",
+                    "release_url": "https://github.com/prometheus/consul_exporter/releases/tag/0.1.0"
+                },
+                {
+                    "release_version": "0.2.0",
+                    "release_date": "2015-06-17T16:38:22Z",
+                    "release_url": "https://github.com/prometheus/consul_exporter/releases/tag/0.2.0"
+                },
+                {
+                    "release_version": "v0.3.0",
+                    "release_date": "2017-03-02T02:02:35Z",
+                    "release_url": "https://github.com/prometheus/consul_exporter/releases/tag/v0.3.0"
+                },
+                {
+                    "release_version": "v0.4.0",
+                    "release_date": "2018-08-10T10:48:56Z",
+                    "release_url": "https://github.com/prometheus/consul_exporter/releases/tag/v0.4.0"
+                },
+                {
+                    "release_version": "v0.5.0",
+                    "release_date": "2019-07-17T15:34:07Z",
+                    "release_url": "https://github.com/prometheus/consul_exporter/releases/tag/v0.5.0"
+                },
+                {
+                    "release_version": "v0.6.0",
+                    "release_date": "2019-12-16T15:11:25Z",
+                    "release_url": "https://github.com/prometheus/consul_exporter/releases/tag/v0.6.0"
+                },
+                {
+                    "release_version": "v0.7.0",
+                    "release_date": "2020-06-11T12:09:57Z",
+                    "release_url": "https://github.com/prometheus/consul_exporter/releases/tag/v0.7.0"
+                },
+                {
+                    "release_version": "v0.7.1",
+                    "release_date": "2020-07-21T15:32:08Z",
+                    "release_url": "https://github.com/prometheus/consul_exporter/releases/tag/v0.7.1"
+                }
+            ]
+        },
+        {
+            "exporter_id": 20,
+            "name": "Graphite Exporter",
+            "logo_url": "https://avatars3.githubusercontent.com/u/3380462?v=4",
+            "category": "Monitoring",
+            "official": "Official",
+            "stars": 204,
+            "repository_url": "https://github.com/prometheus/graphite_exporter",
+            "description": "Server that accepts metrics via the Graphite protocol and exports them as Prometheus metrics",
+            "release": [
+                {
+                    "release_version": "0.1.0",
+                    "release_date": "2015-04-27T21:53:26Z",
+                    "release_url": "https://github.com/prometheus/graphite_exporter/releases/tag/0.1.0"
+                },
+                {
+                    "release_version": "v0.2.0",
+                    "release_date": "2017-03-01T15:34:41Z",
+                    "release_url": "https://github.com/prometheus/graphite_exporter/releases/tag/v0.2.0"
+                },
+                {
+                    "release_version": "v0.3.0",
+                    "release_date": "2018-08-22T07:45:44Z",
+                    "release_url": "https://github.com/prometheus/graphite_exporter/releases/tag/v0.3.0"
+                },
+                {
+                    "release_version": "v0.4.0",
+                    "release_date": "2018-11-23T22:07:33Z",
+                    "release_url": "https://github.com/prometheus/graphite_exporter/releases/tag/v0.4.0"
+                },
+                {
+                    "release_version": "v0.4.1",
+                    "release_date": "2018-11-23T23:07:36Z",
+                    "release_url": "https://github.com/prometheus/graphite_exporter/releases/tag/v0.4.1"
+                },
+                {
+                    "release_version": "v0.4.2",
+                    "release_date": "2018-11-26T21:11:59Z",
+                    "release_url": "https://github.com/prometheus/graphite_exporter/releases/tag/v0.4.2"
+                },
+                {
+                    "release_version": "v0.5.0",
+                    "release_date": "2019-02-28T09:24:44Z",
+                    "release_url": "https://github.com/prometheus/graphite_exporter/releases/tag/v0.5.0"
+                },
+                {
+                    "release_version": "v0.6.2",
+                    "release_date": "2019-06-03T08:15:12Z",
+                    "release_url": "https://github.com/prometheus/graphite_exporter/releases/tag/v0.6.2"
+                },
+                {
+                    "release_version": "v0.7.0-rc1",
+                    "release_date": "2020-01-21T10:30:31Z",
+                    "release_url": "https://github.com/prometheus/graphite_exporter/releases/tag/v0.7.0-rc1"
+                },
+                {
+                    "release_version": "v0.7.0",
+                    "release_date": "2020-02-28T09:22:39Z",
+                    "release_url": "https://github.com/prometheus/graphite_exporter/releases/tag/v0.7.0"
+                },
+                {
+                    "release_version": "v0.7.1",
+                    "release_date": "2020-05-12T06:38:43Z",
+                    "release_url": "https://github.com/prometheus/graphite_exporter/releases/tag/v0.7.1"
+                },
+                {
+                    "release_version": "v0.9.0",
+                    "release_date": "2020-07-21T13:50:12Z",
+                    "release_url": "https://github.com/prometheus/graphite_exporter/releases/tag/v0.9.0"
+                }
+            ]
+        },
+        {
+            "exporter_id": 21,
+            "name": "HAProxy Exporter",
+            "logo_url": "https://avatars3.githubusercontent.com/u/3380462?v=4",
+            "category": "HTTP",
+            "official": "Official",
+            "stars": 441,
+            "repository_url": "https://github.com/prometheus/haproxy_exporter",
+            "description": "Simple server that scrapes HAProxy stats and exports them via HTTP for Prometheus consumption",
+            "release": [
+                {
+                    "release_version": "0.4.0",
+                    "release_date": "2015-03-30T15:37:44Z",
+                    "release_url": "https://github.com/prometheus/haproxy_exporter/releases/tag/0.4.0"
+                },
+                {
+                    "release_version": "0.5.0",
+                    "release_date": "2015-12-23T15:30:07Z",
+                    "release_url": "https://github.com/prometheus/haproxy_exporter/releases/tag/0.5.0"
+                },
+                {
+                    "release_version": "0.5.1",
+                    "release_date": "2016-03-31T21:37:40Z",
+                    "release_url": "https://github.com/prometheus/haproxy_exporter/releases/tag/0.5.1"
+                },
+                {
+                    "release_version": "0.5.2",
+                    "release_date": "2016-04-04T23:09:04Z",
+                    "release_url": "https://github.com/prometheus/haproxy_exporter/releases/tag/0.5.2"
+                },
+                {
+                    "release_version": "0.6.0",
+                    "release_date": "2016-05-13T01:42:28Z",
+                    "release_url": "https://github.com/prometheus/haproxy_exporter/releases/tag/0.6.0"
+                },
+                {
+                    "release_version": "0.7.0",
+                    "release_date": "2016-06-08T22:55:20Z",
+                    "release_url": "https://github.com/prometheus/haproxy_exporter/releases/tag/0.7.0"
+                },
+                {
+                    "release_version": "v0.7.1",
+                    "release_date": "2016-10-12T10:55:33Z",
+                    "release_url": "https://github.com/prometheus/haproxy_exporter/releases/tag/v0.7.1"
+                },
+                {
+                    "release_version": "v0.8.0",
+                    "release_date": "2017-08-24T21:24:00Z",
+                    "release_url": "https://github.com/prometheus/haproxy_exporter/releases/tag/v0.8.0"
+                },
+                {
+                    "release_version": "v0.9.0",
+                    "release_date": "2018-01-23T18:25:26Z",
+                    "release_url": "https://github.com/prometheus/haproxy_exporter/releases/tag/v0.9.0"
+                },
+                {
+                    "release_version": "v0.10.0",
+                    "release_date": "2019-01-15T10:05:04Z",
+                    "release_url": "https://github.com/prometheus/haproxy_exporter/releases/tag/v0.10.0"
+                },
+                {
+                    "release_version": "v0.11.0",
+                    "release_date": "2020-06-21T15:07:09Z",
+                    "release_url": "https://github.com/prometheus/haproxy_exporter/releases/tag/v0.11.0"
+                }
+            ]
+        },
+        {
+            "exporter_id": 22,
+            "name": "InfluxDB Exporter",
+            "logo_url": "https://avatars3.githubusercontent.com/u/3380462?v=4",
+            "category": "Database",
+            "official": "Official",
+            "stars": 144,
+            "repository_url": "https://github.com/prometheus/influxdb_exporter",
+            "description": "A server that accepts InfluxDB metrics via the HTTP API and exports them via HTTP for Prometheus consumption",
+            "release": [
+                {
+                    "release_version": "v0.1.0",
+                    "release_date": "2017-07-26T15:04:08Z",
+                    "release_url": "https://github.com/prometheus/influxdb_exporter/releases/tag/v0.1.0"
+                },
+                {
+                    "release_version": "v0.2.0",
+                    "release_date": "2019-02-28T09:29:18Z",
+                    "release_url": "https://github.com/prometheus/influxdb_exporter/releases/tag/v0.2.0"
+                },
+                {
+                    "release_version": "v0.3.0",
+                    "release_date": "2019-10-04T13:45:31Z",
+                    "release_url": "https://github.com/prometheus/influxdb_exporter/releases/tag/v0.3.0"
+                },
+                {
+                    "release_version": "v0.4.0",
+                    "release_date": "2020-02-28T12:40:45Z",
+                    "release_url": "https://github.com/prometheus/influxdb_exporter/releases/tag/v0.4.0"
+                },
+                {
+                    "release_version": "v0.4.1",
+                    "release_date": "2020-05-04T07:45:45Z",
+                    "release_url": "https://github.com/prometheus/influxdb_exporter/releases/tag/v0.4.1"
+                },
+                {
+                    "release_version": "v0.4.2",
+                    "release_date": "2020-06-12T08:19:41Z",
+                    "release_url": "https://github.com/prometheus/influxdb_exporter/releases/tag/v0.4.2"
+                },
+                {
+                    "release_version": "v0.5.0",
+                    "release_date": "2020-08-21T13:38:35Z",
+                    "release_url": "https://github.com/prometheus/influxdb_exporter/releases/tag/v0.5.0"
+                },
+                {
+                    "release_version": "v0.6.0",
+                    "release_date": "2020-11-02T08:12:40Z",
+                    "release_url": "https://github.com/prometheus/influxdb_exporter/releases/tag/v0.6.0"
+                }
+            ]
+        },
+        {
+            "exporter_id": 23,
+            "name": "JMX Exporter",
+            "logo_url": "https://avatars3.githubusercontent.com/u/3380462?v=4",
+            "category": "Monitoring",
+            "official": "Official",
+            "stars": 1679,
+            "repository_url": "https://github.com/prometheus/jmx_exporter",
+            "description": "A process for exposing JMX Beans via HTTP for Prometheus consumption",
+            "release": [
+                {
+                    "release_version": "parent-0.4",
+                    "release_date": "2015-09-16T08:34:37Z",
+                    "release_url": "https://github.com/prometheus/jmx_exporter/releases/tag/parent-0.4"
+                },
+                {
+                    "release_version": "parent-0.5",
+                    "release_date": "2015-10-22T09:49:36Z",
+                    "release_url": "https://github.com/prometheus/jmx_exporter/releases/tag/parent-0.5"
+                },
+                {
+                    "release_version": "parent-0.6",
+                    "release_date": "2016-02-04T20:13:21Z",
+                    "release_url": "https://github.com/prometheus/jmx_exporter/releases/tag/parent-0.6"
+                },
+                {
+                    "release_version": "parent-0.7",
+                    "release_date": "2016-10-27T09:24:23Z",
+                    "release_url": "https://github.com/prometheus/jmx_exporter/releases/tag/parent-0.7"
+                },
+                {
+                    "release_version": "parent-0.8",
+                    "release_date": "2017-02-24T15:12:08Z",
+                    "release_url": "https://github.com/prometheus/jmx_exporter/releases/tag/parent-0.8"
+                },
+                {
+                    "release_version": "parent-0.9",
+                    "release_date": "2017-03-21T13:25:12Z",
+                    "release_url": "https://github.com/prometheus/jmx_exporter/releases/tag/parent-0.9"
+                },
+                {
+                    "release_version": "parent-0.10",
+                    "release_date": "2017-07-31T13:55:07Z",
+                    "release_url": "https://github.com/prometheus/jmx_exporter/releases/tag/parent-0.10"
+                },
+                {
+                    "release_version": "parent-0.1.0",
+                    "release_date": "2017-10-26T14:51:15Z",
+                    "release_url": "https://github.com/prometheus/jmx_exporter/releases/tag/parent-0.1.0"
+                },
+                {
+                    "release_version": "parent-0.2.0",
+                    "release_date": "2018-01-08T13:26:32Z",
+                    "release_url": "https://github.com/prometheus/jmx_exporter/releases/tag/parent-0.2.0"
+                },
+                {
+                    "release_version": "parent-0.3.0",
+                    "release_date": "2018-03-02T12:00:28Z",
+                    "release_url": "https://github.com/prometheus/jmx_exporter/releases/tag/parent-0.3.0"
+                },
+                {
+                    "release_version": "parent-0.3.1",
+                    "release_date": "2018-05-10T12:24:40Z",
+                    "release_url": "https://github.com/prometheus/jmx_exporter/releases/tag/parent-0.3.1"
+                },
+                {
+                    "release_version": "parent-0.11.0",
+                    "release_date": "2019-01-16T14:23:09Z",
+                    "release_url": "https://github.com/prometheus/jmx_exporter/releases/tag/parent-0.11.0"
+                },
+                {
+                    "release_version": "parent-0.12.0",
+                    "release_date": "2019-07-04T14:36:37Z",
+                    "release_url": "https://github.com/prometheus/jmx_exporter/releases/tag/parent-0.12.0"
+                },
+                {
+                    "release_version": "parent-0.13.0",
+                    "release_date": "2020-05-12T13:31:36Z",
+                    "release_url": "https://github.com/prometheus/jmx_exporter/releases/tag/parent-0.13.0"
+                },
+                {
+                    "release_version": "parent-0.14.0",
+                    "release_date": "2020-09-04T12:17:48Z",
+                    "release_url": "https://github.com/prometheus/jmx_exporter/releases/tag/parent-0.14.0"
+                }
+            ]
+        },
+        {
+            "exporter_id": 24,
+            "name": "Memcached Exporter",
+            "logo_url": "https://avatars3.githubusercontent.com/u/3380462?v=4",
+            "category": "Database",
+            "official": "Official",
+            "stars": 100,
+            "repository_url": "https://github.com/prometheus/memcached_exporter",
+            "description": "Exports metrics from memcached servers for consumption by Prometheus.",
+            "release": [
+                {
+                    "release_version": "v0.3.0",
+                    "release_date": "2016-10-15T20:24:46Z",
+                    "release_url": "https://github.com/prometheus/memcached_exporter/releases/tag/v0.3.0"
+                },
+                {
+                    "release_version": "v0.4.0",
+                    "release_date": "2018-01-23T22:57:21Z",
+                    "release_url": "https://github.com/prometheus/memcached_exporter/releases/tag/v0.4.0"
+                },
+                {
+                    "release_version": "v0.4.1",
+                    "release_date": "2018-02-01T13:33:53Z",
+                    "release_url": "https://github.com/prometheus/memcached_exporter/releases/tag/v0.4.1"
+                },
+                {
+                    "release_version": "v0.5.0",
+                    "release_date": "2018-10-17T20:28:13Z",
+                    "release_url": "https://github.com/prometheus/memcached_exporter/releases/tag/v0.5.0"
+                },
+                {
+                    "release_version": "v0.6.0",
+                    "release_date": "2019-08-26T16:54:47Z",
+                    "release_url": "https://github.com/prometheus/memcached_exporter/releases/tag/v0.6.0"
+                },
+                {
+                    "release_version": "v0.7.0",
+                    "release_date": "2020-07-24T08:57:34Z",
+                    "release_url": "https://github.com/prometheus/memcached_exporter/releases/tag/v0.7.0"
+                }
+            ]
+        },
+        {
+            "exporter_id": 25,
+            "name": "MySQL Server Exporter",
+            "logo_url": "https://avatars3.githubusercontent.com/u/3380462?v=4",
+            "category": "Database",
+            "official": "Official",
+            "stars": 997,
+            "repository_url": "https://github.com/prometheus/mysqld_exporter",
+            "description": "Exporter for MySQL server metrics",
+            "release": [
+                {
+                    "release_version": "0.1.0",
+                    "release_date": "2015-05-05T10:37:10Z",
+                    "release_url": "https://github.com/prometheus/mysqld_exporter/releases/tag/0.1.0"
+                },
+                {
+                    "release_version": "0.2.0",
+                    "release_date": "2015-06-24T10:38:35Z",
+                    "release_url": "https://github.com/prometheus/mysqld_exporter/releases/tag/0.2.0"
+                },
+                {
+                    "release_version": "0.3.0",
+                    "release_date": "2015-08-31T14:03:58Z",
+                    "release_url": "https://github.com/prometheus/mysqld_exporter/releases/tag/0.3.0"
+                },
+                {
+                    "release_version": "0.4.0",
+                    "release_date": "2015-09-21T09:04:27Z",
+                    "release_url": "https://github.com/prometheus/mysqld_exporter/releases/tag/0.4.0"
+                },
+                {
+                    "release_version": "0.5.0",
+                    "release_date": "2015-09-22T15:10:24Z",
+                    "release_url": "https://github.com/prometheus/mysqld_exporter/releases/tag/0.5.0"
+                },
+                {
+                    "release_version": "0.6.0",
+                    "release_date": "2015-10-28T14:27:15Z",
+                    "release_url": "https://github.com/prometheus/mysqld_exporter/releases/tag/0.6.0"
+                },
+                {
+                    "release_version": "0.7.0",
+                    "release_date": "2016-02-12T16:46:45Z",
+                    "release_url": "https://github.com/prometheus/mysqld_exporter/releases/tag/0.7.0"
+                },
+                {
+                    "release_version": "0.7.1",
+                    "release_date": "2016-02-16T13:35:50Z",
+                    "release_url": "https://github.com/prometheus/mysqld_exporter/releases/tag/0.7.1"
+                },
+                {
+                    "release_version": "0.8.0",
+                    "release_date": "2016-04-19T17:41:18Z",
+                    "release_url": "https://github.com/prometheus/mysqld_exporter/releases/tag/0.8.0"
+                },
+                {
+                    "release_version": "0.8.1",
+                    "release_date": "2016-05-10T07:31:55Z",
+                    "release_url": "https://github.com/prometheus/mysqld_exporter/releases/tag/0.8.1"
+                },
+                {
+                    "release_version": "v0.9.0",
+                    "release_date": "2016-09-26T18:24:34Z",
+                    "release_url": "https://github.com/prometheus/mysqld_exporter/releases/tag/v0.9.0"
+                },
+                {
+                    "release_version": "v0.10.0",
+                    "release_date": "2017-04-25T11:21:55Z",
+                    "release_url": "https://github.com/prometheus/mysqld_exporter/releases/tag/v0.10.0"
+                },
+                {
+                    "release_version": "v0.11.0",
+                    "release_date": "2018-06-29T14:59:35Z",
+                    "release_url": "https://github.com/prometheus/mysqld_exporter/releases/tag/v0.11.0"
+                },
+                {
+                    "release_version": "v0.12.0",
+                    "release_date": "2019-07-10T11:48:42Z",
+                    "release_url": "https://github.com/prometheus/mysqld_exporter/releases/tag/v0.12.0"
+                },
+                {
+                    "release_version": "v0.12.1",
+                    "release_date": "2019-07-29T12:33:53Z",
+                    "release_url": "https://github.com/prometheus/mysqld_exporter/releases/tag/v0.12.1"
+                }
+            ]
+        },
+        {
+            "exporter_id": 26,
+            "name": "Node Exporter",
+            "logo_url": "https://avatars3.githubusercontent.com/u/3380462?v=4",
+            "category": "Hardware",
+            "official": "Official",
+            "stars": 5319,
+            "repository_url": "https://github.com/prometheus/node_exporter",
+            "description": "Exporter for machine metrics",
+            "release": [
+                {
+                    "release_version": "0.8.1",
+                    "release_date": "2015-05-05T11:28:50Z",
+                    "release_url": "https://github.com/prometheus/node_exporter/releases/tag/0.8.1"
+                },
+                {
+                    "release_version": "0.9.0",
+                    "release_date": "2015-05-26T08:33:10Z",
+                    "release_url": "https://github.com/prometheus/node_exporter/releases/tag/0.9.0"
+                },
+                {
+                    "release_version": "0.10.0",
+                    "release_date": "2015-06-10T15:56:11Z",
+                    "release_url": "https://github.com/prometheus/node_exporter/releases/tag/0.10.0"
+                },
+                {
+                    "release_version": "0.11.0",
+                    "release_date": "2015-07-27T21:32:10Z",
+                    "release_url": "https://github.com/prometheus/node_exporter/releases/tag/0.11.0"
+                },
+                {
+                    "release_version": "0.12.0rc1",
+                    "release_date": "2015-10-06T17:36:44Z",
+                    "release_url": "https://github.com/prometheus/node_exporter/releases/tag/0.12.0rc1"
+                },
+                {
+                    "release_version": "0.12.0rc2",
+                    "release_date": "2016-01-25T16:57:56Z",
+                    "release_url": "https://github.com/prometheus/node_exporter/releases/tag/0.12.0rc2"
+                },
+                {
+                    "release_version": "0.12.0rc3",
+                    "release_date": "2016-02-04T12:43:50Z",
+                    "release_url": "https://github.com/prometheus/node_exporter/releases/tag/0.12.0rc3"
+                },
+                {
+                    "release_version": "0.12.0",
+                    "release_date": "2016-05-05T22:11:10Z",
+                    "release_url": "https://github.com/prometheus/node_exporter/releases/tag/0.12.0"
+                },
+                {
+                    "release_version": "v0.13.0-rc.1",
+                    "release_date": "2016-10-16T12:32:21Z",
+                    "release_url": "https://github.com/prometheus/node_exporter/releases/tag/v0.13.0-rc.1"
+                },
+                {
+                    "release_version": "v0.13.0-rc.2",
+                    "release_date": "2016-11-19T07:25:28Z",
+                    "release_url": "https://github.com/prometheus/node_exporter/releases/tag/v0.13.0-rc.2"
+                },
+                {
+                    "release_version": "v0.13.0",
+                    "release_date": "2016-11-26T13:07:25Z",
+                    "release_url": "https://github.com/prometheus/node_exporter/releases/tag/v0.13.0"
+                },
+                {
+                    "release_version": "v0.14.0-rc.1",
+                    "release_date": "2017-01-16T15:55:48Z",
+                    "release_url": "https://github.com/prometheus/node_exporter/releases/tag/v0.14.0-rc.1"
+                },
+                {
+                    "release_version": "v0.14.0-rc.2",
+                    "release_date": "2017-03-07T14:37:39Z",
+                    "release_url": "https://github.com/prometheus/node_exporter/releases/tag/v0.14.0-rc.2"
+                },
+                {
+                    "release_version": "v0.14.0",
+                    "release_date": "2017-03-21T12:09:18Z",
+                    "release_url": "https://github.com/prometheus/node_exporter/releases/tag/v0.14.0"
+                },
+                {
+                    "release_version": "v0.15.0",
+                    "release_date": "2017-10-06T11:48:10Z",
+                    "release_url": "https://github.com/prometheus/node_exporter/releases/tag/v0.15.0"
+                },
+                {
+                    "release_version": "v0.15.1",
+                    "release_date": "2017-11-07T17:47:54Z",
+                    "release_url": "https://github.com/prometheus/node_exporter/releases/tag/v0.15.1"
+                },
+                {
+                    "release_version": "v0.15.2",
+                    "release_date": "2017-12-05T14:48:00Z",
+                    "release_url": "https://github.com/prometheus/node_exporter/releases/tag/v0.15.2"
+                },
+                {
+                    "release_version": "v0.16.0-rc.0",
+                    "release_date": "2018-03-09T15:07:48Z",
+                    "release_url": "https://github.com/prometheus/node_exporter/releases/tag/v0.16.0-rc.0"
+                },
+                {
+                    "release_version": "v0.16.0-rc.1",
+                    "release_date": "2018-04-04T17:45:59Z",
+                    "release_url": "https://github.com/prometheus/node_exporter/releases/tag/v0.16.0-rc.1"
+                },
+                {
+                    "release_version": "v0.16.0-rc.2",
+                    "release_date": "2018-04-17T14:05:29Z",
+                    "release_url": "https://github.com/prometheus/node_exporter/releases/tag/v0.16.0-rc.2"
+                },
+                {
+                    "release_version": "v0.16.0-rc.3",
+                    "release_date": "2018-04-27T15:49:28Z",
+                    "release_url": "https://github.com/prometheus/node_exporter/releases/tag/v0.16.0-rc.3"
+                },
+                {
+                    "release_version": "v0.16.0",
+                    "release_date": "2018-05-15T15:50:41Z",
+                    "release_url": "https://github.com/prometheus/node_exporter/releases/tag/v0.16.0"
+                },
+                {
+                    "release_version": "v0.17.0-rc.0",
+                    "release_date": "2018-10-20T06:26:36Z",
+                    "release_url": "https://github.com/prometheus/node_exporter/releases/tag/v0.17.0-rc.0"
+                },
+                {
+                    "release_version": "v0.17.0",
+                    "release_date": "2018-11-30T15:50:47Z",
+                    "release_url": "https://github.com/prometheus/node_exporter/releases/tag/v0.17.0"
+                },
+                {
+                    "release_version": "v0.18.0",
+                    "release_date": "2019-05-09T22:47:13Z",
+                    "release_url": "https://github.com/prometheus/node_exporter/releases/tag/v0.18.0"
+                },
+                {
+                    "release_version": "v0.18.1",
+                    "release_date": "2019-06-04T16:39:53Z",
+                    "release_url": "https://github.com/prometheus/node_exporter/releases/tag/v0.18.1"
+                },
+                {
+                    "release_version": "v1.0.0-rc.0",
+                    "release_date": "2020-02-20T12:52:47Z",
+                    "release_url": "https://github.com/prometheus/node_exporter/releases/tag/v1.0.0-rc.0"
+                },
+                {
+                    "release_version": "v1.0.0-rc.1",
+                    "release_date": "2020-05-14T15:01:14Z",
+                    "release_url": "https://github.com/prometheus/node_exporter/releases/tag/v1.0.0-rc.1"
+                },
+                {
+                    "release_version": "v1.0.0",
+                    "release_date": "2020-05-26T04:42:43Z",
+                    "release_url": "https://github.com/prometheus/node_exporter/releases/tag/v1.0.0"
+                },
+                {
+                    "release_version": "v1.0.1",
+                    "release_date": "2020-06-16T12:43:14Z",
+                    "release_url": "https://github.com/prometheus/node_exporter/releases/tag/v1.0.1"
+                }
+            ]
+        },
+        {
+            "exporter_id": 27,
+            "name": "SNMP Exporter",
+            "logo_url": "https://avatars3.githubusercontent.com/u/3380462?v=4",
+            "category": "Monitoring",
+            "official": "Official",
+            "stars": 642,
+            "repository_url": "https://github.com/prometheus/snmp_exporter",
+            "description": "SNMP Exporter for Prometheus",
+            "release": [
+                {
+                    "release_version": "0.0.4",
+                    "release_date": "2016-01-07T15:28:17Z",
+                    "release_url": "https://github.com/prometheus/snmp_exporter/releases/tag/0.0.4"
+                },
+                {
+                    "release_version": "0.0.5",
+                    "release_date": "2016-01-30T12:08:04Z",
+                    "release_url": "https://github.com/prometheus/snmp_exporter/releases/tag/0.0.5"
+                },
+                {
+                    "release_version": "0.0.6",
+                    "release_date": "2016-08-13T10:19:19Z",
+                    "release_url": "https://github.com/prometheus/snmp_exporter/releases/tag/0.0.6"
+                },
+                {
+                    "release_version": "v0.1.0",
+                    "release_date": "2016-09-23T19:22:04Z",
+                    "release_url": "https://github.com/prometheus/snmp_exporter/releases/tag/v0.1.0"
+                },
+                {
+                    "release_version": "v0.2.0",
+                    "release_date": "2017-01-25T10:38:17Z",
+                    "release_url": "https://github.com/prometheus/snmp_exporter/releases/tag/v0.2.0"
+                },
+                {
+                    "release_version": "v0.3.0",
+                    "release_date": "2017-03-15T15:59:02Z",
+                    "release_url": "https://github.com/prometheus/snmp_exporter/releases/tag/v0.3.0"
+                },
+                {
+                    "release_version": "v0.4.0",
+                    "release_date": "2017-06-06T13:31:52Z",
+                    "release_url": "https://github.com/prometheus/snmp_exporter/releases/tag/v0.4.0"
+                },
+                {
+                    "release_version": "v0.5.0",
+                    "release_date": "2017-08-15T12:05:56Z",
+                    "release_url": "https://github.com/prometheus/snmp_exporter/releases/tag/v0.5.0"
+                },
+                {
+                    "release_version": "v0.6.0",
+                    "release_date": "2017-08-22T11:02:38Z",
+                    "release_url": "https://github.com/prometheus/snmp_exporter/releases/tag/v0.6.0"
+                },
+                {
+                    "release_version": "v0.7.0",
+                    "release_date": "2017-10-09T15:32:52Z",
+                    "release_url": "https://github.com/prometheus/snmp_exporter/releases/tag/v0.7.0"
+                },
+                {
+                    "release_version": "v0.8.0",
+                    "release_date": "2017-11-20T12:34:42Z",
+                    "release_url": "https://github.com/prometheus/snmp_exporter/releases/tag/v0.8.0"
+                },
+                {
+                    "release_version": "v0.9.0",
+                    "release_date": "2018-02-26T16:05:48Z",
+                    "release_url": "https://github.com/prometheus/snmp_exporter/releases/tag/v0.9.0"
+                },
+                {
+                    "release_version": "v0.10.0",
+                    "release_date": "2018-05-09T11:46:32Z",
+                    "release_url": "https://github.com/prometheus/snmp_exporter/releases/tag/v0.10.0"
+                },
+                {
+                    "release_version": "v0.11.0",
+                    "release_date": "2018-05-30T10:23:48Z",
+                    "release_url": "https://github.com/prometheus/snmp_exporter/releases/tag/v0.11.0"
+                },
+                {
+                    "release_version": "v0.12.0",
+                    "release_date": "2018-08-15T12:09:13Z",
+                    "release_url": "https://github.com/prometheus/snmp_exporter/releases/tag/v0.12.0"
+                },
+                {
+                    "release_version": "v0.13.0",
+                    "release_date": "2018-09-12T11:00:33Z",
+                    "release_url": "https://github.com/prometheus/snmp_exporter/releases/tag/v0.13.0"
+                },
+                {
+                    "release_version": "v0.14.0",
+                    "release_date": "2018-12-04T15:40:34Z",
+                    "release_url": "https://github.com/prometheus/snmp_exporter/releases/tag/v0.14.0"
+                },
+                {
+                    "release_version": "v0.15.0",
+                    "release_date": "2019-02-12T13:35:14Z",
+                    "release_url": "https://github.com/prometheus/snmp_exporter/releases/tag/v0.15.0"
+                },
+                {
+                    "release_version": "v0.16.1",
+                    "release_date": "2019-12-10T14:13:45Z",
+                    "release_url": "https://github.com/prometheus/snmp_exporter/releases/tag/v0.16.1"
+                },
+                {
+                    "release_version": "v0.17.0",
+                    "release_date": "2020-02-17T09:25:24Z",
+                    "release_url": "https://github.com/prometheus/snmp_exporter/releases/tag/v0.17.0"
+                },
+                {
+                    "release_version": "v0.18.0",
+                    "release_date": "2020-05-26T08:25:21Z",
+                    "release_url": "https://github.com/prometheus/snmp_exporter/releases/tag/v0.18.0"
+                },
+                {
+                    "release_version": "v0.19.0",
+                    "release_date": "2020-08-31T12:05:12Z",
+                    "release_url": "https://github.com/prometheus/snmp_exporter/releases/tag/v0.19.0"
+                }
+            ]
+        },
+        {
+            "exporter_id": 28,
+            "name": "Statsd Exporter",
+            "logo_url": "https://avatars3.githubusercontent.com/u/3380462?v=4",
+            "category": "Monitoring",
+            "official": "Official",
+            "stars": 577,
+            "repository_url": "https://github.com/prometheus/statsd_exporter",
+            "description": "StatsD to Prometheus metrics exporter",
+            "release": [
+                {
+                    "release_version": "0.1.0",
+                    "release_date": "2015-04-16T22:41:32Z",
+                    "release_url": "https://github.com/prometheus/statsd_exporter/releases/tag/0.1.0"
+                },
+                {
+                    "release_version": "0.2.0",
+                    "release_date": "2016-03-21T13:42:17Z",
+                    "release_url": "https://github.com/prometheus/statsd_exporter/releases/tag/0.2.0"
+                },
+                {
+                    "release_version": "0.3.0",
+                    "release_date": "2016-05-05T19:23:23Z",
+                    "release_url": "https://github.com/prometheus/statsd_exporter/releases/tag/0.3.0"
+                },
+                {
+                    "release_version": "v0.4.0",
+                    "release_date": "2017-05-12T12:52:50Z",
+                    "release_url": "https://github.com/prometheus/statsd_exporter/releases/tag/v0.4.0"
+                },
+                {
+                    "release_version": "v0.5.0",
+                    "release_date": "2017-11-16T15:22:42Z",
+                    "release_url": "https://github.com/prometheus/statsd_exporter/releases/tag/v0.5.0"
+                },
+                {
+                    "release_version": "v0.6.0",
+                    "release_date": "2018-01-17T17:43:47Z",
+                    "release_url": "https://github.com/prometheus/statsd_exporter/releases/tag/v0.6.0"
+                },
+                {
+                    "release_version": "v0.7.0",
+                    "release_date": "2018-08-22T07:49:45Z",
+                    "release_url": "https://github.com/prometheus/statsd_exporter/releases/tag/v0.7.0"
+                },
+                {
+                    "release_version": "v0.8.0-rc1",
+                    "release_date": "2018-10-10T22:04:13Z",
+                    "release_url": "https://github.com/prometheus/statsd_exporter/releases/tag/v0.8.0-rc1"
+                },
+                {
+                    "release_version": "v0.8.0",
+                    "release_date": "2018-10-12T08:31:29Z",
+                    "release_url": "https://github.com/prometheus/statsd_exporter/releases/tag/v0.8.0"
+                },
+                {
+                    "release_version": "v0.8.1",
+                    "release_date": "2018-12-05T21:54:58Z",
+                    "release_url": "https://github.com/prometheus/statsd_exporter/releases/tag/v0.8.1"
+                },
+                {
+                    "release_version": "v0.9.0-rc3",
+                    "release_date": "2019-01-09T18:00:47Z",
+                    "release_url": "https://github.com/prometheus/statsd_exporter/releases/tag/v0.9.0-rc3"
+                },
+                {
+                    "release_version": "v0.9.0",
+                    "release_date": "2019-03-11T08:33:42Z",
+                    "release_url": "https://github.com/prometheus/statsd_exporter/releases/tag/v0.9.0"
+                },
+                {
+                    "release_version": "v0.10.2",
+                    "release_date": "2019-05-17T08:43:54Z",
+                    "release_url": "https://github.com/prometheus/statsd_exporter/releases/tag/v0.10.2"
+                },
+                {
+                    "release_version": "v0.10.3",
+                    "release_date": "2019-05-17T13:51:40Z",
+                    "release_url": "https://github.com/prometheus/statsd_exporter/releases/tag/v0.10.3"
+                },
+                {
+                    "release_version": "v0.10.4",
+                    "release_date": "2019-05-20T08:36:07Z",
+                    "release_url": "https://github.com/prometheus/statsd_exporter/releases/tag/v0.10.4"
+                },
+                {
+                    "release_version": "v0.10.5",
+                    "release_date": "2019-05-27T09:10:16Z",
+                    "release_url": "https://github.com/prometheus/statsd_exporter/releases/tag/v0.10.5"
+                },
+                {
+                    "release_version": "v0.10.6",
+                    "release_date": "2019-06-07T08:58:16Z",
+                    "release_url": "https://github.com/prometheus/statsd_exporter/releases/tag/v0.10.6"
+                },
+                {
+                    "release_version": "v0.11.1",
+                    "release_date": "2019-06-14T08:20:08Z",
+                    "release_url": "https://github.com/prometheus/statsd_exporter/releases/tag/v0.11.1"
+                },
+                {
+                    "release_version": "v0.11.2",
+                    "release_date": "2019-06-14T14:15:25Z",
+                    "release_url": "https://github.com/prometheus/statsd_exporter/releases/tag/v0.11.2"
+                },
+                {
+                    "release_version": "v0.12.1",
+                    "release_date": "2019-07-08T08:54:25Z",
+                    "release_url": "https://github.com/prometheus/statsd_exporter/releases/tag/v0.12.1"
+                },
+                {
+                    "release_version": "v0.12.2",
+                    "release_date": "2019-07-25T13:14:01Z",
+                    "release_url": "https://github.com/prometheus/statsd_exporter/releases/tag/v0.12.2"
+                },
+                {
+                    "release_version": "v0.13.0",
+                    "release_date": "2019-12-06T15:35:15Z",
+                    "release_url": "https://github.com/prometheus/statsd_exporter/releases/tag/v0.13.0"
+                },
+                {
+                    "release_version": "v0.14.0",
+                    "release_date": "2020-01-10T17:01:33Z",
+                    "release_url": "https://github.com/prometheus/statsd_exporter/releases/tag/v0.14.0"
+                },
+                {
+                    "release_version": "v0.14.1",
+                    "release_date": "2020-01-13T10:07:31Z",
+                    "release_url": "https://github.com/prometheus/statsd_exporter/releases/tag/v0.14.1"
+                },
+                {
+                    "release_version": "v0.15.0",
+                    "release_date": "2020-03-05T09:36:38Z",
+                    "release_url": "https://github.com/prometheus/statsd_exporter/releases/tag/v0.15.0"
+                },
+                {
+                    "release_version": "v0.16.0",
+                    "release_date": "2020-05-29T07:00:30Z",
+                    "release_url": "https://github.com/prometheus/statsd_exporter/releases/tag/v0.16.0"
+                },
+                {
+                    "release_version": "v0.17.0",
+                    "release_date": "2020-06-26T15:19:27Z",
+                    "release_url": "https://github.com/prometheus/statsd_exporter/releases/tag/v0.17.0"
+                },
+                {
+                    "release_version": "v0.18.0",
+                    "release_date": "2020-08-21T10:09:51Z",
+                    "release_url": "https://github.com/prometheus/statsd_exporter/releases/tag/v0.18.0"
+                }
+            ]
+        },
+        {
+            "exporter_id": 29,
+            "name": "Azure Metrics Exporter",
+            "logo_url": "https://avatars3.githubusercontent.com/u/3380462?v=4",
+            "category": "Monitoring",
+            "official": "Unofficial",
+            "stars": 80,
+            "repository_url": "https://github.com/RobustPerception/azure_metrics_exporter",
+            "description": "Azure metrics exporter for Prometheus",
+            "release": []
+        },
+        {
+            "exporter_id": 30,
+            "name": "PostgreSQL Server Exporter",
+            "logo_url": "https://avatars3.githubusercontent.com/u/3380462?v=4",
+            "category": "Database",
+            "official": "Unofficial",
+            "stars": 1119,
+            "repository_url": "https://github.com/wrouesnel/postgres_exporter",
+            "description": "A PostgresSQL metric exporter for Prometheus",
+            "release": [
+                {
+                    "release_version": "v0.0.1",
+                    "release_date": "2016-06-03T13:15:27Z",
+                    "release_url": "https://github.com/wrouesnel/postgres_exporter/releases/tag/v0.0.1"
+                },
+                {
+                    "release_version": "v0.1.0",
+                    "release_date": "2016-11-20T15:21:47Z",
+                    "release_url": "https://github.com/wrouesnel/postgres_exporter/releases/tag/v0.1.0"
+                },
+                {
+                    "release_version": "v0.1.1",
+                    "release_date": "2016-11-28T15:33:05Z",
+                    "release_url": "https://github.com/wrouesnel/postgres_exporter/releases/tag/v0.1.1"
+                },
+                {
+                    "release_version": "v0.1.2",
+                    "release_date": "2017-02-07T10:23:39Z",
+                    "release_url": "https://github.com/wrouesnel/postgres_exporter/releases/tag/v0.1.2"
+                },
+                {
+                    "release_version": "v0.2.0",
+                    "release_date": "2017-04-18T13:27:38Z",
+                    "release_url": "https://github.com/wrouesnel/postgres_exporter/releases/tag/v0.2.0"
+                },
+                {
+                    "release_version": "v0.2.1",
+                    "release_date": "2017-06-06T14:54:19Z",
+                    "release_url": "https://github.com/wrouesnel/postgres_exporter/releases/tag/v0.2.1"
+                },
+                {
+                    "release_version": "v0.2.2",
+                    "release_date": "2017-08-03T16:32:04Z",
+                    "release_url": "https://github.com/wrouesnel/postgres_exporter/releases/tag/v0.2.2"
+                },
+                {
+                    "release_version": "v0.2.3",
+                    "release_date": "2017-09-07T14:44:04Z",
+                    "release_url": "https://github.com/wrouesnel/postgres_exporter/releases/tag/v0.2.3"
+                },
+                {
+                    "release_version": "v0.3.0",
+                    "release_date": "2017-10-23T10:47:45Z",
+                    "release_url": "https://github.com/wrouesnel/postgres_exporter/releases/tag/v0.3.0"
+                },
+                {
+                    "release_version": "v0.4.0",
+                    "release_date": "2017-11-29T12:18:44Z",
+                    "release_url": "https://github.com/wrouesnel/postgres_exporter/releases/tag/v0.4.0"
+                },
+                {
+                    "release_version": "v0.4.1",
+                    "release_date": "2017-11-30T03:41:31Z",
+                    "release_url": "https://github.com/wrouesnel/postgres_exporter/releases/tag/v0.4.1"
+                },
+                {
+                    "release_version": "v0.4.2",
+                    "release_date": "2018-02-19T12:50:26Z",
+                    "release_url": "https://github.com/wrouesnel/postgres_exporter/releases/tag/v0.4.2"
+                },
+                {
+                    "release_version": "v0.4.4",
+                    "release_date": "2018-03-20T13:29:37Z",
+                    "release_url": "https://github.com/wrouesnel/postgres_exporter/releases/tag/v0.4.4"
+                },
+                {
+                    "release_version": "v0.4.5",
+                    "release_date": "2018-03-20T13:30:34Z",
+                    "release_url": "https://github.com/wrouesnel/postgres_exporter/releases/tag/v0.4.5"
+                },
+                {
+                    "release_version": "v0.4.6",
+                    "release_date": "2018-04-16T12:40:04Z",
+                    "release_url": "https://github.com/wrouesnel/postgres_exporter/releases/tag/v0.4.6"
+                },
+                {
+                    "release_version": "v0.4.7",
+                    "release_date": "2018-11-11T02:51:45Z",
+                    "release_url": "https://github.com/wrouesnel/postgres_exporter/releases/tag/v0.4.7"
+                },
+                {
+                    "release_version": "v0.5.0",
+                    "release_date": "2019-07-03T13:16:22Z",
+                    "release_url": "https://github.com/wrouesnel/postgres_exporter/releases/tag/v0.5.0"
+                },
+                {
+                    "release_version": "v0.5.1",
+                    "release_date": "2019-07-12T01:22:16Z",
+                    "release_url": "https://github.com/wrouesnel/postgres_exporter/releases/tag/v0.5.1"
+                },
+                {
+                    "release_version": "v0.6.0",
+                    "release_date": "2019-10-30T14:43:24Z",
+                    "release_url": "https://github.com/wrouesnel/postgres_exporter/releases/tag/v0.6.0"
+                },
+                {
+                    "release_version": "v0.7.0",
+                    "release_date": "2019-10-31T13:55:25Z",
+                    "release_url": "https://github.com/wrouesnel/postgres_exporter/releases/tag/v0.7.0"
+                },
+                {
+                    "release_version": "v0.8.0",
+                    "release_date": "2019-11-25T13:17:57Z",
+                    "release_url": "https://github.com/wrouesnel/postgres_exporter/releases/tag/v0.8.0"
+                }
+            ]
+        },
+        {
+            "exporter_id": 31,
+            "name": "Go Client Library",
+            "logo_url": "https://avatars3.githubusercontent.com/u/3380462?v=4",
+            "category": "Library",
+            "official": "Official",
+            "stars": 2658,
+            "repository_url": "https://github.com/prometheus/client_golang",
+            "description": "Prometheus instrumentation library for Go applications",
+            "release": [
+                {
+                    "release_version": "0.1.0",
+                    "release_date": "2015-02-02T14:33:45Z",
+                    "release_url": "https://github.com/prometheus/client_golang/releases/tag/0.1.0"
+                },
+                {
+                    "release_version": "0.2.0",
+                    "release_date": "2015-02-23T16:51:34Z",
+                    "release_url": "https://github.com/prometheus/client_golang/releases/tag/0.2.0"
+                },
+                {
+                    "release_version": "0.3.0",
+                    "release_date": "2015-03-03T17:23:59Z",
+                    "release_url": "https://github.com/prometheus/client_golang/releases/tag/0.3.0"
+                },
+                {
+                    "release_version": "0.3.1",
+                    "release_date": "2015-03-04T12:35:00Z",
+                    "release_url": "https://github.com/prometheus/client_golang/releases/tag/0.3.1"
+                },
+                {
+                    "release_version": "0.3.2",
+                    "release_date": "2015-03-11T17:03:21Z",
+                    "release_url": "https://github.com/prometheus/client_golang/releases/tag/0.3.2"
+                },
+                {
+                    "release_version": "0.4.0",
+                    "release_date": "2015-04-08T16:08:22Z",
+                    "release_url": "https://github.com/prometheus/client_golang/releases/tag/0.4.0"
+                },
+                {
+                    "release_version": "0.5.0",
+                    "release_date": "2015-05-06T10:11:30Z",
+                    "release_url": "https://github.com/prometheus/client_golang/releases/tag/0.5.0"
+                },
+                {
+                    "release_version": "0.6.0",
+                    "release_date": "2015-06-01T17:16:42Z",
+                    "release_url": "https://github.com/prometheus/client_golang/releases/tag/0.6.0"
+                },
+                {
+                    "release_version": "0.7.0",
+                    "release_date": "2015-07-27T15:20:18Z",
+                    "release_url": "https://github.com/prometheus/client_golang/releases/tag/0.7.0"
+                },
+                {
+                    "release_version": "v0.8.0",
+                    "release_date": "2016-08-17T15:48:24Z",
+                    "release_url": "https://github.com/prometheus/client_golang/releases/tag/v0.8.0"
+                },
+                {
+                    "release_version": "v0.9.0",
+                    "release_date": "2018-10-15T14:53:41Z",
+                    "release_url": "https://github.com/prometheus/client_golang/releases/tag/v0.9.0"
+                },
+                {
+                    "release_version": "v0.9.1",
+                    "release_date": "2018-11-03T14:24:34Z",
+                    "release_url": "https://github.com/prometheus/client_golang/releases/tag/v0.9.1"
+                },
+                {
+                    "release_version": "v0.9.2",
+                    "release_date": "2018-12-07T10:52:15Z",
+                    "release_url": "https://github.com/prometheus/client_golang/releases/tag/v0.9.2"
+                },
+                {
+                    "release_version": "v0.9.3",
+                    "release_date": "2019-05-16T21:23:40Z",
+                    "release_url": "https://github.com/prometheus/client_golang/releases/tag/v0.9.3"
+                },
+                {
+                    "release_version": "v0.9.4",
+                    "release_date": "2019-06-07T14:57:26Z",
+                    "release_url": "https://github.com/prometheus/client_golang/releases/tag/v0.9.4"
+                },
+                {
+                    "release_version": "v1.0.0",
+                    "release_date": "2019-06-15T20:47:01Z",
+                    "release_url": "https://github.com/prometheus/client_golang/releases/tag/v1.0.0"
+                },
+                {
+                    "release_version": "v1.1.0",
+                    "release_date": "2019-08-01T13:37:40Z",
+                    "release_url": "https://github.com/prometheus/client_golang/releases/tag/v1.1.0"
+                },
+                {
+                    "release_version": "v1.2.0",
+                    "release_date": "2019-10-15T16:23:29Z",
+                    "release_url": "https://github.com/prometheus/client_golang/releases/tag/v1.2.0"
+                },
+                {
+                    "release_version": "v1.2.1",
+                    "release_date": "2019-10-17T13:07:56Z",
+                    "release_url": "https://github.com/prometheus/client_golang/releases/tag/v1.2.1"
+                },
+                {
+                    "release_version": "v1.3.0",
+                    "release_date": "2019-12-20T20:55:52Z",
+                    "release_url": "https://github.com/prometheus/client_golang/releases/tag/v1.3.0"
+                },
+                {
+                    "release_version": "v1.4.0",
+                    "release_date": "2020-01-27T18:09:26Z",
+                    "release_url": "https://github.com/prometheus/client_golang/releases/tag/v1.4.0"
+                },
+                {
+                    "release_version": "v1.4.1",
+                    "release_date": "2020-02-07T01:04:34Z",
+                    "release_url": "https://github.com/prometheus/client_golang/releases/tag/v1.4.1"
+                },
+                {
+                    "release_version": "v1.5.0",
+                    "release_date": "2020-03-03T17:15:50Z",
+                    "release_url": "https://github.com/prometheus/client_golang/releases/tag/v1.5.0"
+                },
+                {
+                    "release_version": "v1.5.1",
+                    "release_date": "2020-03-14T20:58:59Z",
+                    "release_url": "https://github.com/prometheus/client_golang/releases/tag/v1.5.1"
+                },
+                {
+                    "release_version": "v1.6.0",
+                    "release_date": "2020-04-28T11:08:28Z",
+                    "release_url": "https://github.com/prometheus/client_golang/releases/tag/v1.6.0"
+                },
+                {
+                    "release_version": "v1.7.0",
+                    "release_date": "2020-06-17T20:40:54Z",
+                    "release_url": "https://github.com/prometheus/client_golang/releases/tag/v1.7.0"
+                },
+                {
+                    "release_version": "v1.7.1",
+                    "release_date": "2020-06-23T20:33:08Z",
+                    "release_url": "https://github.com/prometheus/client_golang/releases/tag/v1.7.1"
+                },
+                {
+                    "release_version": "v1.8.0",
+                    "release_date": "2020-10-15T16:21:16Z",
+                    "release_url": "https://github.com/prometheus/client_golang/releases/tag/v1.8.0"
+                }
+            ]
+        },
+        {
+            "exporter_id": 32,
+            "name": "Java Client Library",
+            "logo_url": "https://avatars3.githubusercontent.com/u/3380462?v=4",
+            "category": "Library",
+            "official": "Official",
+            "stars": 1369,
+            "repository_url": "https://github.com/prometheus/client_java",
+            "description": "Prometheus instrumentation library for JVM applications",
+            "release": [
+                {
+                    "release_version": "parent-0.0.11",
+                    "release_date": "2015-10-19T12:59:43Z",
+                    "release_url": "https://github.com/prometheus/client_java/releases/tag/parent-0.0.11"
+                },
+                {
+                    "release_version": "parent-0.0.12",
+                    "release_date": "2016-01-07T11:48:56Z",
+                    "release_url": "https://github.com/prometheus/client_java/releases/tag/parent-0.0.12"
+                },
+                {
+                    "release_version": "parent-0.0.13",
+                    "release_date": "2016-01-26T10:07:13Z",
+                    "release_url": "https://github.com/prometheus/client_java/releases/tag/parent-0.0.13"
+                },
+                {
+                    "release_version": "parent-0.0.14",
+                    "release_date": "2016-03-11T11:37:55Z",
+                    "release_url": "https://github.com/prometheus/client_java/releases/tag/parent-0.0.14"
+                },
+                {
+                    "release_version": "parent-0.0.15",
+                    "release_date": "2016-07-15T19:18:29Z",
+                    "release_url": "https://github.com/prometheus/client_java/releases/tag/parent-0.0.15"
+                },
+                {
+                    "release_version": "parent-0.0.16",
+                    "release_date": "2016-08-13T11:44:25Z",
+                    "release_url": "https://github.com/prometheus/client_java/releases/tag/parent-0.0.16"
+                },
+                {
+                    "release_version": "parent-0.0.17",
+                    "release_date": "2016-10-02T09:07:42Z",
+                    "release_url": "https://github.com/prometheus/client_java/releases/tag/parent-0.0.17"
+                },
+                {
+                    "release_version": "0.0.18",
+                    "release_date": "2016-10-27T08:52:29Z",
+                    "release_url": "https://github.com/prometheus/client_java/releases/tag/0.0.18"
+                },
+                {
+                    "release_version": "parent-0.0.19",
+                    "release_date": "2016-11-25T13:18:48Z",
+                    "release_url": "https://github.com/prometheus/client_java/releases/tag/parent-0.0.19"
+                },
+                {
+                    "release_version": "parent-0.0.20",
+                    "release_date": "2017-01-25T18:06:41Z",
+                    "release_url": "https://github.com/prometheus/client_java/releases/tag/parent-0.0.20"
+                },
+                {
+                    "release_version": "parent-0.0.21",
+                    "release_date": "2017-02-20T14:00:22Z",
+                    "release_url": "https://github.com/prometheus/client_java/releases/tag/parent-0.0.21"
+                },
+                {
+                    "release_version": "parent-0.0.22",
+                    "release_date": "2017-05-17T15:43:14Z",
+                    "release_url": "https://github.com/prometheus/client_java/releases/tag/parent-0.0.22"
+                },
+                {
+                    "release_version": "parent-0.0.23",
+                    "release_date": "2017-05-29T13:42:55Z",
+                    "release_url": "https://github.com/prometheus/client_java/releases/tag/parent-0.0.23"
+                },
+                {
+                    "release_version": "parent-0.0.24",
+                    "release_date": "2017-07-10T15:55:39Z",
+                    "release_url": "https://github.com/prometheus/client_java/releases/tag/parent-0.0.24"
+                },
+                {
+                    "release_version": "parent-0.0.25",
+                    "release_date": "2017-07-13T14:13:54Z",
+                    "release_url": "https://github.com/prometheus/client_java/releases/tag/parent-0.0.25"
+                },
+                {
+                    "release_version": "parent-0.0.26",
+                    "release_date": "2017-07-31T12:43:13Z",
+                    "release_url": "https://github.com/prometheus/client_java/releases/tag/parent-0.0.26"
+                },
+                {
+                    "release_version": "parent-0.1.0",
+                    "release_date": "2017-10-19T13:56:28Z",
+                    "release_url": "https://github.com/prometheus/client_java/releases/tag/parent-0.1.0"
+                },
+                {
+                    "release_version": "parent-0.2.0",
+                    "release_date": "2018-01-24T11:59:22Z",
+                    "release_url": "https://github.com/prometheus/client_java/releases/tag/parent-0.2.0"
+                },
+                {
+                    "release_version": "parent-0.3.0",
+                    "release_date": "2018-02-27T09:53:22Z",
+                    "release_url": "https://github.com/prometheus/client_java/releases/tag/parent-0.3.0"
+                },
+                {
+                    "release_version": "parent-0.4.0",
+                    "release_date": "2018-05-08T12:15:47Z",
+                    "release_url": "https://github.com/prometheus/client_java/releases/tag/parent-0.4.0"
+                },
+                {
+                    "release_version": "parent-0.5.0",
+                    "release_date": "2018-07-30T09:37:02Z",
+                    "release_url": "https://github.com/prometheus/client_java/releases/tag/parent-0.5.0"
+                },
+                {
+                    "release_version": "parent-0.6.0",
+                    "release_date": "2018-12-05T15:03:52Z",
+                    "release_url": "https://github.com/prometheus/client_java/releases/tag/parent-0.6.0"
+                },
+                {
+                    "release_version": "parent-0.7.0",
+                    "release_date": "2019-09-24T10:42:27Z",
+                    "release_url": "https://github.com/prometheus/client_java/releases/tag/parent-0.7.0"
+                },
+                {
+                    "release_version": "parent-0.8.0",
+                    "release_date": "2019-10-23T11:17:11Z",
+                    "release_url": "https://github.com/prometheus/client_java/releases/tag/parent-0.8.0"
+                },
+                {
+                    "release_version": "parent-0.8.1",
+                    "release_date": "2020-01-23T11:51:50Z",
+                    "release_url": "https://github.com/prometheus/client_java/releases/tag/parent-0.8.1"
+                },
+                {
+                    "release_version": "parent-0.9.0",
+                    "release_date": "2020-05-11T11:06:15Z",
+                    "release_url": "https://github.com/prometheus/client_java/releases/tag/parent-0.9.0"
+                }
+            ]
+        },
+        {
+            "exporter_id": 33,
+            "name": "Python Client Library",
+            "logo_url": "https://avatars3.githubusercontent.com/u/3380462?v=4",
+            "category": "Library",
+            "official": "Official",
+            "stars": 1891,
+            "repository_url": "https://github.com/prometheus/client_python",
+            "description": "Prometheus instrumentation library for Python applications",
+            "release": [
+                {
+                    "release_version": "0.0.9",
+                    "release_date": "2015-04-22T08:27:14Z",
+                    "release_url": "https://github.com/prometheus/client_python/releases/tag/0.0.9"
+                },
+                {
+                    "release_version": "0.0.10",
+                    "release_date": "2015-06-21T18:48:09Z",
+                    "release_url": "https://github.com/prometheus/client_python/releases/tag/0.0.10"
+                },
+                {
+                    "release_version": "0.0.11",
+                    "release_date": "2015-07-15T20:39:04Z",
+                    "release_url": "https://github.com/prometheus/client_python/releases/tag/0.0.11"
+                },
+                {
+                    "release_version": "0.0.12",
+                    "release_date": "2015-10-09T13:05:47Z",
+                    "release_url": "https://github.com/prometheus/client_python/releases/tag/0.0.12"
+                },
+                {
+                    "release_version": "0.0.13",
+                    "release_date": "2015-10-09T15:15:19Z",
+                    "release_url": "https://github.com/prometheus/client_python/releases/tag/0.0.13"
+                },
+                {
+                    "release_version": "0.0.14",
+                    "release_date": "2016-07-15T18:40:35Z",
+                    "release_url": "https://github.com/prometheus/client_python/releases/tag/0.0.14"
+                },
+                {
+                    "release_version": "0.0.15",
+                    "release_date": "2016-10-02T08:44:46Z",
+                    "release_url": "https://github.com/prometheus/client_python/releases/tag/0.0.15"
+                },
+                {
+                    "release_version": "0.0.16",
+                    "release_date": "2016-10-10T16:33:28Z",
+                    "release_url": "https://github.com/prometheus/client_python/releases/tag/0.0.16"
+                },
+                {
+                    "release_version": "0.0.17",
+                    "release_date": "2016-10-19T09:38:09Z",
+                    "release_url": "https://github.com/prometheus/client_python/releases/tag/0.0.17"
+                },
+                {
+                    "release_version": "0.0.18",
+                    "release_date": "2016-11-24T20:39:13Z",
+                    "release_url": "https://github.com/prometheus/client_python/releases/tag/0.0.18"
+                },
+                {
+                    "release_version": "0.0.19",
+                    "release_date": "2017-01-31T11:59:42Z",
+                    "release_url": "https://github.com/prometheus/client_python/releases/tag/0.0.19"
+                },
+                {
+                    "release_version": "v0.0.20",
+                    "release_date": "2017-07-19T11:35:10Z",
+                    "release_url": "https://github.com/prometheus/client_python/releases/tag/v0.0.20"
+                },
+                {
+                    "release_version": "v0.0.21",
+                    "release_date": "2017-09-14T10:37:01Z",
+                    "release_url": "https://github.com/prometheus/client_python/releases/tag/v0.0.21"
+                },
+                {
+                    "release_version": "v0.1.0",
+                    "release_date": "2017-12-14T14:38:41Z",
+                    "release_url": "https://github.com/prometheus/client_python/releases/tag/v0.1.0"
+                },
+                {
+                    "release_version": "v0.1.1",
+                    "release_date": "2018-01-15T16:27:49Z",
+                    "release_url": "https://github.com/prometheus/client_python/releases/tag/v0.1.1"
+                },
+                {
+                    "release_version": "v0.2.0",
+                    "release_date": "2018-04-03T10:52:33Z",
+                    "release_url": "https://github.com/prometheus/client_python/releases/tag/v0.2.0"
+                },
+                {
+                    "release_version": "v0.3.0",
+                    "release_date": "2018-07-10T12:14:24Z",
+                    "release_url": "https://github.com/prometheus/client_python/releases/tag/v0.3.0"
+                },
+                {
+                    "release_version": "v0.3.1",
+                    "release_date": "2018-07-30T10:12:43Z",
+                    "release_url": "https://github.com/prometheus/client_python/releases/tag/v0.3.1"
+                },
+                {
+                    "release_version": "v0.4.0",
+                    "release_date": "2018-10-03T14:28:45Z",
+                    "release_url": "https://github.com/prometheus/client_python/releases/tag/v0.4.0"
+                },
+                {
+                    "release_version": "v0.4.1",
+                    "release_date": "2018-10-09T13:22:09Z",
+                    "release_url": "https://github.com/prometheus/client_python/releases/tag/v0.4.1"
+                },
+                {
+                    "release_version": "v0.4.2",
+                    "release_date": "2018-10-15T12:40:34Z",
+                    "release_url": "https://github.com/prometheus/client_python/releases/tag/v0.4.2"
+                },
+                {
+                    "release_version": "v0.5.0",
+                    "release_date": "2018-12-06T15:44:49Z",
+                    "release_url": "https://github.com/prometheus/client_python/releases/tag/v0.5.0"
+                },
+                {
+                    "release_version": "v0.6.0",
+                    "release_date": "2019-02-19T16:29:27Z",
+                    "release_url": "https://github.com/prometheus/client_python/releases/tag/v0.6.0"
+                },
+                {
+                    "release_version": "v0.7.0",
+                    "release_date": "2019-06-07T10:37:09Z",
+                    "release_url": "https://github.com/prometheus/client_python/releases/tag/v0.7.0"
+                },
+                {
+                    "release_version": "v0.7.1",
+                    "release_date": "2019-06-20T13:35:41Z",
+                    "release_url": "https://github.com/prometheus/client_python/releases/tag/v0.7.1"
+                },
+                {
+                    "release_version": "v0.8.0",
+                    "release_date": "2020-05-25T12:16:06Z",
+                    "release_url": "https://github.com/prometheus/client_python/releases/tag/v0.8.0"
+                },
+                {
+                    "release_version": "v0.9.0",
+                    "release_date": "2020-11-16T13:27:07Z",
+                    "release_url": "https://github.com/prometheus/client_python/releases/tag/v0.9.0"
+                }
+            ]
+        },
+        {
+            "exporter_id": 34,
+            "name": "Ruby Client Library",
+            "logo_url": "https://avatars3.githubusercontent.com/u/3380462?v=4",
+            "category": "Library",
+            "official": "Official",
+            "stars": 358,
+            "repository_url": "https://github.com/prometheus/client_ruby",
+            "description": "Prometheus instrumentation library for Ruby applications",
+            "release": [
+                {
+                    "release_version": "v0.7.0",
+                    "release_date": "2017-05-05T15:08:01Z",
+                    "release_url": "https://github.com/prometheus/client_ruby/releases/tag/v0.7.0"
+                },
+                {
+                    "release_version": "v0.7.1",
+                    "release_date": "2017-05-24T15:18:06Z",
+                    "release_url": "https://github.com/prometheus/client_ruby/releases/tag/v0.7.1"
+                },
+                {
+                    "release_version": "v0.8.0",
+                    "release_date": "2018-05-04T13:48:21Z",
+                    "release_url": "https://github.com/prometheus/client_ruby/releases/tag/v0.8.0"
+                },
+                {
+                    "release_version": "v0.9.0",
+                    "release_date": "2019-01-25T17:22:22Z",
+                    "release_url": "https://github.com/prometheus/client_ruby/releases/tag/v0.9.0"
+                },
+                {
+                    "release_version": "v1.0.0",
+                    "release_date": "2019-11-04T14:29:54Z",
+                    "release_url": "https://github.com/prometheus/client_ruby/releases/tag/v1.0.0"
+                },
+                {
+                    "release_version": "v2.0.0",
+                    "release_date": "2020-01-28T15:35:50Z",
+                    "release_url": "https://github.com/prometheus/client_ruby/releases/tag/v2.0.0"
+                },
+                {
+                    "release_version": "v2.1.0",
+                    "release_date": "2020-06-29T13:00:05Z",
+                    "release_url": "https://github.com/prometheus/client_ruby/releases/tag/v2.1.0"
+                }
+            ]
+        },
+        {
+            "exporter_id": 35,
+            "name": "Push Gateway",
+            "logo_url": "https://avatars3.githubusercontent.com/u/3380462?v=4",
+            "category": "Monitoring",
+            "official": "Official",
+            "stars": 1584,
+            "repository_url": "https://github.com/prometheus/pushgateway",
+            "description": "Push acceptor for ephemeral and batch jobs.",
+            "release": [
+                {
+                    "release_version": "0.1.1",
+                    "release_date": "2015-05-05T10:41:12Z",
+                    "release_url": "https://github.com/prometheus/pushgateway/releases/tag/0.1.1"
+                },
+                {
+                    "release_version": "0.1.2",
+                    "release_date": "2015-06-08T20:02:24Z",
+                    "release_url": "https://github.com/prometheus/pushgateway/releases/tag/0.1.2"
+                },
+                {
+                    "release_version": "0.2.0",
+                    "release_date": "2015-06-25T11:05:07Z",
+                    "release_url": "https://github.com/prometheus/pushgateway/releases/tag/0.2.0"
+                },
+                {
+                    "release_version": "0.3.0",
+                    "release_date": "2016-06-07T23:23:18Z",
+                    "release_url": "https://github.com/prometheus/pushgateway/releases/tag/0.3.0"
+                },
+                {
+                    "release_version": "v0.3.1",
+                    "release_date": "2016-11-03T13:34:27Z",
+                    "release_url": "https://github.com/prometheus/pushgateway/releases/tag/v0.3.1"
+                },
+                {
+                    "release_version": "v0.4.0",
+                    "release_date": "2017-06-09T12:21:09Z",
+                    "release_url": "https://github.com/prometheus/pushgateway/releases/tag/v0.4.0"
+                },
+                {
+                    "release_version": "v0.5.0",
+                    "release_date": "2018-05-23T11:38:31Z",
+                    "release_url": "https://github.com/prometheus/pushgateway/releases/tag/v0.5.0"
+                },
+                {
+                    "release_version": "v0.5.1",
+                    "release_date": "2018-05-30T14:01:55Z",
+                    "release_url": "https://github.com/prometheus/pushgateway/releases/tag/v0.5.1"
+                },
+                {
+                    "release_version": "v0.5.2",
+                    "release_date": "2018-06-15T16:10:47Z",
+                    "release_url": "https://github.com/prometheus/pushgateway/releases/tag/v0.5.2"
+                },
+                {
+                    "release_version": "v0.6.0",
+                    "release_date": "2018-10-17T14:16:40Z",
+                    "release_url": "https://github.com/prometheus/pushgateway/releases/tag/v0.6.0"
+                },
+                {
+                    "release_version": "v0.7.0",
+                    "release_date": "2018-12-08T00:10:20Z",
+                    "release_url": "https://github.com/prometheus/pushgateway/releases/tag/v0.7.0"
+                },
+                {
+                    "release_version": "v0.8.0",
+                    "release_date": "2019-04-13T11:28:12Z",
+                    "release_url": "https://github.com/prometheus/pushgateway/releases/tag/v0.8.0"
+                },
+                {
+                    "release_version": "v0.9.0",
+                    "release_date": "2019-07-23T15:30:05Z",
+                    "release_url": "https://github.com/prometheus/pushgateway/releases/tag/v0.9.0"
+                },
+                {
+                    "release_version": "v0.9.1",
+                    "release_date": "2019-08-01T14:02:14Z",
+                    "release_url": "https://github.com/prometheus/pushgateway/releases/tag/v0.9.1"
+                },
+                {
+                    "release_version": "v0.10.0",
+                    "release_date": "2019-10-10T23:16:01Z",
+                    "release_url": "https://github.com/prometheus/pushgateway/releases/tag/v0.10.0"
+                },
+                {
+                    "release_version": "v1.0.0",
+                    "release_date": "2019-10-15T19:57:11Z",
+                    "release_url": "https://github.com/prometheus/pushgateway/releases/tag/v1.0.0"
+                },
+                {
+                    "release_version": "v1.0.1",
+                    "release_date": "2019-12-20T22:38:19Z",
+                    "release_url": "https://github.com/prometheus/pushgateway/releases/tag/v1.0.1"
+                },
+                {
+                    "release_version": "v1.1.0",
+                    "release_date": "2020-01-27T18:09:19Z",
+                    "release_url": "https://github.com/prometheus/pushgateway/releases/tag/v1.1.0"
+                },
+                {
+                    "release_version": "v1.2.0",
+                    "release_date": "2020-03-11T18:49:53Z",
+                    "release_url": "https://github.com/prometheus/pushgateway/releases/tag/v1.2.0"
+                },
+                {
+                    "release_version": "v1.3.0",
+                    "release_date": "2020-10-01T12:00:35Z",
+                    "release_url": "https://github.com/prometheus/pushgateway/releases/tag/v1.3.0"
+                }
+            ]
+        }
     ]
 }
