@@ -20,8 +20,20 @@ const exporterReducer = (state = initialState, action) => {
       //sort alphabetically
       return state;
     case LOAD_DATA:
-      //load data
-      return state;
+      const count = action.payload.length;
+      const countPerPage = 12;
+      const totalPages = Math.ceil(count / countPerPage);
+      const exporters = action.payload;
+      return {
+        ...state,
+        exporters,
+        filteredProducts: exporters.slice(0, countPerPage),
+        countPerPage,
+        totalCount: count,
+        currentPage: 1,
+        totalPages: totalPages,
+        filteredPages: totalPages
+      };
     case LOAD_MORE_PAGE:
       //load more page
       return state;
