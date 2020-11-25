@@ -1,25 +1,42 @@
 import React from "react";
+import { withRouter } from "react-router-dom";
 import styled from "styled-components";
 
-const CardExporter = ({ exporter }) => {
-  const { name, description, stars, logo_url, official, category } = exporter;
+const CardExporter = ({ exporter, history }) => {
+  const {
+    exporter_id,
+    name,
+    description,
+    stars,
+    logo_url,
+    official,
+    category
+  } = exporter;
+
+  const goToDetail = id => {
+    history.push(`/detail/${id}`);
+  };
+
   return (
-    <Div>
+    <Div onClick={() => goToDetail(exporter_id)}>
       <header>
         <span>☆{stars}</span>
       </header>
       <article>
-        <img src={logo_url} alt={name} />
+        <h1>
+          <img src={logo_url} alt={name} />
+        </h1>
         <h2>{name}</h2>
-        <div>
+        <h3>
           <span>{official}</span>
           <span>{category}</span>
-        </div>
+        </h3>
         <p>{description}</p>
       </article>
     </Div>
   );
 };
+
 const Div = styled.div`
   width: 270px;
   height: 230px;
@@ -27,7 +44,11 @@ const Div = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin: 0 10px 10px 0;
+  margin: 0 30px 20px 0;
+  border-radius: 5px;
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+  cursor: pointer;
+
   header,
   article {
     width: 80%;
@@ -37,18 +58,34 @@ const Div = styled.div`
     text-align: end;
     padding: 10px 10px;
   }
+
   article {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    img {
-      width: 45px;
-      height: 45px;
-      margin-bottom: 15px;
+    > * {
+      text-align: center;
+      margin-bottom: 5px;
+      font-size: 12px;
     }
+
+    h1 {
+      img {
+        width: 45px;
+        height: 45px;
+        margin-bottom: 15px;
+      }
+    }
+
     h2 {
       font-size: 16px;
     }
+
+    h3 {
+      color: gray;
+      margin-bottom: 20px;
+
+      span {
+        margin: 0 10px;
+      }
+    }
   }
 `;
-export default CardExporter;
+export default withRouter(CardExporter);
