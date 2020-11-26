@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import axios from "axios";
 import styled from "styled-components";
 
 const Sider = () => {
@@ -10,29 +11,28 @@ const Sider = () => {
   };
 
   useEffect(() => {
-    // fetch("http://10.153.3.74:8000/categories")
-    fetch("http://localhost:3000/data/categories.json")
-      .then(res => res.json())
-      .then(res => {
-        setCategories(res.categories);
-        setcategoryAct(res.categories[0].category_id);
-      });
+    axios.get("http://localhost:3000/data/categories.json").then(res => {
+      setCategories(res.data.categories);
+      setcategoryAct(res.data.categories[0].category_id);
+      console.log(res);
+    });
   }, []);
 
   return (
     <CategoryList>
       <Title>CATEGORIES</Title>
-      {categories.map(category => (
-        <Category
-          key={category.category_id}
-          active={category.category_id === categoryAct}
-          onClick={() => {
-            handleClickCategoryAct(category.category_id);
-          }}
-        >
-          {category.category_name}
-        </Category>
-      ))}
+      {categories &&
+        categories.map(category => (
+          <Category
+            key={category.category_id}
+            active={category.category_id === categoryAct}
+            onClick={() => {
+              handleClickCategoryAct(category.category_id);
+            }}
+          >
+            {category.category_name}
+          </Category>
+        ))}
     </CategoryList>
   );
 };
@@ -54,8 +54,7 @@ const Category = styled.dd`
   cursor: pointer;
 
   &:hover {
-    background: #fafafa;
-    background: ${({ active }) => active && "#eee"};
+    background: #eee;
   }
 
   &:after {
