@@ -13,12 +13,14 @@ const ExporterHubPAge = () => {
     </Main>
   );
 };
+
 const Main = styled.main`
   background-color: #fafafa;
 `;
+
 const Conainer = styled.div`
+  ${({ theme }) => theme.container};
   display: flex;
-  width: 1170px;
-  margin: 0 auto;
 `;
+
 export default ExporterHubPAge;
