@@ -1,5 +1,5 @@
 import React from "react";
-import { withRouter } from "react-router-dom";
+import { withRouter, useHistory, useLocation } from "react-router-dom";
 import styled from "styled-components";
 
 const CardExporter = ({ exporter, history }) => {
@@ -17,6 +17,13 @@ const CardExporter = ({ exporter, history }) => {
     history.push(`/detail/${id}`);
   };
 
+  const goToRegister = id => {
+    history.push();
+  };
+  // const history = useHistory();
+  // console.log(history, "history");
+  const location = useLocation();
+  console.log(location, "location");
   return (
     <Div onClick={() => goToDetail(exporter_id)}>
       <header>

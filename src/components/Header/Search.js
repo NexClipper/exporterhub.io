@@ -1,12 +1,19 @@
 import React from "react";
+import { useDispatch } from "react-redux";
+import { filterByValue } from "../../store/actions/exporterActions";
 import styled from "styled-components";
 import { SearchOutlined } from "@ant-design/icons";
 
 const Search = () => {
+  const dispatch = useDispatch();
+  const inputHandler = e => {
+    const payload = { filterType: "value", data: e.target.value };
+    dispatch(filterByValue(payload));
+  };
   return (
     <Div>
       <SearchOutlined className="search_icon" />
-      <input type="text" placeholder="Search" />
+      <input onChange={inputHandler} type="text" placeholder="Search" />
     </Div>
   );
 };

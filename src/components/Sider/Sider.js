@@ -1,8 +1,12 @@
 import { useState, useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { filterByValue } from "../../store/actions/exporterActions";
 import axios from "axios";
 import styled from "styled-components";
 
 const Sider = () => {
+  const dispatch = useDispatch();
+
   const [categories, setCategories] = useState([]);
   const [categoryAct, setcategoryAct] = useState(1);
 
@@ -10,24 +14,38 @@ const Sider = () => {
     setcategoryAct(id);
   };
 
+  const callDispatch = e => {
+    const payload = { filterType: "category", data: e.target.innerText };
+    dispatch(filterByValue(payload));
+  };
+
   useEffect(() => {
     axios.get("http://localhost:3000/data/categories.json").then(res => {
       setCategories(res.data.categories);
-      setcategoryAct(res.data.categories[0].category_id);
-      console.log(res);
+      setcategoryAct(0);
     });
   }, []);
 
   return (
     <CategoryList>
       <Title>CATEGORIES</Title>
+      <Category
+        active={0 === categoryAct}
+        onClick={e => {
+          handleClickCategoryAct(0);
+          callDispatch(e);
+        }}
+      >
+        All
+      </Category>
       {categories &&
         categories.map(category => (
           <Category
             key={category.category_id}
             active={category.category_id === categoryAct}
-            onClick={() => {
+            onClick={e => {
               handleClickCategoryAct(category.category_id);
+              callDispatch(e);
             }}
           >
             {category.category_name}

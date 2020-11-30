@@ -1,10 +1,17 @@
-import React from "react";
 import { useState, useEffect } from "react";
+import { useDispatch } from "react-redux";
 import axios from "axios";
 import styled from "styled-components";
+import { sortByPopularity } from "../../store/actions/exporterActions";
 
 const ContentMenu = ({ totalCount }) => {
   const [categories, setCategories] = useState([]);
+  const dispatch = useDispatch();
+  const optionSelector = e => {
+    console.log(e);
+    const payload = e.target.value;
+    dispatch(sortByPopularity(payload));
+  };
   useEffect(() => {
     axios.get("/data/categories.json").then(res => {
       setCategories(res.data.categories);
@@ -18,12 +25,16 @@ const ContentMenu = ({ totalCount }) => {
           <option>All</option>
           {categories.length &&
             categories.map(category => (
-              <option>{category.category_name}</option>
+              <option key={category.category_id}>
+                {category.category_name}
+              </option>
             ))}
         </Select>
-        <select>
-          <option>A-Z</option>
-          <option>Z-A</option>
+
+        <select onChange={optionSelector}>
+          <option value="All">All</option>
+          <option value="Most popular">Most popular</option>
+          <option value="Recently registered">Recently registered</option>
         </select>
       </SelectBox>
     </Div>
