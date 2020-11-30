@@ -12,6 +12,7 @@ const Footer = () => {
   );
 };
 const Div = styled.div`
+  width: 100%;
   display: flex;
   justify-content: space-between;
   padding: 20px 100px 30px 100px;

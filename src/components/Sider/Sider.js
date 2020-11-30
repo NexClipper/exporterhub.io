@@ -37,17 +37,27 @@ const Sider = () => {
   );
 };
 
-const CategoryList = styled.dl`
-  max-width: 270px;
+const CategoryList = styled.ul`
+  width: 300px;
+  height: 500px;
   line-height: 1.5;
+  background-color: #ffffff;
+  border-radius: 5px;
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+  @media ${({ theme }) => theme.media.mobile} {
+    display: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
 `;
 
-const Title = styled.dt`
+const Title = styled.li`
   padding: 10px;
   color: #999;
 `;
 
-const Category = styled.dd`
+const Category = styled.li`
   position: relative;
   padding: 3px 10px;
   background: ${({ active }) => active && "#eee"};

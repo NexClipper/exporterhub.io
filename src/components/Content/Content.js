@@ -14,5 +14,11 @@ const Contetnt = () => {
     </Section>
   );
 };
-const Section = styled.section``;
+const Section = styled.section`
+  width: ${({ theme }) => theme.width.content}px;
+  @media ${({ theme }) => theme.media.mobile} {
+    width: ${({ theme }) => theme.width.contentOnM}%;
+    margin: 0 auto;
+  }
+`;
 export default Contetnt;
