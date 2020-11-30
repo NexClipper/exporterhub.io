@@ -8,10 +8,10 @@ const ExporterHubPage = () => {
   return (
     <Main>
       <Nav />
-      <Conainer>
+      <Container>
         <Sider />
         <Content />
-      </Conainer>
+      </Container>
     </Main>
   );
 };
@@ -21,7 +21,7 @@ const Main = styled.main`
   width: 100%;
 `;
 
-const Conainer = styled.div`
+const Container = styled.div`
   ${({ theme }) => theme.container};
   display: flex;
   justify-content: space-between;

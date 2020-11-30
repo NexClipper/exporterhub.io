@@ -7,7 +7,7 @@ const Nav = () => {
 
   return (
     <Navigation>
-      <Section>
+      <Container>
         <Div>
           <Type onClick={() => setIsOfficial(true)} isOfficial={isOfficial}>
             Official
@@ -16,7 +16,7 @@ const Nav = () => {
             Unofficial
           </Type>
         </Div>
-      </Section>
+      </Container>
     </Navigation>
   );
 };
@@ -28,7 +28,7 @@ const Navigation = styled.nav`
     width: 100%;
   }
 `;
-const Section = styled.section`
+const Container = styled.section`
   ${({ theme }) => theme.container};
   display: flex;
   justify-content: flex-end;
