@@ -1,4 +1,4 @@
-import { css } from "styled-components";
+import { css, ThemeProvider } from "styled-components";
 
 const color = {
   pryColor: "#DF691A",
@@ -8,7 +8,7 @@ const color = {
 };
 
 const container = css`
-  width: 1170px;
+  width: 1060px;
   margin: 0 auto;
 `;
 
@@ -31,12 +31,23 @@ const flexCenterTop = css`
   align-items: center;
 `;
 
+const width = {
+  content: 700,
+  card: 210,
+  contentOnM: 90
+};
+const media = {
+  mobile: `(max-width:770px)`
+};
+
 const theme = {
   color,
   container,
   positionCenter,
   flexCenter,
-  flexCenterTop
+  flexCenterTop,
+  width,
+  media
 };
 
 export default theme;

@@ -1,28 +1,56 @@
 import React from "react";
+import { useState, useEffect } from "react";
+import axios from "axios";
 import styled from "styled-components";
 
 const ContentMenu = ({ totalCount }) => {
+  const [categories, setCategories] = useState([]);
+  useEffect(() => {
+    axios.get("/data/categories.json").then(res => {
+      setCategories(res.data.categories);
+    });
+  }, []);
   return (
-    <Section>
+    <Div>
       <span>{totalCount} items</span>
-      <select>
-        <option>A-Z</option>
-        <option>Z-A</option>
-      </select>
-    </Section>
+      <SelectBox>
+        <Select>
+          <option>All</option>
+          {categories.length &&
+            categories.map(category => (
+              <option>{category.category_name}</option>
+            ))}
+        </Select>
+        <select>
+          <option>A-Z</option>
+          <option>Z-A</option>
+        </select>
+      </SelectBox>
+    </Div>
   );
 };
 
-const Section = styled.section`
-  width: 870px;
-  border-bottom: 1px solid lightgray;
+const Div = styled.div`
+  width: 100%;
   display: flex;
   justify-content: space-between;
-  padding: 15px 0;
-  margin-bottom: 20px;
+  margin-bottom: 15px;
   select {
     outline: none;
     border: none;
+    background-color: transparent;
+  }
+`;
+
+const SelectBox = styled.div`
+  display: flex;
+`;
+
+const Select = styled.select`
+  display: none;
+  margin-right: 10px;
+  @media ${({ theme }) => theme.media.mobile} {
+    display: block;
   }
 `;
 export default ContentMenu;
