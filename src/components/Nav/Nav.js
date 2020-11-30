@@ -1,18 +1,38 @@
 import React from "react";
+import { useDispatch } from "react-redux";
+import { filterByValue } from "../../store/actions/exporterActions";
 import { useState } from "react";
 import styled from "styled-components";
 
 const Nav = () => {
+  const dispatch = useDispatch();
   const [isOfficial, setIsOfficial] = useState(true);
+
+  const callDispatch = e => {
+    const payload = { filterType: "type", data: e.target.innerText };
+    dispatch(filterByValue(payload));
+  };
 
   return (
     <Navigation>
       <Container>
         <Div>
-          <Type onClick={() => setIsOfficial(true)} isOfficial={isOfficial}>
+          <Type
+            onClick={e => {
+              setIsOfficial(true);
+              callDispatch(e);
+            }}
+            isOfficial={isOfficial}
+          >
             Official
           </Type>
-          <Type onClick={() => setIsOfficial(false)} isOfficial={!isOfficial}>
+          <Type
+            onClick={e => {
+              setIsOfficial(false);
+              callDispatch(e);
+            }}
+            isOfficial={!isOfficial}
+          >
             Unofficial
           </Type>
         </Div>

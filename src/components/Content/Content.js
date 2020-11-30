@@ -5,12 +5,14 @@ import ContentExporters from "./ContentExporters";
 import ContentMenu from "./ContentMenu";
 
 const Contetnt = () => {
-  const { exporters, totalCount } = useSelector(state => state.exporterReducer);
+  const { filteredExporters, totalCount } = useSelector(
+    state => state.exporterReducer
+  );
 
   return (
     <Section>
       <ContentMenu totalCount={totalCount} />
-      <ContentExporters exporters={exporters} />
+      <ContentExporters exporters={filteredExporters} />
     </Section>
   );
 };
