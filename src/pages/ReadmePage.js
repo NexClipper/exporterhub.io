@@ -1,7 +1,7 @@
-import React from "react";
+import ReadmeContent from "../components/ReadmeContent/ReadmeContent";
 
 const ReadmePage = () => {
-  return <div></div>;
+  return <ReadmeContent />;
 };
 
 export default ReadmePage;
