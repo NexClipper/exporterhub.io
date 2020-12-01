@@ -3,6 +3,12 @@ const SORT_BY_POPULARITY = "SORT_BY_POPULARITY";
 const LOAD_DATA = "LOAD_DATA";
 const LOAD_MORE_PAGE = "LOAD_MORE_PAGE";
 
+const sortingKey = {
+  "Sort by": "exporter_id",
+  "Most popular": "stars",
+  "Recently registered": "recent_release"
+};
+
 const initialState = {
   appliedFilters: [],
   categories: {
@@ -16,22 +22,19 @@ const exporterReducer = (state = initialState, action) => {
   switch (action.type) {
     case FILTER_BY_VALUE:
       let filteredState = Object.assign({}, state);
-      filteredState.categories[action.payload.filterType] = action.payload.data;
+      const { filterType, data } = action.payload;
+      filteredState.categories[filterType] = data;
       const {
         categories: { category, type, value }
       } = filteredState;
+
       let filteredValues = state.exporters.filter(exporter => {
-        if (!value) {
-          return (
-            exporter.official === type &&
-            (exporter.category === category || category === "All")
-          );
-        } else
-          return (
-            exporter.name.toLowerCase().includes(value) &&
-            exporter.official === type &&
-            (exporter.category === category || category === "All")
-          );
+        console.log(value);
+        return (
+          (value ? exporter.name.toLowerCase().includes(value) : true) &&
+          exporter.official === type &&
+          (exporter.category === category || category === "All")
+        );
       });
       filteredState.filteredExporters = filteredValues;
       filteredState.totalCount = filteredValues.length;
@@ -40,10 +43,19 @@ const exporterReducer = (state = initialState, action) => {
     case SORT_BY_POPULARITY:
       let sortByPopularityState = Object.assign({}, state);
       const sortValue = action.payload;
-      let sortedPopularityArr = sortDesc(state.filteredExporters, "stars");
 
-      sortByPopularityState.filteredExporters = sortedPopularityArr;
+      sortByPopularityState.filteredExporters = sortDesc(
+        state.filteredExporters,
+        sortingKey[sortValue]
+      );
+
+      sortByPopularityState.exporters = sortDesc(
+        state.exporters,
+        sortingKey[sortValue]
+      );
+
       return sortByPopularityState;
+
     case LOAD_DATA:
       const count = action.payload.length;
       const countPerPage = 12;

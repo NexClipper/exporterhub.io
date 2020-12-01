@@ -8,7 +8,6 @@ const ContentMenu = ({ totalCount }) => {
   const [categories, setCategories] = useState([]);
   const dispatch = useDispatch();
   const optionSelector = e => {
-    console.log(e);
     const payload = e.target.value;
     dispatch(sortByPopularity(payload));
   };
@@ -32,9 +31,9 @@ const ContentMenu = ({ totalCount }) => {
         </Select>
 
         <select onChange={optionSelector}>
-          <option value="All">All</option>
-          <option value="Most popular">Most popular</option>
-          <option value="Recently registered">Recently registered</option>
+          <option>Sort by</option>
+          <option>Most popular</option>
+          <option>Recently registered</option>
         </select>
       </SelectBox>
     </Div>
