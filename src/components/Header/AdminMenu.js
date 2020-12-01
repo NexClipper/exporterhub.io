@@ -1,12 +1,12 @@
 import React from "react";
 import styled from "styled-components";
 
-const HEADER_MENUS = ["About", "Blog", "Company"];
+const ADMIN_MENUS = ["Register"];
 
-const HeaderMenu = () => {
+const AdminMenu = () => {
   return (
     <Div>
-      {HEADER_MENUS.map(menu => (
+      {ADMIN_MENUS.map(menu => (
         <span>{menu}</span>
       ))}
     </Div>
@@ -25,4 +25,4 @@ const Div = styled.div`
   }
 `;
 
-export default HeaderMenu;
+export default AdminMenu;

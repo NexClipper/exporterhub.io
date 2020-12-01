@@ -1,16 +1,22 @@
 import React from "react";
+import { useHistory } from "react-router-dom";
 import Logo from "./Logo";
 import Search from "./Search";
 import HeaderMenu from "./HeaderMenu";
 import styled from "styled-components";
+import AdminMenu from "./AdminMenu";
 
 const Header = () => {
+  const {
+    location: { pathname }
+  } = useHistory();
+
   return (
     <HeaderBox>
       <Div>
         <Logo />
         <Search />
-        <HeaderMenu />
+        {pathname === "/admin" ? <AdminMenu /> : <HeaderMenu />}
       </Div>
     </HeaderBox>
   );
