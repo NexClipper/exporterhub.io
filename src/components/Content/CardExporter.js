@@ -17,13 +17,6 @@ const CardExporter = ({ exporter, history }) => {
     history.push(`/detail/${id}`);
   };
 
-  const goToRegister = id => {
-    history.push();
-  };
-  // const history = useHistory();
-  // console.log(history, "history");
-  const location = useLocation();
-  console.log(location, "location");
   return (
     <Div onClick={() => goToDetail(exporter_id)}>
       <header>
