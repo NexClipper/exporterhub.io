@@ -2,7 +2,6 @@ import { useState } from "react";
 import styled from "styled-components";
 import CardExporter from "./CardExporter";
 import { useHistory } from "react-router-dom";
-import RegisterModal from "../Modal/RegisterModal";
 import EditModal from "../Modal/EditModal";
 
 const ContentExporters = ({ exporters }) => {
@@ -11,12 +10,17 @@ const ContentExporters = ({ exporters }) => {
     location: { pathname }
   } = useHistory();
   const [isModalActive, setIsModalActive] = useState(false);
+  const [exporterId, setExporterId] = useState();
 
   const goToDetail = id => {
     push(`/detail/${id}`);
   };
-  const modalClick = () => {
-    setIsModalActive(!isModalActive);
+  const modalClick = id => {
+    setIsModalActive(true);
+    setExporterId(id);
+  };
+  const cancleModal = () => {
+    setIsModalActive(false);
   };
 
   return (
@@ -29,6 +33,9 @@ const ContentExporters = ({ exporters }) => {
             cardClick={pathname === "/" ? goToDetail : modalClick}
           />
         ))}
+      {isModalActive && (
+        <EditModal exporterId={exporterId} cancleModal={cancleModal} />
+      )}
     </ExporterContainer>
   );
 };

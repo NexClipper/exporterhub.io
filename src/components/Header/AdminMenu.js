@@ -1,14 +1,24 @@
-import React from "react";
+import { useState } from "react";
 import styled from "styled-components";
+import RegisterModal from "../Modal/RegisterModal";
 
 const ADMIN_MENUS = ["Register"];
 
 const AdminMenu = () => {
+  const [isModalActive, setIsModalActive] = useState(false);
+
+  const modalClick = () => {
+    setIsModalActive(true);
+  };
+  const cancleModal = () => {
+    setIsModalActive(false);
+  };
   return (
     <Div>
       {ADMIN_MENUS.map(menu => (
-        <span>{menu}</span>
+        <span onClick={modalClick}>{menu}</span>
       ))}
+      {isModalActive && <RegisterModal cancleModal={cancleModal} />}
     </Div>
   );
 };

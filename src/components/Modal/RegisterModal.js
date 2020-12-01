@@ -2,18 +2,33 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import styled from "styled-components";
 
-const RegisterModal = () => {
+const RegisterModal = ({ cancleModal }) => {
   const [categories, setCategories] = useState([]);
-  const [repoUrl, setRepoUrl] = useState();
-  const [catefory, setCategory] = useState();
+  const [repoUrl, setRepoUrl] = useState("Default");
+  const [category, setCategory] = useState("Default");
 
   const registerExporter = () => {
-    console.log("click");
+    axios
+      .post("http://10.153.1.241:8000/exporter", {
+        repo_url: repoUrl,
+        category: category
+      })
+      .then(res => {
+        console.log(res.data.message);
+      })
+      //성공을 알리는 모달
+      .catch(error => {
+        console.log(error.response.data.message);
+        //실패를 알리는 모달
+      });
   };
 
-  const inputChange = e => {
-    console.log(e.target.value);
+  const inputRepoUrl = e => {
     setRepoUrl(e.target.value);
+  };
+
+  const selectCategory = e => {
+    setCategory(e.target.value);
   };
 
   useEffect(() => {
@@ -24,14 +39,15 @@ const RegisterModal = () => {
 
   return (
     <Div>
-      <p>X</p>
-      <input onChange={inputChange} placeholder="카테고리 url"></input>
-      <select>
+      <input onChange={inputRepoUrl} placeholder="카테고리 url"></input>
+      <select onChange={selectCategory}>
+        <option>Select</option>
         {categories.map(category => {
           return <option>{category.category_name}</option>;
         })}
       </select>
       <button onClick={registerExporter}>등록</button>
+      <button onClick={cancleModal}>cancle</button>
     </Div>
   );
 };
@@ -45,11 +61,6 @@ const Div = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  p {
-    width: 100%;
-    margin-bottom: 100px;
-    text-align: end;
-  }
   input {
     width: 100px;
   }

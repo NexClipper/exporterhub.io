@@ -3,7 +3,6 @@ import styled from "styled-components";
 import Content from "../components/Content/Content";
 import Nav from "../components/Nav/Nav";
 import Sider from "../components/Sider/Sider";
-import RegisterModal from "../components/Modal/RegisterModal";
 
 const AdminPage = () => {
   return (
@@ -13,7 +12,6 @@ const AdminPage = () => {
         <Sider />
         <Content />
       </Container>
-      <RegisterModal />
     </Main>
   );
 };
