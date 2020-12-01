@@ -1,8 +1,8 @@
 import React from "react";
-import { withRouter, useHistory, useLocation } from "react-router-dom";
+import { withRouter } from "react-router-dom";
 import styled from "styled-components";
 
-const CardExporter = ({ exporter, history }) => {
+const CardExporter = ({ exporter, history, cardClick }) => {
   const {
     exporter_id,
     name,
@@ -13,12 +13,8 @@ const CardExporter = ({ exporter, history }) => {
     category
   } = exporter;
 
-  const goToDetail = id => {
-    history.push(`/detail/${id}`);
-  };
-
   return (
-    <Div onClick={() => goToDetail(exporter_id)}>
+    <Div onClick={() => cardClick(exporter_id)}>
       <header>
         <span>☆{stars}</span>
       </header>
@@ -54,11 +50,9 @@ const Div = styled.div`
   box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
   cursor: pointer;
   padding: 0 10px;
-
   &:hover {
     transform: scale(1.05);
   }
-
   @media ${({ theme }) => theme.media.mobile} {
     height: 100px;
     width: 100%;
@@ -66,7 +60,6 @@ const Div = styled.div`
     padding: 0 30px;
     margin-right: 0%;
   }
-
   header {
     width: 100%;
     font-size: 12px;
@@ -80,7 +73,6 @@ const Article = styled.article`
     display: flex;
     flex-direction: row;
   }
-
   div {
     text-align: center;
     img {
@@ -105,11 +97,9 @@ const Section = styled.section`
     margin-bottom: 10px;
     text-align: center;
   }
-
   div {
     color: gray;
     margin-bottom: 20px;
-
     span {
       &:first-child {
         margin-right: 20px;
@@ -118,7 +108,6 @@ const Section = styled.section`
       font-size: 14px;
     }
   }
-
   p {
     text-align: center;
     font-size: 14px;
