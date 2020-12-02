@@ -1,10 +1,11 @@
 import React from "react";
 import { useHistory } from "react-router-dom";
 import Logo from "./Logo";
+import InfoIcon from "./InfoIcon";
 import Search from "./Search";
 import HeaderMenu from "./HeaderMenu";
-import styled from "styled-components";
 import AdminMenu from "./AdminMenu";
+import styled from "styled-components";
 
 const Header = () => {
   const {
@@ -14,7 +15,10 @@ const Header = () => {
   return (
     <HeaderBox>
       <Div>
-        <Logo />
+        <div className="logoInfo">
+          <Logo />
+          <InfoIcon />
+        </div>
         <Search />
         {pathname === "/admin" ? <AdminMenu /> : <HeaderMenu />}
       </Div>
@@ -30,6 +34,10 @@ const HeaderBox = styled.header`
 const Div = styled.div`
   ${({ theme }) => theme.container};
   display: flex;
+  .logoInfo {
+    display: flex;
+    align-items: center;
+  }
   @media ${({ theme }) => theme.media.mobile} {
     width: ${({ theme }) => theme.width.contentOnM}%;
     margin: 0 auto;
