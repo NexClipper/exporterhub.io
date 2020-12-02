@@ -15,8 +15,8 @@ function Routes() {
   useEffect(() => {
     const fetchData = async () => {
       const result = await axios(
-        "/data/exporter_list.json"
-        // "http://10.153.1.241:8000"
+        // "/data/exporter_list.json"
+        "http://10.153.5.73:8000"
       );
       dispatch(loadData(result.data.exporters));
     };

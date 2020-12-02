@@ -2,9 +2,22 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import styled from "styled-components";
 
-const EditModal = ({ cancleModal }) => {
+const EditModal = ({ cancleModal, exporterId }) => {
   const [categories, setCategories] = useState([]);
   const [category, setCategory] = useState("Default");
+
+  const deleteExporter = () => {
+    axios
+      .delete(`http://10.153.5.73:8000/exporter?exporter_id=${exporterId}`)
+      .then(res => {
+        console.log(res.data.message);
+        //성공을 알리는 모달
+      })
+      .catch(error => {
+        console.log(error.response.data.message);
+        //실패를 알리는 모달
+      });
+  };
 
   const selectCategory = e => {
     setCategory(e.target.value);
@@ -29,7 +42,9 @@ const EditModal = ({ cancleModal }) => {
           </select>
           <Button>
             <button className="inputDiv">Edit</button>
-            <button className="inputDiv">Remove</button>
+            <button className="inputDiv" onClick={deleteExporter}>
+              Remove
+            </button>
           </Button>
         </Container>
         <Back onClick={cancleModal}>
