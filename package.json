@@ -16,8 +16,12 @@
     "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.0",
     "redux": "^4.0.5",
+    "rehype-stringify": "^8.0.0",
+    "remark-parse": "^9.0.0",
+    "remark-rehype": "^8.0.0",
     "styled-components": "^5.2.1",
     "styled-reset": "^4.3.1",
+    "unified": "^9.2.0",
     "web-vitals": "^0.2.4"
   },
   "scripts": {
