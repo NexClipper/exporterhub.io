@@ -16,7 +16,7 @@ function Routes() {
     const fetchData = async () => {
       const result = await axios(
         "/data/exporter_list.json"
-        // "http://10.153.7.84:8000/"
+        // "http://10.153.1.241:8000"
       );
       dispatch(loadData(result.data.exporters));
     };
