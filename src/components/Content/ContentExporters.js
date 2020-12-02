@@ -1,8 +1,9 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import styled from "styled-components";
 import CardExporter from "./CardExporter";
 import { useHistory } from "react-router-dom";
 import EditModal from "../Modal/EditModal";
+// import usePageBottom from "./usePageBottom";
 
 const ContentExporters = ({ exporters }) => {
   const {
