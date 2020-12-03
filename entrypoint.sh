@@ -1,2 +1,2 @@
 #!/bin/bash
-/data/npm start 
+npm start 
