@@ -7,7 +7,7 @@ import ExporterHubPage from "./pages/ExporterHubPage";
 import ReadmePage from "./pages/ReadmePage";
 import Footer from "./components/Footer/Footer";
 import { GlobalStyle } from "./styles/GlobalStyle";
-import { loadData } from "./store/actions/exporterActions";
+import { loadData, loadCategoriesData } from "./store/actions/exporterActions";
 import AdminPage from "./pages/AdminPage";
 
 function Routes() {
@@ -15,10 +15,13 @@ function Routes() {
   useEffect(() => {
     const fetchData = async () => {
       const result = await axios(
-        // "/data/exporter_list.json"
-        "http://10.153.5.73:8000"
+        "/data/exporter_list.json"
+        // "http://10.153.5.73:8000"
       );
+      const categoriesData = await axios("/data/categories.json");
+
       dispatch(loadData(result.data.exporters));
+      dispatch(loadCategoriesData(categoriesData.data.categories));
     };
     fetchData();
   }, []);

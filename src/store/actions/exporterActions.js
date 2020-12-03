@@ -3,6 +3,7 @@ const SORT_BY_CURRENT = "SORT_BY_CURRENT";
 const FILTER_BY_VALUE = "FILTER_BY_VALUE";
 const LOAD_DATA = "LOAD_DATA";
 const LOAD_MORE_PAGE = "LOAD_MORE_PAGE";
+const LOAD_CATEGORIES = "LOAD_CATEGORIES";
 
 export const filterByValue = payload => ({
   type: FILTER_BY_VALUE,
@@ -26,5 +27,10 @@ export const loadData = payload => ({
 
 export const loadNewPage = payload => ({
   type: LOAD_MORE_PAGE,
+  payload
+});
+
+export const loadCategoriesData = payload => ({
+  type: LOAD_CATEGORIES,
   payload
 });
