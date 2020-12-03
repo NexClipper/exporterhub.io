@@ -1,20 +1,18 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router";
+import remarkMarkdown from "./remarkMarkdown";
 import axios from "axios";
 import styled from "styled-components";
-import remarkMarkdown from "./remarkMarkdown";
 import { FiShare2 } from "react-icons/fi";
 import { AiFillStar } from "react-icons/ai";
 
-const ReadmeContent = () => {
+const ContentDetail = () => {
   const { id } = useParams();
   const [exporterInfo, setExporterInfo] = useState([]);
 
   useEffect(() => {
     axios.get(`http://10.153.5.73:8000/exporters/${id}`).then(res => {
-      // setReadmeContent(remarkMarkdown(res.data.data));
       setExporterInfo(res.data);
-      console.log(res.data);
     });
   }, []);
 
@@ -49,7 +47,6 @@ const ReadmeContent = () => {
           <MarkdownBody
             dangerouslySetInnerHTML={{ __html: readmeContent }}
           ></MarkdownBody>
-          <Aside></Aside>
         </Container>
       </Main>
     </>
@@ -234,12 +231,4 @@ const MarkdownBody = styled.div`
   }
 `;
 
-const Aside = styled.aside`
-  position: absolute;
-  right: 0;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 300px;
-`;
-
-export default ReadmeContent;
+export default ContentDetail;
