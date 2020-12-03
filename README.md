@@ -8,4 +8,8 @@ docker run -d -p 8080:3000 nexclipper/exporterhub:0.1
 curl http://localhost:8080
 ```
 
+# Details
+## Docker image
+### Registry
+- nexclipper/exporterhub: https://hub.docker.com/repository/docker/nexclipper/exporterhub
 
