@@ -1,6 +1,6 @@
-const SORT_BY_ALPHABET = "SORT_BY_ALPHABET";
+const SORT_BY_POPULARITY = "SORT_BY_POPULARITY";
+const SORT_BY_CURRENT = "SORT_BY_CURRENT";
 const FILTER_BY_VALUE = "FILTER_BY_VALUE";
-const FILTER_BY_CATEGORY = "FILTER_BY_CATEGORY";
 const LOAD_DATA = "LOAD_DATA";
 const LOAD_MORE_PAGE = "LOAD_MORE_PAGE";
 
@@ -9,13 +9,13 @@ export const filterByValue = payload => ({
   payload
 });
 
-export const filterByCategory = payload => ({
-  type: FILTER_BY_CATEGORY,
+export const sortByPopularity = payload => ({
+  type: SORT_BY_POPULARITY,
   payload
 });
 
-export const sortByAlphabet = payload => ({
-  type: SORT_BY_ALPHABET,
+export const sortByCurrent = payload => ({
+  type: SORT_BY_CURRENT,
   payload
 });
 

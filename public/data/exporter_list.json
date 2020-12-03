@@ -9,6 +9,7 @@
             "stars": 731,
             "repository_url": "https://github.com/cloudflare/ebpf_exporter",
             "description": " Prometheus exporter for custom eBPF metrics",
+            "recent_release": "2020-11-20T21:42:46Z",
             "release": [
                 {
                     "release_version": "v1.0.0",
@@ -51,6 +52,7 @@
             "stars": 295,
             "repository_url": "https://github.com/digitalocean/ceph_exporter",
             "description": "Prometheus exporter that scrapes meta information about a ceph cluster.",
+            "recent_release": "1970-01-01",
             "release": []
         },
         {
@@ -62,6 +64,7 @@
             "stars": 569,
             "repository_url": "https://github.com/fstab/grok_exporter",
             "description": "Export Prometheus metrics from arbitrary unstructured log data.",
+            "recent_release": "2020-09-21T19:59:34Z",
             "release": [
                 {
                     "release_version": "v0.0.1",
@@ -179,6 +182,7 @@
             "stars": 11442,
             "repository_url": "https://github.com/google/cadvisor",
             "description": "Analyzes resource usage and performance characteristics of running containers.",
+            "recent_release": "2020-11-18T19:27:09Z",
             "release": [
                 {
                     "release_version": "v0.27.1",
@@ -341,6 +345,7 @@
             "stars": 441,
             "repository_url": "https://github.com/kbudde/rabbitmq_exporter",
             "description": "Prometheus exporter for RabbitMQ",
+            "recent_release": "2020-04-20T20:47:24Z",
             "release": [
                 {
                     "release_version": "0.12.0",
@@ -503,6 +508,7 @@
             "stars": 91,
             "repository_url": "https://github.com/Kong/kong-plugin-prometheus",
             "description": "Prometheus plugin for Kong",
+            "recent_release": "2020-08-20T17:22:11Z",
             "release": [
                 {
                     "release_version": "0.1.0",
@@ -590,6 +596,7 @@
             "stars": 2576,
             "repository_url": "https://github.com/kubernetes/kube-state-metrics",
             "description": "Add-on agent to generate and expose cluster-level metrics.",
+            "recent_release": "2020-11-20T10:02:50Z",
             "release": [
                 {
                     "release_version": "v1.4.0",
@@ -752,6 +759,7 @@
             "stars": 656,
             "repository_url": "https://github.com/ncabatoff/process-exporter",
             "description": "Prometheus exporter that mines /proc to report on selected processes ",
+            "recent_release": "2020-11-05T12:41:15Z",
             "release": [
                 {
                     "release_version": "v0.0.1",
@@ -889,6 +897,7 @@
             "stars": 519,
             "repository_url": "https://github.com/nginxinc/nginx-prometheus-exporter",
             "description": "NGINX Prometheus Exporter for NGINX and NGINX Plus",
+            "recent_release": "2020-06-18T13:54:09Z",
             "release": [
                 {
                     "release_version": "v0.1.0",
@@ -951,6 +960,7 @@
             "stars": 610,
             "repository_url": "https://github.com/NVIDIA/gpu-monitoring-tools",
             "description": "Tools for monitoring NVIDIA GPUs on Linux ",
+            "recent_release": "1970-01-01",
             "release": []
         },
         {
@@ -962,6 +972,7 @@
             "stars": 1558,
             "repository_url": "https://github.com/oliver006/redis_exporter",
             "description": "Prometheus Exporter for Redis Metrics. Supports Redis 2.x, 3.x, 4.x, 5.x and 6.x",
+            "recent_release": "2020-11-02T14:41:24Z",
             "release": [
                 {
                     "release_version": "v1.0.3",
@@ -1124,6 +1135,7 @@
             "stars": 85,
             "repository_url": "https://github.com/openstack-exporter/openstack-exporter",
             "description": "OpenStack Exporter for Prometheus",
+            "recent_release": "2020-10-06T13:31:04Z",
             "release": [
                 {
                     "release_version": "v0.0.6",
@@ -1216,6 +1228,7 @@
             "stars": 172,
             "repository_url": "https://github.com/prometheus-community/json_exporter",
             "description": "A prometheus exporter which scrapes remote JSON by JSONPath",
+            "recent_release": "2020-11-03T17:03:58Z",
             "release": [
                 {
                     "release_version": "v0.1.0",
@@ -1238,6 +1251,7 @@
             "stars": 150,
             "repository_url": "https://github.com/prometheus-community/stackdriver_exporter",
             "description": "Google Stackdriver Prometheus exporter",
+            "recent_release": "2020-09-02T14:36:02Z",
             "release": [
                 {
                     "release_version": "v0.1.0",
@@ -1330,6 +1344,7 @@
             "stars": 1090,
             "repository_url": "https://github.com/prometheus-community/windows_exporter",
             "description": "Prometheus exporter for Windows machines",
+            "recent_release": "2020-11-07T07:13:00Z",
             "release": [
                 {
                     "release_version": "v0.2.9",
@@ -1492,6 +1507,7 @@
             "stars": 1908,
             "repository_url": "https://github.com/prometheus/blackbox_exporter",
             "description": "Blackbox prober exporter",
+            "recent_release": "2020-10-12T09:45:30Z",
             "release": [
                 {
                     "release_version": "0.1.0",
@@ -1609,6 +1625,7 @@
             "stars": 492,
             "repository_url": "https://github.com/prometheus/cloudwatch_exporter",
             "description": "Metrics exporter for Amazon AWS CloudWatch",
+            "recent_release": "2020-08-26T12:27:42Z",
             "release": [
                 {
                     "release_version": "cloudwatch_exporter-0.2",
@@ -1666,6 +1683,7 @@
             "stars": 189,
             "repository_url": "https://github.com/prometheus/collectd_exporter",
             "description": "A server that accepts collectd stats via HTTP POST and exports them via HTTP for Prometheus consumption",
+            "recent_release": "2020-05-11T13:20:11Z",
             "release": [
                 {
                     "release_version": "0.1.0",
@@ -1708,6 +1726,7 @@
             "stars": 308,
             "repository_url": "https://github.com/prometheus/consul_exporter",
             "description": "Exporter for Consul metrics",
+            "recent_release": "2020-07-21T15:32:08Z",
             "release": [
                 {
                     "release_version": "0.1.0",
@@ -1760,6 +1779,7 @@
             "stars": 204,
             "repository_url": "https://github.com/prometheus/graphite_exporter",
             "description": "Server that accepts metrics via the Graphite protocol and exports them as Prometheus metrics",
+            "recent_release": "2020-07-21T13:50:12Z",
             "release": [
                 {
                     "release_version": "0.1.0",
@@ -1832,6 +1852,7 @@
             "stars": 441,
             "repository_url": "https://github.com/prometheus/haproxy_exporter",
             "description": "Simple server that scrapes HAProxy stats and exports them via HTTP for Prometheus consumption",
+            "recent_release": "2020-06-21T15:07:09Z",
             "release": [
                 {
                     "release_version": "0.4.0",
@@ -1899,6 +1920,7 @@
             "stars": 144,
             "repository_url": "https://github.com/prometheus/influxdb_exporter",
             "description": "A server that accepts InfluxDB metrics via the HTTP API and exports them via HTTP for Prometheus consumption",
+            "recent_release": "2020-11-02T08:12:40Z",
             "release": [
                 {
                     "release_version": "v0.1.0",
@@ -1951,6 +1973,7 @@
             "stars": 1679,
             "repository_url": "https://github.com/prometheus/jmx_exporter",
             "description": "A process for exposing JMX Beans via HTTP for Prometheus consumption",
+            "recent_release": "2020-09-04T12:17:48Z",
             "release": [
                 {
                     "release_version": "parent-0.4",
@@ -2038,6 +2061,7 @@
             "stars": 100,
             "repository_url": "https://github.com/prometheus/memcached_exporter",
             "description": "Exports metrics from memcached servers for consumption by Prometheus.",
+            "recent_release": "2020-07-24T08:57:34Z",
             "release": [
                 {
                     "release_version": "v0.3.0",
@@ -2080,6 +2104,7 @@
             "stars": 997,
             "repository_url": "https://github.com/prometheus/mysqld_exporter",
             "description": "Exporter for MySQL server metrics",
+            "recent_release": "2019-07-29T12:33:53Z",
             "release": [
                 {
                     "release_version": "0.1.0",
@@ -2167,6 +2192,7 @@
             "stars": 5319,
             "repository_url": "https://github.com/prometheus/node_exporter",
             "description": "Exporter for machine metrics",
+            "recent_release": "2020-06-16T12:43:14Z",
             "release": [
                 {
                     "release_version": "0.8.1",
@@ -2329,6 +2355,7 @@
             "stars": 642,
             "repository_url": "https://github.com/prometheus/snmp_exporter",
             "description": "SNMP Exporter for Prometheus",
+            "recent_release": "2020-08-31T12:05:12Z",
             "release": [
                 {
                     "release_version": "0.0.4",
@@ -2451,6 +2478,7 @@
             "stars": 577,
             "repository_url": "https://github.com/prometheus/statsd_exporter",
             "description": "StatsD to Prometheus metrics exporter",
+            "recent_release": "2020-08-21T10:09:51Z",
             "release": [
                 {
                     "release_version": "0.1.0",
@@ -2603,6 +2631,7 @@
             "stars": 80,
             "repository_url": "https://github.com/RobustPerception/azure_metrics_exporter",
             "description": "Azure metrics exporter for Prometheus",
+            "recent_release": "1970-01-01",
             "release": []
         },
         {
@@ -2614,6 +2643,7 @@
             "stars": 1119,
             "repository_url": "https://github.com/wrouesnel/postgres_exporter",
             "description": "A PostgresSQL metric exporter for Prometheus",
+            "recent_release": "2019-11-25T13:17:57Z",
             "release": [
                 {
                     "release_version": "v0.0.1",
@@ -2731,6 +2761,7 @@
             "stars": 2658,
             "repository_url": "https://github.com/prometheus/client_golang",
             "description": "Prometheus instrumentation library for Go applications",
+            "recent_release": "2020-10-15T16:21:16Z",
             "release": [
                 {
                     "release_version": "0.1.0",
@@ -2883,6 +2914,7 @@
             "stars": 1369,
             "repository_url": "https://github.com/prometheus/client_java",
             "description": "Prometheus instrumentation library for JVM applications",
+            "recent_release": "2020-05-11T11:06:15Z",
             "release": [
                 {
                     "release_version": "parent-0.0.11",
@@ -3025,6 +3057,7 @@
             "stars": 1891,
             "repository_url": "https://github.com/prometheus/client_python",
             "description": "Prometheus instrumentation library for Python applications",
+            "recent_release": "2020-11-16T13:27:07Z",
             "release": [
                 {
                     "release_version": "0.0.9",
@@ -3172,6 +3205,7 @@
             "stars": 358,
             "repository_url": "https://github.com/prometheus/client_ruby",
             "description": "Prometheus instrumentation library for Ruby applications",
+            "recent_release": "2020-06-29T13:00:05Z",
             "release": [
                 {
                     "release_version": "v0.7.0",
@@ -3219,6 +3253,7 @@
             "stars": 1584,
             "repository_url": "https://github.com/prometheus/pushgateway",
             "description": "Push acceptor for ephemeral and batch jobs.",
+            "recent_release": "2020-10-01T12:00:35Z",
             "release": [
                 {
                     "release_version": "0.1.1",

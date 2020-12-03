@@ -2,8 +2,6 @@ import { createGlobalStyle } from "styled-components";
 import { reset } from "./reset";
 
 export const GlobalStyle = createGlobalStyle`
-  @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;700&display=swap');
-
   ${reset}
 
   * {

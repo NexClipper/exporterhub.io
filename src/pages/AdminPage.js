@@ -4,7 +4,7 @@ import Content from "../components/Content/Content";
 import Nav from "../components/Nav/Nav";
 import Sider from "../components/Sider/Sider";
 
-const ExporterHubPage = () => {
+const AdminPage = () => {
   return (
     <Main>
       <Nav />
@@ -25,10 +25,9 @@ const Container = styled.div`
   ${({ theme }) => theme.container};
   display: flex;
   justify-content: space-between;
-
   @media ${({ theme }) => theme.media.mobile} {
     width: 100%;
   }
 `;
 
-export default ExporterHubPage;
+export default AdminPage;
