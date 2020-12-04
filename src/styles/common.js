@@ -10,6 +10,10 @@ const color = {
 const container = css`
   width: 1060px;
   margin: 0 auto;
+
+  @media (max-width: 770px) {
+    width: 100%;
+  }
 `;
 
 const positionCenter = css`
@@ -48,6 +52,7 @@ const width = {
   card: 250,
   contentOnM: 85
 };
+
 const media = {
   mobile: `(max-width:770px)`
 };
