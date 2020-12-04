@@ -12,9 +12,14 @@ const ContentMenu = ({ totalCount }) => {
     dispatch(sortByPopularity(payload));
   };
   useEffect(() => {
-    axios.get("/data/categories.json").then(res => {
-      setCategories(res.data.categories);
-    });
+    axios
+      .get(
+        "/data/categories.json"
+        //CATEGORIES_API
+      )
+      .then(res => {
+        setCategories(res.data.categories);
+      });
   }, []);
   return (
     <Div>
@@ -45,11 +50,16 @@ const Div = styled.div`
   display: flex;
   justify-content: space-between;
   margin-bottom: 20px;
-  font-size: 13px;
+  font-size: 16px;
+  @media ${({ theme }) => theme.media.mobile} {
+    font-size: 13px;
+  }
+
   select {
     outline: none;
     border: none;
     background-color: transparent;
+    font-size: 16px;
     cursor: pointer;
     @media ${({ theme }) => theme.media.mobile} {
       width: 80px;
@@ -59,7 +69,10 @@ const Div = styled.div`
 
 const SelectBox = styled.div`
   display: flex;
-  font-size: 14px;
+  font-size: 16px;
+  @media ${({ theme }) => theme.media.mobile} {
+    font-size: 13px;
+  }
 `;
 
 const Select = styled.select`
@@ -69,6 +82,7 @@ const Select = styled.select`
   @media ${({ theme }) => theme.media.mobile} {
     display: block;
     width: 80px;
+    font-size: 13px;
   }
 `;
 export default ContentMenu;
