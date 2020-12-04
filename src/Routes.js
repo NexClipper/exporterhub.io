@@ -4,7 +4,7 @@ import { useDispatch } from "react-redux";
 import axios from "axios";
 import Header from "./components/Header/Header";
 import ExporterHubPage from "./pages/ExporterHubPage";
-import ReadmePage from "./pages/ReadmePage";
+import ExporterHubDetailPage from "./pages/ExporterHubDetailPage";
 import Footer from "./components/Footer/Footer";
 import { GlobalStyle } from "./styles/GlobalStyle";
 import { loadData, loadCategoriesData } from "./store/actions/exporterActions";
@@ -33,8 +33,8 @@ function Routes() {
         <Header />
         <Switch>
           <Route exact path="/" component={ExporterHubPage} />
-          <Route exact path="/detail/:id" component={ReadmePage} />
-          <Route exact path="/detail" component={ReadmePage} />
+          <Route exact path="/detail/:id" component={ExporterHubDetailPage} />
+          <Route exact path="/detail" component={ExporterHubDetailPage} />
           <Route exact path="/admin" component={AdminPage} />
         </Switch>
         <Footer />
