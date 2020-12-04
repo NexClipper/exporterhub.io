@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useSelector } from "react-redux";
 import axios from "axios";
 import styled, { css } from "styled-components";
+import { EXPORTER_ADMIN_API } from "../../config";
 
 const EditModal = ({ cancleModal, exporterId }) => {
   const categories = useSelector(store => store.categoryReducer);
@@ -10,23 +11,21 @@ const EditModal = ({ cancleModal, exporterId }) => {
   const deleteExporter = () => {
     axios
       .delete(
-        `http://10.153.5.73:8000/exporter?exporter_id=${exporterId}`
-        //`${EXPORTER_ADMIN_API}?exporter_id=${exporterId}`
+        // `http://10.153.5.73:8000/exporter?exporter_id=${exporterId}`
+        `${EXPORTER_ADMIN_API}?exporter_id=${exporterId}`
       )
       .then(res => {
         console.log(res.data.message);
-        //성공을 알리는 모달
       })
       .catch(error => {
         console.log(error.response.data.message);
-        //실패를 알리는 모달
       });
   };
   const editExporter = () => {
     axios
       .PATCH(
-        `http://10.153.5.73:8000/exporter?exporter_id=${exporterId}`,
-        //`${EXPORTER_ADMIN_API}?exporter_id=${exporterId}`,
+        // `http://10.153.5.73:8000/exporter?exporter_id=${exporterId}`,
+        `${EXPORTER_ADMIN_API}?exporter_id=${exporterId}`,
         { category: "category_name" }
       )
       .then(res => {

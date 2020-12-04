@@ -3,6 +3,7 @@ import { useDispatch } from "react-redux";
 import axios from "axios";
 import styled from "styled-components";
 import { sortByPopularity } from "../../store/actions/exporterActions";
+import { CATEGORIES_API } from "../../config";
 
 const ContentMenu = ({ totalCount }) => {
   const [categories, setCategories] = useState([]);
@@ -14,8 +15,8 @@ const ContentMenu = ({ totalCount }) => {
   useEffect(() => {
     axios
       .get(
-        "/data/categories.json"
-        //CATEGORIES_API
+        // "/data/categories.json"
+        CATEGORIES_API
       )
       .then(res => {
         setCategories(res.data.categories);

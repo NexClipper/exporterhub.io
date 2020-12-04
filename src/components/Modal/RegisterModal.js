@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useSelector } from "react-redux";
 import axios from "axios";
 import styled from "styled-components";
+import { EXPORTER_ADMIN_API } from "../../config";
 
 const RegisterModal = ({ cancleModal }) => {
   const categories = useSelector(store => store.categoryReducer);
@@ -11,8 +12,8 @@ const RegisterModal = ({ cancleModal }) => {
   const registerExporter = () => {
     axios
       .post(
-        "http://10.153.1.241:8000/exporter",
-        //EXPORTER_ADMIN_API
+        // "http://10.153.1.241:8000/exporter",
+        EXPORTER_ADMIN_API,
         {
           repo_url: repoUrl,
           category: category
