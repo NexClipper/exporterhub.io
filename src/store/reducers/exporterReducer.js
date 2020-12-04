@@ -2,6 +2,7 @@ const FILTER_BY_VALUE = "FILTER_BY_VALUE";
 const SORT_BY_POPULARITY = "SORT_BY_POPULARITY";
 const LOAD_DATA = "LOAD_DATA";
 const LOAD_MORE_DATA = "LOAD_MORE_DATA";
+const COUNT_PER_SCROLL = 9;
 
 const sortingKey = {
   "Sort by": "exporter_id",
@@ -29,7 +30,6 @@ const exporterReducer = (state = initialState, action) => {
       } = filteredState;
 
       let filteredValues = state.exporters.filter(exporter => {
-        console.log(value);
         return (
           (value ? exporter.name.toLowerCase().includes(value) : true) &&
           exporter.official === type &&
@@ -37,6 +37,10 @@ const exporterReducer = (state = initialState, action) => {
         );
       });
       filteredState.filteredExporters = filteredValues;
+      filteredState.exposedExporters = filteredValues.slice(
+        0,
+        COUNT_PER_SCROLL
+      );
       filteredState.totalCount = filteredValues.length;
       return filteredState;
 
@@ -44,22 +48,25 @@ const exporterReducer = (state = initialState, action) => {
       let sortByPopularityState = Object.assign({}, state);
       const sortValue = action.payload;
 
-      sortByPopularityState.filteredExporters = sortDesc(
+      const sortedFilteredExporters = sortDesc(
         state.filteredExporters,
         sortingKey[sortValue]
       );
 
-      sortByPopularityState.exporters = sortDesc(
-        state.exporters,
-        sortingKey[sortValue]
+      const sortedExporters = sortDesc(state.exporters, sortingKey[sortValue]);
+
+      sortByPopularityState.filteredExporters = sortedFilteredExporters;
+      sortByPopularityState.exposedExporters = sortedFilteredExporters.slice(
+        0,
+        COUNT_PER_SCROLL
       );
+      sortByPopularityState.exporters = sortedExporters;
 
       return sortByPopularityState;
 
     case LOAD_DATA:
       const count = action.payload.length;
-      const countPerPage = 12;
-      const totalPages = Math.ceil(count / countPerPage);
+      const totalPages = Math.ceil(count / COUNT_PER_SCROLL);
       const exporters = action.payload;
       let officialExporters = exporters.filter(exporter => {
         return exporter.official === "Official";
@@ -69,15 +76,28 @@ const exporterReducer = (state = initialState, action) => {
         ...state,
         exporters,
         filteredExporters: officialExporters,
-        countPerPage,
+        exposedExporters: officialExporters.slice(0, COUNT_PER_SCROLL),
         totalCount: officialCount,
         currentPage: 1,
         totalPages: totalPages,
         filteredPages: totalPages
       };
     case LOAD_MORE_DATA:
-      //load more page
-      return state;
+      let loadNewDataState = Object.assign({}, state);
+      if (
+        loadNewDataState.currentPage <=
+        loadNewDataState.totalCount / COUNT_PER_SCROLL
+      )
+        loadNewDataState.currentPage += 1;
+
+      const perPage = loadNewDataState.countPerPage; //20 by default
+      const currentCount = loadNewDataState.currentPage * perPage;
+      const currentExporters = loadNewDataState.filteredExporters.slice(
+        0,
+        currentCount
+      );
+      loadNewDataState.exposedExporters = currentExporters;
+      return loadNewDataState;
     default:
       return state;
   }

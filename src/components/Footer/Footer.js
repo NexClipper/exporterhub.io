@@ -38,6 +38,9 @@ const Div = styled.div`
   align-items: center;
   padding: 20px;
   border-top: 1px solid rgba(0, 0, 0, 0.1);
+  @media ${({ theme }) => theme.media.mobile} {
+    display: none;
+  }
 `;
 const GetSupport = styled.div``;
 const Contacts = styled.div`

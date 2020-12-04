@@ -44,17 +44,22 @@ const Div = styled.div`
   width: 100%;
   display: flex;
   justify-content: space-between;
-  margin-bottom: 15px;
+  margin-bottom: 20px;
+  font-size: 13px;
   select {
     outline: none;
     border: none;
     background-color: transparent;
     cursor: pointer;
+    @media ${({ theme }) => theme.media.mobile} {
+      width: 80px;
+    }
   }
 `;
 
 const SelectBox = styled.div`
   display: flex;
+  font-size: 14px;
 `;
 
 const Select = styled.select`
@@ -63,6 +68,7 @@ const Select = styled.select`
 
   @media ${({ theme }) => theme.media.mobile} {
     display: block;
+    width: 80px;
   }
 `;
 export default ContentMenu;
