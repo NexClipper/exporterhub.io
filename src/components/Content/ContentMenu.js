@@ -49,6 +49,9 @@ const Div = styled.div`
     outline: none;
     border: none;
     background-color: transparent;
+    :hover {
+      cursor: pointer;
+    }
   }
 `;
 
@@ -59,6 +62,7 @@ const SelectBox = styled.div`
 const Select = styled.select`
   display: none;
   margin-right: 10px;
+
   @media ${({ theme }) => theme.media.mobile} {
     display: block;
   }
