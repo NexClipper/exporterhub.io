@@ -36,10 +36,16 @@ const Div = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 20px;
+  padding: 40px 80px;
   border-top: 1px solid rgba(0, 0, 0, 0.1);
 `;
-const GetSupport = styled.div``;
+const GetSupport = styled.div`
+  font-size: 14px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 50px;
+`;
 const Contacts = styled.div`
   display: flex;
   flex-direction: column;
@@ -48,11 +54,19 @@ const Contacts = styled.div`
 const Icons = styled.div`
   margin-top: 10px;
   .icon {
-    font-size: 25px;
+    font-size: 35px;
     margin-right: 5px;
     cursor: pointer;
   }
 `;
-const Address = styled.div``;
-const Copyright = styled.div``;
+const Address = styled.div`
+  font-size: 14px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 50px;
+`;
+const Copyright = styled.div`
+  font-size: 14px;
+`;
 export default Footer;
