@@ -1,7 +1,6 @@
 import React from "react";
 import { useHistory } from "react-router-dom";
 import Logo from "./Logo";
-import InfoIcon from "./InfoIcon";
 import Search from "./Search";
 import HeaderMenu from "./HeaderMenu";
 import AdminMenu from "./AdminMenu";
@@ -17,7 +16,6 @@ const Header = () => {
       <Div>
         <div className="logoInfo">
           <Logo />
-          <InfoIcon />
         </div>
         <Search />
         {pathname === "/admin" ? <AdminMenu /> : <HeaderMenu />}

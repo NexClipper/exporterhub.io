@@ -1,14 +1,18 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
+import { useSelector } from "react-redux";
 import axios from "axios";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
 const EditModal = ({ cancleModal, exporterId }) => {
-  const [categories, setCategories] = useState([]);
+  const categories = useSelector(store => store.categoryReducer);
   const [category, setCategory] = useState("Default");
 
   const deleteExporter = () => {
     axios
-      .delete(`http://10.153.5.73:8000/exporter?exporter_id=${exporterId}`)
+      .delete(
+        `http://10.153.5.73:8000/exporter?exporter_id=${exporterId}`
+        //`${EXPORTER_ADMIN_API}?exporter_id=${exporterId}`
+      )
       .then(res => {
         console.log(res.data.message);
         //성공을 알리는 모달
@@ -18,34 +22,44 @@ const EditModal = ({ cancleModal, exporterId }) => {
         //실패를 알리는 모달
       });
   };
+  const editExporter = () => {
+    axios
+      .PATCH(
+        `http://10.153.5.73:8000/exporter?exporter_id=${exporterId}`,
+        //`${EXPORTER_ADMIN_API}?exporter_id=${exporterId}`,
+        { category: "category_name" }
+      )
+      .then(res => {
+        console.log(res.data.message);
+        window.alert("Success");
+        cancleModal();
+        window.location.reload();
+      })
+      .catch(error => {
+        console.log(error.response.data.message);
+        window.alert("Try again");
+      });
+  };
 
   const selectCategory = e => {
     setCategory(e.target.value);
   };
 
-  useEffect(() => {
-    axios.get("http://localhost:3000/data/categories.json").then(res => {
-      setCategories(res.data.categories);
-    });
-  }, []);
-
   return (
     <ModalContainer>
       <Div>
-        <img src="assets/image.png" />
+        <img src="assets/image.png" alt="modal" />
         <Container>
-          <select className="inputDiv" onChange={selectCategory}>
+          <select onChange={selectCategory}>
             <option>Select category</option>
             {categories.map(category => {
               return <option>{category.category_name}</option>;
             })}
           </select>
-          <Button>
-            <button className="inputDiv">Edit</button>
-            <button className="inputDiv" onClick={deleteExporter}>
-              Remove
-            </button>
-          </Button>
+          <ButtonContainer>
+            <button onClick={editExporter}>Edit</button>
+            <button onClick={deleteExporter}>Remove</button>
+          </ButtonContainer>
         </Container>
         <Back onClick={cancleModal}>
           <button>Back</button>
@@ -55,7 +69,7 @@ const EditModal = ({ cancleModal, exporterId }) => {
   );
 };
 const ModalContainer = styled.div`
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   width: 100vw;
@@ -65,6 +79,7 @@ const ModalContainer = styled.div`
   flex-direction: column;
   align-items: center;
 `;
+
 const Div = styled.div`
   width: 300px;
   height: 500px;
@@ -78,32 +93,24 @@ const Div = styled.div`
     margin-top: 50px;
   }
 `;
+
 const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
   padding-top: 50px;
   margin-bottom: 50px;
-  .inputDiv {
-    width: 200px;
-    height: 35px;
-    border: 1px solid rgba(0, 0, 0, 0.3);
-    border-radius: 4px;
-    color: rgba(0, 0, 0, 0.3);
-    font-size: 12px;
-    font-weight: 400;
-    text-align: center;
-    :hover {
-      cursor: pointer;
-    }
+  select {
+    ${({ theme }) => theme.ModalButton}
   }
 `;
-const Button = styled.div`
+const ButtonContainer = styled.div`
   margin-top: 40px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   button {
+    ${({ theme }) => theme.ModalButton}
     background-color: #efeeee;
     margin-bottom: 10px;
   }
@@ -119,9 +126,7 @@ const Back = styled.div`
   font-weight: 400;
   display: flex;
   justify-content: center;
-  :hover {
-    cursor: pointer;
-  }
+  cursor: pointer;
 `;
 
 export default EditModal;

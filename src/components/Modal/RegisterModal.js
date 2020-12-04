@@ -1,25 +1,33 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
+import { useSelector } from "react-redux";
 import axios from "axios";
 import styled from "styled-components";
 
 const RegisterModal = ({ cancleModal }) => {
-  const [categories, setCategories] = useState([]);
+  const categories = useSelector(store => store.categoryReducer);
   const [repoUrl, setRepoUrl] = useState("Default");
   const [category, setCategory] = useState("Default");
 
   const registerExporter = () => {
     axios
-      .post("http://10.153.1.241:8000/exporter", {
-        repo_url: repoUrl,
-        category: category
-      })
+      .post(
+        "http://10.153.1.241:8000/exporter",
+        //EXPORTER_ADMIN_API
+        {
+          repo_url: repoUrl,
+          category: category
+        }
+      )
       .then(res => {
         console.log(res.data.message);
+        window.alert("Success");
+        cancleModal();
+        window.location.reload();
       })
-      //성공을 알리는 모달
+
       .catch(error => {
         console.log(error.response.data.message);
-        //실패를 알리는 모달
+        window.alert("Try again");
       });
   };
 
@@ -31,16 +39,10 @@ const RegisterModal = ({ cancleModal }) => {
     setCategory(e.target.value);
   };
 
-  useEffect(() => {
-    axios.get("http://localhost:3000/data/categories.json").then(res => {
-      setCategories(res.data.categories);
-    });
-  }, []);
-
   return (
     <ModalContainer>
       <Div>
-        <img src="assets/image.png" />
+        <img src="assets/image.png" alt="modal" />
         <Container>
           <input
             className="inputDiv"
@@ -65,7 +67,7 @@ const RegisterModal = ({ cancleModal }) => {
   );
 };
 const ModalContainer = styled.div`
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   width: 100vw;
@@ -76,6 +78,7 @@ const ModalContainer = styled.div`
   align-items: center;
   z-index: 1;
 `;
+
 const Div = styled.div`
   width: 300px;
   height: 500px;
@@ -95,21 +98,15 @@ const Container = styled.div`
   align-items: center;
   padding-top: 50px;
   margin-bottom: 50px;
-  .inputDiv {
-    width: 200px;
-    height: 35px;
-    margin-bottom: 10px;
-    border: 1px solid rgba(0, 0, 0, 0.3);
-    border-radius: 4px;
-    color: rgba(0, 0, 0, 0.3);
-    font-size: 12px;
-    font-weight: 400;
-    text-align: center;
-    :hover {
-      cursor: pointer;
-    }
+  input {
+    ${({ theme }) => theme.ModalButton}
+    margin-bottom : 10px
+  }
+  select {
+    ${({ theme }) => theme.ModalButton}
   }
   button {
+    ${({ theme }) => theme.ModalButton}
     background-color: #efeeee;
     margin-top: 20px;
   }
@@ -124,9 +121,7 @@ const Back = styled.div`
   font-weight: 400;
   display: flex;
   justify-content: center;
-  :hover {
-    cursor: pointer;
-  }
+  cursor: pointer;
 `;
 
 export default RegisterModal;

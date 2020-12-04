@@ -1,4 +1,4 @@
-import { css, ThemeProvider } from "styled-components";
+import { css } from "styled-components";
 
 const color = {
   pryColor: "#DF691A",
@@ -10,6 +10,10 @@ const color = {
 const container = css`
   width: 1060px;
   margin: 0 auto;
+
+  @media (max-width: 770px) {
+    width: 100%;
+  }
 `;
 
 const positionCenter = css`
@@ -31,11 +35,24 @@ const flexCenterTop = css`
   align-items: center;
 `;
 
+const ModalButton = css`
+  width: 200px;
+  height: 35px;
+  border: 1px solid rgba(0, 0, 0, 0.3);
+  border-radius: 4px;
+  color: rgba(0, 0, 0, 0.3);
+  font-size: 12px;
+  font-weight: 400;
+  text-align: center;
+  cursor: pointer;
+`;
+
 const width = {
-  content: 700,
-  card: 210,
-  contentOnM: 90
+  content: 800,
+  card: 250,
+  contentOnM: 85
 };
+
 const media = {
   mobile: `(max-width:770px)`
 };
@@ -46,6 +63,7 @@ const theme = {
   positionCenter,
   flexCenter,
   flexCenterTop,
+  ModalButton,
   width,
   media
 };

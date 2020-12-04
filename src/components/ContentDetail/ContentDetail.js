@@ -1,21 +1,25 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router";
+import remarkMarkdown from "./remarkMarkdown";
 import axios from "axios";
 import styled from "styled-components";
-import remarkMarkdown from "./remarkMarkdown";
 import { FiShare2 } from "react-icons/fi";
 import { AiFillStar } from "react-icons/ai";
+import { EXPORTER_API } from "../../config";
 
-const ReadmeContent = () => {
+const ContentDetail = () => {
   const { id } = useParams();
   const [exporterInfo, setExporterInfo] = useState([]);
 
   useEffect(() => {
-    axios.get(`http://10.153.5.73:8000/exporters/${id}`).then(res => {
-      // setReadmeContent(remarkMarkdown(res.data.data));
-      setExporterInfo(res.data);
-      console.log(res.data);
-    });
+    axios
+      .get(
+        `http://10.153.5.73:8000/exporters/${id}`
+        //`${EXPORTER_API}/${id}`
+      )
+      .then(res => {
+        setExporterInfo(res.data);
+      });
   }, []);
 
   const readmeContent = remarkMarkdown(exporterInfo.readme);
@@ -25,7 +29,7 @@ const ReadmeContent = () => {
       <Header>
         <Container>
           <OpenSourceInfo>
-            <HeaderLogo src="/images/prometheus_logo.png" alt="오픈소스 로고" />
+            <HeaderLogo src={exporterInfo.logo_url} alt="오픈소스 로고" />
             <ListWrap>
               <List>
                 <Name>{exporterInfo.name}</Name>
@@ -49,7 +53,6 @@ const ReadmeContent = () => {
           <MarkdownBody
             dangerouslySetInnerHTML={{ __html: readmeContent }}
           ></MarkdownBody>
-          <Aside></Aside>
         </Container>
       </Main>
     </>
@@ -70,6 +73,14 @@ const OpenSourceInfo = styled.div`
   left: 165px;
   bottom: -50px;
   max-width: 350px;
+
+  @media ${({ theme }) => theme.media.mobile} {
+    position: absolute;
+    left: 50%;
+    bottom: auto;
+    transform: translateX(-50%);
+    min-width: 300px;
+  }
 `;
 
 const HeaderLogo = styled.img`
@@ -77,14 +88,23 @@ const HeaderLogo = styled.img`
   width: 180px;
   height: 180px;
   margin: 0 auto;
+
+  @media ${({ theme }) => theme.media.mobile} {
+    width: 150px;
+    height: 150px;
+  }
 `;
 
 const ListWrap = styled.ul`
-  margin: 30px 0 0;
+  margin-top: 30px;
   padding: 12px;
   background: #fff;
   border-radius: 15px;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
+
+  @media ${({ theme }) => theme.media.mobile} {
+    margin-top: 15px;
+  }
 `;
 
 const List = styled.li`
@@ -129,8 +149,13 @@ const Category = styled.p`
 
 const Main = styled.main`
   padding: 90px 0 50px;
-  background: #fafafa;
+  background: #f7f9fc;
   border-radius: 50px 0 0 0;
+
+  @media ${({ theme }) => theme.media.mobile} {
+    padding: 90px 15px 50px;
+    border-radius: 50px 50px 0 0;
+  }
 `;
 
 const ReadmeTitle = styled.h4`
@@ -234,12 +259,4 @@ const MarkdownBody = styled.div`
   }
 `;
 
-const Aside = styled.aside`
-  position: absolute;
-  right: 0;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 300px;
-`;
-
-export default ReadmeContent;
+export default ContentDetail;
