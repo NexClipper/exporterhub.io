@@ -5,15 +5,21 @@ import axios from "axios";
 import styled from "styled-components";
 import { FiShare2 } from "react-icons/fi";
 import { AiFillStar } from "react-icons/ai";
+import { EXPORTER_API } from "../../config";
 
 const ContentDetail = () => {
   const { id } = useParams();
   const [exporterInfo, setExporterInfo] = useState([]);
 
   useEffect(() => {
-    axios.get(`http://10.153.5.73:8000/exporters/${id}`).then(res => {
-      setExporterInfo(res.data);
-    });
+    axios
+      .get(
+        `http://10.153.5.73:8000/exporters/${id}`
+        //`${EXPORTER_API}/${id}`
+      )
+      .then(res => {
+        setExporterInfo(res.data);
+      });
   }, []);
 
   const readmeContent = remarkMarkdown(exporterInfo.readme);

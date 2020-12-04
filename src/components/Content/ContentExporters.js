@@ -1,11 +1,8 @@
-import { useState, useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useState } from "react";
 import styled from "styled-components";
 import CardExporter from "./CardExporter";
 import { useHistory } from "react-router-dom";
-import { loadMoreData } from "../../store/actions/exporterActions";
 import EditModal from "../Modal/EditModal";
-import usePageBottom from "../../hooks/usePageBottom";
 
 const ContentExporters = ({ exporters }) => {
   const {
@@ -14,8 +11,6 @@ const ContentExporters = ({ exporters }) => {
   } = useHistory();
   const [isModalActive, setIsModalActive] = useState(false);
   const [exporterId, setExporterId] = useState();
-  const isBottom = usePageBottom();
-  const dispatch = useDispatch();
 
   const goToDetail = id => {
     push(`/detail/${id}`);
@@ -27,11 +22,6 @@ const ContentExporters = ({ exporters }) => {
   const cancleModal = () => {
     setIsModalActive(false);
   };
-
-  useEffect(() => {
-    if (!isBottom) return;
-    dispatch(loadMoreData());
-  }, [isBottom]);
 
   return (
     <ExporterContainer>

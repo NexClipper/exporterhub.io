@@ -10,10 +10,14 @@ const RegisterModal = ({ cancleModal }) => {
 
   const registerExporter = () => {
     axios
-      .post("http://10.153.1.241:8000/exporter", {
-        repo_url: repoUrl,
-        category: category
-      })
+      .post(
+        "http://10.153.1.241:8000/exporter",
+        //EXPORTER_ADMIN_API
+        {
+          repo_url: repoUrl,
+          category: category
+        }
+      )
       .then(res => {
         console.log(res.data.message);
       })

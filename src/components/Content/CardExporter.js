@@ -54,7 +54,7 @@ const Div = styled.div`
     transform: scale(1.05);
   }
   @media ${({ theme }) => theme.media.mobile} {
-    height: 100px;
+    height: 120px;
     width: 100%;
     align-items: flex-start;
     padding: 0 30px;
@@ -65,6 +65,9 @@ const Div = styled.div`
     font-size: 12px;
     text-align: end;
     padding: 20px 0;
+    @media ${({ theme }) => theme.media.mobile} {
+      padding: 15px 0;
+    }
   }
 `;
 
@@ -79,6 +82,10 @@ const Article = styled.article`
       width: 100px;
       height: 100px;
       margin-bottom: 35px;
+      @media ${({ theme }) => theme.media.mobile} {
+        width: 50px;
+        height: 50px;
+      }
     }
   }
 `;

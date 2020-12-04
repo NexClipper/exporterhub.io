@@ -19,6 +19,7 @@ const ExporterHubPage = () => {
 const Main = styled.main`
   background-color: #fafafa;
   width: 100%;
+  padding-bottom: 30px;
 `;
 
 const Container = styled.div`

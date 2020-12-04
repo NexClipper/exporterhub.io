@@ -50,7 +50,7 @@ const ModalButton = css`
 const width = {
   content: 800,
   card: 250,
-  contentOnM: 90
+  contentOnM: 85
 };
 
 const media = {

@@ -9,6 +9,7 @@ import Footer from "./components/Footer/Footer";
 import { GlobalStyle } from "./styles/GlobalStyle";
 import { loadData, loadCategoriesData } from "./store/actions/exporterActions";
 import AdminPage from "./pages/AdminPage";
+import { CATEGORIES_API, EXPORTERS_API } from "./config";
 
 function Routes() {
   const dispatch = useDispatch();
@@ -16,9 +17,12 @@ function Routes() {
     const fetchData = async () => {
       const result = await axios(
         "/data/exporter_list.json"
-        // "http://10.153.5.73:8000"
+        // EXPORTERS_API
       );
-      const categoriesData = await axios("/data/categories.json");
+      const categoriesData = await axios(
+        "/data/categories.json"
+        //CATEGORIES_API
+      );
 
       dispatch(loadData(result.data.exporters));
       dispatch(loadCategoriesData(categoriesData.data.categories));
