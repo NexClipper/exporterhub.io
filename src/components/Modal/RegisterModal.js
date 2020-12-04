@@ -20,11 +20,14 @@ const RegisterModal = ({ cancleModal }) => {
       )
       .then(res => {
         console.log(res.data.message);
+        window.alert("Success");
+        cancleModal();
+        window.location.reload();
       })
-      //성공을 알리는 모달
+
       .catch(error => {
         console.log(error.response.data.message);
-        //실패를 알리는 모달
+        window.alert("Try again");
       });
   };
 
