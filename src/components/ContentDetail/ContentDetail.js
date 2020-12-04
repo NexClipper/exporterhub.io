@@ -23,7 +23,7 @@ const ContentDetail = () => {
       <Header>
         <Container>
           <OpenSourceInfo>
-            <HeaderLogo src="/images/prometheus_logo.png" alt="오픈소스 로고" />
+            <HeaderLogo src={exporterInfo.logo_url} alt="오픈소스 로고" />
             <ListWrap>
               <List>
                 <Name>{exporterInfo.name}</Name>
@@ -67,6 +67,14 @@ const OpenSourceInfo = styled.div`
   left: 165px;
   bottom: -50px;
   max-width: 350px;
+
+  @media ${({ theme }) => theme.media.mobile} {
+    position: absolute;
+    left: 50%;
+    bottom: auto;
+    transform: translateX(-50%);
+    min-width: 300px;
+  }
 `;
 
 const HeaderLogo = styled.img`
@@ -74,14 +82,23 @@ const HeaderLogo = styled.img`
   width: 180px;
   height: 180px;
   margin: 0 auto;
+
+  @media ${({ theme }) => theme.media.mobile} {
+    width: 150px;
+    height: 150px;
+  }
 `;
 
 const ListWrap = styled.ul`
-  margin: 30px 0 0;
+  margin-top: 30px;
   padding: 12px;
   background: #fff;
   border-radius: 15px;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
+
+  @media ${({ theme }) => theme.media.mobile} {
+    margin-top: 15px;
+  }
 `;
 
 const List = styled.li`
@@ -126,8 +143,13 @@ const Category = styled.p`
 
 const Main = styled.main`
   padding: 90px 0 50px;
-  background: #fafafa;
+  background: #f7f9fc;
   border-radius: 50px 0 0 0;
+
+  @media ${({ theme }) => theme.media.mobile} {
+    padding: 90px 15px 50px;
+    border-radius: 50px 50px 0 0;
+  }
 `;
 
 const ReadmeTitle = styled.h4`
