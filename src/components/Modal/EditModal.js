@@ -46,7 +46,7 @@ const EditModal = ({ cancleModal, exporterId }) => {
   };
 
   return (
-    <ModalContainer onClick={cancleModal}>
+    <ModalContainer>
       <Div>
         <img src="assets/image.png" alt="modal" />
         <Container>

@@ -40,7 +40,7 @@ const RegisterModal = ({ cancleModal }) => {
   };
 
   return (
-    <ModalContainer onClick={cancleModal}>
+    <ModalContainer>
       <Div>
         <img src="assets/image.png" alt="modal" />
         <Container>
