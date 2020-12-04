@@ -1,9 +1,10 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
+import { useSelector } from "react-redux";
 import axios from "axios";
 import styled from "styled-components";
 
 const EditModal = ({ cancleModal, exporterId }) => {
-  const [categories, setCategories] = useState([]);
+  const categories = useSelector(store => store.categoryReducer);
   const [category, setCategory] = useState("Default");
 
   const deleteExporter = () => {
@@ -23,16 +24,10 @@ const EditModal = ({ cancleModal, exporterId }) => {
     setCategory(e.target.value);
   };
 
-  useEffect(() => {
-    axios.get("http://localhost:3000/data/categories.json").then(res => {
-      setCategories(res.data.categories);
-    });
-  }, []);
-
   return (
     <ModalContainer>
       <Div>
-        <img src="assets/image.png" />
+        <img src="assets/image.png" alt="modal" />
         <Container>
           <select className="inputDiv" onChange={selectCategory}>
             <option>Select category</option>

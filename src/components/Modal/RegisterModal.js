@@ -1,9 +1,10 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
+import { useSelector } from "react-redux";
 import axios from "axios";
 import styled from "styled-components";
 
 const RegisterModal = ({ cancleModal }) => {
-  const [categories, setCategories] = useState([]);
+  const categories = useSelector(store => store.categoryReducer);
   const [repoUrl, setRepoUrl] = useState("Default");
   const [category, setCategory] = useState("Default");
 
@@ -31,16 +32,10 @@ const RegisterModal = ({ cancleModal }) => {
     setCategory(e.target.value);
   };
 
-  useEffect(() => {
-    axios.get("http://localhost:3000/data/categories.json").then(res => {
-      setCategories(res.data.categories);
-    });
-  }, []);
-
   return (
     <ModalContainer>
       <Div>
-        <img src="assets/image.png" />
+        <img src="assets/image.png" alt="modal" />
         <Container>
           <input
             className="inputDiv"

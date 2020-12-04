@@ -1,13 +1,11 @@
-import { useState, useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import { filterByValue } from "../../store/actions/exporterActions";
-import axios from "axios";
 import styled from "styled-components";
 
 const Sider = () => {
   const dispatch = useDispatch();
-
-  const [categories, setCategories] = useState([]);
+  const categories = useSelector(store => store.categoryReducer);
   const [categoryAct, setcategoryAct] = useState(1);
 
   const handleClickCategoryAct = id => {
@@ -18,13 +16,6 @@ const Sider = () => {
     const payload = { filterType: "category", data: e.target.innerText };
     dispatch(filterByValue(payload));
   };
-
-  useEffect(() => {
-    axios.get("http://localhost:3000/data/categories.json").then(res => {
-      setCategories(res.data.categories);
-      setcategoryAct(0);
-    });
-  }, []);
 
   return (
     <CategoryList>
