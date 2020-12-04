@@ -6,7 +6,7 @@ import styled from "styled-components";
 const Sider = () => {
   const dispatch = useDispatch();
   const categories = useSelector(store => store.categoryReducer);
-  const [categoryAct, setcategoryAct] = useState(1);
+  const [categoryAct, setcategoryAct] = useState(0);
 
   const handleClickCategoryAct = id => {
     setcategoryAct(id);
@@ -47,7 +47,7 @@ const Sider = () => {
 };
 
 const CategoryList = styled.ul`
-  width: 300px;
+  width: 200px;
   height: 500px;
   line-height: 1.5;
   background-color: #ffffff;

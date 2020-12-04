@@ -49,9 +49,7 @@ const Div = styled.div`
     outline: none;
     border: none;
     background-color: transparent;
-    :hover {
-      cursor: pointer;
-    }
+    cursor: pointer;
   }
 `;
 

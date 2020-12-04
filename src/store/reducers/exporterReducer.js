@@ -1,7 +1,7 @@
 const FILTER_BY_VALUE = "FILTER_BY_VALUE";
 const SORT_BY_POPULARITY = "SORT_BY_POPULARITY";
 const LOAD_DATA = "LOAD_DATA";
-const LOAD_MORE_PAGE = "LOAD_MORE_PAGE";
+const LOAD_MORE_DATA = "LOAD_MORE_DATA";
 
 const sortingKey = {
   "Sort by": "exporter_id",
@@ -75,7 +75,7 @@ const exporterReducer = (state = initialState, action) => {
         totalPages: totalPages,
         filteredPages: totalPages
       };
-    case LOAD_MORE_PAGE:
+    case LOAD_MORE_DATA:
       //load more page
       return state;
     default:

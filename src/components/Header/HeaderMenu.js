@@ -26,9 +26,7 @@ const Div = styled.div`
   a {
     margin-left: 30px;
     color: #000000;
-    :hover {
-      cursor: pointer;
-    }
+    cursor: pointer;
   }
 `;
 

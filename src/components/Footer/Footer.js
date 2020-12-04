@@ -50,9 +50,7 @@ const Icons = styled.div`
   .icon {
     font-size: 25px;
     margin-right: 5px;
-    :hover {
-      cursor: pointer;
-    }
+    cursor: pointer;
   }
 `;
 const Address = styled.div``;

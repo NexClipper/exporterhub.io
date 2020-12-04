@@ -33,7 +33,7 @@ const RegisterModal = ({ cancleModal }) => {
   };
 
   return (
-    <ModalContainer>
+    <ModalContainer onClick={cancleModal}>
       <Div>
         <img src="assets/image.png" alt="modal" />
         <Container>
@@ -71,6 +71,7 @@ const ModalContainer = styled.div`
   align-items: center;
   z-index: 1;
 `;
+
 const Div = styled.div`
   width: 300px;
   height: 500px;
@@ -90,21 +91,15 @@ const Container = styled.div`
   align-items: center;
   padding-top: 50px;
   margin-bottom: 50px;
-  .inputDiv {
-    width: 200px;
-    height: 35px;
-    margin-bottom: 10px;
-    border: 1px solid rgba(0, 0, 0, 0.3);
-    border-radius: 4px;
-    color: rgba(0, 0, 0, 0.3);
-    font-size: 12px;
-    font-weight: 400;
-    text-align: center;
-    :hover {
-      cursor: pointer;
-    }
+  input {
+    ${({ theme }) => theme.ModalButton}
+    margin-bottom : 10px
+  }
+  select {
+    ${({ theme }) => theme.ModalButton}
   }
   button {
+    ${({ theme }) => theme.ModalButton}
     background-color: #efeeee;
     margin-top: 20px;
   }
@@ -119,9 +114,7 @@ const Back = styled.div`
   font-weight: 400;
   display: flex;
   justify-content: center;
-  :hover {
-    cursor: pointer;
-  }
+  cursor: pointer;
 `;
 
 export default RegisterModal;

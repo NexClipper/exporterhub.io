@@ -32,9 +32,7 @@ const Div = styled.div`
   }
   span {
     margin-left: 30px;
-    :hover {
-      cursor: pointer;
-    }
+    cursor: pointer;
   }
 `;
 
