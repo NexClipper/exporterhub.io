@@ -16,7 +16,7 @@ const CardExporter = ({ exporter, history, cardClick }) => {
   return (
     <Div onClick={() => cardClick(exporter_id)}>
       <header>
-        <span>☆{stars}</span>
+        <span>★{stars}</span>
       </header>
       <Article>
         <div>
