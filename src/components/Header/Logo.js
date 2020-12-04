@@ -20,9 +20,7 @@ const Logo = () => {
 const Div = styled.div`
   display: flex;
   align-items: center;
-  :hover {
-    cursor: pointer;
-  }
+  cursor: pointer;
   img {
     width: 150px;
     object-fit: contain;

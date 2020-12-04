@@ -37,8 +37,8 @@ const CardExporter = ({ exporter, history, cardClick }) => {
 
 const Div = styled.div`
   width: ${({ theme }) => theme.width.card}px;
+  height: 320px;
   transition: 0.1s ease-in-out;
-  height: 230px;
   background-color: #ffffff;
   display: flex;
   flex-direction: column;
@@ -49,7 +49,7 @@ const Div = styled.div`
   border-radius: 5px;
   box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
   cursor: pointer;
-  padding: 0 10px;
+  padding: 0 20px;
   &:hover {
     transform: scale(1.05);
   }
@@ -64,7 +64,7 @@ const Div = styled.div`
     width: 100%;
     font-size: 12px;
     text-align: end;
-    padding: 10px 0;
+    padding: 20px 0;
   }
 `;
 
@@ -76,9 +76,9 @@ const Article = styled.article`
   div {
     text-align: center;
     img {
-      width: 45px;
-      height: 45px;
-      margin-bottom: 15px;
+      width: 100px;
+      height: 100px;
+      margin-bottom: 35px;
     }
   }
 `;

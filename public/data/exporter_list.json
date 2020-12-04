@@ -1,52 +1,9 @@
 {
     "exporters": [
         {
-            "exporter_id": 1,
-            "name": "eBPF Exporter",
-            "logo_url": "https://avatars3.githubusercontent.com/u/3380462?v=4",
-            "category": "Miscellaneous",
-            "official": "Unofficial",
-            "stars": 731,
-            "repository_url": "https://github.com/cloudflare/ebpf_exporter",
-            "description": " Prometheus exporter for custom eBPF metrics",
-            "recent_release": "2020-11-20T21:42:46Z",
-            "release": [
-                {
-                    "release_version": "v1.0.0",
-                    "release_date": "2018-08-20T23:52:34Z",
-                    "release_url": "https://github.com/cloudflare/ebpf_exporter/releases/tag/v1.0.0"
-                },
-                {
-                    "release_version": "v1.1.0",
-                    "release_date": "2019-01-08T23:18:28Z",
-                    "release_url": "https://github.com/cloudflare/ebpf_exporter/releases/tag/v1.1.0"
-                },
-                {
-                    "release_version": "v1.2.0",
-                    "release_date": "2019-10-17T18:04:43Z",
-                    "release_url": "https://github.com/cloudflare/ebpf_exporter/releases/tag/v1.2.0"
-                },
-                {
-                    "release_version": "v1.2.1",
-                    "release_date": "2019-11-26T07:56:00Z",
-                    "release_url": "https://github.com/cloudflare/ebpf_exporter/releases/tag/v1.2.1"
-                },
-                {
-                    "release_version": "v1.2.2",
-                    "release_date": "2019-12-17T00:04:28Z",
-                    "release_url": "https://github.com/cloudflare/ebpf_exporter/releases/tag/v1.2.2"
-                },
-                {
-                    "release_version": "v1.2.3",
-                    "release_date": "2020-11-20T21:42:46Z",
-                    "release_url": "https://github.com/cloudflare/ebpf_exporter/releases/tag/v1.2.3"
-                }
-            ]
-        },
-        {
             "exporter_id": 2,
             "name": "Ceph Exporter",
-            "logo_url": "https://avatars3.githubusercontent.com/u/3380462?v=4",
+            "logo_url": "https://avatars0.githubusercontent.com/u/4650108?v=4",
             "category": "Storage",
             "official": "Unofficial",
             "stars": 295,
@@ -58,7 +15,7 @@
         {
             "exporter_id": 3,
             "name": "Grok Exporter",
-            "logo_url": "https://avatars3.githubusercontent.com/u/3380462?v=4",
+            "logo_url": "https://avatars0.githubusercontent.com/u/330535?v=4",
             "category": "Logging",
             "official": "Unofficial",
             "stars": 569,
@@ -176,7 +133,7 @@
         {
             "exporter_id": 4,
             "name": "cAdvisor Exporter",
-            "logo_url": "https://avatars3.githubusercontent.com/u/3380462?v=4",
+            "logo_url": "https://avatars1.githubusercontent.com/u/1342004?v=4",
             "category": "Miscellaneous",
             "official": "Unofficial",
             "stars": 11442,
@@ -339,7 +296,7 @@
         {
             "exporter_id": 5,
             "name": "RabbitMQ Exporter",
-            "logo_url": "https://avatars3.githubusercontent.com/u/3380462?v=4",
+            "logo_url": "https://avatars2.githubusercontent.com/u/1072181?v=4",
             "category": "Messaging",
             "official": "Unofficial",
             "stars": 441,
@@ -502,7 +459,7 @@
         {
             "exporter_id": 6,
             "name": "Kong Prometheus Plugin",
-            "logo_url": "https://avatars3.githubusercontent.com/u/3380462?v=4",
+            "logo_url": "https://avatars0.githubusercontent.com/u/962416?v=4",
             "category": "Software",
             "official": "Unofficial",
             "stars": 91,
@@ -590,7 +547,7 @@
         {
             "exporter_id": 7,
             "name": "kube-state-metrics",
-            "logo_url": "https://avatars3.githubusercontent.com/u/3380462?v=4",
+            "logo_url": "https://avatars2.githubusercontent.com/u/13629408?v=4",
             "category": "Miscellaneous",
             "official": "Unofficial",
             "stars": 2576,
@@ -753,7 +710,7 @@
         {
             "exporter_id": 8,
             "name": "Process Exporter",
-            "logo_url": "https://avatars3.githubusercontent.com/u/3380462?v=4",
+            "logo_url": "https://avatars3.githubusercontent.com/u/5587236?v=4",
             "category": "Miscellaneous",
             "official": "Unofficial",
             "stars": 656,
@@ -891,7 +848,7 @@
         {
             "exporter_id": 9,
             "name": "NGINX Exporter",
-            "logo_url": "https://avatars3.githubusercontent.com/u/3380462?v=4",
+            "logo_url": "https://avatars0.githubusercontent.com/u/8629072?v=4",
             "category": "HTTP",
             "official": "Unofficial",
             "stars": 519,
@@ -954,7 +911,7 @@
         {
             "exporter_id": 10,
             "name": "NVIDIA GPU Monitoring Tools",
-            "logo_url": "https://avatars3.githubusercontent.com/u/3380462?v=4",
+            "logo_url": "https://avatars2.githubusercontent.com/u/1728152?v=4",
             "category": "Hardware",
             "official": "Unofficial",
             "stars": 610,
@@ -966,7 +923,7 @@
         {
             "exporter_id": 11,
             "name": "Redis Metrics Exporter",
-            "logo_url": "https://avatars3.githubusercontent.com/u/3380462?v=4",
+            "logo_url": "https://avatars3.githubusercontent.com/u/1222339?v=4",
             "category": "Database",
             "official": "Unofficial",
             "stars": 1558,
@@ -1129,7 +1086,7 @@
         {
             "exporter_id": 12,
             "name": "OpenStack Exporter",
-            "logo_url": "https://avatars3.githubusercontent.com/u/3380462?v=4",
+            "logo_url": "https://avatars3.githubusercontent.com/u/51098375?v=4",
             "category": "Miscellaneous",
             "official": "Unofficial",
             "stars": 85,
@@ -1222,7 +1179,7 @@
         {
             "exporter_id": 13,
             "name": "JSON Exporter",
-            "logo_url": "https://avatars3.githubusercontent.com/u/3380462?v=4",
+            "logo_url": "https://avatars0.githubusercontent.com/u/42581734?v=4",
             "category": "Miscellaneous",
             "official": "Unofficial",
             "stars": 172,
@@ -1245,7 +1202,7 @@
         {
             "exporter_id": 14,
             "name": "Google Stackdriver Exporter",
-            "logo_url": "https://avatars3.githubusercontent.com/u/3380462?v=4",
+            "logo_url": "https://avatars0.githubusercontent.com/u/42581734?v=4",
             "category": "Monitoring",
             "official": "Unofficial",
             "stars": 150,
@@ -1338,7 +1295,7 @@
         {
             "exporter_id": 15,
             "name": "Windows Exporter",
-            "logo_url": "https://avatars3.githubusercontent.com/u/3380462?v=4",
+            "logo_url": "https://avatars0.githubusercontent.com/u/42581734?v=4",
             "category": "Hardware",
             "official": "Unofficial",
             "stars": 1090,
@@ -2625,7 +2582,7 @@
         {
             "exporter_id": 29,
             "name": "Azure Metrics Exporter",
-            "logo_url": "https://avatars3.githubusercontent.com/u/3380462?v=4",
+            "logo_url": "https://avatars2.githubusercontent.com/u/13131447?v=4",
             "category": "Monitoring",
             "official": "Unofficial",
             "stars": 80,
@@ -2637,7 +2594,7 @@
         {
             "exporter_id": 30,
             "name": "PostgreSQL Server Exporter",
-            "logo_url": "https://avatars3.githubusercontent.com/u/3380462?v=4",
+            "logo_url": "https://avatars3.githubusercontent.com/u/772445?v=4",
             "category": "Database",
             "official": "Unofficial",
             "stars": 1119,
@@ -3354,6 +3311,61 @@
                     "release_version": "v1.3.0",
                     "release_date": "2020-10-01T12:00:35Z",
                     "release_url": "https://github.com/prometheus/pushgateway/releases/tag/v1.3.0"
+                }
+            ]
+        },
+        {
+            "exporter_id": 36,
+            "name": "exporterhub",
+            "logo_url": "https://avatars2.githubusercontent.com/u/59353169?v=4",
+            "category": "HTTP",
+            "official": "Unofficial",
+            "stars": 1,
+            "repository_url": "https://github.com/yerin719/exporterhub",
+            "description": "backend for exporterhub.io",
+            "recent_release": "1970-01-01",
+            "release": []
+        },
+        {
+            "exporter_id": 38,
+            "name": "ebpf_exporter",
+            "logo_url": "https://avatars3.githubusercontent.com/u/314135?v=4",
+            "category": "Miscellaneous",
+            "official": "Unofficial",
+            "stars": 735,
+            "repository_url": "https://github.com/cloudflare/ebpf_exporter",
+            "description": " Prometheus exporter for custom eBPF metrics",
+            "recent_release": "2020-11-20T21:42:46Z",
+            "release": [
+                {
+                    "release_version": "v1.0.0",
+                    "release_date": "2018-08-20T23:52:34Z",
+                    "release_url": "https://github.com/cloudflare/ebpf_exporter/releases/tag/v1.0.0"
+                },
+                {
+                    "release_version": "v1.1.0",
+                    "release_date": "2019-01-08T23:18:28Z",
+                    "release_url": "https://github.com/cloudflare/ebpf_exporter/releases/tag/v1.1.0"
+                },
+                {
+                    "release_version": "v1.2.0",
+                    "release_date": "2019-10-17T18:04:43Z",
+                    "release_url": "https://github.com/cloudflare/ebpf_exporter/releases/tag/v1.2.0"
+                },
+                {
+                    "release_version": "v1.2.1",
+                    "release_date": "2019-11-26T07:56:00Z",
+                    "release_url": "https://github.com/cloudflare/ebpf_exporter/releases/tag/v1.2.1"
+                },
+                {
+                    "release_version": "v1.2.2",
+                    "release_date": "2019-12-17T00:04:28Z",
+                    "release_url": "https://github.com/cloudflare/ebpf_exporter/releases/tag/v1.2.2"
+                },
+                {
+                    "release_version": "v1.2.3",
+                    "release_date": "2020-11-20T21:42:46Z",
+                    "release_url": "https://github.com/cloudflare/ebpf_exporter/releases/tag/v1.2.3"
                 }
             ]
         }
