@@ -31,11 +31,13 @@ const EditModal = ({ cancleModal, exporterId }) => {
       )
       .then(res => {
         console.log(res.data.message);
-        //성공을 알리는 모달
+        window.alert("Success");
+        cancleModal();
+        window.location.reload();
       })
       .catch(error => {
         console.log(error.response.data.message);
-        //실패를 알리는 모달
+        window.alert("Try again");
       });
   };
 
@@ -90,17 +92,6 @@ const Div = styled.div`
   img {
     margin-top: 50px;
   }
-`;
-const ModalButton = css`
-  width: 200px;
-  height: 35px;
-  border: 1px solid rgba(0, 0, 0, 0.3);
-  border-radius: 4px;
-  color: rgba(0, 0, 0, 0.3);
-  font-size: 12px;
-  font-weight: 400;
-  text-align: center;
-  cursor: pointer;
 `;
 
 const Container = styled.div`
