@@ -10,8 +10,10 @@ const HeaderMenu = () => {
   const { push } = useHistory();
   return (
     <Div>
-      {HEADER_MENUS.map(menu => (
-        <a href={menu.link}>{menu.title}</a>
+      {HEADER_MENUS.map((menu, idx) => (
+        <a href={menu.link} key={idx}>
+          {menu.title}
+        </a>
       ))}
       <span
         onClick={() => {

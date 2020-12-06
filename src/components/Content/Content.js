@@ -1,19 +1,35 @@
-import React from "react";
-
-import { useSelector } from "react-redux";
+import { useEffect, useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import styled from "styled-components";
 import ContentExporters from "./ContentExporters";
 import ContentMenu from "./ContentMenu";
+import { loadMoreData } from "../../store/actions/exporterActions";
 
 const Contetnt = () => {
-  const { filteredExporters, totalCount } = useSelector(
+  const { filteredExporters, exposedExporters, totalCount } = useSelector(
     state => state.exporterReducer
   );
+  const dispatch = useDispatch();
+  const [scrollAct, setScrollAct] = useState(false);
+
+  const infiniteScroll = () => {
+    const { scrollHeight, scrollTop, clientHeight } = document.documentElement;
+    if (scrollTop + clientHeight >= scrollHeight * 0.95 && !scrollAct) {
+      setScrollAct(true);
+      dispatch(loadMoreData(filteredExporters));
+      setScrollAct(false);
+    }
+  };
+
+  useEffect(() => {
+    window.addEventListener("scroll", infiniteScroll);
+    return () => window.removeEventListener("scroll", this.infiniteScroll);
+  }, []);
 
   return (
     <Section>
       <ContentMenu totalCount={totalCount} />
-      <ContentExporters exporters={filteredExporters} />
+      <ContentExporters exporters={exposedExporters} />
     </Section>
   );
 };
