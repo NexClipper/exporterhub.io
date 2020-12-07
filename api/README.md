@@ -1,5 +1,5 @@
 # exporterhub-be
-Exporterhub Backend OpenSource..
+Exporterhub Backend OpenSource.
 
 
 # Kickstart
