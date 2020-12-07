@@ -17,10 +17,11 @@ const EditModal = ({ cancleModal, exporterId }) => {
         `${EXPORTER_ADMIN_API}?exporter_id=${exporterId}`
       )
       .then(res => {
-        console.log(res.data.message);
+        setSuccessModal(true);
+        window.location.reload();
       })
       .catch(error => {
-        console.log(error.response.data.message);
+        setSuccessModal(false);
       });
   };
   const editExporter = () => {
@@ -33,6 +34,7 @@ const EditModal = ({ cancleModal, exporterId }) => {
         window.location.reload();
       })
       .catch(error => {
+        setSuccessModal(false);
         setFailMessage(error.response?.data.message);
       });
   };
