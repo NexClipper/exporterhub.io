@@ -1,7 +1,7 @@
 import { useState } from "react";
+import { useHistory } from "react-router-dom";
 import styled from "styled-components";
 import CardExporter from "./CardExporter";
-import { useHistory } from "react-router-dom";
 import EditModal from "../Modal/EditModal";
 
 const ContentExporters = ({ exporters }) => {

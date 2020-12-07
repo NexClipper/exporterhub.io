@@ -7,6 +7,8 @@ import { EXPORTER_ADMIN_API } from "../../config";
 const EditModal = ({ cancleModal, exporterId }) => {
   const categories = useSelector(store => store.categoryReducer);
   const [category, setCategory] = useState("Default");
+  const [successModal, setSuccessModal] = useState(false);
+  const [failMessage, setFailMessage] = useState("");
 
   const deleteExporter = () => {
     axios
@@ -23,20 +25,15 @@ const EditModal = ({ cancleModal, exporterId }) => {
   };
   const editExporter = () => {
     axios
-      .PATCH(
-        // `http://10.153.5.73:8000/exporter?exporter_id=${exporterId}`,
-        `${EXPORTER_ADMIN_API}?exporter_id=${exporterId}`,
-        { category: "category_name" }
-      )
+      .PATCH(`${EXPORTER_ADMIN_API}?exporter_id=${exporterId}`, {
+        category: "category_name"
+      })
       .then(res => {
-        console.log(res.data.message);
-        window.alert("Success");
-        cancleModal();
+        setSuccessModal(true);
         window.location.reload();
       })
       .catch(error => {
-        console.log(error.response.data.message);
-        window.alert("Try again");
+        setFailMessage(error.response?.data.message);
       });
   };
 
@@ -48,18 +45,25 @@ const EditModal = ({ cancleModal, exporterId }) => {
     <ModalContainer>
       <Div>
         <img src="assets/image.png" alt="modal" />
-        <Container>
-          <select onChange={selectCategory}>
-            <option>Select category</option>
-            {categories.map(category => {
-              return <option>{category.category_name}</option>;
-            })}
-          </select>
-          <ButtonContainer>
-            <button onClick={editExporter}>Edit</button>
-            <button onClick={deleteExporter}>Remove</button>
-          </ButtonContainer>
-        </Container>
+        {successModal ? (
+          <ResultModal successModal={successModal}>
+            <img alt="success" src="assets/image 1.png" />
+          </ResultModal>
+        ) : (
+          <Container successModal={successModal}>
+            <select onChange={selectCategory}>
+              <option>Select category</option>
+              {categories.map(category => {
+                return <option>{category.category_name}</option>;
+              })}
+            </select>
+            <ButtonContainer>
+              <button onClick={editExporter}>Edit</button>
+              <button onClick={deleteExporter}>Remove</button>
+            </ButtonContainer>
+          </Container>
+        )}
+
         <Back onClick={cancleModal}>
           <button>Back</button>
         </Back>
@@ -114,6 +118,8 @@ const ButtonContainer = styled.div`
     margin-bottom: 10px;
   }
 `;
+const ResultModal = styled.div``;
+
 const Back = styled.div`
   width: 230px;
   height: 35px;
