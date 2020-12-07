@@ -12,10 +12,7 @@ const EditModal = ({ cancleModal, exporterId }) => {
 
   const deleteExporter = () => {
     axios
-      .delete(
-        // `http://10.153.5.73:8000/exporter?exporter_id=${exporterId}`
-        `${EXPORTER_ADMIN_API}?exporter_id=${exporterId}`
-      )
+      .delete(`${EXPORTER_ADMIN_API}?exporter_id=${exporterId}`)
       .then(res => {
         setModalStatus("success");
         window.location.reload();
