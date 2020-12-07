@@ -32,7 +32,7 @@ services:
         DB_PORT: "3306"
         APP_STAT: "scheduler"
         SECRET_KEY: "supersecretkey"
-        APP_TOKEN: "TOKEN must be HERE!!!"
+        APP_TOKEN: "85ad7925904fdb959a1f1ffeff5ea2952f32e4e6"
    api:
       image: nexclipper/exporterhub-api:release-api0.2.1
       ports:
@@ -45,7 +45,7 @@ services:
         DB_HOST: maria_db
         DB_PORT: "3306"
         SECRET_KEY: "supersecretkey"
-        APP_TOKEN: "TOKEN must be HERE!!!"
+        APP_TOKEN: "85ad7925904fdb959a1f1ffeff5ea2952f32e4e6"
         APP_STAT: "server"
       depends_on:
          - maria_db
