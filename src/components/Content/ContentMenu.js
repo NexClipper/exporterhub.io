@@ -13,14 +13,9 @@ const ContentMenu = ({ totalCount }) => {
     dispatch(sortByPopularity(payload));
   };
   useEffect(() => {
-    axios
-      .get(
-        // "/data/categories.json"
-        CATEGORIES_API
-      )
-      .then(res => {
-        setCategories(res.data.categories);
-      });
+    axios.get(CATEGORIES_API).then(res => {
+      setCategories(res.data.categories);
+    });
   }, []);
   return (
     <Div>
