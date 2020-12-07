@@ -12,14 +12,9 @@ const ContentDetail = () => {
   const [exporterInfo, setExporterInfo] = useState([]);
 
   useEffect(() => {
-    axios
-      .get(
-        // `http://10.153.5.73:8000/exporters/${id}`
-        `${EXPORTER_API}/${id}`
-      )
-      .then(res => {
-        setExporterInfo(res.data);
-      });
+    axios.get(`${EXPORTER_API}/${id}`).then(res => {
+      setExporterInfo(res.data);
+    });
   }, []);
 
   const readmeContent = remarkMarkdown(exporterInfo.readme);
