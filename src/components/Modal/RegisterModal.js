@@ -20,8 +20,8 @@ const RegisterModal = ({ cancleModal }) => {
         setSuccessModal(true);
         window.location.reload();
       })
-
       .catch(error => {
+        setSuccessModal(false);
         setFailMessage(error.response?.data.message);
       });
   };

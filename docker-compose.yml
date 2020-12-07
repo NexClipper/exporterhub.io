@@ -1,7 +1,7 @@
 version: '3.1'
 services:
    expoterhub:
-      image: nexclipper/exporterhub:release-fe0.2.3
+      image: nexclipper/exporterhub:release-fe0.2.4
       ports:
          - "8080:3000"
       depends_on:
@@ -22,7 +22,7 @@ services:
          - ./db_data:/var/lib/mysql/
 #         - ./exporterhub_schema.sql:/data/application/init.sql
    scheduler:
-      image: nexclipper/exporterhub-api:release-api0.2
+      image: nexclipper/exporterhub-api:release-api0.2.1
       environment:
         APP_DB_ENGINE: django.db.backends.mysql
         DB_NAME: exporterhub
@@ -34,7 +34,7 @@ services:
         SECRET_KEY: "supersecretkey"
         APP_TOKEN: "85ad7925904fdb959a1f1ffeff5ea2952f32e4e6"
    api:
-      image: nexclipper/exporterhub-api:release-api0.2
+      image: nexclipper/exporterhub-api:release-api0.2.1
       ports:
          - "8000:8000"
       environment:

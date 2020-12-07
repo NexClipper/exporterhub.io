@@ -23,7 +23,7 @@ const Contetnt = () => {
 
   useEffect(() => {
     window.addEventListener("scroll", infiniteScroll);
-    return () => window.removeEventListener("scroll", this.infiniteScroll);
+    return () => window.removeEventListener("scroll", infiniteScroll);
   }, []);
 
   return (
