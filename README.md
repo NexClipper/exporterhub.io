@@ -13,3 +13,11 @@ curl http://localhost:8080
 ### Registry
 - nexclipper/exporterhub: https://hub.docker.com/repository/docker/nexclipper/exporterhub
 
+# Maintenance
+## Tag rule for Build in the hub.docker.com
+### exporterhub Frontend build tag
+* Source pattern of Tag: `/^fe([0-9.]+)$/` 
+   * ex) `fe0.2.0` -> `nexclipper/exporterhub:release-fe0.2.0`
+### exporterhub API server build tag
+* Source pattern of Tag: `/^api([0-9.]+)$/` 
+   * ex) `api0.3` -> `nexclipper/exporterhub-api:release-api0.3`

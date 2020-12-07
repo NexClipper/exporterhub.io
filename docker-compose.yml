@@ -1,7 +1,7 @@
 version: '3.1'
 services:
    expoterhub:
-      image: nexclipper/exporterhub:release-v0.2.1
+      image: nexclipper/exporterhub:release-fe0.2.3
       ports:
          - "8080:3000"
       depends_on:
@@ -21,8 +21,20 @@ services:
 #         - ./db_data:/var/lib/mysql/data
          - ./db_data:/var/lib/mysql/
 #         - ./exporterhub_schema.sql:/data/application/init.sql
+   scheduler:
+      image: nexclipper/exporterhub-api:release-api0.2
+      environment:
+        APP_DB_ENGINE: django.db.backends.mysql
+        DB_NAME: exporterhub
+        DB_USER: root
+        DB_PASSWORD: secret
+        DB_HOST: maria_db
+        DB_PORT: "3306"
+        APP_STAT: "scheduler"
+        SECRET_KEY: "supersecretkey"
+        APP_TOKEN: "TOKEN must be HERE!!!"
    api:
-      image: nexclipper/exporterhub-be:0.1
+      image: nexclipper/exporterhub-api:release-api0.2
       ports:
          - "8000:8000"
       environment:
@@ -34,5 +46,6 @@ services:
         DB_PORT: "3306"
         SECRET_KEY: "supersecretkey"
         APP_TOKEN: "TOKEN must be HERE!!!"
+        APP_STAT: "server"
       depends_on:
          - maria_db

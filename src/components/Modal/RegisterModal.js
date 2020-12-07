@@ -2,32 +2,27 @@ import { useState } from "react";
 import { useSelector } from "react-redux";
 import axios from "axios";
 import styled from "styled-components";
+import { EXPORTER_ADMIN_API } from "../../config";
 
 const RegisterModal = ({ cancleModal }) => {
   const categories = useSelector(store => store.categoryReducer);
   const [repoUrl, setRepoUrl] = useState("Default");
   const [category, setCategory] = useState("Default");
-
+  const [successModal, setSuccessModal] = useState(false);
+  const [failMessage, setFailMessage] = useState("");
   const registerExporter = () => {
     axios
-      .post(
-        "http://10.153.1.241:8000/exporter",
-        //EXPORTER_ADMIN_API
-        {
-          repo_url: repoUrl,
-          category: category
-        }
-      )
+      .post(EXPORTER_ADMIN_API, {
+        repo_url: repoUrl,
+        category: category
+      })
       .then(res => {
-        console.log(res.data.message);
-        window.alert("Success");
-        cancleModal();
+        setSuccessModal(true);
         window.location.reload();
       })
 
       .catch(error => {
-        console.log(error.response.data.message);
-        window.alert("Try again");
+        setFailMessage(error.response?.data.message);
       });
   };
 
@@ -43,22 +38,29 @@ const RegisterModal = ({ cancleModal }) => {
     <ModalContainer>
       <Div>
         <img src="assets/image.png" alt="modal" />
-        <Container>
-          <input
-            className="inputDiv"
-            onChange={inputRepoUrl}
-            placeholder="repository url"
-          ></input>
-          <select className="inputDiv" onChange={selectCategory}>
-            <option>Select category</option>
-            {categories.map(category => {
-              return <option>{category.category_name}</option>;
-            })}
-          </select>
-          <button className="inputDiv" onClick={registerExporter}>
-            Register
-          </button>
-        </Container>
+        {successModal ? (
+          <ResultModal successModal={successModal}>
+            <img alt="success" src="assets/image 1.png" />
+          </ResultModal>
+        ) : (
+          <Container successModal={successModal}>
+            <span>{failMessage}</span>
+            <input
+              className="inputDiv"
+              onChange={inputRepoUrl}
+              placeholder="repository url"
+            ></input>
+            <select className="inputDiv" onChange={selectCategory}>
+              <option>Select category</option>
+              {categories.map(category => {
+                return <option>{category.category_name}</option>;
+              })}
+            </select>
+            <button className="inputDiv" onClick={registerExporter}>
+              Register
+            </button>
+          </Container>
+        )}
         <Back onClick={cancleModal}>
           <button>Back</button>
         </Back>
@@ -111,6 +113,7 @@ const Container = styled.div`
     margin-top: 20px;
   }
 `;
+const ResultModal = styled.div``;
 const Back = styled.div`
   width: 230px;
   height: 35px;
