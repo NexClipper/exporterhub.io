@@ -62,10 +62,6 @@ const EditModal = ({ cancleModal, exporterId }) => {
         <ResultModal modalStatus={modalStatus}>
           <img alt="success" src="assets/image 1.png" />
         </ResultModal>
-        <ResultModal modalStatus={modalStatus}>
-          <img alt="success" src="assets/image 1.png" />
-        </ResultModal>
-        }
         <Back onClick={cancleModal}>
           <button>Back</button>
         </Back>
@@ -105,9 +101,8 @@ const Container = styled.div`
   align-items: center;
   padding-top: 50px;
   margin-bottom: 50px;
-  display: ${({ props }) =>
-      props.modalStatus === "default" ? "block" : "none"}
-    select {
+  display: ${props => (props.modalStatus === "default" ? "block" : "none")};
+  select {
     ${({ theme }) => theme.ModalButton}
   }
 `;
@@ -123,8 +118,12 @@ const ButtonContainer = styled.div`
   }
 `;
 const ResultModal = styled.div`
-  display: ${({ props }) =>
-    props.modalStatus !== "default" ? "block" : "none"};
+  margin-bottom: 60px;
+  display: ${props => (props.modalStatus !== "default" ? "block" : "none")};
+  background: ${props =>
+    props.modalStatus === "success"
+      ? "url(assets/image 1.png)"
+      : "url(assets/image 3.png)"};
 `;
 
 const Back = styled.div`

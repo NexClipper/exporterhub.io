@@ -33,6 +33,8 @@ const Footer = () => {
   );
 };
 const Div = styled.div`
+  position: relative;
+  bottom: 0;
   display: flex;
   justify-content: space-between;
   align-items: center;
