@@ -82,6 +82,7 @@ const exporterReducer = (state = initialState, action) => {
         totalPages: totalPages,
         filteredPages: totalPages
       };
+
     case LOAD_MORE_DATA:
       let loadNewDataState = Object.assign({}, state);
       if (
@@ -90,13 +91,12 @@ const exporterReducer = (state = initialState, action) => {
       )
         loadNewDataState.currentPage += 1;
 
-      const perPage = loadNewDataState.countPerPage; //20 by default
-      const currentCount = loadNewDataState.currentPage * perPage;
-      const currentExporters = loadNewDataState.filteredExporters.slice(
-        0,
-        currentCount
-      );
+      const currentCount = loadNewDataState.currentPage * COUNT_PER_SCROLL;
+      const currentExporters =
+        loadNewDataState.filteredExporters &&
+        loadNewDataState.filteredExporters.slice(0, currentCount);
       loadNewDataState.exposedExporters = currentExporters;
+
       return loadNewDataState;
     default:
       return state;
