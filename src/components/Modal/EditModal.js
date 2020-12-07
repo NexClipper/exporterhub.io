@@ -7,7 +7,7 @@ import { EXPORTER_ADMIN_API } from "../../config";
 const EditModal = ({ cancleModal, exporterId }) => {
   const categories = useSelector(store => store.categoryReducer);
   const [category, setCategory] = useState("Default");
-  const [successModal, setSuccessModal] = useState(false);
+  const [modalStatus, setModalStatus] = useState("default");
   const [failMessage, setFailMessage] = useState("");
 
   const deleteExporter = () => {
@@ -17,11 +17,11 @@ const EditModal = ({ cancleModal, exporterId }) => {
         `${EXPORTER_ADMIN_API}?exporter_id=${exporterId}`
       )
       .then(res => {
-        setSuccessModal(true);
+        setModalStatus("success");
         window.location.reload();
       })
       .catch(error => {
-        setSuccessModal(false);
+        setModalStatus("fail");
       });
   };
   const editExporter = () => {
@@ -30,11 +30,11 @@ const EditModal = ({ cancleModal, exporterId }) => {
         category: "category_name"
       })
       .then(res => {
-        setSuccessModal(true);
+        setModalStatus("success");
         window.location.reload();
       })
       .catch(error => {
-        setSuccessModal(false);
+        setModalStatus("fail");
         setFailMessage(error.response?.data.message);
       });
   };
@@ -47,25 +47,25 @@ const EditModal = ({ cancleModal, exporterId }) => {
     <ModalContainer>
       <Div>
         <img src="assets/image.png" alt="modal" />
-        {successModal ? (
-          <ResultModal successModal={successModal}>
-            <img alt="success" src="assets/image 1.png" />
-          </ResultModal>
-        ) : (
-          <Container successModal={successModal}>
-            <select onChange={selectCategory}>
-              <option>Select category</option>
-              {categories.map(category => {
-                return <option>{category.category_name}</option>;
-              })}
-            </select>
-            <ButtonContainer>
-              <button onClick={editExporter}>Edit</button>
-              <button onClick={deleteExporter}>Remove</button>
-            </ButtonContainer>
-          </Container>
-        )}
-
+        <Container modalStatus={modalStatus}>
+          <select onChange={selectCategory}>
+            <option>Select category</option>
+            {categories.map(category => {
+              return <option>{category.category_name}</option>;
+            })}
+          </select>
+          <ButtonContainer>
+            <button onClick={editExporter}>Edit</button>
+            <button onClick={deleteExporter}>Remove</button>
+          </ButtonContainer>
+        </Container>
+        <ResultModal modalStatus={modalStatus}>
+          <img alt="success" src="assets/image 1.png" />
+        </ResultModal>
+        <ResultModal modalStatus={modalStatus}>
+          <img alt="success" src="assets/image 1.png" />
+        </ResultModal>
+        }
         <Back onClick={cancleModal}>
           <button>Back</button>
         </Back>
@@ -105,7 +105,9 @@ const Container = styled.div`
   align-items: center;
   padding-top: 50px;
   margin-bottom: 50px;
-  select {
+  display: ${({ props }) =>
+      props.modalStatus === "default" ? "block" : "none"}
+    select {
     ${({ theme }) => theme.ModalButton}
   }
 `;
@@ -120,7 +122,10 @@ const ButtonContainer = styled.div`
     margin-bottom: 10px;
   }
 `;
-const ResultModal = styled.div``;
+const ResultModal = styled.div`
+  display: ${({ props }) =>
+    props.modalStatus !== "default" ? "block" : "none"};
+`;
 
 const Back = styled.div`
   width: 230px;
