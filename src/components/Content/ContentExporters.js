@@ -3,6 +3,7 @@ import { useHistory } from "react-router-dom";
 import styled from "styled-components";
 import CardExporter from "./CardExporter";
 import EditModal from "../Modal/EditModal";
+import LoadingModal from "../Modal/LoadingModal";
 
 const ContentExporters = ({ exporters }) => {
   const {
@@ -25,14 +26,17 @@ const ContentExporters = ({ exporters }) => {
 
   return (
     <ExporterContainer>
-      {exporters &&
+      {exporters ? (
         exporters.map(exporter => (
           <CardExporter
             key={exporter.exporter_id}
             exporter={exporter}
             cardClick={pathname === "/" ? goToDetail : modalClick}
           />
-        ))}
+        ))
+      ) : (
+        <LoadingModal />
+      )}
       {isModalActive && (
         <EditModal exporterId={exporterId} cancleModal={cancleModal} />
       )}

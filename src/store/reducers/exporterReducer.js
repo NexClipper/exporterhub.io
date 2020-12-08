@@ -29,7 +29,7 @@ const exporterReducer = (state = initialState, action) => {
         categories: { category, type, value }
       } = filteredState;
 
-      let filteredValues = state.exporters.filter(exporter => {
+      let filteredValues = state.exporters?.filter(exporter => {
         return (
           (value ? exporter.name.toLowerCase().includes(value) : true) &&
           exporter.official === type &&
@@ -37,11 +37,11 @@ const exporterReducer = (state = initialState, action) => {
         );
       });
       filteredState.filteredExporters = filteredValues;
-      filteredState.exposedExporters = filteredValues.slice(
+      filteredState.exposedExporters = filteredValues?.slice(
         0,
         COUNT_PER_SCROLL
       );
-      filteredState.totalCount = filteredValues.length;
+      filteredState.totalCount = filteredValues?.length;
       return filteredState;
 
     case SORT_BY_POPULARITY:
@@ -56,7 +56,7 @@ const exporterReducer = (state = initialState, action) => {
       const sortedExporters = sortDesc(state.exporters, sortingKey[sortValue]);
 
       sortByPopularityState.filteredExporters = sortedFilteredExporters;
-      sortByPopularityState.exposedExporters = sortedFilteredExporters.slice(
+      sortByPopularityState.exposedExporters = sortedFilteredExporters?.slice(
         0,
         COUNT_PER_SCROLL
       );
@@ -105,7 +105,7 @@ const exporterReducer = (state = initialState, action) => {
 export default exporterReducer;
 
 function sortDesc(arr, field) {
-  return arr.sort(function (a, b) {
+  return arr?.sort(function (a, b) {
     if (a[field] > b[field]) {
       return -1;
     }

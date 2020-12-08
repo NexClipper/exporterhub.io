@@ -36,6 +36,7 @@ const EditModal = ({ cancleModal, exporterId }) => {
       });
   };
 
+
   const selectCategory = e => {
     setCategory(e.target.value);
   };
