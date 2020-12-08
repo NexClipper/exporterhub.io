@@ -13,11 +13,13 @@ const ContentDetail = () => {
 
   useEffect(() => {
     axios.get(`${EXPORTER_API}/${id}`).then(res => {
+      // axios.get("/data/exporters_detail.json").then(res => {
       setExporterInfo(res.data);
     });
   }, []);
 
   const readmeContent = remarkMarkdown(exporterInfo.readme);
+  console.log(exporterInfo);
 
   return (
     <>
@@ -28,9 +30,6 @@ const ContentDetail = () => {
             <ListWrap>
               <List>
                 <Name>{exporterInfo.name}</Name>
-                <ShareIcon>
-                  <FiShare2 />
-                </ShareIcon>
               </List>
               <List>
                 <Category>{exporterInfo.category}</Category>
@@ -113,19 +112,6 @@ const Name = styled.h4`
   font-size: 18px;
 `;
 
-const ShareIcon = styled.button`
-  font-size: 20px;
-  color: #999;
-
-  &:hover {
-    color: #555;
-  }
-
-  svg {
-    vertical-align: middle;
-  }
-`;
-
 const StarIcon = styled.span`
   font-size: 18px;
   font-weight: 500;
@@ -155,7 +141,7 @@ const Main = styled.main`
 
 const ReadmeTitle = styled.h4`
   margin-bottom: 45px;
-  font-size: 26px;
+  font-size: 30px;
   font-weight: 500;
   letter-spacing: 0.08rem;
 `;
@@ -179,13 +165,13 @@ const MarkdownBody = styled.div`
     padding: 16px;
     overflow: auto;
     line-height: 1.45;
-    background-color: #f6f8fa;
+    background-color: #f0f4f8;
     border-radius: 6px;
     font-size: 13px;
 
     tt,
     code {
-      background-color: #f6f8fa;
+      background-color: #f0f4f8;
       line-height: 1.6;
     }
   }
