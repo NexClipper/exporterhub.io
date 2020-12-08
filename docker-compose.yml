@@ -1,59 +1,5 @@
 version: "3.1"
 services:
-<<<<<<< HEAD
-  expoterhub:
-    image: nexclipper/exporterhub:release-fe0.2.5
-    ports:
-      - "8080:3000"
-    depends_on:
-      - api
-  maria_db:
-    image: mariadb:10.4.17
-    command: --default-authentication-plugin=mysql_native_password
-    #      command: --init-file /data/application/init.sql
-    #      command: "mysql -uroot -psecret < /data/application/init.sql"
-    restart: always
-    environment:
-      MYSQL_ROOT_PASSWORD: secret
-      MYSQL_DATABASE: exporterhub
-      MYSQL_USER: root
-      MYSQL_PASSWORD: secret
-    volumes:
-      #         - ./db_data:/var/lib/mysql/data
-      - ./db_data:/var/lib/mysql/
-  #         - ./exporterhub_schema.sql:/data/application/init.sql
-  scheduler:
-    image: nexclipper/exporterhub-api:release-api0.2.3
-    environment:
-      APP_DB_ENGINE: django.db.backends.mysql
-      DB_NAME: exporterhub
-      DB_USER: root
-      DB_PASSWORD: secret
-      DB_HOST: maria_db
-      DB_PORT: "3306"
-      APP_STAT: "scheduler"
-      SECRET_KEY: "supersecretkey"
-      APP_TOKEN: "94dd58206fffd7d5b2b611e453e6075f2eb44327"
-    depends_on:
-      - maria_db
-      - api
-  api:
-    image: nexclipper/exporterhub-api:release-api0.2.3
-    ports:
-      - "8000:8000"
-    environment:
-      APP_DB_ENGINE: django.db.backends.mysql
-      DB_NAME: exporterhub
-      DB_USER: root
-      DB_PASSWORD: secret
-      DB_HOST: maria_db
-      DB_PORT: "3306"
-      SECRET_KEY: "supersecretkey"
-      APP_TOKEN: "94dd58206fffd7d5b2b611e453e6075f2eb44327"
-      APP_STAT: "server"
-    depends_on:
-      - maria_db
-=======
    expoterhub:
       image: nexclipper/exporterhub:release-fe0.2.5
       ports:
@@ -73,6 +19,7 @@ services:
          - ./db_data:/var/lib/mysql/
    scheduler:
       image: nexclipper/exporterhub-api:release-api0.2.3
+      restart: always
       environment:
         APP_DB_ENGINE: django.db.backends.mysql
         DB_NAME: exporterhub
@@ -82,12 +29,14 @@ services:
         DB_PORT: "3306"
         APP_STAT: "scheduler"
         SECRET_KEY: "supersecretkey"
-        APP_TOKEN: "TOKEN must be HERE!!!"
+        #APP_TOKEN: "TOKEN must be HERE!!!"
+        APP_TOKEN: "0c009416ad874e39562dc26d367d92d7f3522984"
       depends_on:
          - maria_db
          - api
    api:
       image: nexclipper/exporterhub-api:release-api0.2.3
+      restart: always
       ports:
          - "8000:8000"
       environment:
@@ -98,8 +47,8 @@ services:
         DB_HOST: maria_db
         DB_PORT: "3306"
         SECRET_KEY: "supersecretkey"
-        APP_TOKEN: "TOKEN must be HERE!!!"
+        #APP_TOKEN: "TOKEN must be HERE!!!"
+        APP_TOKEN: "0c009416ad874e39562dc26d367d92d7f3522984"
         APP_STAT: "server"
       depends_on:
          - maria_db
->>>>>>> upstream/master
