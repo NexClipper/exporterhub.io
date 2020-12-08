@@ -116,16 +116,8 @@ const Section = styled.section`
     }
   }
   p {
-    display: -webkit-box;
     text-align: center;
     font-size: 14px;
-    white-space: normal;
-    line-height: 1.2;
-    height: 2.4em;
-    word-wrap: break-word;
-    overflow: hidden;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
     @media ${({ theme }) => theme.media.mobile} {
       display: none;
     }

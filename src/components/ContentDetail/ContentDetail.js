@@ -64,9 +64,8 @@ const Header = styled.header`
 
 const OpenSourceInfo = styled.div`
   position: relative;
-  /* left: 165px; */
-  margin: 0 auto;
   bottom: -50px;
+  margin: 0 auto;
   max-width: 350px;
 
   @media ${({ theme }) => theme.media.mobile} {

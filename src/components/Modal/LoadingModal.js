@@ -23,7 +23,6 @@ const ModalContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  z-index: 100;
 `;
 
 const Div = styled.div`
@@ -37,6 +36,7 @@ const Div = styled.div`
   align-items: center;
   img {
     margin-top: 50px;
+    width: 200px;
   }
 `;
 

@@ -23,16 +23,25 @@ const Div = styled.div`
   margin-left: 30px;
   margin-right: auto;
   @media ${({ theme }) => theme.media.mobile} {
-    margin: 0;
+    position: relative;
+    display: block;
+    margin: 15px 0 0;
   }
 
   .search_icon {
     position: relative;
     left: 30px;
+
+    @media ${({ theme }) => theme.media.mobile} {
+      position: absolute;
+      left: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+    }
   }
   input {
     @media ${({ theme }) => theme.media.mobile} {
-      width: 150px;
+      width: 100%;
       margin: 0;
     }
     width: 300px;
