@@ -2,8 +2,8 @@ import { useHistory } from "react-router-dom";
 import styled from "styled-components";
 
 const HEADER_MENUS = [
-  { title: "company", link: "https://www.nexclipper.io/" },
-  { title: "blog", link: "https://nexclipper.github.io/blog/" }
+  { title: "Company", link: "https://www.nexclipper.io/" },
+  { title: "Blog", link: "https://nexclipper.github.io/blog/" }
 ];
 
 const HeaderMenu = () => {
