@@ -28,7 +28,7 @@ const ModalContainer = styled.div`
 
 const Div = styled.div`
   width: 300px;
-  height: 500px;
+  height: 400px;
   background-color: #ffffff;
   ${({ theme }) => theme.positionCenter};
   border: 1px solid rgba(0, 0, 0, 0.3);
@@ -47,7 +47,7 @@ const Container = styled.div`
   padding-top: 50px;
   margin-bottom: 50px;
   img {
-    margin-top: 40px;
+    margin-top: -10px;
     width: 220px;
   }
 `;
