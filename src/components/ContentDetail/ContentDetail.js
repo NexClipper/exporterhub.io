@@ -12,8 +12,8 @@ const ContentDetail = () => {
   const [exporterInfo, setExporterInfo] = useState([]);
 
   useEffect(() => {
-    axios.get(`${EXPORTER_API}/${id}`).then(res => {
-      // axios.get("/data/exporters_detail.json").then(res => {
+    // axios.get(`${EXPORTER_API}/${id}`).then(res => {
+    axios.get("/data/exporters_detail.json").then(res => {
       setExporterInfo(res.data);
     });
   }, []);
@@ -64,8 +64,8 @@ const Header = styled.header`
 
 const OpenSourceInfo = styled.div`
   position: relative;
-  left: 165px;
   bottom: -50px;
+  margin: 0 auto;
   max-width: 350px;
 
   @media ${({ theme }) => theme.media.mobile} {

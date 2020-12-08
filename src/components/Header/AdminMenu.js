@@ -28,7 +28,9 @@ const Div = styled.div`
   align-items: center;
   font-weight: 700;
   @media ${({ theme }) => theme.media.mobile} {
-    display: none;
+    position: absolute;
+    right: 15px;
+    top: 30px;
   }
   span {
     margin-left: 30px;

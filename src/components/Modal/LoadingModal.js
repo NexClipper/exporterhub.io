@@ -1,17 +1,14 @@
 import React from "react";
 import styled from "styled-components";
 
-const LoadingModal = ({ cancleModal }) => {
+const LoadingModal = () => {
   return (
     <ModalContainer>
       <Div>
         <img src="assets/image.png" alt="modal" />
         <Container>
-          <img src="assets/image 5.png" />
+          <img src="assets/image 4.png" alt="icon" />
         </Container>
-        <Back onClick={cancleModal}>
-          <button>Back</button>
-        </Back>
       </Div>
     </ModalContainer>
   );
@@ -26,7 +23,6 @@ const ModalContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  z-index: 100;
 `;
 
 const Div = styled.div`
@@ -40,6 +36,7 @@ const Div = styled.div`
   align-items: center;
   img {
     margin-top: 50px;
+    width: 200px;
   }
 `;
 
@@ -49,23 +46,6 @@ const Container = styled.div`
   align-items: center;
   padding-top: 50px;
   margin-bottom: 50px;
-  img {
-    margin-top: 40px;
-    width: 220px;
-  }
-`;
-const Back = styled.div`
-  width: 230px;
-  height: 35px;
-  margin-top: 60px;
-  border-radius: 20px;
-  background-color: #85dbc3;
-  color: #ffffff;
-  font-size: 13px;
-  font-weight: 400;
-  display: flex;
-  justify-content: center;
-  cursor: pointer;
 `;
 
 export default LoadingModal;

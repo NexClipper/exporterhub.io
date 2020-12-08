@@ -27,6 +27,7 @@ const ContentExporters = ({ exporters }) => {
   return (
     <ExporterContainer>
       {exporters ? (
+        exporters &&
         exporters.map(exporter => (
           <CardExporter
             key={exporter.exporter_id}
