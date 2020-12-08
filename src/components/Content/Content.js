@@ -3,12 +3,14 @@ import { useSelector, useDispatch } from "react-redux";
 import styled from "styled-components";
 import ContentExporters from "./ContentExporters";
 import ContentMenu from "./ContentMenu";
+import APIInputModal from "../Modal/APIInputModal";
 import { loadMoreData } from "../../store/actions/exporterActions";
 
 const Contetnt = () => {
   const { filteredExporters, exposedExporters, totalCount } = useSelector(
     state => state.exporterReducer
   );
+  const tokenState = useSelector(state => state.exporterReducer);
   const dispatch = useDispatch();
   const [scrollAct, setScrollAct] = useState(false);
 
@@ -30,6 +32,7 @@ const Contetnt = () => {
     <Section>
       <ContentMenu totalCount={totalCount} />
       <ContentExporters exporters={exposedExporters} />
+      {tokenState && <APIInputModal />}
     </Section>
   );
 };
