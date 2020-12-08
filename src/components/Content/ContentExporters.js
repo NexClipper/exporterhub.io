@@ -3,7 +3,8 @@ import { useHistory } from "react-router-dom";
 import styled from "styled-components";
 import CardExporter from "./CardExporter";
 import EditModal from "../Modal/EditModal";
-import LoadingModal from "../Modal/LoadingModal";
+// import LoadingModal from "../Modal/LoadingModal";
+import APIInputModal from "../Modal/APIInputModal";
 
 const ContentExporters = ({ exporters }) => {
   const {
@@ -36,7 +37,7 @@ const ContentExporters = ({ exporters }) => {
           />
         ))
       ) : (
-        <LoadingModal />
+        <APIInputModal />
       )}
       {isModalActive && (
         <EditModal exporterId={exporterId} cancleModal={cancleModal} />

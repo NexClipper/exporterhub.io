@@ -7,7 +7,7 @@ const LoadingModal = () => {
       <Div>
         <img src="assets/image.png" alt="modal" />
         <Container>
-          <img src="assets/image 4.png" alt="icon" />
+          <img src="assets/image 7.png" />
         </Container>
       </Div>
     </ModalContainer>
@@ -27,7 +27,7 @@ const ModalContainer = styled.div`
 
 const Div = styled.div`
   width: 300px;
-  height: 500px;
+  height: 400px;
   background-color: #ffffff;
   ${({ theme }) => theme.positionCenter};
   border: 1px solid rgba(0, 0, 0, 0.3);
@@ -46,6 +46,10 @@ const Container = styled.div`
   align-items: center;
   padding-top: 50px;
   margin-bottom: 50px;
+  img {
+    margin-top: -10px;
+    width: 220px;
+  }
 `;
 
 export default LoadingModal;
