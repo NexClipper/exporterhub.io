@@ -16,8 +16,8 @@ function Routes() {
   useEffect(() => {
     const fetchData = async () => {
       const result = await axios(
-        "/data/exporter_list.json"
-        // EXPORTERS_API
+        // "/data/exporter_list.json"
+        EXPORTERS_API
       );
       const categoriesData = await axios(
         // "/data/categories.json"
