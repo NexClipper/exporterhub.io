@@ -39,9 +39,7 @@ const RegisterModal = ({ cancleModal }) => {
       <Div>
         <img src="assets/image.png" alt="modal" />
         {successModal ? (
-          <ResultModal successModal={successModal}>
-            <img alt="success" src="assets/image 1.png" />
-          </ResultModal>
+          <img alt="success" src="assets/image 1.png" />
         ) : (
           <Container successModal={successModal}>
             <span>{failMessage}</span>
@@ -100,6 +98,11 @@ const Container = styled.div`
   align-items: center;
   padding-top: 50px;
   margin-bottom: 50px;
+  span {
+    font-size: 13px;
+    color: red;
+    margin-bottom: 20px;
+  }
   input {
     ${({ theme }) => theme.ModalButton}
     margin-bottom : 10px
@@ -113,7 +116,6 @@ const Container = styled.div`
     margin-top: 20px;
   }
 `;
-const ResultModal = styled.div``;
 const Back = styled.div`
   width: 230px;
   height: 35px;

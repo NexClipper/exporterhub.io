@@ -8,7 +8,6 @@ const EditModal = ({ cancleModal, exporterId }) => {
   const categories = useSelector(store => store.categoryReducer);
   const [category, setCategory] = useState("Default");
   const [modalStatus, setModalStatus] = useState("default");
-  const [failMessage, setFailMessage] = useState("");
 
   const deleteExporter = () => {
     axios
@@ -23,8 +22,8 @@ const EditModal = ({ cancleModal, exporterId }) => {
   };
   const editExporter = () => {
     axios
-      .PATCH(`${EXPORTER_ADMIN_API}?exporter_id=${exporterId}`, {
-        category: "category_name"
+      .patch(`${EXPORTER_ADMIN_API}?exporter_id=${exporterId}`, {
+        category: category
       })
       .then(res => {
         setModalStatus("success");
@@ -32,7 +31,6 @@ const EditModal = ({ cancleModal, exporterId }) => {
       })
       .catch(error => {
         setModalStatus("fail");
-        setFailMessage(error.response?.data.message);
       });
   };
 

@@ -16,7 +16,7 @@ const AdminMenu = () => {
   return (
     <Div>
       {ADMIN_MENUS.map(menu => (
-        <span onClick={modalClick}>{menu}</span>
+        <Span onClick={modalClick}>{menu}</Span>
       ))}
       {isModalActive && <RegisterModal cancleModal={cancleModal} />}
     </Div>
@@ -32,10 +32,11 @@ const Div = styled.div`
     right: 15px;
     top: 30px;
   }
-  span {
-    margin-left: 30px;
-    cursor: pointer;
-  }
+`;
+
+const Span = styled.span`
+  margin-left: 30px;
+  cursor: pointer;
 `;
 
 export default AdminMenu;

@@ -1,22 +1,24 @@
 import { useState } from "react";
-import { useSelector } from "react-redux";
 import axios from "axios";
 import styled from "styled-components";
-import { EXPORTER_ADMIN_API } from "../../config";
+import { TOKEN_API } from "../../config";
 
 const APIInputModal = () => {
   const [tokenKey, setTokenKey] = useState("");
+  const [modalStatus, setModalStatus] = useState(false);
   const [failMessage, setFailMessage] = useState("");
 
   const forwardToken = () => {
     axios
-      .post(EXPORTER_ADMIN_API, {
-        token_Key: tokenKey
+      .post(TOKEN_API, {
+        token: tokenKey
       })
       .then(res => {
+        setModalStatus(true);
         window.location.reload();
       })
       .catch(error => {
+        setModalStatus(false);
         setFailMessage("Please make sure the Token key 1st");
       });
   };
@@ -29,14 +31,18 @@ const APIInputModal = () => {
     <ModalContainer>
       <Div>
         <img src="assets/image.png" alt="modal" />
-        <Container>
-          <span>{failMessage}</span>
-          <input
-            className="inputDiv"
-            onChange={inputTokenKey}
-            placeholder="Github Personal Access Token"
-          ></input>
-        </Container>
+        {modalStatus ? (
+          <img alt="success" src="assets/image 1.png" />
+        ) : (
+          <Container>
+            <span>{failMessage}</span>
+            <input
+              className="inputDiv"
+              onChange={inputTokenKey}
+              placeholder="Github Personal Access Token"
+            ></input>
+          </Container>
+        )}
         <button onClick={forwardToken}>Submit</button>
       </Div>
     </ModalContainer>
