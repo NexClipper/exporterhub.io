@@ -48,3 +48,7 @@ class Log(models.Model):
 
     class Meta:
         db_table = 'logs'
+
+class Token(models.Model):
+    token    = models.CharField(max_length=2000)
+    is_valid = models.BooleanField()
