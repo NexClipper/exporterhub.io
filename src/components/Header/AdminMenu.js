@@ -1,22 +1,36 @@
 import { useState } from "react";
+import { useDispatch } from "react-redux";
 import styled from "styled-components";
 import RegisterModal from "../Modal/RegisterModal";
-
-const ADMIN_MENUS = ["Register"];
+import { getTokenState } from "../../store/actions/exporterActions";
 
 const AdminMenu = () => {
   const [isModalActive, setIsModalActive] = useState(false);
+  const dispatch = useDispatch();
 
-  const modalClick = () => {
-    setIsModalActive(true);
-  };
   const cancleModal = () => {
     setIsModalActive(false);
   };
+
+  const ADMIN_MENUS = [
+    {
+      title: "Token",
+      onClick: () => {
+        dispatch(getTokenState(true));
+      }
+    },
+    {
+      title: "Register",
+      onClick: () => {
+        setIsModalActive(true);
+      }
+    }
+  ];
+
   return (
     <Div>
       {ADMIN_MENUS.map(menu => (
-        <Span onClick={modalClick}>{menu}</Span>
+        <Span onClick={menu.onClick}>{menu.title}</Span>
       ))}
       {isModalActive && <RegisterModal cancleModal={cancleModal} />}
     </Div>

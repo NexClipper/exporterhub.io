@@ -1,12 +1,15 @@
 import { useState } from "react";
+import { useDispatch } from "react-redux";
 import axios from "axios";
 import styled from "styled-components";
 import { TOKEN_API } from "../../config";
+import { getTokenState } from "../../store/actions/exporterActions";
 
 const APIInputModal = () => {
   const [tokenKey, setTokenKey] = useState("");
   const [modalStatus, setModalStatus] = useState(false);
   const [failMessage, setFailMessage] = useState("");
+  const dispatch = useDispatch();
 
   const forwardToken = () => {
     axios
@@ -15,6 +18,7 @@ const APIInputModal = () => {
       })
       .then(res => {
         setModalStatus(true);
+        dispatch(getTokenState(true));
         window.location.reload();
       })
       .catch(error => {
