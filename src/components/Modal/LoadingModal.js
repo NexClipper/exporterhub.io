@@ -40,7 +40,6 @@ const Div = styled.div`
   align-items: center;
   img {
     margin-top: 50px;
-    width: 200px;
   }
 `;
 
@@ -51,14 +50,14 @@ const Container = styled.div`
   padding-top: 50px;
   margin-bottom: 50px;
   img {
-    margin-top: 20px;
+    margin-top: 40px;
     width: 220px;
   }
 `;
 const Back = styled.div`
   width: 230px;
   height: 35px;
-  margin-top: 40px;
+  margin-top: 60px;
   border-radius: 20px;
   background-color: #85dbc3;
   color: #ffffff;
