@@ -22,7 +22,7 @@ services:
          - ./db_data:/var/lib/mysql/
 #         - ./exporterhub_schema.sql:/data/application/init.sql
    scheduler:
-      image: nexclipper/exporterhub-api:release-api0.2.2
+      image: nexclipper/exporterhub-api:release-api0.2.3
       environment:
         APP_DB_ENGINE: django.db.backends.mysql
         DB_NAME: exporterhub
@@ -32,9 +32,12 @@ services:
         DB_PORT: "3306"
         APP_STAT: "scheduler"
         SECRET_KEY: "supersecretkey"
-        APP_TOKEN: "85ad7925904fdb959a1f1ffeff5ea2952f32e4e6"
+        APP_TOKEN: "TOKEN must be HERE!!!"
+      depends_on:
+         - maria_db
+         - api
    api:
-      image: nexclipper/exporterhub-api:release-api0.2.2
+      image: nexclipper/exporterhub-api:release-api0.2.3
       ports:
          - "8000:8000"
       environment:
@@ -45,7 +48,7 @@ services:
         DB_HOST: maria_db
         DB_PORT: "3306"
         SECRET_KEY: "supersecretkey"
-        APP_TOKEN: "85ad7925904fdb959a1f1ffeff5ea2952f32e4e6"
+        APP_TOKEN: "TOKEN must be HERE!!!"
         APP_STAT: "server"
       depends_on:
          - maria_db
