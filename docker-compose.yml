@@ -29,8 +29,6 @@ services:
       DB_PORT: "3306"
       APP_STAT: "scheduler"
       SECRET_KEY: "supersecretkey"
-      APP_TOKEN: "TOKEN must be HERE!!!"
-      # APP_TOKEN: "0c009416ad874e39562dc26d367d92d7f3522984"
     depends_on:
       - maria_db
       - api
@@ -47,8 +45,6 @@ services:
       DB_HOST: maria_db
       DB_PORT: "3306"
       SECRET_KEY: "supersecretkey"
-      APP_TOKEN: "TOKEN must be HERE!!!"
-      # APP_TOKEN: "0c009416ad874e39562dc26d367d92d7f3522984"
       APP_STAT: "server"
     depends_on:
       - maria_db

@@ -14,8 +14,7 @@ from django_apscheduler.models import DjangoJobExecution
 from django.conf import settings
 from django.core.management.base import BaseCommand
 
-from hub.models import Exporter, Release, Category
-from my_settings import TOKEN
+from hub.models import Exporter, Release, Category, Token
 
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.INFO)
@@ -25,7 +24,8 @@ stream_handler = logging.StreamHandler()
 logger.addHandler(stream_handler)
 
 api_url = 'https://api.github.com/repos/'
-headers = {'Authorization' : 'token ' + TOKEN} 
+TOKEN   = Token.objects.filter().last().token if Token.objects.filter().exists() else 'NO_TOKEN'
+headers = {'Authorization' : 'token ' + TOKEN}
 PATTERN = r"!\[(\w*|\s|\w+( \w+)*)\]\(([^,:!]*|\/[^,:!]*\.\w+|\w*.\w*)\)"
 
 def new_exporters():
@@ -90,6 +90,11 @@ def new_exporters():
 
                     logger.info(f'id: {exporter.id} name: {exporter.name} | SUCCESSFULLY_ADDED_REPOSITORY | {datetime.datetime.now()}')
 
+                elif repository.status_code==401:
+                    token=Token.objects.filter().last()
+                    token.is_valid=False
+                    token.save()
+                    logger.error(f"INVALID_TOKEN")
                 else:
                     logger.error(f"ERROR_CHECK_REPOSITORY({repo_url}) | {datetime.datetime.now()}")
     
@@ -142,6 +147,12 @@ def update_exporters():
                         release_url=release_data['html_url']
                     )
                     logger.info(f'id: {exporter.id} name: {exporter.name} SUCCESSFULLY_UPDATED_RELEASE_INFO | {datetime.datetime.now()}')
+        
+        elif repository.status_code==401:
+            token=Token.objects.filter().last()
+            token.is_valid=False
+            token.save()
+            logger.error(f"INVALID_TOKEN")
         else:
             logger.error(f"id: {exporter.id} name: {exporter.name} ERROR_CHECK_REPOSITORY({repo_url}) | {datetime.datetime.now()}")
 
@@ -160,7 +171,7 @@ class Command(BaseCommand):
 
         scheduler.add_job(
             new_exporters,
-            trigger=CronTrigger(minute='*/5'),
+            trigger=CronTrigger(hour='*/4'),
             id='new_exporters',
             max_instances=1,
             replace_existing=True,
