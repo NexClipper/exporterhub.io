@@ -5,56 +5,39 @@ import styled from "styled-components";
 import { EXPORTER_ADMIN_API } from "../../config";
 
 const APIInputModal = () => {
-  const categories = useSelector(store => store.categoryReducer);
-  const [repoUrl, setRepoUrl] = useState("Default");
-  const [category, setCategory] = useState("Default");
-  const [successModal, setSuccessModal] = useState(false);
+  const [tokenKey, setTokenKey] = useState("");
   const [failMessage, setFailMessage] = useState("");
-  const registerExporter = () => {
+
+  const forwardToken = () => {
     axios
       .post(EXPORTER_ADMIN_API, {
-        repo_url: repoUrl,
-        category: category
+        token_Key: tokenKey
       })
       .then(res => {
-        setSuccessModal(true);
         window.location.reload();
       })
       .catch(error => {
-        setSuccessModal(false);
-        setFailMessage(error.response?.data.message);
+        setFailMessage("Please make sure the Token key 1st");
       });
   };
 
-  const inputRepoUrl = e => {
-    setRepoUrl(e.target.value);
-  };
-
-  const selectCategory = e => {
-    setCategory(e.target.value);
+  const inputTokenKey = e => {
+    setTokenKey(e.target.value);
   };
 
   return (
     <ModalContainer>
       <Div>
         <img src="assets/image.png" alt="modal" />
-        {successModal ? (
-          <ResultModal successModal={successModal}>
-            <img alt="success" src="assets/image 1.png" />
-          </ResultModal>
-        ) : (
-          <Container successModal={successModal}>
-            <span>{failMessage}</span>
-            <input
-              className="inputDiv"
-              onChange={inputRepoUrl}
-              placeholder="Token key"
-            ></input>
-          </Container>
-        )}
-        <Back>
-          <button onClick={registerExporter}>Submit</button>
-        </Back>
+        <Container>
+          <span>{failMessage}</span>
+          <input
+            className="inputDiv"
+            onChange={inputTokenKey}
+            placeholder="Github Personal Access Token"
+          ></input>
+        </Container>
+        <button onClick={forwardToken}>Submit</button>
       </Div>
     </ModalContainer>
   );
@@ -84,6 +67,19 @@ const Div = styled.div`
   img {
     margin-top: 50px;
   }
+  button {
+    width: 230px;
+    height: 35px;
+    border-radius: 20px;
+    background-color: #85dbc3;
+    color: #ffffff;
+    font-size: 13px;
+    font-weight: 400;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+  }
 `;
 const Container = styled.div`
   display: flex;
@@ -95,24 +91,6 @@ const Container = styled.div`
     ${({ theme }) => theme.ModalButton}
     margin-bottom : 10px
   }
-  button {
-    ${({ theme }) => theme.ModalButton}
-    background-color: #efeeee;
-    margin-top: 20px;
-  }
-`;
-const ResultModal = styled.div``;
-const Back = styled.div`
-  width: 230px;
-  height: 35px;
-  border-radius: 20px;
-  background-color: #85dbc3;
-  color: #ffffff;
-  font-size: 13px;
-  font-weight: 400;
-  display: flex;
-  justify-content: center;
-  cursor: pointer;
 `;
 
 export default APIInputModal;

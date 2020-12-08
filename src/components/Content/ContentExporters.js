@@ -27,18 +27,14 @@ const ContentExporters = ({ exporters }) => {
 
   return (
     <ExporterContainer>
-      {exporters ? (
-        exporters &&
+      {exporters &&
         exporters.map(exporter => (
           <CardExporter
             key={exporter.exporter_id}
             exporter={exporter}
             cardClick={pathname === "/" ? goToDetail : modalClick}
           />
-        ))
-      ) : (
-        <APIInputModal />
-      )}
+        ))}
       {isModalActive && (
         <EditModal exporterId={exporterId} cancleModal={cancleModal} />
       )}

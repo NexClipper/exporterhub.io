@@ -4,6 +4,7 @@ const FILTER_BY_VALUE = "FILTER_BY_VALUE";
 const LOAD_DATA = "LOAD_DATA";
 const LOAD_MORE_DATA = "LOAD_MORE_DATA";
 const LOAD_CATEGORIES = "LOAD_CATEGORIES";
+const GET_TOKEN_STATE = "GET_TOKEN_STATE";
 
 export const filterByValue = payload => ({
   type: FILTER_BY_VALUE,
@@ -32,5 +33,10 @@ export const loadMoreData = payload => ({
 
 export const loadCategoriesData = payload => ({
   type: LOAD_CATEGORIES,
+  payload
+});
+
+export const getTokenState = payload => ({
+  type: GET_TOKEN_STATE,
   payload
 });
