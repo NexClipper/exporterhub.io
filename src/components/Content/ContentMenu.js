@@ -57,9 +57,6 @@ const Div = styled.div`
     background-color: transparent;
     font-size: 16px;
     cursor: pointer;
-    @media ${({ theme }) => theme.media.mobile} {
-      width: 80px;
-    }
   }
 `;
 
