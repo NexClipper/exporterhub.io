@@ -20,8 +20,8 @@ function Routes() {
         EXPORTERS_API
       );
       const categoriesData = await axios(
-        // "/data/categories.json"
-        CATEGORIES_API
+        "/data/categories.json"
+        // CATEGORIES_API
       );
 
       dispatch(loadData(result.data.exporters));

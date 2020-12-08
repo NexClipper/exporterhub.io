@@ -30,6 +30,7 @@ case $parm in
       python manage.py runserver 0.0.0.0:8000
       ;;
    scheduler)
+      sleep 10
       python manage.py scheduler
       ;;
 esac
