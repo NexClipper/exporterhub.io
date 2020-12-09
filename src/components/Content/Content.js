@@ -32,7 +32,7 @@ const Contetnt = () => {
     <Section>
       <ContentMenu totalCount={totalCount} />
       <ContentExporters exporters={exposedExporters} />
-      {tokenState && <TokenModal />}
+      {!tokenState && <TokenModal />}
     </Section>
   );
 };
