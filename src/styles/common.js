@@ -45,6 +45,10 @@ const ModalButton = css`
   font-weight: 400;
   text-align: center;
   cursor: pointer;
+
+  &:focus::placeholder {
+    color: transparent;
+  }
 `;
 
 const width = {

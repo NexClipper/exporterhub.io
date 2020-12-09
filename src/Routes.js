@@ -19,9 +19,14 @@ function Routes() {
   const dispatch = useDispatch();
   useEffect(() => {
     const fetchData = async () => {
-      const exportersData = await axios(EXPORTERS_API);
-      const categoriesData = await axios(CATEGORIES_API);
-      const tokenData = await axios(TOKEN_API);
+      const result = await axios(
+        // "/data/exporter_list.json"
+        EXPORTERS_API
+      );
+      const categoriesData = await axios(
+        // "/data/categories.json"
+        CATEGORIES_API
+      );
 
       dispatch(loadData(exportersData.data.exporters));
       dispatch(loadCategoriesData(categoriesData.data.categories));
