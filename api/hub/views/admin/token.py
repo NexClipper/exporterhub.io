@@ -81,8 +81,53 @@ class TokenView(View):
 
                     else:
                         return JsonResponse({'message':f"Check {repo_name}'s repository"}, status=repository.status_code)
+                        
+                else:
+                    repo_api_url    = api_url+repo_url.replace('https://github.com/','')
+                    readme_api_url  = repo_api_url+'/readme'
+                    release_api_url = repo_api_url+'/releases'
+                    repository      = requests.get(repo_api_url, headers=headers)
 
-            data={
+                    if repository.status_code==200:
+                        repo_data    = repository.json()
+                        readme       = requests.get(readme_api_url, headers=headers)
+                        readme_data  = readme.json()
+                        release      = requests.get(release_api_url, headers=headers)
+                        release_data = release.json()[0] if release.json() else []
+                        exporter     = exporters.get(repository_url=repo_url)
+                        new_readme   = base64.b64decode(readme_data["content"]).decode('utf-8')
+                        matches      = re.findall(PATTERN, new_readme)
+                        repo_name    = repo_url.replace('https://github.com/','')
+
+                        for match in matches:
+                            for element in match:
+                                if '.' in element:
+                                    new_readme=new_readme.replace(element,f"https://raw.githubusercontent.com/{repo_name}/master/{element}")
+
+                        if str(exporter.modified_at) < repo_data['updated_at']:
+                            Exporter.objects.filter(id=exporter.id).update(
+                                stars       = repo_data["stargazers_count"],
+                                description = repo_data["description"],
+                                readme      = new_readme.encode('utf-8')
+                            )
+
+                            if release_data and (str(exporter.release_set.last()) < release_data['created_at']):
+                                Release.objects.create(
+                                    exporter_id=exporter.id,
+                                    date=release_data['created_at'],
+                                    version=release_data['tag_name'],
+                                    release_url=release_data['html_url']
+                                )
+                    
+                    elif repository.status_code==401:
+                        Token.objects.filter(token=token).update(is_valid=False)
+                        return JsonResponse({'message':'INVALID_TOKEN'}, status=401)
+
+                    else:
+                        return JsonResponse({'message':f"Check {repo_name}'s repository"}, status=repository.status_code)
+                        
+            exporters = Exporter.objects.select_related('category', 'official').prefetch_related('release_set').order_by('id')
+            data = {
                     "exporters":
                     [
                         {
