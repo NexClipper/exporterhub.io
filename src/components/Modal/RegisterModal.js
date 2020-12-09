@@ -42,7 +42,7 @@ const RegisterModal = ({ cancleModal }) => {
           <img alt="success" src="assets/image 1.png" />
         ) : (
           <Container successModal={successModal}>
-            <span>{failMessage}</span>
+            <div>{failMessage}</div>
             <input
               className="inputDiv"
               onChange={inputRepoUrl}
@@ -66,6 +66,7 @@ const RegisterModal = ({ cancleModal }) => {
     </ModalContainer>
   );
 };
+
 const ModalContainer = styled.div`
   position: fixed;
   top: 0;
@@ -92,16 +93,18 @@ const Div = styled.div`
     margin-top: 50px;
   }
 `;
+
 const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding-top: 50px;
-  margin-bottom: 50px;
-  span {
-    font-size: 13px;
-    color: red;
+  margin: 40px 0;
+  div {
+    height: 20px;
     margin-bottom: 20px;
+    font-weight: 500;
+    font-size: 13px;
+    color: #ff0000;
   }
   input {
     ${({ theme }) => theme.ModalButton}
@@ -116,6 +119,7 @@ const Container = styled.div`
     margin-top: 20px;
   }
 `;
+
 const Back = styled.div`
   width: 230px;
   height: 35px;

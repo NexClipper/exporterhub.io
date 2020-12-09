@@ -17,10 +17,7 @@ const ContentDetail = () => {
       setExporterInfo(res.data);
     });
   }, []);
-
   const readmeContent = remarkMarkdown(exporterInfo.readme);
-  console.log(exporterInfo);
-
   return (
     <>
       <Header>

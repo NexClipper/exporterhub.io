@@ -8,9 +8,9 @@ import { loadMoreData } from "../../store/actions/exporterActions";
 
 const Contetnt = () => {
   const { filteredExporters, exposedExporters, totalCount } = useSelector(
-    state => state.exporterReducer
+    store => store.exporterReducer
   );
-  const tokenState = useSelector(state => state.tokenReducer);
+  const tokenState = useSelector(store => store.tokenReducer);
   const dispatch = useDispatch();
   const [scrollAct, setScrollAct] = useState(false);
 
