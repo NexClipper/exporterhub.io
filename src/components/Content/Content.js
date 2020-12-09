@@ -11,7 +11,6 @@ const Contetnt = () => {
     state => state.exporterReducer
   );
   const tokenState = useSelector(state => state.tokenReducer);
-  console.log(tokenState);
   const dispatch = useDispatch();
   const [scrollAct, setScrollAct] = useState(false);
 

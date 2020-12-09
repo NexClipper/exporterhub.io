@@ -22,7 +22,6 @@ function Routes() {
       const exportersData = await axios(EXPORTERS_API);
       const categoriesData = await axios(CATEGORIES_API);
       const tokenData = await axios(TOKEN_API);
-      console.log(tokenData, "^^");
       dispatch(loadData(exportersData.data.exporters));
       dispatch(loadCategoriesData(categoriesData.data.categories));
       dispatch(getTokenState(tokenData.data.token_state));
