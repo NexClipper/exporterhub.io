@@ -1,6 +1,6 @@
 const GET_TOKEN_STATE = "GET_TOKEN_STATE";
 
-const initialState = [];
+const initialState = true;
 
 const tokenReducer = (state = initialState, action) => {
   switch (action.type) {
