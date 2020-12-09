@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import styled from "styled-components";
 import ContentExporters from "./ContentExporters";
 import ContentMenu from "./ContentMenu";
-import APIInputModal from "../Modal/APIInputModal";
+import TokenModal from "../Modal/TokenModal";
 import { loadMoreData } from "../../store/actions/exporterActions";
 
 const Contetnt = () => {
@@ -32,7 +32,7 @@ const Contetnt = () => {
     <Section>
       <ContentMenu totalCount={totalCount} />
       <ContentExporters exporters={exposedExporters} />
-      {tokenState && <APIInputModal />}
+      {tokenState && <TokenModal />}
     </Section>
   );
 };

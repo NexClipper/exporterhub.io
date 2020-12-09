@@ -4,7 +4,7 @@ import styled from "styled-components";
 import CardExporter from "./CardExporter";
 import EditModal from "../Modal/EditModal";
 // import LoadingModal from "../Modal/LoadingModal";
-import APIInputModal from "../Modal/APIInputModal";
+import APIInputModal from "../Modal/TokenModal";
 
 const ContentExporters = ({ exporters }) => {
   const {

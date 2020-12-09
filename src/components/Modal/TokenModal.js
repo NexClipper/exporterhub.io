@@ -5,7 +5,7 @@ import styled from "styled-components";
 import { TOKEN_API } from "../../config";
 import { getTokenState } from "../../store/actions/exporterActions";
 
-const APIInputModal = () => {
+const TokenModal = () => {
   const [tokenKey, setTokenKey] = useState("");
   const [modalStatus, setModalStatus] = useState(false);
   const [failMessage, setFailMessage] = useState("");
@@ -108,4 +108,4 @@ const FailMessage = styled.p`
   font-size: 13px;
 `;
 
-export default APIInputModal;
+export default TokenModal;
