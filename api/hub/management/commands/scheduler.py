@@ -28,6 +28,7 @@ TOKEN   = Token.objects.filter().last().token if Token.objects.filter().exists()
 headers = {'Authorization' : 'token ' + TOKEN}
 PATTERN = r"!\[(\w*|\s|\w+( \w+)*)\]\(([^,:!]*|\/[^,:!]*\.\w+|\w*.\w*)\)"
 
+
 def new_exporters():
     exporters     = Exporter.objects.select_related('category', 'official').prefetch_related('release_set').order_by('id')
     exporter_list = 'https://raw.githubusercontent.com/NexClipper/exporterhub/master/api/exporter_list.csv'
@@ -164,47 +165,52 @@ def delete_old_job_executions(max_age=604_800):
 
 class Command(BaseCommand):
     help="Update exporters' GitHub repository information."
+    if Token.objects.filter(is_valid=True).exists():
+        def handle(self,*args, **options):
+            scheduler=BlockingScheduler(timezone=settings.TIME_ZONE)
+            scheduler.add_jobstore(DjangoJobStore(),'default')
 
-    def handle(self,*args, **options):
-        scheduler=BlockingScheduler(timezone=settings.TIME_ZONE)
-        scheduler.add_jobstore(DjangoJobStore(),'default')
+            # scheduler.add_job(new_exporters, id='immediate_run')
+            # logger.info("Added job 'new_exporters' immediately.")
 
-        scheduler.add_job(new_exporters, id='immediate_run')
-        logger.info("Added job 'new_exporters' immediately.")
+            scheduler.add_job(
+                new_exporters,
+                trigger=CronTrigger(hour='*/4'),
+                id='new_exporters',
+                max_instances=1,
+                replace_existing=True,
+            )
+            logger.info("Added job 'new_exporters'.")
 
-        scheduler.add_job(
-            new_exporters,
-            trigger=CronTrigger(hour='*/4'),
-            id='new_exporters',
-            max_instances=1,
-            replace_existing=True,
-        )
-        logger.info("Added job 'new_exporters'.")
+            scheduler.add_job(
+                update_exporters,
+                trigger=CronTrigger(hour='23', minute='50'),
+                id='update_exporters',
+                max_instances=1,
+                replace_existing=True,
+            )
+            logger.info("Added job 'update_exporters'.")
 
-        scheduler.add_job(
-            update_exporters,
-            trigger=CronTrigger(hour='23', minute='50'),
-            id='update_exporters',
-            max_instances=1,
-            replace_existing=True,
-        )
-        logger.info("Added job 'update_exporters'.")
+            scheduler.add_job(
+                delete_old_job_executions,
+                trigger=CronTrigger(
+                    day_of_week="mon", hour="00", minute="00"
+                ),
+                id='delete_old_job_executions',
+                max_instances=1,
+                replace_existing=True,
+            )
+            logger.info("Added weekly job 'delete_old_job_executions'.")
 
-        scheduler.add_job(
-            delete_old_job_executions,
-            trigger=CronTrigger(
-                day_of_week="mon", hour="00", minute="00"
-            ),
-            id='delete_old_job_executions',
-            max_instances=1,
-            replace_existing=True,
-        )
-        logger.info("Added weekly job 'delete_old_job_executions'.")
-
-        try:
-            logger.info('Starting scheduler...')
-            scheduler.start()
-        except KeyboardInterrupt:
-            logger.info('Stopping scheduler...')
-            scheduler.shutdown()
-            logger.info('Scheduler shut down successfully.')
+            try:
+                logger.info('Starting scheduler...')
+                scheduler.start()
+            except KeyboardInterrupt:
+                logger.info('Stopping scheduler...')
+                scheduler.shutdown()
+                logger.info('Scheduler shut down successfully.')
+    else:
+        def handle(self,*args, **options):
+            scheduler=BlockingScheduler(timezone=settings.TIME_ZONE)
+            scheduler.add_jobstore(DjangoJobStore(),'default')
+            logger.info('No token. Input valid token first.')
