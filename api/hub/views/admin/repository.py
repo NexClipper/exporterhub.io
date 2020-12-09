@@ -7,7 +7,6 @@ from django.views import View
 from django.http import JsonResponse
 
 from hub.models import Exporter, Release
-from my_settings import TOKEN
 
 api_url = 'https://api.github.com/repos/'
 headers = {'Authorization' : 'token ' + TOKEN} 

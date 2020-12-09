@@ -1,60 +1,53 @@
 import { useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import axios from "axios";
 import styled from "styled-components";
-import { EXPORTER_ADMIN_API } from "../../config";
+import { TOKEN_API } from "../../config";
+import { getTokenState } from "../../store/actions/exporterActions";
 
 const APIInputModal = () => {
-  const categories = useSelector(store => store.categoryReducer);
-  const [repoUrl, setRepoUrl] = useState("Default");
-  const [category, setCategory] = useState("Default");
-  const [successModal, setSuccessModal] = useState(false);
+  const [tokenKey, setTokenKey] = useState("");
+  const [modalStatus, setModalStatus] = useState(false);
   const [failMessage, setFailMessage] = useState("");
-  const registerExporter = () => {
+  const dispatch = useDispatch();
+
+  const forwardToken = () => {
     axios
-      .post(EXPORTER_ADMIN_API, {
-        repo_url: repoUrl,
-        category: category
+      .post(TOKEN_API, {
+        token: tokenKey
       })
       .then(res => {
-        setSuccessModal(true);
+        setModalStatus(true);
+        dispatch(getTokenState(true));
         window.location.reload();
       })
       .catch(error => {
-        setSuccessModal(false);
-        setFailMessage(error.response?.data.message);
+        setModalStatus(false);
+        setFailMessage("Please make sure the Token key 1st");
       });
   };
 
-  const inputRepoUrl = e => {
-    setRepoUrl(e.target.value);
-  };
-
-  const selectCategory = e => {
-    setCategory(e.target.value);
+  const inputTokenKey = e => {
+    setTokenKey(e.target.value);
   };
 
   return (
     <ModalContainer>
       <Div>
         <img src="assets/image.png" alt="modal" />
-        {successModal ? (
-          <ResultModal successModal={successModal}>
-            <img alt="success" src="assets/image 1.png" />
-          </ResultModal>
+        {modalStatus ? (
+          <img alt="success" src="assets/image 1.png" />
         ) : (
-          <Container successModal={successModal}>
+          <Container>
             <span>{failMessage}</span>
             <input
               className="inputDiv"
-              onChange={inputRepoUrl}
-              placeholder="Token key"
+              onChange={inputTokenKey}
+              placeholder="Github Personal Access Token"
             ></input>
           </Container>
         )}
-        <Back>
-          <button onClick={registerExporter}>Submit</button>
-        </Back>
+        <button onClick={forwardToken}>Submit</button>
       </Div>
     </ModalContainer>
   );
@@ -84,6 +77,19 @@ const Div = styled.div`
   img {
     margin-top: 50px;
   }
+  button {
+    width: 230px;
+    height: 35px;
+    border-radius: 20px;
+    background-color: #85dbc3;
+    color: #ffffff;
+    font-size: 13px;
+    font-weight: 400;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+  }
 `;
 const Container = styled.div`
   display: flex;
@@ -95,24 +101,6 @@ const Container = styled.div`
     ${({ theme }) => theme.ModalButton}
     margin-bottom : 10px
   }
-  button {
-    ${({ theme }) => theme.ModalButton}
-    background-color: #efeeee;
-    margin-top: 20px;
-  }
-`;
-const ResultModal = styled.div``;
-const Back = styled.div`
-  width: 230px;
-  height: 35px;
-  border-radius: 20px;
-  background-color: #85dbc3;
-  color: #ffffff;
-  font-size: 13px;
-  font-weight: 400;
-  display: flex;
-  justify-content: center;
-  cursor: pointer;
 `;
 
 export default APIInputModal;
