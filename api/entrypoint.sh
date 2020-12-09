@@ -50,6 +50,7 @@ case $parm in
 		Check_db
 		python manage.py migrate 
 		cp -fv ./exporterhub/urls_back.py ./exporterhub/urls.py
+		echo "Modify the file: ./exporterhub/urls_back.py -> ./exporterhub/urls.py"
 		python manage.py runserver 0.0.0.0:$port
 		;;
 	scheduler)
