@@ -169,6 +169,9 @@ class Command(BaseCommand):
         scheduler=BlockingScheduler(timezone=settings.TIME_ZONE)
         scheduler.add_jobstore(DjangoJobStore(),'default')
 
+        scheduler.add_job(new_exporters, id='immediate_run')
+        logger.info("Added job 'new_exporters' immediately.")
+
         scheduler.add_job(
             new_exporters,
             trigger=CronTrigger(hour='*/4'),
