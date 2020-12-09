@@ -8,6 +8,7 @@ import styled from "styled-components";
 
 const Header = () => {
   const {
+    push,
     location: { pathname }
   } = useHistory();
 
@@ -16,6 +17,16 @@ const Header = () => {
       <Div>
         <div className="logoInfo">
           <Logo />
+          {pathname !== "/admin" ? (
+            <Admin
+              onClick={() => {
+                push("/admin");
+                window.location.reload();
+              }}
+            >
+              Admin
+            </Admin>
+          ) : null}
         </div>
         <Search />
         {pathname === "/admin" ? <AdminMenu /> : <HeaderMenu />}
@@ -28,6 +39,10 @@ const HeaderBox = styled.header`
   height: 70px;
   display: flex;
   align-items: center;
+  @media ${({ theme }) => theme.media.mobile} {
+    display: block;
+    height: auto;
+  }
 `;
 const Div = styled.div`
   ${({ theme }) => theme.container};
@@ -35,11 +50,27 @@ const Div = styled.div`
   .logoInfo {
     display: flex;
     align-items: center;
+    @media ${({ theme }) => theme.media.mobile} {
+      justify-content: space-between;
+    }
   }
   @media ${({ theme }) => theme.media.mobile} {
-    width: ${({ theme }) => theme.width.contentOnM}%;
+    display: block;
+    width: 100%;
     margin: 0 auto;
+    padding: 15px;
     justify-content: space-between;
+  }
+`;
+
+const Admin = styled.button`
+  display: none;
+  margin-left: 30px;
+  font-weight: 600;
+  color: tomato;
+
+  @media ${({ theme }) => theme.media.mobile} {
+    display: block;
   }
 `;
 

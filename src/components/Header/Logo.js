@@ -11,7 +11,7 @@ const Logo = () => {
           push("/");
           window.location.reload();
         }}
-        src="https://exporterhub.io/assets/img/exporterhub_logo.png"
+        src="assets/small_logo_fr.png"
         alt="exporterhub logo"
       />
     </Div>
