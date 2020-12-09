@@ -6,9 +6,10 @@ import re
 from django.views import View
 from django.http import JsonResponse
 
-from hub.models import Exporter, Release
+from hub.models import Exporter, Release, Token
 
 api_url = 'https://api.github.com/repos/'
+TOKEN   = Token.objects.filter(is_valid=True).last().token if Token.objects.filter(is_valid=True).exists() else 'NO TOKEN'
 headers = {'Authorization' : 'token ' + TOKEN} 
 PATTERN = r"!\[(\w*|\s|\w+( \w+)*)\]\(([^,:!]*|\/[^,:!]*\.\w+|\w*.\w*)\)"
 
@@ -55,6 +56,13 @@ class RepositoryView(View):
                 } for release in release_data]
             }
             return data
+        
+        elif repo.status_code==401:
+            token=Token.objects.filter().last()
+            token.is_valid=False
+            token.save()
+            return 'INVALID_TOKEN'
+
         return False
 
     def post(self, request):
@@ -73,7 +81,10 @@ class RepositoryView(View):
 
             repo_info = self.get_repo(repo_url)
 
-            if repo_info:
+            if repo_info == 'INVALID_TOKEN':
+                return JsonResponse({'message':'INVALID_TOKEN'}, status=401)
+                
+            elif repo_info:
                 readme    = base64.b64decode(repo_info["readme"]).decode('utf-8')
                 matches   = re.findall(PATTERN, readme)
                 repo_name = repo_url.replace('https://github.com/','')
@@ -130,11 +141,11 @@ class RepositoryView(View):
 
     def patch(self, request):
         try:
-            exporter_id       = request.GET['exporter_id']
-            data              = json.loads(request.body)
-            category          = data['category']
-            exporter          = Exporter.objects.get(id=exporter_id)
-            exporter.category = categories[category]
+            exporter_id          = request.GET['exporter_id']
+            data                 = json.loads(request.body)
+            category             = data['category']
+            exporter             = Exporter.objects.get(id=exporter_id)
+            exporter.category_id = categories[category]
             exporter.save()
 
             return JsonResponse({'message':'SUCCESS'}, status=200)

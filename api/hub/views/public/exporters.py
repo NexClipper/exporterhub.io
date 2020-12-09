@@ -3,14 +3,13 @@ import json
 from django.views import View
 from django.http import JsonResponse
 
-from hub.models import Exporter, Token
+from hub.models import Exporter
 
 class MainView(View):
     def get(self, request):
         try:
             exporters=Exporter.objects.select_related('category', 'official').prefetch_related('release_set').order_by('id')
             data={
-                'token_valid':Token.objects.filter().last().is_valid if Token.objects.filter().exists() else False,
                 "exporters":
                 [
                     {

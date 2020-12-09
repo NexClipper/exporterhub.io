@@ -2,7 +2,7 @@ import os
 
 SECRET_KEY = os.environ.get('SECRET_KEY', 'unsafe-secret-key')
 
-TOKEN= os.environ.get('APP_TOKEN', None)
+
 DATABASES = {
     'default': {
         'ENGINE': os.environ.get('APP_DB_ENGINE', 'django.db.backends.sqlite3'),
