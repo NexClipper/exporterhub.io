@@ -39,12 +39,12 @@ const APIInputModal = () => {
           <img alt="success" src="assets/image 1.png" />
         ) : (
           <Container>
-            <span>{failMessage}</span>
             <input
               className="inputDiv"
               onChange={inputTokenKey}
               placeholder="Github Personal Access Token"
             ></input>
+            <FailMessage>{failMessage}</FailMessage>
           </Container>
         )}
         <button onClick={forwardToken}>Submit</button>
@@ -96,11 +96,16 @@ const Container = styled.div`
   flex-direction: column;
   align-items: center;
   padding-top: 50px;
-  margin-bottom: 50px;
+  margin-bottom: 40px;
   input {
     ${({ theme }) => theme.ModalButton}
     margin-bottom : 10px
   }
+`;
+
+const FailMessage = styled.p`
+  text-align: center;
+  font-size: 13px;
 `;
 
 export default APIInputModal;
