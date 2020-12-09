@@ -110,7 +110,7 @@ class TokenView(View):
     def get(self, request):
         token = Token.objects.filter()
         if not token.exists():
-            return JsonResponse({'message':'CREATE_TOKEN_FIRST'}, status=400)
+            return JsonResponse({'token_state':False,'token':''}, status=400)
 
         token_valid = token.last().is_valid if Token.objects.filter().exists() else False
         return JsonResponse({'TOKEN_VALID':token_valid, 'TOKEN':token.last().token}, status=200)
