@@ -10,7 +10,8 @@ const Contetnt = () => {
   const { filteredExporters, exposedExporters, totalCount } = useSelector(
     state => state.exporterReducer
   );
-  const tokenState = useSelector(state => state.exporterReducer);
+  const tokenState = useSelector(state => state.tokenReducer);
+  console.log(tokenState);
   const dispatch = useDispatch();
   const [scrollAct, setScrollAct] = useState(false);
 
