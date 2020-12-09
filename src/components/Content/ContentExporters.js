@@ -3,8 +3,6 @@ import { useHistory } from "react-router-dom";
 import styled from "styled-components";
 import CardExporter from "./CardExporter";
 import EditModal from "../Modal/EditModal";
-// import LoadingModal from "../Modal/LoadingModal";
-import APIInputModal from "../Modal/TokenModal";
 
 const ContentExporters = ({ exporters }) => {
   const {

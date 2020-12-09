@@ -2,7 +2,7 @@ import React from "react";
 import { withRouter } from "react-router-dom";
 import styled from "styled-components";
 
-const CardExporter = ({ exporter, history, cardClick }) => {
+const CardExporter = ({ exporter, cardClick }) => {
   const {
     exporter_id,
     name,

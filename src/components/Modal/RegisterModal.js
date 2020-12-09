@@ -8,7 +8,6 @@ const RegisterModal = ({ cancleModal }) => {
   const categories = useSelector(store => store.categoryReducer);
   const [repoUrl, setRepoUrl] = useState("Default");
   const [category, setCategory] = useState("Default");
-  const [successModal, setSuccessModal] = useState(false);
   const [failMessage, setFailMessage] = useState("");
   const registerExporter = () => {
     axios
@@ -16,12 +15,10 @@ const RegisterModal = ({ cancleModal }) => {
         repo_url: repoUrl,
         category: category
       })
-      .then(res => {
-        setSuccessModal(true);
+      .then(() => {
         window.location.reload();
       })
       .catch(error => {
-        setSuccessModal(false);
         setFailMessage(error.response?.data.message);
       });
   };
@@ -38,27 +35,23 @@ const RegisterModal = ({ cancleModal }) => {
     <ModalContainer>
       <Div>
         <img src="assets/image.png" alt="modal" />
-        {successModal ? (
-          <img alt="success" src="assets/image 1.png" />
-        ) : (
-          <Container successModal={successModal}>
-            <div>{failMessage}</div>
-            <input
-              className="inputDiv"
-              onChange={inputRepoUrl}
-              placeholder="repository url"
-            ></input>
-            <select className="inputDiv" onChange={selectCategory}>
-              <option>Select category</option>
-              {categories.map(category => {
-                return <option>{category.category_name}</option>;
-              })}
-            </select>
-            <button className="inputDiv" onClick={registerExporter}>
-              Register
-            </button>
-          </Container>
-        )}
+        <Container>
+          <div>{failMessage}</div>
+          <input
+            className="inputDiv"
+            onChange={inputRepoUrl}
+            placeholder="repository url"
+          ></input>
+          <select className="inputDiv" onChange={selectCategory}>
+            <option>Select category</option>
+            {categories.map(category => {
+              return <option>{category.category_name}</option>;
+            })}
+          </select>
+          <button className="inputDiv" onClick={registerExporter}>
+            Register
+          </button>
+        </Container>
         <Back onClick={cancleModal}>
           <button>Back</button>
         </Back>
