@@ -3,7 +3,6 @@ import { useParams } from "react-router";
 import remarkMarkdown from "./remarkMarkdown";
 import axios from "axios";
 import styled from "styled-components";
-import { FiShare2 } from "react-icons/fi";
 import { AiFillStar } from "react-icons/ai";
 import { EXPORTER_API } from "../../config";
 
@@ -12,15 +11,11 @@ const ContentDetail = () => {
   const [exporterInfo, setExporterInfo] = useState([]);
 
   useEffect(() => {
-    // axios.get(`${EXPORTER_API}/${id}`).then(res => {
-    axios.get("/data/exporters_detail.json").then(res => {
+    axios.get(`${EXPORTER_API}/${id}`).then(res => {
       setExporterInfo(res.data);
     });
   }, []);
-
   const readmeContent = remarkMarkdown(exporterInfo.readme);
-  console.log(exporterInfo);
-
   return (
     <>
       <Header>

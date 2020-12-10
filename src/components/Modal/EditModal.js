@@ -1,36 +1,25 @@
 import { useState } from "react";
 import { useSelector } from "react-redux";
 import axios from "axios";
-import styled, { css } from "styled-components";
+import styled from "styled-components";
 import { EXPORTER_ADMIN_API } from "../../config";
 
 const EditModal = ({ cancleModal, exporterId }) => {
   const categories = useSelector(store => store.categoryReducer);
   const [category, setCategory] = useState("Default");
-  const [modalStatus, setModalStatus] = useState("default");
 
   const deleteExporter = () => {
-    axios
-      .delete(`${EXPORTER_ADMIN_API}?exporter_id=${exporterId}`)
-      .then(res => {
-        setModalStatus("success");
-        window.location.reload();
-      })
-      .catch(error => {
-        setModalStatus("fail");
-      });
+    axios.delete(`${EXPORTER_ADMIN_API}?exporter_id=${exporterId}`).then(() => {
+      window.location.reload();
+    });
   };
   const editExporter = () => {
     axios
       .patch(`${EXPORTER_ADMIN_API}?exporter_id=${exporterId}`, {
         category: category
       })
-      .then(res => {
-        setModalStatus("success");
+      .then(() => {
         window.location.reload();
-      })
-      .catch(error => {
-        setModalStatus("fail");
       });
   };
 
@@ -42,7 +31,7 @@ const EditModal = ({ cancleModal, exporterId }) => {
     <ModalContainer>
       <Div>
         <img src="assets/image.png" alt="modal" />
-        <Container modalStatus={modalStatus}>
+        <Container>
           <select onChange={selectCategory}>
             <option>Select category</option>
             {categories.map(category => {
@@ -54,9 +43,7 @@ const EditModal = ({ cancleModal, exporterId }) => {
             <button onClick={deleteExporter}>Remove</button>
           </ButtonContainer>
         </Container>
-        <ResultModal modalStatus={modalStatus}>
-          <img alt="success" src="assets/image 1.png" />
-        </ResultModal>
+
         <Back onClick={cancleModal}>
           <button>Back</button>
         </Back>
@@ -112,14 +99,6 @@ const ButtonContainer = styled.div`
     background-color: #efeeee;
     margin-bottom: 10px;
   }
-`;
-const ResultModal = styled.div`
-  margin-bottom: 60px;
-  display: ${props => (props.modalStatus !== "default" ? "block" : "none")};
-  background: ${props =>
-    props.modalStatus === "success"
-      ? "url(assets/image 1.png)"
-      : "url(assets/image 3.png)"};
 `;
 
 const Back = styled.div`

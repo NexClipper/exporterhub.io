@@ -2,7 +2,7 @@ import React from "react";
 import { withRouter } from "react-router-dom";
 import styled from "styled-components";
 
-const CardExporter = ({ exporter, history, cardClick }) => {
+const CardExporter = ({ exporter, cardClick }) => {
   const {
     exporter_id,
     name,
@@ -116,8 +116,16 @@ const Section = styled.section`
     }
   }
   p {
+    display: -webkit-box;
     text-align: center;
     font-size: 14px;
+    white-space: normal;
+    line-height: 1.2;
+    height: 2.4em;
+    word-wrap: break-word;
+    overflow: hidden;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
     @media ${({ theme }) => theme.media.mobile} {
       display: none;
     }

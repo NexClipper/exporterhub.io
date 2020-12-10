@@ -9,8 +9,6 @@ from django.http import JsonResponse
 from hub.models import Exporter, Release, Token
 
 api_url = 'https://api.github.com/repos/'
-TOKEN   = Token.objects.filter(is_valid=True).last().token if Token.objects.filter(is_valid=True).exists() else 'NO TOKEN'
-headers = {'Authorization' : 'token ' + TOKEN} 
 PATTERN = r"!\[(\w*|\s|\w+( \w+)*)\]\(([^,:!]*|\/[^,:!]*\.\w+|\w*.\w*)\)"
 
 categories={
@@ -28,6 +26,9 @@ categories={
 
 class RepositoryView(View):
     def get_repo(self, repo_url):
+        TOKEN   = Token.objects.filter(is_valid=True).last().token if Token.objects.filter(is_valid=True).exists() else 'NO TOKEN'
+        headers = {'Authorization' : 'token ' + TOKEN} 
+        
         if 'https://github.com/' not in repo_url:
             return False 
         repo_api_url     = api_url+repo_url.replace('https://github.com/','')

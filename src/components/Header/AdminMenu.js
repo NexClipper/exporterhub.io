@@ -16,7 +16,7 @@ const AdminMenu = () => {
     {
       title: "Token",
       onClick: () => {
-        dispatch(getTokenState(true));
+        dispatch(getTokenState(false));
       }
     },
     {
