@@ -1,4 +1,4 @@
-![exporterhub](./media/ExporterHub_Logo_H.png)
+![exporterhub](./assets/ExporterHub_Logo_H.png)
 # [Exporterhub.io](https://exporterhub.io/)
 > ### A Curated List of Prometheus Exporters 
 > #### (powered by [nexclipper](https://nexclipper.io))
@@ -46,7 +46,7 @@ ExporterHub.io recommends the best-fit exporter(s) to support Prometheus monitor
 
 ## Diagram Overview
  * Image click to Youtube:
- * [![Diagram Overview](https://raw.githubusercontent.com/Klevry/klevr/master/assets/Klevr_diagram_overview.png)](https://youtu.be/xLkqm1vEmd0)
+ * ![![Diagram Overview](https://raw.githubusercontent.com/Klevry/klevr/master/assets/_____.png)](https://youtu.be/pPZfNi6qms4)
 
 ## Contribute
 Contributions are welcome!   
@@ -74,6 +74,9 @@ docker run -d -p 8080:3000 nexclipper/exporterhub:0.1
 ```
 curl http://localhost:8080
 ```
+
+* And Input the generated Token to landing page as below
+ * /Image here/ 
 
 ### Details
 ### Docker image
