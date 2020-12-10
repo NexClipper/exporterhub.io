@@ -4,7 +4,6 @@
 > #### (powered by [nexclipper](https://nexclipper.io))
 
 ## Contents
-
 - [What is ExporterHub.io](https://github.com/NexClipper/exporterhub.io#what-is-exporterhubio)
 - [Roadmap](https://github.com/NexClipper/exporterhub.io#roadmap)
 - [Architecture diagram](https://github.com/NexClipper/exporterhub.io#architecture-diagram)
@@ -13,6 +12,7 @@
 - [License](https://github.com/NexClipper/exporterhub.io#license)
 
 ## What is [ExporterHub.io](https://exporterhub.io/)
+![landingpage](./assets/screen_01.png)
 
 ### ExporterHub.io is a front-end application for the Prometheus Exporters community .
 
