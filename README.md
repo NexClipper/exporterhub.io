@@ -6,7 +6,8 @@
 ## Contents
 - [What is ExporterHub.io](https://github.com/NexClipper/exporterhub.io#what-is-exporterhubio)
 - [Roadmap](https://github.com/NexClipper/exporterhub.io#roadmap)
-- [Architecture diagram](https://github.com/NexClipper/exporterhub.io#architecture-diagram)
+- [Diagram Overview](https://github.com/NexClipper/exporterhub.io#diagram-overview)
+- [Kictstart](https://github.com/NexClipper/exporterhub.io#kickstart)
 - [Contribute](https://github.com/NexClipper/exporterhub.io#contribute)
 - [References](https://github.com/NexClipper/exporterhub.io#references)
 - [License](https://github.com/NexClipper/exporterhub.io#license)
@@ -48,36 +49,36 @@ ExporterHub.io recommends the best-fit exporter(s) to support Prometheus monitor
   * Image click to Youtube:  
   [![Diagram Overview](https://img.youtube.com/vi/pPZfNi6qms4/0.jpg)](https://youtu.be/pPZfNi6qms4)
 
-# Kickstart
-## Ready: Token Requires for Github infomation crawling
+## Kickstart
+### Ready: Token Requires for Github infomation crawling
 * ___Create Token 1st before the App runs as below.___
    * https://github.com/settings/tokens/new
 ![Token Generator](assets/create_a_token_first_N.png)
 
-## Run
+### Run
 * Run the docker-compose as below
 ```
 docker-compose up -d
 ```
 
-## Check & Set
+### Check & Set
 * And Input the generated Token to landing page as below. (http://localhost:8080)
  * /Image here/ 
 
 
-### Details
-### Docker image
-### Registry
+#### Details
+#### Docker image
+#### Registry
 - nexclipper/exporterhub: https://hub.docker.com/repository/docker/nexclipper/exporterhub
 - nexclipper/exporterhub-api: https://hub.docker.com/repository/docker/nexclipper/exporterhub-api
 
 
-### Maintenance
-### Tag rule for Build in the hub.docker.com
-### exporterhub Frontend build tag
+#### Maintenance
+#### Tag rule for Build in the hub.docker.com
+#### exporterhub Frontend build tag
 * Source pattern of Tag: `/^fe([0-9.]+)$/` 
    * ex) `fe0.2.0` -> `nexclipper/exporterhub:release-fe0.2.0`
-### exporterhub API server build tag
+#### exporterhub API server build tag
 * Source pattern of Tag: `/^api([0-9.]+)$/` 
    * ex) `api0.3` -> `nexclipper/exporterhub-api:release-api0.3`
 
