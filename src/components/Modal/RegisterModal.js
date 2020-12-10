@@ -52,9 +52,7 @@ const RegisterModal = ({ cancleModal }) => {
             Register
           </button>
         </Container>
-        <Back onClick={cancleModal}>
-          <button>Back</button>
-        </Back>
+        <Back onClick={cancleModal}>Back</Back>
       </Div>
     </ModalContainer>
   );
@@ -121,8 +119,7 @@ const Back = styled.div`
   color: #ffffff;
   font-size: 13px;
   font-weight: 400;
-  display: flex;
-  justify-content: center;
+  ${({ theme }) => theme.flexCenter};
   cursor: pointer;
 `;
 
