@@ -7,7 +7,7 @@
 - [What is ExporterHub.io](https://github.com/NexClipper/exporterhub.io#what-is-exporterhubio)
 - [Roadmap](https://github.com/NexClipper/exporterhub.io#roadmap)
 - [Diagram Overview](https://github.com/NexClipper/exporterhub.io#diagram-overview)
-- [Kictstart](https://github.com/NexClipper/exporterhub.io#kickstart)
+- [Kickstart](https://github.com/NexClipper/exporterhub.io#kickstart)
 - [Contribute](https://github.com/NexClipper/exporterhub.io#contribute)
 - [References](https://github.com/NexClipper/exporterhub.io#references)
 - [License](https://github.com/NexClipper/exporterhub.io#license)
