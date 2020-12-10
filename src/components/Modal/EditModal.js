@@ -81,7 +81,6 @@ const Container = styled.div`
   align-items: center;
   padding-top: 50px;
   margin-bottom: 50px;
-  display: ${props => props.modalStatus === "default" && "block"};
   select {
     ${({ theme }) => theme.ModalButton}
   }
