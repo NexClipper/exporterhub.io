@@ -51,32 +51,23 @@ ExporterHub.io recommends the best-fit exporter(s) to support Prometheus monitor
 ## Contribute
 Contributions are welcome!   
 If you have Specific exporter to contribute to [ExporterHub.io](https://exporterhub.io/), feel free to [send issues](https://github.com/NexClipper/exporterhub.io/issues) or [pull requests](https://github.com/NexClipper/exporterhub.io/pulls).  
-### Kickstart
-### Token Requires for Github infomation crawling
+
+# Kickstart
+## Ready: Token Requires for Github infomation crawling
 * ___Create Token 1st before the App runs as below.___
    * https://github.com/settings/tokens/new
 ![Token Generator](assets/create_a_token_first_N.png)
 
-
-
+## Run
 * Run the docker-compose as below
 ```
 docker-compose up -d
 ```
 
-
-### Manual run
-* Start from Docker
-```
-docker run -d -p 8080:3000 nexclipper/exporterhub:0.1
-```
-* Check the service normal in CLI or ___You can type exact url in your web browser___
-```
-curl http://localhost:8080
-```
-
-* And Input the generated Token to landing page as below
+## Check & Set
+* And Input the generated Token to landing page as below. (http://localhost:8080)
  * /Image here/ 
+
 
 ### Details
 ### Docker image
