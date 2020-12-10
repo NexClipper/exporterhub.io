@@ -42,23 +42,35 @@ const TokenModal = () => {
             <span>Please wait few minutes</span>
           </Loader>
         ) : (
-          <Container>
-            <FailMessage>{failMessage}</FailMessage>
-            <input
-              className="inputDiv"
-              onChange={inputTokenKey}
-              placeholder="Github Personal Access Token"
-            ></input>
-            <span
-              onClick={() =>
-                window.open("https://github.com/settings/tokens/new", "_blank")
-              }
+          <>
+            <Container>
+              <FailMessage>{failMessage}</FailMessage>
+              <input
+                className="inputDiv"
+                onChange={inputTokenKey}
+                placeholder="Github Personal Access Token"
+              ></input>
+              <span
+                onClick={() =>
+                  window.open(
+                    "https://github.com/settings/tokens/new",
+                    "_blank"
+                  )
+                }
+              >
+                Get token here!!!
+              </span>
+            </Container>
+            <button onClick={forwardToken}>Submit</button>
+            <button
+              onClick={() => {
+                dispatch(getTokenState(true));
+              }}
             >
-              Get token here!!!
-            </span>
-          </Container>
+              Back
+            </button>
+          </>
         )}
-        <button onClick={forwardToken}>Submit</button>
       </Div>
     </ModalContainer>
   );

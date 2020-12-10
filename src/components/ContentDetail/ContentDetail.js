@@ -143,7 +143,7 @@ const ReadmeTitle = styled.h4`
 
 const MarkdownBody = styled.div`
   * {
-    line-height: 1.5;
+    line-height: 1.8;
   }
 
   code {

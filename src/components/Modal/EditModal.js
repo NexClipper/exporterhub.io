@@ -43,10 +43,7 @@ const EditModal = ({ cancleModal, exporterId }) => {
             <button onClick={deleteExporter}>Remove</button>
           </ButtonContainer>
         </Container>
-
-        <Back onClick={cancleModal}>
-          <button>Back</button>
-        </Back>
+        <Back onClick={cancleModal}>Back</Back>
       </Div>
     </ModalContainer>
   );
@@ -84,7 +81,6 @@ const Container = styled.div`
   align-items: center;
   padding-top: 50px;
   margin-bottom: 50px;
-  display: ${props => (props.modalStatus === "default" ? "block" : "none")};
   select {
     ${({ theme }) => theme.ModalButton}
   }
@@ -110,8 +106,7 @@ const Back = styled.div`
   color: #ffffff;
   font-size: 13px;
   font-weight: 400;
-  display: flex;
-  justify-content: center;
+  ${({ theme }) => theme.flexCenter};
   cursor: pointer;
 `;
 
