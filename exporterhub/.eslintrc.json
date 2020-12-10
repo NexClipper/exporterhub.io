@@ -1,0 +1,8 @@
+{
+  "extends": ["react-app", "plugin:prettier/recommended"],
+  
+  "rules": {
+    "indent": "off",
+    "import/no-anonymous-default-export": "off"
+ }
+}

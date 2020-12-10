@@ -1,0 +1,37 @@
+project_name,github_url,offcial,category
+eBPF Exporter,https://github.com/cloudflare/ebpf_exporter,0,Miscellaneous
+Ceph Exporter,https://github.com/digitalocean/ceph_exporter,0,Storage
+Grok Exporter,https://github.com/fstab/grok_exporter,0,Logging
+cAdvisor Exporter,https://github.com/google/cadvisor,0,Miscellaneous
+RabbitMQ Exporter,https://github.com/kbudde/rabbitmq_exporter,0,Messaging
+Kong Prometheus Plugin,https://github.com/Kong/kong-plugin-prometheus,0,Software
+kube-state-metrics,https://github.com/kubernetes/kube-state-metrics,0,Miscellaneous
+Process Exporter,https://github.com/ncabatoff/process-exporter,0,Miscellaneous
+NGINX Exporter,https://github.com/nginxinc/nginx-prometheus-exporter,0,HTTP
+NVIDIA GPU Monitoring Tools,https://github.com/NVIDIA/gpu-monitoring-tools,0,Hardware
+Redis Metrics Exporter,https://github.com/oliver006/redis_exporter,0,Database
+OpenStack Exporter,https://github.com/openstack-exporter/openstack-exporter,0,Miscellaneous
+JSON Exporter,https://github.com/prometheus-community/json_exporter,0,Miscellaneous
+Google Stackdriver Exporter,https://github.com/prometheus-community/stackdriver_exporter,0,Monitoring
+Windows Exporter,https://github.com/prometheus-community/windows_exporter,0,Hardware
+Blackbox Exporter,https://github.com/prometheus/blackbox_exporter,1,Miscellaneous
+CloudWatch Exporter,https://github.com/prometheus/cloudwatch_exporter,1,Monitoring
+Collectd Exporter,https://github.com/prometheus/collectd_exporter,1,Monitoring
+Consul Exporter,https://github.com/prometheus/consul_exporter,1,Database
+Graphite Exporter,https://github.com/prometheus/graphite_exporter,1,Monitoring
+HAProxy Exporter,https://github.com/prometheus/haproxy_exporter,1,HTTP
+InfluxDB Exporter,https://github.com/prometheus/influxdb_exporter,1,Database
+JMX Exporter,https://github.com/prometheus/jmx_exporter,1,Monitoring
+Memcached Exporter,https://github.com/prometheus/memcached_exporter,1,Database
+MySQL Server Exporter,https://github.com/prometheus/mysqld_exporter,1,Database
+Node Exporter,https://github.com/prometheus/node_exporter,1,Hardware
+SNMP Exporter,https://github.com/prometheus/snmp_exporter,1,Monitoring
+Statsd Exporter,https://github.com/prometheus/statsd_exporter,1,Monitoring
+Azure Metrics Exporter,https://github.com/RobustPerception/azure_metrics_exporter,0,Monitoring
+PostgreSQL Server Exporter,https://github.com/wrouesnel/postgres_exporter,0,Database
+Go Client Library,https://github.com/prometheus/client_golang,1,Library
+Java Client Library,https://github.com/prometheus/client_java,1,Library
+Python Client Library,https://github.com/prometheus/client_python,1,Library
+Ruby Client Library,https://github.com/prometheus/client_ruby,1,Library
+Push Gateway,https://github.com/prometheus/pushgateway,1,Monitoring
+k8s-image-availability-exporter,https://github.com/flant/k8s-image-availability-exporter,0,Miscellaneous
