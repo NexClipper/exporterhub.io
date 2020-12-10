@@ -36,9 +36,9 @@ ExporterHub.io recommends the best-fit exporter(s) to support Prometheus monitor
 
 
 * [x] Installation Guide, Metric Collection Flags, Recommended Alert-rule
-* [ ] Card Style Github Page
-* [ ] Easy search of Exporters
-* [ ] Personalization
+* [x] Card Style Github Page
+* [x] Easy search of Exporters
+* [x] Personalization (Add, Delete)
 * [ ] NexClipper Cloud Integration (coming soon)
   * [ ] Install exporters automatically
   * [ ] Generate Alert Rules
