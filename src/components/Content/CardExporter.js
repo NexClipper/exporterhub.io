@@ -1,6 +1,7 @@
 import React from "react";
 import { withRouter } from "react-router-dom";
 import styled from "styled-components";
+import { AiFillStar } from "react-icons/ai";
 
 const CardExporter = ({ exporter, cardClick }) => {
   const {
@@ -16,7 +17,13 @@ const CardExporter = ({ exporter, cardClick }) => {
   return (
     <Div onClick={() => cardClick(exporter_id)}>
       <header>
-        <span>★{stars}</span>
+        <span>
+          <Icon>
+            <AiFillStar />
+          </Icon>
+          {stars}
+        </span>
+        {/* <span>★{stars}</span> */}
       </header>
       <Article>
         <div>
@@ -130,6 +137,10 @@ const Section = styled.section`
       display: none;
     }
   }
+`;
+
+const Icon = styled.span`
+  vertical-align: middle;
 `;
 
 export default withRouter(CardExporter);
