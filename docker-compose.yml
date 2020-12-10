@@ -9,6 +9,8 @@ services:
   maria_db:
     image: mariadb:10.4.17
     command: --default-authentication-plugin=mysql_native_password
+    command: --max-allowed-packet=67108864
+    command: --wait_timeout=28800
     restart: always
     environment:
       MYSQL_ROOT_PASSWORD: secret
