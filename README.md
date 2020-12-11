@@ -3,6 +3,14 @@
 > ### A Curated List of Prometheus Exporters 
 > #### (powered by [nexclipper](https://nexclipper.io))
 
+## See Demo
+* Image click to Youtube:  
+  [![Demo](https://i9.ytimg.com/vi/SgEeBOJUE-U/mq1.jpg?sqp=CKCly_4F&rs=AOn4CLA8nGDqkAGCr5klQ5r1rTMY-S-f0w)](https://youtu.be/SgEeBOJUE-U)
+
+demo_01.png
+
+
+
 ## Contents
 - [What is ExporterHub.io](https://github.com/NexClipper/exporterhub.io#what-is-exporterhubio)
 - [Roadmap](https://github.com/NexClipper/exporterhub.io#roadmap)
@@ -16,11 +24,8 @@
 ![landingpage](./assets/screen_01.png)
 
 ### ExporterHub.io is a front-end application for the Prometheus Exporters community .
-
 ExporterHub.io is not just a curated list, but also provides exporter installation guide, alert rule configuration, and dashboard configuration.
-
 Each exporter's page contains the followings:
-
 - Official Github (Origin Repository)
 - Resource (Install, Exported Metrics)
 - Alert-rule (Recommended)
@@ -28,7 +33,6 @@ Each exporter's page contains the followings:
 
 
 ## Roadmap
-
 To help and ease you with best-practice Prometheus, ExporterHub.io discovers and recommends the best-fit exporter(s) available to expose metrics data from your specific systems and services being monitored.
 
 Using the best-fit exporter(s) helps standardizing metrics data exposition practices, maximizing monitoring experience with minimal manual inputs.
