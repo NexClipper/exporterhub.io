@@ -99,13 +99,12 @@ const Div = styled.div`
   flex-direction: column;
   align-items: center;
   img {
-    margin-top: 50px;
+    margin-top: 30px;
   }
   button {
-    position: absolute;
-    bottom: 50px;
     width: 230px;
     height: 35px;
+    margin-bottom: 10px;
     border-radius: 20px;
     background-color: #85dbc3;
     color: #ffffff;
