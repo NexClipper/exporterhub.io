@@ -17,6 +17,7 @@ COPY ./public /data/public
 COPY ./entrypoint.sh  /data
 
 ## Build of node runs
+RUN npm i -s dotenv
 RUN npm install
 
 ## For test run
