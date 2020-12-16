@@ -5,12 +5,12 @@ services:
     ports:
       - "8080:3000"
     environment:
-      SERVICE_URL: "localhost"
 #      SERVICE_URL: "192.168.10.11"
+      SERVICE_URL: "localhost"
     depends_on:
       - api
     volumes:
-      - ./.env:/data/.env
+      - ./dotenv:/data/.env
   maria_db:
     image: mariadb:10.4.17
     command: --default-authentication-plugin=mysql_native_password
