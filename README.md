@@ -55,14 +55,14 @@ ExporterHub.io recommends the best-fit exporter(s) to support Prometheus monitor
    * https://github.com/settings/tokens/new
 ![Token Generator](assets/create_a_token_first_N.png)
 
-### Run for default(in localhost)
+### Run by default(in localhost)
 * Run the docker-compose as below
 ```
 docker-compose up -d
 ```
 
-### Run for external network
-* Please make sure the `SERVICE_URL` for API server IP or URL as below
+### Or, Run for external network
+* If youn want to run the server in extenal server or instance. Please make sure the `SERVICE_URL` for API server IP or URL as below
 ```
 services:
   expoterhub:
