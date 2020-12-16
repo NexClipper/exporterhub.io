@@ -8,7 +8,6 @@
   [![Demo](https://raw.githubusercontent.com/NexClipper/exporterhub.io/master/assets/demo_01.png)](https://youtu.be/wa4dknZk7Kk)
 
 
-
 ## Contents
 - [What is ExporterHub.io](https://github.com/NexClipper/exporterhub.io#what-is-exporterhubio)
 - [Roadmap](https://github.com/NexClipper/exporterhub.io#roadmap)
@@ -21,14 +20,13 @@
 ## What is [ExporterHub.io](https://exporterhub.io/)
 ![landingpage](./assets/screen_01.png)
 
-### ExporterHub.io is a front-end application for the Prometheus Exporters community .
+### ExporterHub.io is a front-end(React) & API(python) application for the Prometheus Exporters community .
 ExporterHub.io is not just a curated list, but also provides exporter installation guide, alert rule configuration, and dashboard configuration.
 Each exporter's page contains the followings:
 - Official Github (Origin Repository)
 - Resource (Install, Exported Metrics)
 - Alert-rule (Recommended)
 - Dashboard (Grafana)
-
 
 ## Roadmap
 To help and ease you with best-practice Prometheus, ExporterHub.io discovers and recommends the best-fit exporter(s) available to expose metrics data from your specific systems and services being monitored.
@@ -57,16 +55,29 @@ ExporterHub.io recommends the best-fit exporter(s) to support Prometheus monitor
    * https://github.com/settings/tokens/new
 ![Token Generator](assets/create_a_token_first_N.png)
 
-### Run
+### Run for default(in localhost)
 * Run the docker-compose as below
 ```
 docker-compose up -d
 ```
 
+### Run for external network
+* Please make sure the `SERVICE_URL` for API server IP or URL as below
+```
+services:
+  expoterhub:
+    image: nexclipper/exporterhub:latest
+    ports:
+      - "8080:3000"
+    environment:
+#      SERVICE_URL: "localhost"
+       SERVICE_URL: "192.168.10.11"
+```   
+
+      
 ### Check & Set
 * And Input the generated Token to landing page as below. (http://localhost:8080)
- * /Image here/ 
-
+ * ![Token input](./assets/token.png)
 
 #### Details
 #### Docker image
