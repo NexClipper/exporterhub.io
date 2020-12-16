@@ -6,6 +6,7 @@ services:
       - "8080:3000"
     environment:
       SERVICE_URL: "localhost"
+#      SERVICE_URL: "192.168.10.11"
     depends_on:
       - api
     volumes:
