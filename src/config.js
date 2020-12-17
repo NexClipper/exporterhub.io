@@ -1,4 +1,4 @@
-require('dotenv').config();
+require("dotenv").config();
 
 export const API_SURVER = process.env.REACT_APP_API_URL;
 export const EXPORTERS_API = `http://${API_SURVER}:8000`;
