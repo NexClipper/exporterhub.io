@@ -48,7 +48,8 @@ const Sider = () => {
 
 const CategoryList = styled.ul`
   width: 200px;
-  height: 500px;
+  height: 400px;
+  margin-bottom: 270px;
   line-height: 1.5;
   background-color: #ffffff;
   border-radius: 5px;
