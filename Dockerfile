@@ -26,7 +26,7 @@ RUN npm install
 ## You can define the environment variable if you have some configurations.
 ## For example, if you have seperated database server, you can make a configuration as below.
 #ENV MYSQL_SERVER "mysql.test.com"
-
+ENV SERVICE_PUBLIC "y"
 ## Make sure the port number for service expose
 EXPOSE  3000
 
