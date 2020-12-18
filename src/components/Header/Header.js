@@ -9,7 +9,7 @@ import styled from "styled-components";
 const Header = () => {
   const {
     push,
-    location: { pathname }
+    location: { pathname },
   } = useHistory();
 
   return (

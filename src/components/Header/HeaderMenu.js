@@ -2,6 +2,8 @@ import { useHistory } from "react-router-dom";
 import styled from "styled-components";
 import PUBLIC_SERVICE from "../../config";
 
+require("dotenv").config();
+
 const HEADER_MENUS = [
   { title: "Company", link: "https://www.nexclipper.io/" },
   { title: "Blog", link: "https://nexclipper.github.io/blog/" },
@@ -16,7 +18,7 @@ const HeaderMenu = () => {
           {menu.title}
         </a>
       ))}
-      {
+      {/* {
         (PUBLIC_SERVICE = "n" && (
           <span
             onClick={() => {
@@ -27,7 +29,7 @@ const HeaderMenu = () => {
             Admin
           </span>
         ))
-      }
+      } */}
     </Div>
   );
 };
