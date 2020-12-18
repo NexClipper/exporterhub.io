@@ -1,9 +1,10 @@
 import { useHistory } from "react-router-dom";
 import styled from "styled-components";
+import { PUBLIC_SERVICE } from "../../config";
 
 const HEADER_MENUS = [
   { title: "Company", link: "https://www.nexclipper.io/" },
-  { title: "Blog", link: "https://nexclipper.github.io/blog/" }
+  { title: "Blog", link: "https://nexclipper.github.io/blog/" },
 ];
 
 const HeaderMenu = () => {
@@ -15,14 +16,16 @@ const HeaderMenu = () => {
           {menu.title}
         </a>
       ))}
-      <span
-        onClick={() => {
-          push("/admin");
-          window.location.reload();
-        }}
-      >
-        Admin
-      </span>
+      {PUBLIC_SERVICE !== "y" && (
+        <span
+          onClick={() => {
+            push("/admin");
+            window.location.reload();
+          }}
+        >
+          Admin
+        </span>
+      )}
     </Div>
   );
 };
