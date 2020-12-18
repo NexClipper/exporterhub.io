@@ -10,7 +10,7 @@ import { GlobalStyle } from "./styles/GlobalStyle";
 import {
   loadData,
   loadCategoriesData,
-  getTokenState
+  getTokenState,
 } from "./store/actions/exporterActions";
 import AdminPage from "./pages/AdminPage";
 import { CATEGORIES_API, EXPORTERS_API, TOKEN_API } from "./config";
@@ -24,7 +24,7 @@ function Routes() {
       dispatch(loadData(exportersData.data.exporters));
       dispatch(loadCategoriesData(categoriesData.data.categories));
       axios(TOKEN_API)
-        .then(res => {
+        .then((res) => {
           dispatch(getTokenState(res.data.TOKEN_VALID));
         })
         .catch(() => {
@@ -43,7 +43,7 @@ function Routes() {
           <Route exact path="/" component={ExporterHubPage} />
           <Route exact path="/detail/:id" component={ExporterHubDetailPage} />
           <Route exact path="/detail" component={ExporterHubDetailPage} />
-          <Route exact path="/admin" component={AdminPage} />
+          {/* <Route exact path="/admin" component={AdminPage} /> */}
         </Switch>
         <Footer />
       </Router>
