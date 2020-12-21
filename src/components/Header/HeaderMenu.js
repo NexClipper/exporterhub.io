@@ -4,10 +4,10 @@ import { PUBLIC_SERVICE } from "../../config";
 
 require("dotenv").config();
 
-const HEADER_MENUS = [
-  { title: "Company", link: "https://www.nexclipper.io/" },
-  { title: "Blog", link: "https://nexclipper.github.io/blog/" },
-];
+// const HEADER_MENUS = [
+//   { title: "Company", link: "https://www.nexclipper.io/" },
+//   { title: "Blog", link: "https://nexclipper.github.io/blog/" },
+// ];
 
 const HeaderMenu = () => {
   const {
@@ -17,11 +17,14 @@ const HeaderMenu = () => {
   console.log(PUBLIC_SERVICE);
   return (
     <Div>
-      {HEADER_MENUS.map((menu, idx) => (
+      {/* {HEADER_MENUS.map((menu, idx) => (
         <a href={menu.link} key={idx}>
           {menu.title}
         </a>
-      ))}
+      ))} */}
+      <a href="https://github.com/NexClipper/exporterhub.io">
+        <img src="assets/GitHub-Mark.png" alt="github" />
+      </a>
 
       {PUBLIC_SERVICE === "n" && (
         <span
@@ -44,9 +47,8 @@ const Div = styled.div`
   @media ${({ theme }) => theme.media.mobile} {
     display: none;
   }
-  a {
-    margin-left: 30px;
-    color: #000000;
+  img {
+    width: 38px;
     cursor: pointer;
   }
   span {

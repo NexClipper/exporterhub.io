@@ -1,10 +1,5 @@
 import styled from "styled-components";
-import {
-  FacebookFilled,
-  TwitterSquareFilled,
-  LinkedinFilled,
-  PhoneTwoTone,
-} from "@ant-design/icons";
+import { PhoneTwoTone } from "@ant-design/icons";
 
 const Footer = () => {
   return (
@@ -19,9 +14,12 @@ const Footer = () => {
           <span>+82(02) 533-8622</span>
         </div>
         <Icons>
-          <FacebookFilled className="icon" />
-          <TwitterSquareFilled className="icon" />
-          <LinkedinFilled className="icon" />
+          <a href="https://nexclipper.github.io/blog/">
+            <img src="assets/blog.png" alt="blog" />
+          </a>
+          <a href="https://www.nexclipper.io/">
+            <img src="assets/NexClipper_Icon.png" alt="company" />
+          </a>
         </Icons>
       </Contacts>
       <Address>
@@ -58,8 +56,9 @@ const Contacts = styled.div`
 `;
 const Icons = styled.div`
   margin-top: 10px;
-  .icon {
-    font-size: 35px;
+  img {
+    width: 35px;
+    height: 30px;
     margin-right: 5px;
     cursor: pointer;
   }
