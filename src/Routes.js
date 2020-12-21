@@ -43,7 +43,7 @@ function Routes() {
           <Route exact path="/" component={ExporterHubPage} />
           <Route exact path="/detail/:id" component={ExporterHubDetailPage} />
           <Route exact path="/detail" component={ExporterHubDetailPage} />
-          {/* <Route exact path="/admin" component={AdminPage} /> */}
+          <Route exact path="/admin" component={AdminPage} />
         </Switch>
         <Footer />
       </Router>

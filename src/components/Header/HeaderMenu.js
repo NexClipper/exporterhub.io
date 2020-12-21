@@ -11,6 +11,7 @@ const HEADER_MENUS = [
 
 const HeaderMenu = () => {
   const { push } = useHistory();
+  console.log(PUBLIC_SERVICE);
   return (
     <Div>
       {HEADER_MENUS.map((menu, idx) => (
@@ -19,7 +20,7 @@ const HeaderMenu = () => {
         </a>
       ))}
 
-      {PUBLIC_SERVICE === "y" && (
+      {PUBLIC_SERVICE === "n" && (
         <span
           onClick={() => {
             push("/admin");
