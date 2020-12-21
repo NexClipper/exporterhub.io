@@ -1,31 +1,22 @@
 import styled from "styled-components";
-import { PhoneTwoTone } from "@ant-design/icons";
 
 const Footer = () => {
   return (
     <Div>
       <GetSupport>
-        <h3>GET SUPPORT</h3>
-        <p>nexclipper@nexclipper.io</p>
-      </GetSupport>
-      <Contacts>
-        <div>
-          <PhoneTwoTone />
-          <span>+82(02) 533-8622</span>
-        </div>
-        <Icons>
-          <a href="https://nexclipper.github.io/blog/">
-            <img src="assets/blog.png" alt="blog" />
-          </a>
+        <Top>
           <a href="https://www.nexclipper.io/">
             <img src="assets/NexClipper_Icon.png" alt="company" />
           </a>
-        </Icons>
-      </Contacts>
-      <Address>
-        <h3>ADDRESS</h3>
-        <p>11F, 428 Seolleung-ro, Gangnam-gu, Seoul, 06192 South Korea</p>
-      </Address>
+          <p>support@nexclipper.io</p>
+        </Top>
+        <Bottom>
+          <a href="https://nexclipper.github.io/blog/">
+            <img src="assets/blog.png" alt="blog" />
+          </a>
+          <p>nexclipper.github.io/blog</p>
+        </Bottom>
+      </GetSupport>
       <Copyright> © 2020 NexClipper.</Copyright>
     </Div>
   );
@@ -46,30 +37,31 @@ const GetSupport = styled.div`
   font-size: 14px;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: center;
   height: 50px;
+  p {
+    fonst-size: 14px;
+  }
 `;
-const Contacts = styled.div`
+const Top = styled.div`
   display: flex;
-  flex-direction: column;
-  align-items: center;
-`;
-const Icons = styled.div`
-  margin-top: 10px;
   img {
     width: 35px;
     height: 30px;
-    margin-right: 5px;
+    margin-right: 7px;
     cursor: pointer;
   }
 `;
-const Address = styled.div`
-  font-size: 14px;
+const Bottom = styled.div`
   display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  height: 50px;
+  img {
+    width: 35px;
+    height: 30px;
+    margin-right: 7px;
+    cursor: pointer;
+  }
 `;
+
 const Copyright = styled.div`
   font-size: 14px;
 `;
