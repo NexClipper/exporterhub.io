@@ -5,6 +5,7 @@ import Search from "./Search";
 import HeaderMenu from "./HeaderMenu";
 import AdminMenu from "./AdminMenu";
 import styled from "styled-components";
+import { PUBLIC_SERVICE } from "../../config";
 
 const Header = () => {
   const {
@@ -30,7 +31,11 @@ const Header = () => {
         </div>
         <Search />
         {/* {pathname === "/" && <HeaderMenu />} */}
-        {pathname === "/admin" ? <AdminMenu /> : <HeaderMenu />}
+        {(PUBLIC_SERVICE === "n") & (pathname === "/admin") ? (
+          <AdminMenu />
+        ) : (
+          <HeaderMenu />
+        )}
       </Div>
     </HeaderBox>
   );

@@ -10,7 +10,10 @@ const HEADER_MENUS = [
 ];
 
 const HeaderMenu = () => {
-  const { push } = useHistory();
+  const {
+    push,
+    location: { pathname },
+  } = useHistory();
   console.log(PUBLIC_SERVICE);
   return (
     <Div>
