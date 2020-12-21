@@ -3,7 +3,7 @@ import {
   FacebookFilled,
   TwitterSquareFilled,
   LinkedinFilled,
-  PhoneTwoTone
+  PhoneTwoTone,
 } from "@ant-design/icons";
 
 const Footer = () => {

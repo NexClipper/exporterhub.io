@@ -1,6 +1,6 @@
 import { useHistory } from "react-router-dom";
 import styled from "styled-components";
-import PUBLIC_SERVICE from "../../config";
+import { PUBLIC_SERVICE } from "../../config";
 
 require("dotenv").config();
 
@@ -18,18 +18,17 @@ const HeaderMenu = () => {
           {menu.title}
         </a>
       ))}
-      {/* {
-        (PUBLIC_SERVICE = "n" && (
-          <span
-            onClick={() => {
-              push("/admin");
-              window.location.reload();
-            }}
-          >
-            Admin
-          </span>
-        ))
-      } */}
+
+      {{ PUBLIC_SERVICE } === "n" && (
+        <span
+          onClick={() => {
+            push("/admin");
+            window.location.reload();
+          }}
+        >
+          Admin
+        </span>
+      )}
     </Div>
   );
 };
