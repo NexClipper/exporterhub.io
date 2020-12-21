@@ -1,5 +1,5 @@
 ![exporterhub](./assets/ExporterHub_Logo_H.png)
-# [Exporterhub.io](https://exporterhub.io/)
+# [Exporterhub.io](http://exporterhub.io/)
 > ### A Curated List of Prometheus Exporters 
 > #### (powered by [nexclipper](https://nexclipper.io))
 
