@@ -4,18 +4,18 @@ const Footer = () => {
   return (
     <Div>
       <GetSupport>
-        <Top>
-          <a href="https://www.nexclipper.io/">
+        <Contact>
+          <a href="https://www.nexclipper.io/" target="_blank">
             <img src="assets/NexClipper_Icon.png" alt="company" />
+            <p>support@nexclipper.io</p>
           </a>
-          <p>support@nexclipper.io</p>
-        </Top>
-        <Bottom>
-          <a href="https://nexclipper.github.io/blog/">
+        </Contact>
+        <Contact>
+          <a href="https://nexclipper.github.io/blog/" target="_blank">
             <img src="assets/blog.png" alt="blog" />
+            <p>nexclipper.github.io/blog</p>
           </a>
-          <p>nexclipper.github.io/blog</p>
-        </Bottom>
+        </Contact>
       </GetSupport>
       <Copyright> © 2020 NexClipper.</Copyright>
     </Div>
@@ -43,22 +43,20 @@ const GetSupport = styled.div`
     fonst-size: 14px;
   }
 `;
-const Top = styled.div`
+const Contact = styled.div`
   display: flex;
+  a {
+    display: flex;
+  }
   img {
     width: 35px;
     height: 30px;
     margin-right: 7px;
     cursor: pointer;
   }
-`;
-const Bottom = styled.div`
-  display: flex;
-  img {
-    width: 35px;
-    height: 30px;
-    margin-right: 7px;
-    cursor: pointer;
+  p {
+    color: black;
+    margin-top: 6px;
   }
 `;
 

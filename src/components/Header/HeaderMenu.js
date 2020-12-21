@@ -22,7 +22,7 @@ const HeaderMenu = () => {
           {menu.title}
         </a>
       ))} */}
-      <a href="https://github.com/NexClipper/exporterhub.io">
+      <a href="https://github.com/NexClipper/exporterhub.io" target="_blank">
         <img src="assets/GitHub-Mark.png" alt="github" />
       </a>
 
