@@ -19,7 +19,7 @@ const HeaderMenu = () => {
         </a>
       ))}
 
-      {{ PUBLIC_SERVICE } === "n" && (
+      {{ PUBLIC_SERVICE } === "y" ? (
         <span
           onClick={() => {
             push("/admin");
@@ -28,6 +28,8 @@ const HeaderMenu = () => {
         >
           Admin
         </span>
+      ) : (
+        "none"
       )}
     </Div>
   );

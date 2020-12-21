@@ -29,8 +29,8 @@ const Header = () => {
           ) : null}
         </div>
         <Search />
-        {/* {pathname === "/" && <HeaderMenu />} */}
-        {pathname === "/admin" ? <AdminMenu /> : <HeaderMenu />}
+        {pathname === "/" && <HeaderMenu />}
+        {/* {pathname === "/admin" ? <AdminMenu /> : <HeaderMenu />} */}
       </Div>
     </HeaderBox>
   );
