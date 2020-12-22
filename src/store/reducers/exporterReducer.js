@@ -1,4 +1,5 @@
 const FILTER_BY_VALUE = "FILTER_BY_VALUE";
+const FILTER_BY_TYPE = "FILTER_BY_TYPE";
 const SORT_BY_POPULARITY = "SORT_BY_POPULARITY";
 const LOAD_DATA = "LOAD_DATA";
 const LOAD_MORE_DATA = "LOAD_MORE_DATA";
@@ -7,16 +8,16 @@ const COUNT_PER_SCROLL = 9;
 const sortingKey = {
   "Sort by": "exporter_id",
   "Most popular": "stars",
-  "Recently registered": "recent_release"
+  "Recently registered": "recent_release",
 };
 
 const initialState = {
   appliedFilters: [],
   categories: {
     category: "All",
-    type: "Official",
-    value: ""
-  }
+    type: "All",
+    value: "",
+  },
 };
 
 const exporterReducer = (state = initialState, action) => {
@@ -26,10 +27,10 @@ const exporterReducer = (state = initialState, action) => {
       const { filterType, data } = action.payload;
       filteredState.categories[filterType] = data;
       const {
-        categories: { category, type, value }
+        categories: { category, type, value },
       } = filteredState;
 
-      let filteredValues = state.exporters?.filter(exporter => {
+      let filteredValues = state.exporters?.filter((exporter) => {
         return (
           (value ? exporter.name.toLowerCase().includes(value) : true) &&
           exporter.official === type &&
@@ -68,7 +69,7 @@ const exporterReducer = (state = initialState, action) => {
       const count = action.payload.length;
       const totalPages = Math.ceil(count / COUNT_PER_SCROLL);
       const exporters = action.payload;
-      let officialExporters = exporters.filter(exporter => {
+      let officialExporters = exporters.filter((exporter) => {
         return exporter.official === "Official";
       });
       const officialCount = officialExporters.length;
@@ -80,7 +81,7 @@ const exporterReducer = (state = initialState, action) => {
         totalCount: officialCount,
         currentPage: 1,
         totalPages: totalPages,
-        filteredPages: totalPages
+        filteredPages: totalPages,
       };
 
     case LOAD_MORE_DATA:

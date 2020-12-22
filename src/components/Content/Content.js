@@ -4,13 +4,14 @@ import styled from "styled-components";
 import ContentExporters from "./ContentExporters";
 import ContentMenu from "./ContentMenu";
 import TokenModal from "../Modal/TokenModal";
+import CookieModal from "../Modal/CookieModal";
 import { loadMoreData } from "../../store/actions/exporterActions";
 
 const Contetnt = () => {
   const { filteredExporters, exposedExporters, totalCount } = useSelector(
-    store => store.exporterReducer
+    (store) => store.exporterReducer
   );
-  const tokenState = useSelector(store => store.tokenReducer);
+  const tokenState = useSelector((store) => store.tokenReducer);
   const dispatch = useDispatch();
   const [scrollAct, setScrollAct] = useState(false);
 
@@ -30,6 +31,7 @@ const Contetnt = () => {
 
   return (
     <Section>
+      <CookieModal />
       <ContentMenu totalCount={totalCount} />
       <ContentExporters exporters={exposedExporters} />
       {!tokenState && <TokenModal />}

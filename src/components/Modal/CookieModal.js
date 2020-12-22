@@ -21,7 +21,9 @@ const CookieModal = () => {
   );
 };
 
-const Div = styled.div``;
+const Div = styled.div`
+  margin-bottom: 15px;
+`;
 const OKModal = styled.div`
   background-color: #ff2a17;
   border: 1px solid rgba(0, 0, 0, 0.1);
