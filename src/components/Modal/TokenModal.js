@@ -4,6 +4,7 @@ import axios from "axios";
 import styled, { keyframes } from "styled-components";
 import { TOKEN_API } from "../../config";
 import { getTokenState } from "../../store/actions/exporterActions";
+import CookieModal from "../Modal/CookieModal";
 
 const TokenModal = () => {
   const [tokenKey, setTokenKey] = useState("");
@@ -15,26 +16,27 @@ const TokenModal = () => {
     setIsLoading(true);
     axios
       .post(TOKEN_API, {
-        token: tokenKey
+        token: tokenKey,
       })
-      .then(res => {
+      .then((res) => {
         setIsLoading(false);
         dispatch(getTokenState(true));
         window.location.reload();
       })
-      .catch(error => {
+      .catch((error) => {
         setIsLoading(false);
         setFailMessage("Please make sure the Token key 1st");
       });
   };
 
-  const inputTokenKey = e => {
+  const inputTokenKey = (e) => {
     setTokenKey(e.target.value);
   };
 
   return (
     <ModalContainer>
       <Div>
+        <CookieModal />
         <img src="assets/image.png" alt="modal" />
         {isLoading ? (
           <Loader>
