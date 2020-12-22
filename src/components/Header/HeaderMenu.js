@@ -23,9 +23,9 @@ const HeaderMenu = () => {
           {menu.title}
         </a>
       ))} */}
-      {/* <a href="https://github.com/NexClipper/exporterhub.io" target="_blank">
+      <a href="https://github.com/NexClipper/exporterhub.io" target="_blank">
         <img src="assets/GitHub-Mark.png" alt="github" />
-      </a> */}
+      </a>
 
       {PUBLIC_SERVICE === "n" && (
         <span

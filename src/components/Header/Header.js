@@ -4,7 +4,6 @@ import Logo from "./Logo";
 import Search from "./Search";
 import HeaderMenu from "./HeaderMenu";
 import AdminMenu from "./AdminMenu";
-import Github from "./Github";
 import styled from "styled-components";
 import { PUBLIC_SERVICE } from "../../config";
 
@@ -20,16 +19,15 @@ const Header = () => {
         <div className="logoInfo">
           <Logo />
           {pathname !== "/admin" && (
-            <Admin
-              onClick={() => {
-                push("/admin");
-                window.location.reload();
-              }}
-            >
-              Admin
+            <Admin>
+              <a
+                href="https://github.com/NexClipper/exporterhub.io"
+                target="_blank"
+              >
+                <img src="assets/GitHub-Mark.png" alt="github" />
+              </a>
             </Admin>
           )}
-          <Github />
         </div>
         <Search />
 
@@ -78,8 +76,12 @@ const Admin = styled.button`
   font-weight: 600;
   color: tomato;
 
+  img {
+    width: 40px;
+  }
+
   @media ${({ theme }) => theme.media.mobile} {
-    display: none;
+    display: block;
   }
 `;
 
