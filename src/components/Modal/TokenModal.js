@@ -35,8 +35,8 @@ const TokenModal = () => {
 
   return (
     <ModalContainer>
+      <CookieModal />
       <Div>
-        <CookieModal />
         <img src="assets/image.png" alt="modal" />
         {isLoading ? (
           <Loader>

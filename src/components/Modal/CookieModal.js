@@ -30,12 +30,13 @@ const OKModal = styled.div`
   font-weight: 600px;
   ${({ theme }) => theme.flexCenter};
   cursor: pointer;
-  padding: 7px 10px;
+  padding: 7px 12px;
 `;
 const Back = styled.div`
-  width: 100px;
+  width: 50px;
   height: 30px;
   border-radius: 20px;
+  margin-left: 10px;
   background-color: rgba(0, 0, 0, 0.3);
   color: #ffffff;
   font-size: 13px;
