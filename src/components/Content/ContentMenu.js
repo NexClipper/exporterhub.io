@@ -6,14 +6,15 @@ import { sortByPopularity } from "../../store/actions/exporterActions";
 import { CATEGORIES_API } from "../../config";
 
 const ContentMenu = ({ totalCount }) => {
+  console.log(CATEGORIES_API);
   const [categories, setCategories] = useState([]);
   const dispatch = useDispatch();
-  const optionSelector = e => {
+  const optionSelector = (e) => {
     const payload = e.target.value;
     dispatch(sortByPopularity(payload));
   };
   useEffect(() => {
-    axios.get(CATEGORIES_API).then(res => {
+    axios.get(CATEGORIES_API).then((res) => {
       setCategories(res.data.categories);
     });
   }, []);
@@ -24,7 +25,7 @@ const ContentMenu = ({ totalCount }) => {
         <Select>
           <option>All</option>
           {categories.length &&
-            categories.map(category => (
+            categories.map((category) => (
               <option key={category.category_id}>
                 {category.category_name}
               </option>

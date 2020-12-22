@@ -4,6 +4,7 @@ import Logo from "./Logo";
 import Search from "./Search";
 import HeaderMenu from "./HeaderMenu";
 import AdminMenu from "./AdminMenu";
+import Github from "./Github";
 import styled from "styled-components";
 import { PUBLIC_SERVICE } from "../../config";
 
@@ -18,7 +19,7 @@ const Header = () => {
       <Div>
         <div className="logoInfo">
           <Logo />
-          {pathname !== "/admin" ? (
+          {pathname !== "/admin" && (
             <Admin
               onClick={() => {
                 push("/admin");
@@ -27,9 +28,11 @@ const Header = () => {
             >
               Admin
             </Admin>
-          ) : null}
+          )}
+          <Github />
         </div>
         <Search />
+
         {/* {pathname === "/" && <HeaderMenu />} */}
         {(PUBLIC_SERVICE === "n") & (pathname === "/admin") ? (
           <AdminMenu />
@@ -76,7 +79,7 @@ const Admin = styled.button`
   color: tomato;
 
   @media ${({ theme }) => theme.media.mobile} {
-    display: block;
+    display: none;
   }
 `;
 

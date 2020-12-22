@@ -2,8 +2,11 @@ import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { filterByValue } from "../../store/actions/exporterActions";
 import styled from "styled-components";
+import { PUBLIC_SERVICE, API_SURVER, CATEGORIES_API } from "../../config";
 
 const Sider = () => {
+  console.log(CATEGORIES_API);
+
   const dispatch = useDispatch();
   const categories = useSelector((store) => store.categoryReducer);
   const [categoryAct, setcategoryAct] = useState(0);

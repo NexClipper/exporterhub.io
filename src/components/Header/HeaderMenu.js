@@ -1,6 +1,6 @@
 import { useHistory } from "react-router-dom";
 import styled from "styled-components";
-import { PUBLIC_SERVICE } from "../../config";
+import { PUBLIC_SERVICE, API_SURVER } from "../../config";
 
 require("dotenv").config();
 
@@ -10,11 +10,12 @@ require("dotenv").config();
 // ];
 
 const HeaderMenu = () => {
+  console.log(API_SURVER);
   const {
     push,
     location: { pathname },
   } = useHistory();
-  console.log(PUBLIC_SERVICE);
+  // console.log(PUBLIC_SERVICE);
   return (
     <Div>
       {/* {HEADER_MENUS.map((menu, idx) => (
@@ -22,9 +23,9 @@ const HeaderMenu = () => {
           {menu.title}
         </a>
       ))} */}
-      <a href="https://github.com/NexClipper/exporterhub.io" target="_blank">
+      {/* <a href="https://github.com/NexClipper/exporterhub.io" target="_blank">
         <img src="assets/GitHub-Mark.png" alt="github" />
-      </a>
+      </a> */}
 
       {PUBLIC_SERVICE === "n" && (
         <span
