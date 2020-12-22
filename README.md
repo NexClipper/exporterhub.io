@@ -1,5 +1,5 @@
 ![exporterhub](./assets/ExporterHub_Logo_H.png)
-# [Exporterhub.io](http://exporterhub.io/)
+# [Exporterhub.io](https://exporterhub.io/)
 > ### A Curated List of Prometheus Exporters 
 > #### (powered by [nexclipper](https://nexclipper.io))
 
@@ -70,8 +70,8 @@ services:
     ports:
       - "8080:3000"
     environment:
-#      SERVICE_URL: "localhost"
-       SERVICE_URL: "192.168.10.11"
+#      SERVICE_URL: "http://localhost"
+       SERVICE_URL: "http://192.168.10.11"
 ```   
 
       
