@@ -33,7 +33,7 @@ const exporterReducer = (state = initialState, action) => {
       let filteredValues = state.exporters?.filter((exporter) => {
         return (
           (value ? exporter.name.toLowerCase().includes(value) : true) &&
-          exporter.official === type &&
+          (exporter.official === type || type === "All") &&
           (exporter.category === category || category === "All")
         );
       });

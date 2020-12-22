@@ -4,44 +4,41 @@ import { filterByValue } from "../../store/actions/exporterActions";
 import { useState } from "react";
 import styled from "styled-components";
 
-const Nav = ({ exporter }) => {
+const Nav = () => {
   const dispatch = useDispatch();
-  const [isOfficial, setIsOfficial] = useState(true);
-
+  const [isOfficial, setIsOfficial] = useState(0);
   const callDispatch = (e) => {
     const payload = { filterType: "type", data: e.target.innerText };
     dispatch(filterByValue(payload));
   };
-  // const AllClick = () => {
-  //   exporter.official === Official || exporter.official === Unofficial;
-  // };
-
   return (
     <Navigation>
       <Container>
         <Div>
           <Type
             onClick={(e) => {
+              setIsOfficial(0);
               callDispatch(e);
             }}
+            isOfficial={isOfficial === 0}
           >
             All
           </Type>
           <Type
             onClick={(e) => {
-              setIsOfficial(true);
+              setIsOfficial(1);
               callDispatch(e);
             }}
-            isOfficial={isOfficial}
+            isOfficial={isOfficial === 1}
           >
             Official
           </Type>
           <Type
             onClick={(e) => {
-              setIsOfficial(false);
+              setIsOfficial(2);
               callDispatch(e);
             }}
-            isOfficial={!isOfficial}
+            isOfficial={isOfficial === 2}
           >
             Unofficial
           </Type>
