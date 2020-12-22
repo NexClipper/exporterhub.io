@@ -1,6 +1,7 @@
 const SORT_BY_POPULARITY = "SORT_BY_POPULARITY";
 const SORT_BY_CURRENT = "SORT_BY_CURRENT";
 const FILTER_BY_VALUE = "FILTER_BY_VALUE";
+const FILTER_BY_TYPE = "FILTER_BY_TYPE";
 const LOAD_DATA = "LOAD_DATA";
 const LOAD_MORE_DATA = "LOAD_MORE_DATA";
 const LOAD_CATEGORIES = "LOAD_CATEGORIES";
@@ -8,6 +9,11 @@ const GET_TOKEN_STATE = "GET_TOKEN_STATE";
 
 export const filterByValue = (payload) => ({
   type: FILTER_BY_VALUE,
+  payload,
+});
+
+export const filterByType = (payload) => ({
+  type: FILTER_BY_TYPE,
   payload,
 });
 

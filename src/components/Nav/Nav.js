@@ -4,21 +4,31 @@ import { filterByValue } from "../../store/actions/exporterActions";
 import { useState } from "react";
 import styled from "styled-components";
 
-const Nav = () => {
+const Nav = ({ exporter }) => {
   const dispatch = useDispatch();
   const [isOfficial, setIsOfficial] = useState(true);
 
-  const callDispatch = e => {
+  const callDispatch = (e) => {
     const payload = { filterType: "type", data: e.target.innerText };
     dispatch(filterByValue(payload));
   };
+  // const AllClick = () => {
+  //   exporter.official === Official || exporter.official === Unofficial;
+  // };
 
   return (
     <Navigation>
       <Container>
         <Div>
           <Type
-            onClick={e => {
+            onClick={(e) => {
+              callDispatch(e);
+            }}
+          >
+            All
+          </Type>
+          <Type
+            onClick={(e) => {
               setIsOfficial(true);
               callDispatch(e);
             }}
@@ -27,7 +37,7 @@ const Nav = () => {
             Official
           </Type>
           <Type
-            onClick={e => {
+            onClick={(e) => {
               setIsOfficial(false);
               callDispatch(e);
             }}
@@ -65,8 +75,9 @@ const Type = styled.button`
   width: 50%;
   height: 100%;
   ${({ theme }) => theme.flexCenter};
-  color: ${props => (props.isOfficial ? "#32b489" : "black")};
-  border-bottom: ${props => (props.isOfficial ? `2px solid #32b489` : "none")};
+  color: ${(props) => (props.isOfficial ? "#32b489" : "black")};
+  border-bottom: ${(props) =>
+    props.isOfficial ? `2px solid #32b489` : "none"};
   cursor: pointer;
 `;
 export default Nav;
