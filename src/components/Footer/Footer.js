@@ -6,8 +6,8 @@ const Footer = () => {
       <GetSupport>
         <Contact>
           <a href="https://www.nexclipper.io/" target="_blank">
-            <img src="assets/NexClipper_Icon.png" alt="company" />
-            <p>support@nexclipper.io</p>
+            <img src="assets/Favicon144.png" alt="company" />
+            <p>nexclipper.io</p>
           </a>
         </Contact>
         <Contact>
@@ -50,13 +50,12 @@ const Contact = styled.div`
   }
   img {
     width: 35px;
-    height: 30px;
-    margin-right: 7px;
+    margin-right: 8px;
     cursor: pointer;
   }
   p {
     color: black;
-    margin-top: 6px;
+    margin-top: 8px;
   }
 `;
 
