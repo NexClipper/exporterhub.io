@@ -1,6 +1,7 @@
 import { useHistory } from "react-router-dom";
 import styled from "styled-components";
 import { PUBLIC_SERVICE, API_SURVER } from "../../config";
+import { GithubOutlined } from "@ant-design/icons";
 
 require("dotenv").config();
 
@@ -23,8 +24,12 @@ const HeaderMenu = () => {
           {menu.title}
         </a>
       ))} */}
-      <a href="https://github.com/NexClipper/exporterhub.io" target="_blank">
-        <img src="assets/GitHub-Mark.png" alt="github" />
+      <a
+        style={{ color: "black", fontSize: "35px" }}
+        href="https://github.com/NexClipper/exporterhub.io"
+        target="_blank"
+      >
+        <GithubOutlined />
       </a>
 
       {PUBLIC_SERVICE === "n" && (
@@ -54,7 +59,7 @@ const Div = styled.div`
   }
   span {
     margin-left: 30px;
-    color: tomato;
+    // color: tomato;
     cursor: pointer;
   }
 `;

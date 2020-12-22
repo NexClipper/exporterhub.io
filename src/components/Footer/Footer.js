@@ -6,13 +6,13 @@ const Footer = () => {
       <GetSupport>
         <Contact>
           <a href="https://www.nexclipper.io/" target="_blank">
-            <img src="assets/Favicon144.png" alt="company" />
+            <Company />
             <p>nexclipper.io</p>
           </a>
         </Contact>
         <Contact>
           <a href="https://nexclipper.github.io/blog/" target="_blank">
-            <img src="assets/blog.png" alt="blog" />
+            <Blog />
             <p>nexclipper.github.io/blog</p>
           </a>
         </Contact>
@@ -58,7 +58,20 @@ const Contact = styled.div`
     margin-top: 8px;
   }
 `;
-
+const Company = styled.div`
+  width: 50px;
+  height: 50px;
+  background: url(/assets/Company.png) no-repeat center;
+  background-size: 30px;
+  margin-top: -10px;
+`;
+const Blog = styled.div`
+  width: 50px;
+  height: 50px;
+  background: url(/assets/blog.png) no-repeat center;
+  background-size: 30px;
+  margin-top: -10px;
+`;
 const Copyright = styled.div`
   font-size: 14px;
 `;

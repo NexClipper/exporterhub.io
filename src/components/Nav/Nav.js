@@ -76,5 +76,8 @@ const Type = styled.button`
   border-bottom: ${(props) =>
     props.isOfficial ? `2px solid #32b489` : "none"};
   cursor: pointer;
+  // @media ${({ theme }) => theme.media.mobile} {
+  //   display: none;
+  // }
 `;
 export default Nav;

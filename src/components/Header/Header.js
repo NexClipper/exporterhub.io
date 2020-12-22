@@ -6,6 +6,7 @@ import HeaderMenu from "./HeaderMenu";
 import AdminMenu from "./AdminMenu";
 import styled from "styled-components";
 import { PUBLIC_SERVICE } from "../../config";
+import { GithubOutlined } from "@ant-design/icons";
 
 const Header = () => {
   const {
@@ -21,10 +22,11 @@ const Header = () => {
           {pathname !== "/admin" && (
             <Admin>
               <a
+                style={{ color: "black", fontSize: "35px" }}
                 href="https://github.com/NexClipper/exporterhub.io"
                 target="_blank"
               >
-                <img src="assets/GitHub-Mark.png" alt="github" />
+                <GithubOutlined />
               </a>
             </Admin>
           )}
