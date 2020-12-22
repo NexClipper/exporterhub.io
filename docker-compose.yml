@@ -7,7 +7,7 @@ services:
     environment:
        SERVICE_PUBLIC: "n"
        #SERVICE_URL: "172.28.128.3"
-       SERVICE_URL: "localhost"
+       SERVICE_URL: "http://localhost"
     depends_on:
       - api
     volumes:
