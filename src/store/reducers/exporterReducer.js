@@ -70,7 +70,7 @@ const exporterReducer = (state = initialState, action) => {
       const totalPages = Math.ceil(count / COUNT_PER_SCROLL);
       const exporters = action.payload;
       let officialExporters = exporters.filter((exporter) => {
-        return exporter.official === "Official";
+        return exporter.official === "Official" || "Unofficial";
       });
       const officialCount = officialExporters.length;
       return {

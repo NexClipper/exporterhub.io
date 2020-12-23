@@ -23,7 +23,7 @@ const ContentMenu = ({ totalCount }) => {
       <span>{totalCount} items</span>
       <SelectBox>
         <Select>
-          <option>All</option>
+          {/* <option>All</option> */}
           {categories.length &&
             categories.map((category) => (
               <option key={category.category_id}>
@@ -33,7 +33,7 @@ const ContentMenu = ({ totalCount }) => {
         </Select>
 
         <select onChange={optionSelector}>
-          <option>Sort by</option>
+          {/* <option>Sort by</option> */}
           <option>Most popular</option>
           <option>Recently registered</option>
         </select>
