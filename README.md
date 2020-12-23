@@ -89,8 +89,7 @@ services:
 * Source pattern of Tag: `/^api([0-9.]+)$/` 
    * ex) `api0.3` -> `nexclipper/exporterhub-api:release-api0.3`
 
-### Docker image
-### Registry
+### Docker image registry
 - nexclipper/exporterhub: https://hub.docker.com/repository/docker/nexclipper/exporterhub
 - nexclipper/exporterhub-api: https://hub.docker.com/repository/docker/nexclipper/exporterhub-api
 
