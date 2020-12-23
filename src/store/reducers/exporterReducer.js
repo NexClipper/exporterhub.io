@@ -8,7 +8,7 @@ const COUNT_PER_SCROLL = 9;
 const sortingKey = {
   "Sort by": "exporter_id",
   "Most popular": "stars",
-  "Recently registered": "recent_release",
+  Recent: "recent_release",
 };
 
 const initialState = {
