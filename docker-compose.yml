@@ -6,12 +6,10 @@ services:
       - "8080:3000"
     environment:
        SERVICE_PUBLIC: "n"
-       #SERVICE_URL: "172.28.128.3"
+       #SERVICE_URL: "http://172.28.128.3"
        SERVICE_URL: "http://localhost"
     depends_on:
       - api
-    volumes:
-      - ./dotenv:/data/.env
   maria_db:
     image: mariadb:10.4.17
     command: --default-authentication-plugin=mysql_native_password
