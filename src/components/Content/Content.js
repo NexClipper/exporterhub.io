@@ -4,7 +4,6 @@ import styled from "styled-components";
 import ContentExporters from "./ContentExporters";
 import ContentMenu from "./ContentMenu";
 import TokenModal from "../Modal/TokenModal";
-import CookieModal from "../Modal/CookieModal";
 import { loadMoreData } from "../../store/actions/exporterActions";
 import CookieConsent from "react-cookie-consent";
 
@@ -32,7 +31,19 @@ const Contetnt = () => {
 
   return (
     <Section>
-      <CookieConsent style={{ background: "tomato" }}>
+      <CookieConsent
+        location="bottom"
+        cookieName="myAwesomeCookieName3"
+        expires={999}
+        overlay
+        style={{ background: "tomato" }}
+        buttonStyle={{
+          background: "white",
+          color: "black",
+          fontWeight: "bold",
+          borderRadius: "2px",
+        }}
+      >
         This website uses cookies to enhance the user experience.
       </CookieConsent>
       <ContentMenu totalCount={totalCount} />
