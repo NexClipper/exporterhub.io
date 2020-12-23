@@ -6,6 +6,7 @@ import ContentMenu from "./ContentMenu";
 import TokenModal from "../Modal/TokenModal";
 import CookieModal from "../Modal/CookieModal";
 import { loadMoreData } from "../../store/actions/exporterActions";
+import CookieConsent from "react-cookie-consent";
 
 const Contetnt = () => {
   const { filteredExporters, exposedExporters, totalCount } = useSelector(
@@ -31,7 +32,9 @@ const Contetnt = () => {
 
   return (
     <Section>
-      <CookieModal />
+      <CookieConsent style={{ background: "tomato" }}>
+        This website uses cookies to enhance the user experience.
+      </CookieConsent>
       <ContentMenu totalCount={totalCount} />
       <ContentExporters exporters={exposedExporters} />
       {!tokenState && <TokenModal />}
@@ -45,4 +48,5 @@ const Section = styled.section`
     margin: 0 auto;
   }
 `;
+
 export default Contetnt;
