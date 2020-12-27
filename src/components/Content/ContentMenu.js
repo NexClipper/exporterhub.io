@@ -3,14 +3,20 @@ import { useDispatch } from "react-redux";
 import axios from "axios";
 import styled from "styled-components";
 import { sortByPopularity } from "../../store/actions/exporterActions";
+import { filterByValue } from "../../store/actions/exporterActions";
 import { CATEGORIES_API } from "../../config";
-
 const ContentMenu = ({ totalCount }) => {
+  console.log(CATEGORIES_API);
   const [categories, setCategories] = useState([]);
   const dispatch = useDispatch();
   const optionSelector = e => {
     const payload = e.target.value;
     dispatch(sortByPopularity(payload));
+  };
+  const callDispatch = e => {
+    console.log(e.target.value);
+    const payload = { filterType: "category", data: e.target.value };
+    dispatch(filterByValue(payload));
   };
   useEffect(() => {
     axios.get(CATEGORIES_API).then(res => {
@@ -21,7 +27,7 @@ const ContentMenu = ({ totalCount }) => {
     <Div>
       <span>{totalCount} items</span>
       <SelectBox>
-        <Select>
+        <Select onChange={callDispatch}>
           <option>All</option>
           {categories.length &&
             categories.map(category => (
@@ -30,17 +36,15 @@ const ContentMenu = ({ totalCount }) => {
               </option>
             ))}
         </Select>
-
         <select onChange={optionSelector}>
-          <option>Sort by</option>
+          {/* <option>Sort by</option> */}
           <option>Most popular</option>
-          <option>Recently registered</option>
+          <option>Recent</option>
         </select>
       </SelectBox>
     </Div>
   );
 };
-
 const Div = styled.div`
   width: 100%;
   display: flex;
@@ -50,7 +54,6 @@ const Div = styled.div`
   @media ${({ theme }) => theme.media.mobile} {
     font-size: 13px;
   }
-
   select {
     outline: none;
     border: none;
@@ -59,7 +62,6 @@ const Div = styled.div`
     cursor: pointer;
   }
 `;
-
 const SelectBox = styled.div`
   display: flex;
   font-size: 16px;
@@ -67,11 +69,9 @@ const SelectBox = styled.div`
     font-size: 13px;
   }
 `;
-
 const Select = styled.select`
   display: none;
   margin-right: 10px;
-
   @media ${({ theme }) => theme.media.mobile} {
     display: block;
     width: 80px;
