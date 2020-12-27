@@ -24,3 +24,4 @@ yarn-error.log*
 
 db_data
 .vscode
+.env

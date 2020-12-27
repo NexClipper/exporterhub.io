@@ -15,20 +15,20 @@ const TokenModal = () => {
     setIsLoading(true);
     axios
       .post(TOKEN_API, {
-        token: tokenKey
+        token: tokenKey,
       })
-      .then(res => {
+      .then((res) => {
         setIsLoading(false);
         dispatch(getTokenState(true));
         window.location.reload();
       })
-      .catch(error => {
+      .catch((error) => {
         setIsLoading(false);
         setFailMessage("Please make sure the Token key 1st");
       });
   };
 
-  const inputTokenKey = e => {
+  const inputTokenKey = (e) => {
     setTokenKey(e.target.value);
   };
 

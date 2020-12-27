@@ -5,7 +5,7 @@ import styled from "styled-components";
 import { EXPORTER_ADMIN_API } from "../../config";
 
 const EditModal = ({ cancleModal, exporterId }) => {
-  const categories = useSelector(store => store.categoryReducer);
+  const categories = useSelector((store) => store.categoryReducer);
   const [category, setCategory] = useState("Default");
 
   const deleteExporter = () => {
@@ -16,14 +16,14 @@ const EditModal = ({ cancleModal, exporterId }) => {
   const editExporter = () => {
     axios
       .patch(`${EXPORTER_ADMIN_API}?exporter_id=${exporterId}`, {
-        category: category
+        category: category,
       })
       .then(() => {
         window.location.reload();
       });
   };
 
-  const selectCategory = e => {
+  const selectCategory = (e) => {
     setCategory(e.target.value);
   };
 
@@ -34,7 +34,7 @@ const EditModal = ({ cancleModal, exporterId }) => {
         <Container>
           <select onChange={selectCategory}>
             <option>Select category</option>
-            {categories.map(category => {
+            {categories.map((category) => {
               return <option>{category.category_name}</option>;
             })}
           </select>

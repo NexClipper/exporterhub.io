@@ -5,11 +5,13 @@ import Search from "./Search";
 import HeaderMenu from "./HeaderMenu";
 import AdminMenu from "./AdminMenu";
 import styled from "styled-components";
+import { PUBLIC_SERVICE } from "../../config";
+import { GithubOutlined } from "@ant-design/icons";
 
 const Header = () => {
   const {
     push,
-    location: { pathname }
+    location: { pathname },
   } = useHistory();
 
   return (
@@ -17,19 +19,26 @@ const Header = () => {
       <Div>
         <div className="logoInfo">
           <Logo />
-          {pathname !== "/admin" ? (
-            <Admin
-              onClick={() => {
-                push("/admin");
-                window.location.reload();
-              }}
-            >
-              Admin
+          {pathname !== "/admin" && (
+            <Admin>
+              <a
+                style={{ color: "black", fontSize: "35px" }}
+                href="https://github.com/NexClipper/exporterhub.io"
+                target="_blank"
+              >
+                <GithubOutlined />
+              </a>
             </Admin>
-          ) : null}
+          )}
         </div>
         <Search />
-        {pathname === "/admin" ? <AdminMenu /> : <HeaderMenu />}
+
+        {/* {pathname === "/" && <HeaderMenu />} */}
+        {(PUBLIC_SERVICE === "n") & (pathname === "/admin") ? (
+          <AdminMenu />
+        ) : (
+          <HeaderMenu />
+        )}
       </Div>
     </HeaderBox>
   );
@@ -68,6 +77,10 @@ const Admin = styled.button`
   margin-left: 30px;
   font-weight: 600;
   color: tomato;
+
+  img {
+    width: 40px;
+  }
 
   @media ${({ theme }) => theme.media.mobile} {
     display: block;

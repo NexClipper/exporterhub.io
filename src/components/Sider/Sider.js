@@ -5,14 +5,14 @@ import styled from "styled-components";
 
 const Sider = () => {
   const dispatch = useDispatch();
-  const categories = useSelector(store => store.categoryReducer);
+  const categories = useSelector((store) => store.categoryReducer);
   const [categoryAct, setcategoryAct] = useState(0);
 
-  const handleClickCategoryAct = id => {
+  const handleClickCategoryAct = (id) => {
     setcategoryAct(id);
   };
 
-  const callDispatch = e => {
+  const callDispatch = (e) => {
     const payload = { filterType: "category", data: e.target.innerText };
     dispatch(filterByValue(payload));
   };
@@ -22,7 +22,7 @@ const Sider = () => {
       <Title>CATEGORIES</Title>
       <Category
         active={0 === categoryAct}
-        onClick={e => {
+        onClick={(e) => {
           handleClickCategoryAct(0);
           callDispatch(e);
         }}
@@ -30,11 +30,11 @@ const Sider = () => {
         All
       </Category>
       {categories &&
-        categories.map(category => (
+        categories.map((category) => (
           <Category
             key={category.category_id}
             active={category.category_id === categoryAct}
-            onClick={e => {
+            onClick={(e) => {
               handleClickCategoryAct(category.category_id);
               callDispatch(e);
             }}
@@ -48,7 +48,7 @@ const Sider = () => {
 
 const CategoryList = styled.ul`
   width: 200px;
-  height: 400px;
+  height: 450px;
   margin-bottom: 270px;
   line-height: 1.5;
   background-color: #ffffff;

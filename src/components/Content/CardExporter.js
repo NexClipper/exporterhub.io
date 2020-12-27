@@ -11,7 +11,7 @@ const CardExporter = ({ exporter, cardClick }) => {
     stars,
     logo_url,
     official,
-    category
+    category,
   } = exporter;
 
   return (

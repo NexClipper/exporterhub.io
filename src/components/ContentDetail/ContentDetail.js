@@ -11,7 +11,7 @@ const ContentDetail = () => {
   const [exporterInfo, setExporterInfo] = useState([]);
 
   useEffect(() => {
-    axios.get(`${EXPORTER_API}/${id}`).then(res => {
+    axios.get(`${EXPORTER_API}/${id}`).then((res) => {
       setExporterInfo(res.data);
     });
   }, []);

@@ -13,7 +13,8 @@
     "singleQuote": false,
     "tabWidth": 2,
     "trailingComma": "none",
-    "useTabs": false,
+    "useTabs": true,
     "vueIndentScriptAndStyle": false,
-    "endOfLine":"auto"
+    "endOfLine":"auto",
+    "editor.formatOnSave": true
 }

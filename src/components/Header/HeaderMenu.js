@@ -1,28 +1,47 @@
 import { useHistory } from "react-router-dom";
 import styled from "styled-components";
+import { PUBLIC_SERVICE, API_SURVER } from "../../config";
+import { GithubOutlined } from "@ant-design/icons";
 
-const HEADER_MENUS = [
-  { title: "Company", link: "https://www.nexclipper.io/" },
-  { title: "Blog", link: "https://nexclipper.github.io/blog/" }
-];
+require("dotenv").config();
+
+// const HEADER_MENUS = [
+//   { title: "Company", link: "https://www.nexclipper.io/" },
+//   { title: "Blog", link: "https://nexclipper.github.io/blog/" },
+// ];
 
 const HeaderMenu = () => {
-  const { push } = useHistory();
+  console.log(API_SURVER);
+  const {
+    push,
+    location: { pathname },
+  } = useHistory();
+  // console.log(PUBLIC_SERVICE);
   return (
     <Div>
-      {HEADER_MENUS.map((menu, idx) => (
+      {/* {HEADER_MENUS.map((menu, idx) => (
         <a href={menu.link} key={idx}>
           {menu.title}
         </a>
-      ))}
-      <span
-        onClick={() => {
-          push("/admin");
-          window.location.reload();
-        }}
+      ))} */}
+      <a
+        style={{ color: "black", fontSize: "35px" }}
+        href="https://github.com/NexClipper/exporterhub.io"
+        target="_blank"
       >
-        Admin
-      </span>
+        <GithubOutlined />
+      </a>
+
+      {PUBLIC_SERVICE === "n" && (
+        <span
+          onClick={() => {
+            push("/admin");
+            window.location.reload();
+          }}
+        >
+          Admin
+        </span>
+      )}
     </Div>
   );
 };
@@ -34,14 +53,13 @@ const Div = styled.div`
   @media ${({ theme }) => theme.media.mobile} {
     display: none;
   }
-  a {
-    margin-left: 30px;
-    color: #000000;
+  img {
+    width: 38px;
     cursor: pointer;
   }
   span {
     margin-left: 30px;
-    color: tomato;
+    // color: tomato;
     cursor: pointer;
   }
 `;

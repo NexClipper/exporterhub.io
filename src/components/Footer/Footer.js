@@ -1,33 +1,22 @@
 import styled from "styled-components";
-import {
-  FacebookFilled,
-  TwitterSquareFilled,
-  LinkedinFilled,
-  PhoneTwoTone
-} from "@ant-design/icons";
 
 const Footer = () => {
   return (
     <Div>
       <GetSupport>
-        <h3>GET SUPPORT</h3>
-        <p>nexclipper@nexclipper.io</p>
+        <Contact>
+          <a href="https://www.nexclipper.io/" target="_blank">
+            <Company />
+            <p>nexclipper.io</p>
+          </a>
+        </Contact>
+        <Contact>
+          <a href="https://nexclipper.github.io/blog/" target="_blank">
+            <Blog />
+            <p>nexclipper.github.io/blog</p>
+          </a>
+        </Contact>
       </GetSupport>
-      <Contacts>
-        <div>
-          <PhoneTwoTone />
-          <span>+82(02) 533-8622</span>
-        </div>
-        <Icons>
-          <FacebookFilled className="icon" />
-          <TwitterSquareFilled className="icon" />
-          <LinkedinFilled className="icon" />
-        </Icons>
-      </Contacts>
-      <Address>
-        <h3>ADDRESS</h3>
-        <p>11F, 428 Seolleung-ro, Gangnam-gu, Seoul, 06192 South Korea</p>
-      </Address>
       <Copyright> © 2020 NexClipper.</Copyright>
     </Div>
   );
@@ -48,28 +37,40 @@ const GetSupport = styled.div`
   font-size: 14px;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: center;
   height: 50px;
-`;
-const Contacts = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-`;
-const Icons = styled.div`
-  margin-top: 10px;
-  .icon {
-    font-size: 35px;
-    margin-right: 5px;
-    cursor: pointer;
+  p {
+    fonst-size: 14px;
   }
 `;
-const Address = styled.div`
-  font-size: 14px;
+const Contact = styled.div`
   display: flex;
-  flex-direction: column;
-  justify-content: space-between;
+  a {
+    display: flex;
+  }
+  img {
+    width: 35px;
+    margin-right: 8px;
+    cursor: pointer;
+  }
+  p {
+    color: black;
+    margin-top: 8px;
+  }
+`;
+const Company = styled.div`
+  width: 50px;
   height: 50px;
+  background: url(/assets/Company.png) no-repeat center;
+  background-size: 30px;
+  margin-top: -10px;
+`;
+const Blog = styled.div`
+  width: 50px;
+  height: 50px;
+  background: url(/assets/blog.png) no-repeat center;
+  background-size: 30px;
+  margin-top: -10px;
 `;
 const Copyright = styled.div`
   font-size: 14px;

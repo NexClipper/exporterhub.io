@@ -7,15 +7,15 @@ import EditModal from "../Modal/EditModal";
 const ContentExporters = ({ exporters }) => {
   const {
     push,
-    location: { pathname }
+    location: { pathname },
   } = useHistory();
   const [isModalActive, setIsModalActive] = useState(false);
   const [exporterId, setExporterId] = useState();
 
-  const goToDetail = id => {
+  const goToDetail = (id) => {
     push(`/detail/${id}`);
   };
-  const modalClick = id => {
+  const modalClick = (id) => {
     setIsModalActive(true);
     setExporterId(id);
   };
@@ -26,7 +26,7 @@ const ContentExporters = ({ exporters }) => {
   return (
     <ExporterContainer>
       {exporters &&
-        exporters.map(exporter => (
+        exporters.map((exporter) => (
           <CardExporter
             key={exporter.exporter_id}
             exporter={exporter}

@@ -7,15 +7,15 @@ const COUNT_PER_SCROLL = 9;
 const sortingKey = {
   // "Sort by": "exporter_id",
   "Most popular": "stars",
-  Recent: "recent_release"
+  Recent: "recent_release",
 };
 const initialState = {
   appliedFilters: [],
   categories: {
     category: "All",
     type: "All",
-    value: ""
-  }
+    value: "",
+  },
 };
 const exporterReducer = (state = initialState, action) => {
   switch (action.type) {
@@ -24,9 +24,9 @@ const exporterReducer = (state = initialState, action) => {
       const { filterType, data } = action.payload;
       filteredState.categories[filterType] = data;
       const {
-        categories: { category, type, value }
+        categories: { category, type, value },
       } = filteredState;
-      let filteredValues = state.exporters?.filter(exporter => {
+      let filteredValues = state.exporters?.filter((exporter) => {
         return (
           (value ? exporter.name.toLowerCase().includes(value) : true) &&
           (exporter.official === type || type === "All") &&
@@ -59,7 +59,7 @@ const exporterReducer = (state = initialState, action) => {
       const count = action.payload.length;
       const totalPages = Math.ceil(count / COUNT_PER_SCROLL);
       const exporters = sortDesc(action.payload, "stars");
-      let AllExporters = exporters.filter(exporter => {
+      let AllExporters = exporters.filter((exporter) => {
         return exporter.official === "Official" || "Unofficial";
       });
       const officialCount = AllExporters.length;
@@ -71,7 +71,7 @@ const exporterReducer = (state = initialState, action) => {
         totalCount: officialCount,
         currentPage: 1,
         totalPages: totalPages,
-        filteredPages: totalPages
+        filteredPages: totalPages,
       };
     case LOAD_MORE_DATA:
       let loadNewDataState = Object.assign({}, state);
