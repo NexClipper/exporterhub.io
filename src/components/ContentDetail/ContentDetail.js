@@ -21,10 +21,14 @@ const ContentDetail = () => {
       <Header>
         <Container>
           <OpenSourceInfo>
-            <HeaderLogo src={exporterInfo.logo_url} alt="오픈소스 로고" />
+            <a href={exporterInfo.repository_url} target="_blank">
+              <HeaderLogo src={exporterInfo.logo_url} alt="opensource_logo" />
+            </a>
             <ListWrap>
               <List>
-                <Name>{exporterInfo.name}</Name>
+                <a href={exporterInfo.repository_url} target="_blank">
+                  <Name>{exporterInfo.name}</Name>
+                </a>
               </List>
               <List>
                 <Category>{exporterInfo.category}</Category>
