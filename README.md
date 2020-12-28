@@ -18,7 +18,7 @@
 - [License](https://github.com/NexClipper/exporterhub.io#license)
 
 ## What is [ExporterHub.io](https://exporterhub.io/)
-![landingpage](https://raw.githubusercontent.com/NexClipper/exporterhub.io/master/assets/screen_01.png)
+![landingpage](https://raw.githubusercontent.com/NexClipper/exporterhub.io/master/assets/screen_02.png)
 
 ### ExporterHub.io is a front-end(React) & API(python) application for the Prometheus Exporters community .
 ExporterHub.io is not just a curated list, but also provides exporter installation guide, alert rule configuration, and dashboard configuration.
