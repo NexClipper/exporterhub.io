@@ -32,7 +32,7 @@ const Contetnt = () => {
   return (
     <Section>
       <CookieConsent
-        location="bottom"
+        location="top"
         cookieName="myAwesomeCookieName3"
         expires={999}
         overlay
