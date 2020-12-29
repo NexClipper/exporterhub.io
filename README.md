@@ -81,6 +81,9 @@ services:
 
 
 ## Maintenance
+### Easy to Update a list of exporters by Pull Request as below.
+ - https://github.com/NexClipper/exporterhub.io/blob/master/api/repo_list.txt
+
 ### Tag rule for Build in the hub.docker.com
 #### exporterhub Frontend build tag
 * Source pattern of Tag: `/^fe([0-9.]+)$/` 
