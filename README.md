@@ -25,7 +25,7 @@
 ### ExporterHub.io is a front-end(React) & API(python) application for the Prometheus Exporters community
 ExporterHub.io is not just a curated list, but also provides exporter installation guide, alert rule configuration, and dashboard configuration.
 Each exporter's page contains the followings:
-* Official "Github" (Origin Repository)
+* Official GitHub (Origin Repository)
 * Resource (Install, Exported Metrics)
 * Alert-rule (Recommended)
 * Dashboard (Grafana)
@@ -39,7 +39,7 @@ ExporterHub.io recommends the best-fit exporter(s) to support Prometheus monitor
 
 
 * [x] Installation Guide, Metric Collection Flags, Recommended Alert-rule
-* [x] Card Style "Github" Page
+* [x] Card Style GitHub Page
 * [x] Easy search of Exporters
 * [x] Personalization (Add, Delete)
 * [ ] NexClipper Cloud Integration (coming soon)
@@ -52,7 +52,7 @@ ExporterHub.io recommends the best-fit exporter(s) to support Prometheus monitor
   [![Diagram Overview](https://img.youtube.com/vi/pPZfNi6qms4/0.jpg)](https://youtu.be/pPZfNi6qms4)
 
 ## Kickstart
-### Ready: Token Requires for Github infomation crawling
+### Ready: Token Requires for GitHub infomation crawling
 * ___Create Token 1st before the App runs as below.___
    * https://github.com/settings/tokens/new
 ![Token Generator](https://raw.githubusercontent.com/NexClipper/exporterhub.io/master/assets/create_a_token_first_N.png)
