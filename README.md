@@ -9,13 +9,13 @@
 
 
 ## Contents
-- [What is ExporterHub.io](https://github.com/NexClipper/exporterhub.io#what-is-exporterhubio)
-- [Roadmap](https://github.com/NexClipper/exporterhub.io#roadmap)
-- [Diagram Overview](https://github.com/NexClipper/exporterhub.io#diagram-overview)
-- [Kickstart](https://github.com/NexClipper/exporterhub.io#kickstart)
-- [Contribute](https://github.com/NexClipper/exporterhub.io#contribute)
-- [References](https://github.com/NexClipper/exporterhub.io#references)
-- [License](https://github.com/NexClipper/exporterhub.io#license)
+* [What is ExporterHub.io](https://github.com/NexClipper/exporterhub.io#what-is-exporterhubio)
+* [Roadmap](https://github.com/NexClipper/exporterhub.io#roadmap)
+* [Diagram Overview](https://github.com/NexClipper/exporterhub.io#diagram-overview)
+* [Kickstart](https://github.com/NexClipper/exporterhub.io#kickstart)
+* [Contribute](https://github.com/NexClipper/exporterhub.io#contribute)
+* [References](https://github.com/NexClipper/exporterhub.io#references)
+* [License](https://github.com/NexClipper/exporterhub.io#license)
 
 ## What is [ExporterHub.io](https://exporterhub.io/)
 ![landingpage](https://raw.githubusercontent.com/NexClipper/exporterhub.io/master/assets/screen_02.png)
@@ -23,10 +23,10 @@
 ### ExporterHub.io is a front-end(React) & API(python) application for the Prometheus Exporters community .
 ExporterHub.io is not just a curated list, but also provides exporter installation guide, alert rule configuration, and dashboard configuration.
 Each exporter's page contains the followings:
-- Official Github (Origin Repository)
-- Resource (Install, Exported Metrics)
-- Alert-rule (Recommended)
-- Dashboard (Grafana)
+* Official Github (Origin Repository)
+* Resource (Install, Exported Metrics)
+* Alert-rule (Recommended)
+* Dashboard (Grafana)
 
 ## Roadmap
 To help and ease you with best-practice Prometheus, ExporterHub.io discovers and recommends the best-fit exporter(s) available to expose metrics data from your specific systems and services being monitored.
@@ -93,16 +93,16 @@ services:
    * ex) `api0.3` -> `nexclipper/exporterhub-api:release-api0.3`
 
 ### Docker image registry
-- nexclipper/exporterhub: https://hub.docker.com/repository/docker/nexclipper/exporterhub
-- nexclipper/exporterhub-api: https://hub.docker.com/repository/docker/nexclipper/exporterhub-api
+* nexclipper/exporterhub: https://hub.docker.com/repository/docker/nexclipper/exporterhub
+* nexclipper/exporterhub-api: https://hub.docker.com/repository/docker/nexclipper/exporterhub-api
 
 
 ## References
-- [Official Exporters AND Integrations](https://prometheus.io/docs/instrumenting/exporters/)
-- [Awesome Prometheus alerts](https://awesome-prometheus-alerts.grep.to/)
-- [SLOs with Prometheus](https://promtools.dev/)
-- [Awesome Prometheus](https://github.com/roaldnefs/awesome-prometheus)
-- [Promcat](https://promcat.io/)
+* [Official Exporters AND Integrations](https://prometheus.io/docs/instrumenting/exporters/)
+* [Awesome Prometheus alerts](https://awesome-prometheus-alerts.grep.to/)
+* [SLOs with Prometheus](https://promtools.dev/)
+* [Awesome Prometheus](https://github.com/roaldnefs/awesome-prometheus)
+* [Promcat](https://promcat.io/)
 
 ## Contribute
 Contributions are welcome!   
@@ -114,5 +114,5 @@ Exporterhub.io is licensed under the MIT License. See [LICENSE](https://github.c
 
 
 ## logging
-- Main branch has been changed from master
+* Main branch has been changed from master
 
