@@ -1,8 +1,8 @@
 <!--lint disable awesome-heading-->
+![exporterhub](https://raw.githubusercontent.com/NexClipper/exporterhub.io/master/assets/ExporterHub_Logo_H.png)
 [![Awesome](https://cdn.rawgit.com/sindresorhus/awesome/d7305f38d29fed78fa85652e3a63e154dd8e8829/media/badge.svg)](https://github.com/sindresorhus/awesome)
 
-![exporterhub](https://raw.githubusercontent.com/NexClipper/exporterhub.io/master/assets/ExporterHub_Logo_H.png)
-
+<!--lint disable double-link-->
 # [Exporterhub.io](https://exporterhub.io/)
  > ### A Curated List of Prometheus Exporters 
  > #### (powered by [nexclipper](https://nexclipper.io))
@@ -55,6 +55,7 @@ ExporterHub.io recommends the best-fit exporter(s) to support Prometheus monitor
 
 ## Kickstart
 ### Ready: Token Requires for GitHub infomation crawling
+<!--lint disable awesome-list-item-->
 * ___Create Token 1st before the App runs as below.___
    * https://github.com/settings/tokens/new
 ![Token Generator](https://raw.githubusercontent.com/NexClipper/exporterhub.io/master/assets/create_a_token_first_N.png)
@@ -80,6 +81,7 @@ services:
 
       
 ### Check & Set
+<!--lint disable awesome-list-item-->
 * And Input the generated Token to landing page as below. (http://localhost:8080)
    * ![Token input](https://raw.githubusercontent.com/NexClipper/exporterhub.io/master/assets/token.png)
 
