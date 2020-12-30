@@ -1,11 +1,11 @@
 <!--lint disable awesome-heading-->
-![exporterhub](https://raw.githubusercontent.com/NexClipper/exporterhub.io/master/assets/ExporterHub_Logo_H.png)
 
 <!--lint disable double-link-->
-# [Exporterhub.io](https://exporterhub.io/)
+# [Exporterhub.io](https://exporterhub.io/) [![Awesome](https://awesome.re/badge.svg)](https://awesome.re)
  > ### A Curated List of Prometheus Exporters 
  > #### (powered by [nexclipper](https://nexclipper.io))
-[![Awesome](https://cdn.rawgit.com/sindresorhus/awesome/d7305f38d29fed78fa85652e3a63e154dd8e8829/media/badge.svg)](https://github.com/sindresorhus/awesome)
+![exporterhub](https://raw.githubusercontent.com/NexClipper/exporterhub.io/master/assets/ExporterHub_Logo_H.png)
+
 
 ## See Demo
 * Image click to Youtube:  
@@ -39,7 +39,7 @@ Using the best-fit exporter(s) helps standardizing metrics data exposition pract
 
 ExporterHub.io recommends the best-fit exporter(s) to support Prometheus monitoring needs in enterprise environments with complex and closed network security settings.
 
-
+<!--lint disable no-undefined-references-->
 * [x] Installation Guide, Metric Collection Flags, Recommended Alert-rule
 * [x] Card Style GitHub Page
 * [x] Easy search of Exporters
@@ -50,6 +50,7 @@ ExporterHub.io recommends the best-fit exporter(s) to support Prometheus monitor
   * [ ] Recommend best-fit exporter(s)
 
 ## Diagram Overview
+<!--lint disable awesome-list-item-->
 * Image click to Youtube:
   * [![Diagram Overview](https://img.youtube.com/vi/pPZfNi6qms4/0.jpg)](https://youtu.be/pPZfNi6qms4)
 
