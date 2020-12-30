@@ -1,18 +1,18 @@
 <!--lint disable awesome-heading-->
 ![exporterhub](https://raw.githubusercontent.com/NexClipper/exporterhub.io/master/assets/ExporterHub_Logo_H.png)
-[![Awesome](https://cdn.rawgit.com/sindresorhus/awesome/d7305f38d29fed78fa85652e3a63e154dd8e8829/media/badge.svg)](https://github.com/sindresorhus/awesome)
 
 <!--lint disable double-link-->
 # [Exporterhub.io](https://exporterhub.io/)
  > ### A Curated List of Prometheus Exporters 
  > #### (powered by [nexclipper](https://nexclipper.io))
+[![Awesome](https://cdn.rawgit.com/sindresorhus/awesome/d7305f38d29fed78fa85652e3a63e154dd8e8829/media/badge.svg)](https://github.com/sindresorhus/awesome)
 
 ## See Demo
 * Image click to Youtube:  
   [![Demo](https://raw.githubusercontent.com/NexClipper/exporterhub.io/master/assets/demo_01.png)](https://youtu.be/wa4dknZk7Kk)
 
 <!--lint disable double-link-->
-## Contents
+# Contents
 * [What is ExporterHub.io](https://github.com/NexClipper/exporterhub.io#what-is-exporterhubio)
 * [Roadmap](https://github.com/NexClipper/exporterhub.io#roadmap)
 * [Diagram Overview](https://github.com/NexClipper/exporterhub.io#diagram-overview)
@@ -50,8 +50,8 @@ ExporterHub.io recommends the best-fit exporter(s) to support Prometheus monitor
   * [ ] Recommend best-fit exporter(s)
 
 ## Diagram Overview
-  * Image click to Youtube:
-  [![Diagram Overview](https://img.youtube.com/vi/pPZfNi6qms4/0.jpg)](https://youtu.be/pPZfNi6qms4)
+* Image click to Youtube:
+  * [![Diagram Overview](https://img.youtube.com/vi/pPZfNi6qms4/0.jpg)](https://youtu.be/pPZfNi6qms4)
 
 ## Kickstart
 ### Ready: Token Requires for GitHub infomation crawling
