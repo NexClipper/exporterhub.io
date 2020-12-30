@@ -1,5 +1,12 @@
 <!--lint disable awesome-heading-->
-# Contents
+<!--lint disable awesome-badge-->
+<!--lint disable double-link-->
+## [Exporterhub.io](https://exporterhub.io/) [![Awesome](https://awesome.re/badge.svg)](https://awesome.re)
+ > ### A Curated List of Prometheus Exporters 
+ > #### (powered by [nexclipper](https://nexclipper.io))
+![exporterhub](https://raw.githubusercontent.com/NexClipper/exporterhub.io/master/assets/ExporterHub_Logo_H.png)
+
+## Contents
 * [What is ExporterHub.io](https://github.com/NexClipper/exporterhub.io#what-is-exporterhubio)
 * [Roadmap](https://github.com/NexClipper/exporterhub.io#roadmap)
 * [Diagram Overview](https://github.com/NexClipper/exporterhub.io#diagram-overview)
@@ -7,12 +14,6 @@
 * [Contribute](https://github.com/NexClipper/exporterhub.io#contribute)
 * [References](https://github.com/NexClipper/exporterhub.io#references)
 * [License](https://github.com/NexClipper/exporterhub.io#license)
-
-<!--lint disable double-link-->
-## [Exporterhub.io](https://exporterhub.io/) [![Awesome](https://awesome.re/badge.svg)](https://awesome.re)
- > ### A Curated List of Prometheus Exporters 
- > #### (powered by [nexclipper](https://nexclipper.io))
-![exporterhub](https://raw.githubusercontent.com/NexClipper/exporterhub.io/master/assets/ExporterHub_Logo_H.png)
 
 
 ## See Demo
