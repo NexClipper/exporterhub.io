@@ -20,10 +20,10 @@
 ## What is [ExporterHub.io](https://exporterhub.io/)
 ![landingpage](https://raw.githubusercontent.com/NexClipper/exporterhub.io/master/assets/screen_02.png)
 
-### ExporterHub.io is a front-end(React) & API(python) application for the Prometheus Exporters community .
+### ExporterHub.io is a front-end(React) & API(python) application for the Prometheus Exporters community
 ExporterHub.io is not just a curated list, but also provides exporter installation guide, alert rule configuration, and dashboard configuration.
 Each exporter's page contains the followings:
-* Official Github (Origin Repository)
+* Official "Github" (Origin Repository)
 * Resource (Install, Exported Metrics)
 * Alert-rule (Recommended)
 * Dashboard (Grafana)
@@ -37,7 +37,7 @@ ExporterHub.io recommends the best-fit exporter(s) to support Prometheus monitor
 
 
 * [x] Installation Guide, Metric Collection Flags, Recommended Alert-rule
-* [x] Card Style Github Page
+* [x] Card Style "Github" Page
 * [x] Easy search of Exporters
 * [x] Personalization (Add, Delete)
 * [ ] NexClipper Cloud Integration (coming soon)
@@ -46,7 +46,7 @@ ExporterHub.io recommends the best-fit exporter(s) to support Prometheus monitor
   * [ ] Recommend best-fit exporter(s)
 
 ## Diagram Overview
-  * Image click to Youtube:  
+  * Image click to Youtube:
   [![Diagram Overview](https://img.youtube.com/vi/pPZfNi6qms4/0.jpg)](https://youtu.be/pPZfNi6qms4)
 
 ## Kickstart
@@ -77,11 +77,11 @@ services:
       
 ### Check & Set
 * And Input the generated Token to landing page as below. (http://localhost:8080)
- * ![Token input](https://raw.githubusercontent.com/NexClipper/exporterhub.io/master/assets/token.png)
+   * ![Token input](https://raw.githubusercontent.com/NexClipper/exporterhub.io/master/assets/token.png)
 
 
 ## Maintenance
-### Easy to Update a list of exporters by Pull Request as below.
+### Easy to Update a list of exporters by Pull Request as below
 * https://github.com/NexClipper/exporterhub.io/blob/master/api/exporter_list.csv
 
 ### Tag rule for Build in the hub.docker.com
@@ -105,8 +105,9 @@ services:
 * [Promcat](https://promcat.io/)
 
 ## Contribute
-Contributions are welcome!   
-If you have Specific exporter to contribute to [ExporterHub.io](https://exporterhub.io/), feel free to [send issues](https://github.com/NexClipper/exporterhub.io/issues) or [pull requests](https://github.com/NexClipper/exporterhub.io/pulls).  
+Contributions are welcome!
+If you have Specific exporter to contribute to [ExporterHub.io](https://exporterhub.io/), 
+feel free to [send issues](https://github.com/NexClipper/exporterhub.io/issues) or [pull requests](https://github.com/NexClipper/exporterhub.io/pulls).  
 
 
 ## License
