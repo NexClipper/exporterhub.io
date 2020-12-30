@@ -1,6 +1,4 @@
-<!--lint disable awesome-heading-->
-<!--lint disable awesome-github-->
-<!--lint disable awesome-git-repo-age-->
+<!--lint disable awesome-heading--> <!--lint disable awesome-license--> <!--lint disable awesome-github--> <!--lint disable awesome-git-repo-age-->
 <!--lint disable double-link-->
 
 ## [Exporterhub.io](https://exporterhub.io/) [![Awesome](https://awesome.re/badge.svg)](https://awesome.re)
