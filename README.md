@@ -1,15 +1,17 @@
-![exporterhub](https://raw.githubusercontent.com/NexClipper/exporterhub.io/master/assets/ExporterHub_Logo_H.png)
+<!--lint disable awesome-heading-->
 [![Awesome](https://cdn.rawgit.com/sindresorhus/awesome/d7305f38d29fed78fa85652e3a63e154dd8e8829/media/badge.svg)](https://github.com/sindresorhus/awesome)
 
+![exporterhub](https://raw.githubusercontent.com/NexClipper/exporterhub.io/master/assets/ExporterHub_Logo_H.png)
+
 # [Exporterhub.io](https://exporterhub.io/)
-> ### A Curated List of Prometheus Exporters 
-> #### (powered by [nexclipper](https://nexclipper.io))
+ > ### A Curated List of Prometheus Exporters 
+ > #### (powered by [nexclipper](https://nexclipper.io))
 
 ## See Demo
 * Image click to Youtube:  
   [![Demo](https://raw.githubusercontent.com/NexClipper/exporterhub.io/master/assets/demo_01.png)](https://youtu.be/wa4dknZk7Kk)
 
-
+<!--lint disable double-link-->
 ## Contents
 * [What is ExporterHub.io](https://github.com/NexClipper/exporterhub.io#what-is-exporterhubio)
 * [Roadmap](https://github.com/NexClipper/exporterhub.io#roadmap)
