@@ -1,12 +1,14 @@
-<!--lint disable awesome-heading--> <!--lint disable awesome-license--> <!--lint disable awesome-github--> <!--lint disable awesome-git-repo-age-->
+<!--lint disable awesome-heading--> <!--lint disable awesome-git-repo-age-->
+<!--lint disable awesome-license--> 
 <!--lint disable double-link-->
 
 # [Exporterhub.io](https://exporterhub.io/) [![Awesome](https://awesome.re/badge.svg)](https://awesome.re)
 <!--lint disable awesome-badge-->
+<!--lint disable awesome-heading-->
  > ### A Curated List of Prometheus Exporters 
  > #### (powered by [nexclipper](https://nexclipper.io))
 ![exporterhub](https://raw.githubusercontent.com/NexClipper/exporterhub.io/master/assets/ExporterHub_Logo_H.png)
-
+<!--lint disable awesome-github-->
 <!--lint disable awesome-toc-->
 ## Contents
 * [What is ExporterHub.io](https://github.com/NexClipper/exporterhub.io#what-is-exporterhubio)
