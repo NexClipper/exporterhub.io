@@ -17,7 +17,7 @@ categories={category.name:category.id for category in Category.objects.all()}
 class TokenView(View):
     def get_exporters(self, token):
         exporters     = Exporter.objects.select_related('category', 'official').prefetch_related('release_set').order_by('id')
-        exporter_list = 'https://raw.githubusercontent.com/NexClipper/exporterhub/master/api/exporter_list.csv'
+        exporter_list = 'https://raw.githubusercontent.com/NexClipper/exporterhub/main/api/exporter_list.csv'
         repo_get      = requests.get(exporter_list)
         headers       = {'Authorization' : 'token ' + token}
 
