@@ -91,7 +91,7 @@ services:
 
 ## Maintenance
 ### Easy to Update a list of exporters by Pull Request as below
-* https://github.com/NexClipper/exporterhub.io/blob/master/api/exporter_list.csv
+* https://github.com/NexClipper/exporterhub.io/blob/main/api/exporter_list.csv
 
 ### Tag rule for Build in the hub.docker.com
 #### exporterhub Frontend build tag
