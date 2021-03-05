@@ -31,7 +31,7 @@ def new_exporters():
         TOKEN         = Token.objects.filter().last().token if Token.objects.filter().exists() else 'NO_TOKEN'
         headers       = {'Authorization' : 'token ' + TOKEN}
         exporters     = Exporter.objects.select_related('category', 'official').prefetch_related('release_set').order_by('id')
-        exporter_list = 'https://raw.githubusercontent.com/NexClipper/exporterhub/main/api/exporter_list.csv'
+        exporter_list = 'https://raw.githubusercontent.com/NexClipper/exporterhub.io/main/api/exporter_list.csv'
         repo_get      = requests.get(exporter_list)
         logger.info('CHECK_NEW_EXPORTERS_START')
 
