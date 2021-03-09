@@ -2,7 +2,7 @@
 <!--lint disable awesome-license--> 
 <!--lint disable double-link-->
 
-# [Exporterhub.io](https://exporterhub.io/) [![Awesome](https://awesome.re/badge.svg)](https://awesome.re)
+# [Exporterhub.io](https://exporterhub.io/) [![Awesome](https://awesome.re/badge.svg)](https://awesome.re) 
 <!--lint disable awesome-badge-->
 <!--lint disable awesome-heading-->
  > ### A Curated List of Prometheus Exporters 
@@ -125,4 +125,8 @@ Exporterhub.io is licensed under the MIT License. See [LICENSE](https://github.c
 
 ## logging
 * Main branch has been changed from master
+
+Support by <img src="https://raw.githubusercontent.com/NexClipper/exporterhub.io/master/assets/wecode_logo.jpg" width= 120>
+
+
 
