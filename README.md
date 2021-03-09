@@ -6,7 +6,10 @@
 <!--lint disable awesome-badge-->
 <!--lint disable awesome-heading-->
  > ### A Curated List of Prometheus Exporters 
- > #### (powered by [nexclipper](https://nexclipper.io))
+ > #### Powered by <a href="https://nexclipper.io"><img src="https://raw.githubusercontent.com/NexClipper/exporterhub.io/master/assets/NexCloud_en.png" width= 120></a>
+
+
+
 ![exporterhub](https://raw.githubusercontent.com/NexClipper/exporterhub.io/master/assets/ExporterHub_Logo_H.png)
 <!--lint disable awesome-github-->
 <!--lint disable awesome-toc-->
@@ -128,7 +131,7 @@ Exporterhub.io is licensed under the MIT License. See [LICENSE](https://github.c
 
 
 
-Support by <a href="https://wecode.co.kr/"><img src="https://raw.githubusercontent.com/NexClipper/exporterhub.io/master/assets/wecode_logo.jpg" width= 120></a>
+Supported by <a href="https://wecode.co.kr/"><img src="https://raw.githubusercontent.com/NexClipper/exporterhub.io/master/assets/wecode_logo.jpg" width= 120></a>
 
 
 
