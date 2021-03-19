@@ -7,6 +7,7 @@
 <!--lint disable awesome-heading-->
  > ### A Curated List of Prometheus Exporters 
  > #### Powered by <a href="https://nexclipper.io"><img src="https://raw.githubusercontent.com/NexClipper/exporterhub.io/master/assets/NexCloud_en.png" width= 120></a>
+ > Come and join us!: https://app.slack.com/client/TC3DP3HPG/C01RTA59G66
 
 
 
