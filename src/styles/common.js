@@ -4,7 +4,7 @@ const color = {
   pryColor: "#DF691A",
   sedColor: "#85DBC3",
   pryColorHover: "#CA5303",
-  sedColorHover: "#66C3A9"
+  sedColorHover: "#66C3A9",
 };
 
 const container = css`
@@ -54,11 +54,11 @@ const ModalButton = css`
 const width = {
   content: 800,
   card: 250,
-  contentOnM: 85
+  contentOnM: 85,
 };
 
 const media = {
-  mobile: `(max-width:770px)`
+  mobile: `(max-width:770px)`,
 };
 
 const theme = {
@@ -69,7 +69,7 @@ const theme = {
   flexCenterTop,
   ModalButton,
   width,
-  media
+  media,
 };
 
 export default theme;

@@ -6,5 +6,5 @@ import tokenReducer from "./tokenReducer";
 export default combineReducers({
   exporterReducer,
   categoryReducer,
-  tokenReducer
+  tokenReducer,
 });
