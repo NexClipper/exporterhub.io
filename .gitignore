@@ -25,3 +25,5 @@ yarn-error.log*
 db_data
 .vscode
 .env
+
+my_settings.py
