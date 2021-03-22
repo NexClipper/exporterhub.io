@@ -17,19 +17,19 @@ const AdminMenu = () => {
       title: "Token",
       onClick: () => {
         dispatch(getTokenState(false));
-      }
+      },
     },
     {
       title: "Register",
       onClick: () => {
         setIsModalActive(true);
-      }
-    }
+      },
+    },
   ];
 
   return (
     <Div>
-      {ADMIN_MENUS.map(menu => (
+      {ADMIN_MENUS.map((menu) => (
         <Span onClick={menu.onClick}>{menu.title}</Span>
       ))}
       {isModalActive && <RegisterModal cancleModal={cancleModal} />}

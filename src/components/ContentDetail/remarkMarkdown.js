@@ -3,7 +3,7 @@ import markdown from "remark-parse";
 import remark2rehype from "remark-rehype";
 import html from "rehype-stringify";
 
-const remarkMarkdown = mdText => {
+const remarkMarkdown = (mdText) => {
   const html_text = unified()
     .use(markdown)
     .use(remark2rehype)
