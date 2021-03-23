@@ -3,27 +3,16 @@ import requests
 import base64
 import re
 
-from django.views     import View
-from django.http      import JsonResponse
+from django.views           import View
+from django.http            import JsonResponse
+from django.core.exceptions import ObjectDoesNotExist
 
-from .models          import Category, Exporter, Release
-from headtoken.models import Token
+from .models                import Category, Exporter, Release
+from headtoken.models       import Token
 
 api_url = 'https://api.github.com/repos/'
 PATTERN = r"!\[(\w*|\s|\w+( \w+)*)\]\(([^,:!]*|\/[^,:!]*\.\w+|\w*.\w*)\)"
 
-categories={
-                "Database"     : 1,
-                "Hardware"     : 2,
-                "HTTP"         : 3,
-                "Library"      : 4,
-                "Logging"      : 5,
-                "Messaging"    : 6,
-                "Miscellaneous": 7,
-                "Monitoring"   : 8,
-                "Software"     : 9,
-                "Storage"      : 10
-            }
 
 class CategoryView(View):
     def get(self, request):
@@ -36,47 +25,47 @@ class CategoryView(View):
         }
         return JsonResponse(data, status=200)
 
+
 class ExporterView(View):
     def get_repo(self, repo_url):
-        TOKEN   = Token.objects.filter(is_valid=True).last().token if Token.objects.filter(is_valid=True).exists() else 'NO TOKEN'
-        headers = {'Authorization' : 'token ' + TOKEN} 
-        
-        if 'https://github.com/' not in repo_url:
-            return False 
-        repo_api_url     = api_url+repo_url.replace('https://github.com/','')
-        readme_api_url   = repo_api_url+'/readme'
-        release_api_url  = repo_api_url+'/releases'
-        repo             = requests.get(repo_api_url, headers=headers)
-        
-        if repo.status_code==200:
-            repo_data    = repo.json()
-            readme       = requests.get(readme_api_url, headers=headers)
-            readme_data  = readme.json()
-            release      = requests.get(release_api_url, headers=headers)
-            release_data = release.json()
-            
-            data={
-                "name"           : repo_data["name"],
-                "logo_url"       : repo_data["owner"]["avatar_url"],
-                "stars"          : repo_data["stargazers_count"],
-                "description"    : repo_data["description"],
-                "readme_url"     : repo_url+"/blob/master/README.md",
-                "readme"         : readme_data["content"],
-                "release"        : [{
-                        "release_version": release["tag_name"],
-                        "release_date"   : release["created_at"],
-                        "release_url"    : release["html_url"]
-                } for release in release_data]
-            }
-            return data
-        
-        elif repo.status_code==401:
-            token=Token.objects.filter().last()
-            token.is_valid=False
-            token.save()
-            return 'INVALID_TOKEN'
+        valid_token = Token.objects.filter(is_valid=True)
+        TOKEN       = valid_token.last().token
+        # TOKEN       = valid_token.last().token if valid_token.exists() else 'NO TOKEN'
+        headers     = {'Authorization' : 'token ' + TOKEN} 
 
-        return False
+        if 'https://github.com/' in repo_url:
+            repo_api_url     = api_url + repo_url.replace('https://github.com/','')
+            readme_api_url   = repo_api_url + '/readme'
+            release_api_url  = repo_api_url + '/releases'
+            repo             = requests.get(repo_api_url, headers=headers)
+
+            if repo.status_code==200:
+                repo_data       = repo.json()
+                readme          = requests.get(readme_api_url, headers=headers)
+                release         = requests.get(release_api_url, headers=headers)
+                readme_data     = readme.json()
+                release_data    = release.json()
+
+                data={
+                    "name"           : repo_data["name"],
+                    "logo_url"       : repo_data["owner"]["avatar_url"],
+                    "stars"          : repo_data["stargazers_count"],
+                    "description"    : repo_data["description"],
+                    "readme_url"     : repo_url+"/blob/master/README.md",
+                    "readme"         : readme_data["content"],
+                    "release"        : [{
+                            "release_version": release["tag_name"],
+                            "release_date"   : release["created_at"],
+                            "release_url"    : release["html_url"]
+                    } for release in release_data]
+                }
+                return data
+
+            elif repo.status_code==401:
+                token=Token.objects.filter().last()
+                token.is_valid=False
+                token.save()
+                return 'INVALID_TOKEN'
 
     def get(self, request):
         try:
@@ -93,7 +82,7 @@ class ExporterView(View):
                         "stars"          : exporter.stars,
                         "repository_url" : exporter.repository_url,
                         "description"    : exporter.description,
-                        "recent_release" : exporter.release_set.last().date if exporter.release_set.all() else '1970-01-01',
+                        "recent_release" : exporter.release_set.order_by('date').last().date if exporter.release_set.filter().exists() else '1970-01-01',
                         "release"        : [{
                             "release_version": release.version,
                             "release_date"   : release.date,
@@ -102,11 +91,9 @@ class ExporterView(View):
                     }
                 for exporter in exporters]
             }
-
             return JsonResponse(data, status=200)
         except Exception as e:
             return JsonResponse({'message':f"{e}"}, status=400)
-
 
     def post(self, request):
         try:
@@ -116,17 +103,17 @@ class ExporterView(View):
 
             if Exporter.objects.filter(repository_url=repo_url).exists():
                 return JsonResponse({'message':'EXISTING_REPOSITORY'}, status=400)
-                
-            if "prometheus/" in repo_url:
-                official = 1
-            else:
-                official = 2
+
+            OFFICIAL_ID      = 1
+            NON_OFFICIAL_ID  = 2
+
+            official = OFFICIAL_ID if "prometheus/" in repo_url else NON_OFFICIAL_ID
 
             repo_info = self.get_repo(repo_url)
 
             if repo_info == 'INVALID_TOKEN':
                 return JsonResponse({'message':'INVALID_TOKEN'}, status=401)
-                
+
             elif repo_info:
                 readme    = base64.b64decode(repo_info["readme"]).decode('utf-8')
                 matches   = re.findall(PATTERN, readme)
@@ -135,10 +122,10 @@ class ExporterView(View):
                 for match in matches:
                     for element in match:
                         if '.' in element:
-                            readme=readme.replace(element,f"https://raw.githubusercontent.com/{repo_name}/master/{element}")
+                            readme = readme.replace(element,f"https://raw.githubusercontent.com/{repo_name}/master/{element}")
 
                 exporter=Exporter.objects.create(
-                    category_id    = categories[category],
+                    category       = Category.objects.get(name=category),
                     official_id    = official,
                     name           = repo_info["name"],
                     logo_url       = repo_info["logo_url"],
@@ -148,9 +135,7 @@ class ExporterView(View):
                     readme_url     = repo_info["readme_url"],
                     readme         = readme.encode('utf-8'),
                 )
-            
                 release=sorted(repo_info["release"], key=lambda x: x["release_date"])
-                
                 for info in release:
                     Release(
                         exporter_id = exporter.id,
@@ -158,25 +143,24 @@ class ExporterView(View):
                         version     = info["release_version"],
                         date        = info["release_date"]
                     ).save()
-                
                 return JsonResponse({'message':'SUCCESS'}, status=201)
-
             return JsonResponse({'message':'WRONG_REPOSITORY'}, status=400)
 
         except KeyError:
             return JsonResponse({'message':'KEY_ERROR'}, status=400)
-
+        
+        except Category.DoesNotExist:
+            return JsonResponse({'message':'NO_CATEGORY'}, status=400)
+     
     def delete(self, request):
         try:
             exporter_id = request.GET['exporter_id']
             exporter    = Exporter.objects.get(id=exporter_id)
             release     = Release.objects.filter(exporter_id=exporter_id)
             if release.exists():
-                release.delete()
+                release.delete()    
             exporter.delete()
-            
             return JsonResponse({'message':'SUCCESS'}, status=200)
-
         except Exporter.DoesNotExist:
             return JsonResponse({'message':'NO_EXPORTER'}, status=400)
         except KeyError:
@@ -187,21 +171,19 @@ class ExporterView(View):
             exporter_id          = request.GET['exporter_id']
             data                 = json.loads(request.body)
             category             = data['category']
-            exporter             = Exporter.objects.get(id=exporter_id)
-            exporter.category_id = categories[category]
+            exporter             = Exporter.objects.get(category=category)
             exporter.save()
-
             return JsonResponse({'message':'SUCCESS'}, status=200)
-        
         except Exporter.DoesNotExist:
             return JsonResponse({'message':'NO_EXPORTER'}, status=400)
         except KeyError:
             return JsonResponse({'message':'KEY_ERROR'}, status=400)
 
+
 class ExporterDetailView(View):
     def get(self, request, exporter_id):
         try:
-            exporter=Exporter.objects.select_related('category','official').prefetch_related('release_set').get(id=exporter_id)
+            exporter=Exporter.objects.get(id=exporter_id)
             data={
                         'exporter_id'    : exporter.id,
                         'name'           : exporter.name,
@@ -212,7 +194,7 @@ class ExporterDetailView(View):
                         'repository_url' : exporter.repository_url,
                         'description'    : exporter.description,
                         'readme'         : exporter.readme.decode('utf-8'),
-                        'recent_release' : exporter.release_set.last().date if exporter.release_set.all() else '1970-01-01',
+                        'recent_release' : exporter.release_set.order_by('date').last().date if exporter.release_set.filter().exists() else '1970-01-01',
                         'release'        : [{
                             'release_version': release.version,
                             'release_date'   : release.date,
