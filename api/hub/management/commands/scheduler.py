@@ -119,7 +119,7 @@ def create_or_updatd_exporters():
                     releases = sorted(release_data, key=lambda x: x["created_at"])
 
                     if exporter.release_set.filter().exists():
-                        releases = [release for release in releases if str(exporter.release_set.order_by('-date').last().date) < release['created_at']]
+                        releases = [release for release in releases if str(exporter.release_set.order_by('date').last().date) < release['created_at']]
 
                     for release in releases:
                         is_created = Release.objects.get_or_create(
