@@ -49,8 +49,8 @@ class GithubLoginView(View):
             return JsonResponse({'message':'KEY_ERROR'}, status=400)
 
 
-@login_decorator
 class StarView(View):
+    @login_decorator
     def post(self, request):
         try:
             user    = request.user
