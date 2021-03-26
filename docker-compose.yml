@@ -51,6 +51,7 @@ services:
       DB_HOST: maria_db
       DB_PORT: "3306"
       SECRET_KEY: "supersecretkey"
+      ALGORITHM: 'HS256'
       APP_STAT: "server"
     depends_on:
       - maria_db
