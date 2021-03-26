@@ -9,14 +9,17 @@ class UserType(models.Model):
         db_table = 'user_types'
 
 class User(models.Model):
-    username              = models.CharField(max_length=45, unique=True, null=True)
-    type                  = models.ForeignKey('UserType', on_delete=models.SET_NULL, null=True)
-    email                 = models.CharField(max_length=100, unique=True, null=True)
-    fullname              = models.CharField(max_length=50, null=True)
-    organization          = models.CharField(max_length=50, null=True)
-    profile_image_url     = models.URLField(max_length=2000)
-    created_at            = models.DateTimeField(auto_now_add=True)
-    modified_at           = models.DateTimeField(auto_now=True)
+    type              = models.ForeignKey('UserType', on_delete=models.SET_NULL, null=True)
+    username          = models.CharField(max_length=45, unique=True)
+    email             = models.CharField(max_length=100, unique=True, null=True)
+    fullname          = models.CharField(max_length=50, null=True)
+    organization      = models.CharField(max_length=50, null=True)
+    profile_image_url = models.URLField(max_length=2000)
+    github_token      = models.CharField(max_length=100)
+    created_at        = models.DateTimeField(auto_now_add=True)
+    modified_at       = models.DateTimeField(auto_now=True)
+    added_exporters   = models.ManyToManyField('exporter.Exporter', through='Bucket', related_name='added_users')
+    starred_exporters = models.ManyToManyField('exporter.Exporter', through='Star', related_name='starred_users')
     
     class Meta:
         db_table = 'users'
