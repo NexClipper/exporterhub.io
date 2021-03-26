@@ -16,6 +16,7 @@ class Exporter(models.Model):
     category       = models.ForeignKey(Category, on_delete=models.CASCADE)
     official       = models.ForeignKey(Official, on_delete=models.SET_NULL, null=True)
     name           = models.CharField(max_length=200)
+    app_name       = models.CharField(max_length=45, null=True)
     logo_url       = models.URLField(max_length=2000)
     stars          = models.IntegerField()
     repository_url = models.URLField(max_length=2000)
