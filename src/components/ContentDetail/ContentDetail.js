@@ -1,21 +1,40 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router";
-import remarkMarkdown from "./remarkMarkdown";
 import axios from "axios";
 import styled from "styled-components";
 import { AiFillStar } from "react-icons/ai";
 import { EXPORTER_API } from "../../config";
+import Exporter from "./components/Exporter";
+import Dashboard from "./components/Dashboard";
+import Alert from "./components/Alert";
+import { RiShoppingBasketLine } from "react-icons/ri";
+
+const TABMENU = [
+  { id: 0, tabName: "Exporter" },
+  { id: 1, tabName: "Dashboard" },
+  { id: 2, tabName: "Alert" },
+];
 
 const ContentDetail = () => {
   const { id } = useParams();
   const [exporterInfo, setExporterInfo] = useState([]);
+  const [activeTab, setActiveTab] = useState(0);
+  const ACTIVECONTENT_OBJ = {
+    0: <Exporter readmeContent={exporterInfo.readme} />,
+    1: <Dashboard />,
+    2: <Alert />,
+  };
 
   useEffect(() => {
     axios.get(`${EXPORTER_API}/${id}`).then((res) => {
       setExporterInfo(res.data);
     });
   }, []);
-  const readmeContent = remarkMarkdown(exporterInfo.readme);
+
+  const handleActiveTab = (id) => {
+    setActiveTab(id);
+  };
+
   return (
     <>
       <Header>
@@ -24,63 +43,74 @@ const ContentDetail = () => {
             <a href={exporterInfo.repository_url} target="_blank">
               <HeaderLogo src={exporterInfo.logo_url} alt="opensource_logo" />
             </a>
-            <ListWrap>
-              <List>
+            <div>
+              <div>
                 <a href={exporterInfo.repository_url} target="_blank">
                   <Name>{exporterInfo.name}</Name>
                 </a>
-              </List>
-              <List>
+                <Button>
+                  <span>
+                    <RiShoppingBasketLine />
+                  </span>
+                  <span>Add</span>
+                </Button>
+              </div>
+              <div>
                 <Category>{exporterInfo.category}</Category>
                 <StarIcon>
                   <AiFillStar /> {exporterInfo.stars}
                 </StarIcon>
-              </List>
-            </ListWrap>
+              </div>
+            </div>
           </OpenSourceInfo>
         </Container>
       </Header>
-      <Main>
+      <Nav>
         <Container>
-          <ReadmeTitle>README</ReadmeTitle>
-          <MarkdownBody
-            dangerouslySetInnerHTML={{ __html: readmeContent }}
-          ></MarkdownBody>
+          <TabList>
+            {TABMENU.map((tab) => {
+              return (
+                <Tab
+                  key={tab.id}
+                  active={activeTab === tab.id}
+                  onClick={() => handleActiveTab(tab.id)}
+                >
+                  {tab.tabName}
+                </Tab>
+              );
+            })}
+          </TabList>
         </Container>
-      </Main>
+      </Nav>
+      <Main>{ACTIVECONTENT_OBJ[activeTab]}</Main>
     </>
   );
 };
 
-const Container = styled.div`
-  ${({ theme }) => theme.container}
-  position: relative;
-`;
-
 const Header = styled.header`
-  min-height: 250px;
+  padding: 80px 0;
 `;
 
 const OpenSourceInfo = styled.div`
-  position: relative;
-  bottom: -50px;
-  margin: 0 auto;
-  max-width: 350px;
+  display: flex;
+  align-items: center;
 
-  @media ${({ theme }) => theme.media.mobile} {
-    position: absolute;
-    left: 50%;
-    bottom: auto;
-    transform: translateX(-50%);
-    min-width: 300px;
+  div {
+    div {
+      display: flex;
+      align-items: center;
+
+      &:first-child {
+        margin-bottom: 20px;
+      }
+    }
   }
 `;
 
 const HeaderLogo = styled.img`
-  display: block;
-  width: 180px;
-  height: 180px;
-  margin: 0 auto;
+  width: 150px;
+  height: 150px;
+  margin-right: 70px;
 
   @media ${({ theme }) => theme.media.mobile} {
     width: 150px;
@@ -88,27 +118,41 @@ const HeaderLogo = styled.img`
   }
 `;
 
-const ListWrap = styled.ul`
-  margin-top: 30px;
-  padding: 12px;
-  background: #fff;
-  border-radius: 15px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
+const Name = styled.h4`
+  margin-right: 30px;
+  color: #000000;
+  font-size: 17px;
+`;
 
-  @media ${({ theme }) => theme.media.mobile} {
-    margin-top: 15px;
+const Button = styled.button`
+  display: flex;
+  align-items: center;
+  padding: 5px 10px;
+  background: #ffffff;
+  box-shadow: 1px 1px 6px 1px rgba(0, 0, 0, 0.1);
+  border-radius: 5px;
+  font-size: 12px;
+  font-weight: 600;
+
+  span {
+    font-size: 12px;
+
+    &:first-child {
+      position: relative;
+      top: 1px;
+      margin-right: 5px;
+      font-size: 13px;
+    }
   }
 `;
 
-const List = styled.li`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 10px;
-`;
-
-const Name = styled.h4`
-  font-size: 18px;
+const Category = styled.p`
+  margin-right: 15px;
+  padding: 5px 20px 8px 20px;
+  font-size: 17px;
+  font-weight: 400;
+  border-radius: 5px;
+  background-color: #f1f4f8;
 `;
 
 const StarIcon = styled.span`
@@ -121,16 +165,32 @@ const StarIcon = styled.span`
   }
 `;
 
-const Category = styled.p`
-  font-size: 18px;
-  font-weight: 600;
-  color: #304d9a;
+const Nav = styled.nav`
+  width: 100%;
+  border-bottom: 1px solid #eaecef;
+`;
+
+const TabList = styled.ul`
+  display: flex;
+  align-items: center;
+`;
+
+const Tab = styled.li`
+  width: 160px;
+  padding: 17px 0;
+  border-bottom: ${(props) =>
+    props.active ? "5px solid #6AC4A5" : "5px solid #00000000"};
+  color: ${(props) => (props.active ? "#6AC4A5" : "#808080")};
+  font-size: 17px;
+  text-align: center;
+  box-sizing: border-box;
+  cursor: pointer;
 `;
 
 const Main = styled.main`
   padding: 90px 0 50px;
-  background: #f7f9fc;
   border-radius: 50px 0 0 0;
+  background: #f7f9fc;
 
   @media ${({ theme }) => theme.media.mobile} {
     padding: 90px 15px 50px;
@@ -138,105 +198,9 @@ const Main = styled.main`
   }
 `;
 
-const ReadmeTitle = styled.h4`
-  margin-bottom: 45px;
-  font-size: 30px;
-  font-weight: 500;
-  letter-spacing: 0.08rem;
-`;
-
-const MarkdownBody = styled.div`
-  * {
-    line-height: 1.8;
-  }
-
-  code {
-    margin: 0;
-    padding: 0.2em 0.4em;
-    background-color: rgba(27, 31, 35, 0.05);
-    border-radius: 6px;
-    font-size: 13px;
-    font-family: "Noto Sans KR", sans-serif;
-  }
-
-  pre {
-    margin-bottom: 16px;
-    padding: 16px;
-    overflow: auto;
-    line-height: 1.45;
-    background-color: #f0f4f8;
-    border-radius: 6px;
-    font-size: 13px;
-
-    tt,
-    code {
-      background-color: #f0f4f8;
-      line-height: 1.6;
-    }
-  }
-
-  h1,
-  h2,
-  h3,
-  h4,
-  h5,
-  h6 {
-    margin: 24px 0 16px;
-    line-height: 1.25;
-  }
-
-  h1,
-  h2 {
-    padding-bottom: 0.3em;
-    border-bottom: 1px solid #eaecef;
-    font-weight: 600;
-  }
-
-  h2 {
-    font-size: 1.5em;
-    font-weight: 500;
-  }
-
-  h3,
-  h4,
-  h5,
-  h6 {
-    font-size: 1.25em;
-    font-weight: 400;
-  }
-
-  p {
-    margin-bottom: 16px;
-    font-size: 15px;
-  }
-
-  blockquote {
-    padding: 0 1em;
-    border-left: 0.25em solid #dfe2e5;
-    color: #6a737d;
-  }
-
-  ul {
-    margin-bottom: 16px;
-    padding-left: 2em;
-    list-style-type: disc;
-
-    li {
-      line-height: 2;
-    }
-  }
-
-  img {
-    max-width: 100%;
-  }
-
-  hr {
-    height: 0.25em;
-    padding: 0;
-    margin: 24px 0;
-    background-color: #e1e4e8;
-    border: 0;
-  }
+const Container = styled.div`
+  ${({ theme }) => theme.container}
+  position: relative;
 `;
 
 export default ContentDetail;
