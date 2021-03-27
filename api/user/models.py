@@ -15,7 +15,7 @@ class User(models.Model):
     fullname          = models.CharField(max_length=50, null=True)
     organization      = models.CharField(max_length=50, null=True)
     profile_image_url = models.URLField(max_length=2000)
-    github_token      = models.CharField(max_length=100)
+    github_token      = models.CharField(max_length=200)
     created_at        = models.DateTimeField(auto_now_add=True)
     modified_at       = models.DateTimeField(auto_now=True)
     added_exporters   = models.ManyToManyField('exporter.Exporter', through='Bucket', related_name='added_users')

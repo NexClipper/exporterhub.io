@@ -85,4 +85,3 @@ class StarView(View):
 
         except Exporter.DoesNotExist:
             return JsonResponse({'message':'NO_EXPORTER'}, status=400)
-
