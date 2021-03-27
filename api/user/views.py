@@ -5,6 +5,7 @@ import requests
 from django.views            import View
 from django.http             import JsonResponse
 from django.db.models        import Q
+from django.conf             import settings
 from django.core.exceptions  import ObjectDoesNotExist
 
 from .models                 import User, UserType, Bucket, Star
@@ -20,16 +21,16 @@ class GithubLoginView(View):
             headers      = {'Authorization' : 'token ' + github_token} 
             user_info    = requests.get('https://api.github.com/user', headers=headers)
             user_data    = user_info.json()
+
             username          = user_data.get('login')
             email             = user_data.get('email')
             organization      = user_data.get('company')
             profile_image_url = user_data.get('avatar_url')
             usertype_name     = "user" if User.objects.filter().exists() else "admin"
-            
 
-            if User.objects.filter(username=username.exists():
+            if User.objects.filter(username=username).exists():
                 user  = User.objects.get(username=username)
-                token = jwt.encode({'id':user.id, 'usertype':user.type.name}, SECRET_KEY, algorithm=ALGORITHM)
+                token = jwt.encode({'user_id':user.id, 'usertype':user.type.name}, settings.SECRET_KEY, algorithm=settings.ALGORITHM)
                 
                 return JsonResponse({'message' : 'SUCCESS', 'access_token':token}, status = 200)
             
@@ -40,7 +41,7 @@ class GithubLoginView(View):
                 profile_image_url = profile_image_url,
                 type              = UserType.objects.get(name=usertype_name)
             )
-            token = jwt.encode({'id':user.id, 'usertype':user.type.name}, SECRET_KEY, algorithm=ALGORITHM)
+            token = jwt.encode({'user_id':user.id, 'usertype':user.type.name}, settings.SECRET_KEY, algorithm=settings.ALGORITHM)
             
             return JsonResponse({'message' : 'SUCCESS', 'access_token':token}, status = 200)
         
@@ -48,7 +49,19 @@ class GithubLoginView(View):
             return JsonResponse({'message':'KEY_ERROR'}, status=400)
 
 class ProfileView(View):
-    #@login_decorater
+    @login_decorator
+    def get(self, request):
+        user = request.user
+        data = {
+            'username'    : user.username,
+            'email'       : user.email,
+            'fullName'    : user.fullname,
+            'organization': user.organization,
+            'type'        : user.type.name
+        }
+        return JsonResponse({'message': 'SUCCESS', 'data': data}, status=200)
+
+    @login_decorator
     def patch(self, request):
         try:
             user         = request.user
@@ -68,4 +81,8 @@ class ProfileView(View):
         except User.DoesNotExist:
             return JsonResponse({'message': 'NO_USER'}, status=400)
 
+    @login_decorator
     def delete(self, reuquest):
+        reuquest.user.delete()
+        
+        return JsonResponse({'message': 'SUCCESS'}, status=200)
