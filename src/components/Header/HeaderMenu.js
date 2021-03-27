@@ -11,7 +11,7 @@ require("dotenv").config();
 // ];
 
 const HeaderMenu = () => {
-  console.log(API_SURVER);
+  // console.log(API_SURVER);
   const {
     push,
     location: { pathname },
@@ -19,18 +19,16 @@ const HeaderMenu = () => {
   // console.log(PUBLIC_SERVICE);
   return (
     <Div>
-      {/* {HEADER_MENUS.map((menu, idx) => (
-        <a href={menu.link} key={idx}>
-          {menu.title}
-        </a>
-      ))} */}
-      <a
-        style={{ color: "black", fontSize: "35px" }}
+      <Button>ADMIN</Button>
+      <Button>MY BUCKET</Button>
+      <Button>SIGN OUT</Button>
+      <Button>SIGN IN</Button>
+      <GitHubLink
         href="https://github.com/NexClipper/exporterhub.io"
         target="_blank"
       >
         <GithubOutlined />
-      </a>
+      </GitHubLink>
 
       {PUBLIC_SERVICE === "n" && (
         <span
@@ -59,9 +57,20 @@ const Div = styled.div`
   }
   span {
     margin-left: 30px;
-    // color: tomato;
     cursor: pointer;
   }
+`;
+
+const Button = styled.button`
+  color: #73c7aa;
+  font-weight: 600;
+  font-size: 14px;
+  margin-left: 30px;
+`;
+
+const GitHubLink = styled.a`
+  font-size: 35px;
+  color: #cccccc;
 `;
 
 export default HeaderMenu;
