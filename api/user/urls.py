@@ -1,7 +1,8 @@
 from django.urls     import path
-from user.views      import GithubLoginView, StarView
+from user.views      import GithubLoginView, StarView, ProfileView
 
 urlpatterns = [
     path('/login', GithubLoginView.as_view()),
     path('/star', StarView.as_view()),
+    path('/profile', ProfileView.as_view()),
 ]

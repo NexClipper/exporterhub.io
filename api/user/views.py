@@ -5,7 +5,7 @@ import requests
 from django.views            import View
 from django.http             import JsonResponse
 from django.db.models        import Q
-from django.conf             import settings 
+from django.conf             import settings
 from django.core.exceptions  import ObjectDoesNotExist
 
 from .models                 import User, UserType, Bucket, Star
@@ -30,10 +30,10 @@ class GithubLoginView(View):
 
             if User.objects.filter(username=username).exists():
                 user  = User.objects.get(username=username)
-                token = jwt.encode({'id':user.id, 'usertype':user.type.name}, settings.SECRET_KEY, algorithm=settings.ALGORITHM)
+                token = jwt.encode({'user_id':user.id, 'usertype':user.type.name}, settings.SECRET_KEY, algorithm=settings.ALGORITHM)
                 
-                return JsonResponse({'message' : 'SUCCESS', 'access_token': token}, status = 200)
-
+                return JsonResponse({'message' : 'SUCCESS', 'access_token':token}, status = 200)
+            
             user = User.objects.create(
                 username          = username,
                 email             = email,
@@ -41,7 +41,7 @@ class GithubLoginView(View):
                 profile_image_url = profile_image_url,
                 type              = UserType.objects.get(name=usertype_name)
             )
-            token = jwt.encode({'id':user.id, 'usertype':user.type.name}, settings.SECRET_KEY, algorithm=settings.ALGORITHM)
+            token = jwt.encode({'user_id':user.id, 'usertype':user.type.name}, settings.SECRET_KEY, algorithm=settings.ALGORITHM)
             
             return JsonResponse({'message' : 'SUCCESS', 'access_token':token}, status = 200)
         
@@ -85,3 +85,46 @@ class StarView(View):
 
         except Exporter.DoesNotExist:
             return JsonResponse({'message':'NO_EXPORTER'}, status=400)
+
+        except User.DoesNotExist:
+            return JsonResponse({'message': 'NO_USER'}, status=400)
+
+
+class ProfileView(View):
+    @login_decorator
+    def get(self, request):
+        user = request.user
+        data = {
+            'username'    : user.username,
+            'email'       : user.email,
+            'fullName'    : user.fullname,
+            'organization': user.organization,
+            'type'        : user.type.name
+        }
+        return JsonResponse({'message': 'SUCCESS', 'data': data}, status=200)
+
+    @login_decorator
+    def patch(self, request):
+        try:
+            user         = request.user
+            data         = json.loads(request.body)
+            email        = data.get('email', user.email)
+            fullname     = data.get('name', user.fullname)
+            organization = data.get('organization', user.organization)
+
+            user = User.objects.get(id=user.id)
+            user.email        = email
+            user.fullname     = fullname
+            user.organization = organization
+            user.save()
+
+            return JsonResponse({'message': 'SUCCESS'}, status=200)
+
+        except User.DoesNotExist:
+            return JsonResponse({'message': 'NO_USER'}, status=400)
+
+    @login_decorator
+    def delete(self, reuquest):
+        reuquest.user.delete()
+        
+        return JsonResponse({'message': 'SUCCESS'}, status=200)
