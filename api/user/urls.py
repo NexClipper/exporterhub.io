@@ -1,5 +1,5 @@
 from django.urls     import path
-from user.views      import GithubLoginView, StarView, TestView
+from user.views      import GithubLoginView, StarView
 
 urlpatterns = [
     path('/login', GithubLoginView.as_view()),
