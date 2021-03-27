@@ -120,6 +120,9 @@ class ProfileView(View):
 
             return JsonResponse({'message': 'SUCCESS'}, status=200)
 
+        except User.DoesNotExist:
+            return JsonResponse({'message': 'NO_USER'}, status=400)
+
     @login_decorator
     def delete(self, reuquest):
         reuquest.user.delete()
