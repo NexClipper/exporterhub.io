@@ -31,6 +31,7 @@ class GithubLoginView(View):
             if User.objects.filter(username=username).exists():
                 user  = User.objects.get(username=username)
                 token = jwt.encode({'user_id':user.id, 'usertype':user.type.name}, settings.SECRET_KEY, algorithm=settings.ALGORITHM)
+                #print(jwt.decode(token, settings.SECRET_KEY, settings.ALGORITHM))
                 
                 return JsonResponse({'message' : 'SUCCESS', 'access_token':token}, status = 200)
             
@@ -65,12 +66,12 @@ class ProfileView(View):
     def patch(self, request):
         try:
             user         = request.user
-            data         = json.load(request.body)
+            data         = json.loads(request.body)
             email        = data.get('email', user.email)
             fullname     = data.get('name', user.fullname)
             organization = data.get('organization', user.organization)
 
-            user = User.object.get(id=user.id)
+            user = User.objects.get(id=user.id)
             user.email        = email
             user.fullname     = fullname
             user.organization = organization
@@ -80,6 +81,7 @@ class ProfileView(View):
 
         except User.DoesNotExist:
             return JsonResponse({'message': 'NO_USER'}, status=400)
+
 
     @login_decorator
     def delete(self, reuquest):
