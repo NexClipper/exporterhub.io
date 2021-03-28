@@ -28,25 +28,25 @@ class GithubLoginView(View):
             profile_image_url = user_data.get('avatar_url')
             usertype_name     = "user" if User.objects.filter().exists() else "admin"
 
-            if User.objects.filter(username=username).exists():
-                user  = User.objects.get(username=username)
-                token = jwt.encode({'user_id':user.id, 'usertype':user.type.name}, settings.SECRET_KEY, algorithm=settings.ALGORITHM)
-                
-                return JsonResponse({'message' : 'SUCCESS', 'access_token':token}, status = 200)
-            
-            user = User.objects.create(
-                username          = username,
-                email             = email,
-                organization      = organization,
-                profile_image_url = profile_image_url,
-                type              = UserType.objects.get(name=usertype_name)
-            )
+            user = User.objects.get_or_create(
+                username = username,
+                defaults = {
+                    'email'            : email,
+                    'organization'     : organization,
+                    'profile_image_url': profile_image_url,
+                    'type'             : UserType.objects.get(name=usertype_name),
+                    'github_token'     : github_token
+                }
+            )[0]
             token = jwt.encode({'user_id':user.id, 'usertype':user.type.name}, settings.SECRET_KEY, algorithm=settings.ALGORITHM)
             
             return JsonResponse({'message' : 'SUCCESS', 'access_token':token}, status = 200)
         
         except KeyError:
-            return JsonResponse({'message':'KEY_ERROR'}, status=400)
+            return JsonResponse({'message': 'KEY_ERROR'}, status=400)
+
+        except UserType.DoesNotExist:
+            return JsonResponse({'message': 'USERTYPE_DOES_NOT_EXIST'}, status=410)
 
 
 class StarView(View):
@@ -84,13 +84,17 @@ class StarView(View):
             return JsonResponse({'message': 'KEY_ERROR'}, status=400)
 
         except Exporter.DoesNotExist:
-            return JsonResponse({'message':'NO_EXPORTER'}, status=400)
+            return JsonResponse({'message':'NO_EXPORTER'}, status=410)
 
         except User.DoesNotExist:
-            return JsonResponse({'message': 'NO_USER'}, status=400)
+            return JsonResponse({'message': 'NO_USER'}, status=410)
 
 
 class ProfileView(View):
+    def validate_email(self, email):
+        pattern = re.compile('^[a-zA-Z0-9+-_.]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$')
+        return pattern.match(email)
+
     @login_decorator
     def get(self, request):
         user = request.user
@@ -111,6 +115,9 @@ class ProfileView(View):
             email        = data.get('email', user.email)
             fullname     = data.get('name', user.fullname)
             organization = data.get('organization', user.organization)
+            
+            if not self.validate_email(email=email):
+                return JsonResponse({"message": "EMAIL_VALIDATION_ERROR"}, status=400)
 
             user = User.objects.get(id=user.id)
             user.email        = email
@@ -188,10 +195,10 @@ class BucketView(View):
             return JsonResponse({'message': 'KEY_ERROR'}, status=400)
 
         except Exporter.DoesNotExist:
-            return JsonResponse({'message': 'NO_EXPORTER'}, status=400)
+            return JsonResponse({'message': 'NO_EXPORTER'}, status=410)
         
         except Bucket.DoesNotExist:
-            return JsonResponse({'message': 'NO_EXPORTER_IN_BUCKET'}, status=400)
+            return JsonResponse({'message': 'NO_EXPORTER_IN_BUCKET'}, status=410)
 
     @login_decorator
     def get(self, request):
@@ -225,12 +232,12 @@ class BucketView(View):
 class TestView(View):
     def get(self, request):
         data = {
-            'client_id':'ee39a6aa02038e0866cf',
+            'client_id'    : 'ee39a6aa02038e0866cf',
             'client_secret': 'f4ae0fd4d2d17eb2c799b0c73a1cadbcd9057f84',
-            'code' : 'ddbf89ff35e96dd5abf1'
+            'code'         : 'ddbf89ff35e96dd5abf1'
         }
         headers = {'accept': 'application/json'}
         token    = requests.post('https://github.com/login/oauth/access_token',data=data, headers=headers)
         token    = token.json()
-        print(token)
+
         return JsonResponse({'message' : 'SUCCESS', 'token':token}, status = 200)
