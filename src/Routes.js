@@ -20,6 +20,8 @@ import {
   PUBLIC_SERVICE,
 } from "./config";
 
+import Login from "./components/Login/Login";
+
 function Routes() {
   const dispatch = useDispatch();
   useEffect(() => {
@@ -46,6 +48,7 @@ function Routes() {
         <Header />
         <Switch>
           <Route exact path="/" component={ExporterHubPage} />
+          <Route exact path="/callback" component={Login} />
           <Route exact path="/detail/:id" component={ExporterHubDetailPage} />
           <Route exact path="/detail" component={ExporterHubDetailPage} />
           {PUBLIC_SERVICE === "n" && (
