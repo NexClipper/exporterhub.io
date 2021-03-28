@@ -7,6 +7,6 @@ urlpatterns = [
     path('/profile', ProfileView.as_view()),
     path('/bucket', BucketView.as_view()),
     path('/test', TestView.as_view()),
-    path('/test2', AdminView.as_view()),
+    path('/admin', AdminView.as_view()),
 
 ]
