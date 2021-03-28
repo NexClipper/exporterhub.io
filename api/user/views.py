@@ -10,7 +10,7 @@ from django.core.exceptions  import ObjectDoesNotExist
 
 from .models                 import User, UserType, Bucket, Star
 from exporter.models         import Exporter
-from user.utils              import login_decorator
+from user.utils              import login_decorator, login_check, admin_decorator
 
 
 class GithubLoginView(View):
@@ -227,10 +227,85 @@ class TestView(View):
         data = {
             'client_id':'ee39a6aa02038e0866cf',
             'client_secret': 'f4ae0fd4d2d17eb2c799b0c73a1cadbcd9057f84',
-            'code' : 'ddbf89ff35e96dd5abf1'
+            'code' : '3ec7134d2385da68a09c'
         }
         headers = {'accept': 'application/json'}
-        token    = requests.post('https://github.com/login/oauth/access_token',data=data, headers=headers)
-        token    = token.json()
+        token   = requests.post('https://github.com/login/oauth/access_token',data=data, headers=headers)
+        token   = token.json()
         print(token)
         return JsonResponse({'message' : 'SUCCESS', 'token':token}, status = 200)
+
+USER_CODE          = 1
+PENDING_ADMIN_CODE = 2
+ADMIN_CODE         = 3
+
+class AdminView(View):
+    @admin_decorator
+    def post(self, request):
+        try:
+            user      = request.user    
+            data      = json.loads(request.body)
+            github_id = User.objects.get(username=data['name']).github_id
+
+            data = {
+                'invitee_id': github_id,            
+                'role'      : 'admin'
+            }
+
+            headers = {'Authorization' : 'token ' + user.github_token}
+            result  = requests.post('https://api.github.com/orgs/Exporterhubv3/invitations', data=json.dumps(data), headers=headers)
+
+            if result.status_code != 201:
+                return JsonResponse({'message': 'GITHUB_API_FAIL'}, status=400)
+
+            return JsonResponse({'message' : 'CREATED'}, status=201)
+        
+        except KeyError:
+            return JsonResponse({'message' : 'KEY_ERROR'}, status=400)
+
+        except User.DoesNotExist:
+            return JsonResponse({'message': 'USER_DOES_NOT_EXIST'}, status=400)
+
+    @admin_decorator
+    def get(self, request):
+        user    = request.user   
+        headers = {'Authorization' : 'token ' + user.github_token}
+        result  = requests.get('https://api.github.com/orgs/Exporterhubv3/members', headers=headers)
+        
+        if result.status_code != 200:
+            return JsonResponse({'message' : 'GITHUB_API_FAIL'}, status=400)
+        
+        result_json = result.json()
+        admin_list  = [admin_info['login'] for admin_info in result_json]
+   
+        for pending_admin in User.objects.filter(type_id=PENDING_ADMIN_CODE):
+            if pending_admin in admin_list:
+                pending_admin.type.name='admin'
+                pending_admins.save()
+
+        admin = [{
+            'username'        : admin.username,
+            'usertype'        : 'Admin',
+            'profileImageUrl' : admin.profile_image_url
+        } for admin in User.objects.filter(type_id=ADMIN_CODE)]
+
+        return JsonResponse({'message' : 'SUCCESS', 'data':admin}, status=200)
+
+    @admin_decorator
+    def patch(self, request):
+        user     = request.user  
+        data     = json.loads(request.body)
+        username = data['username']
+        headers  = {'Authorization' : 'token ' + user.github_token}
+        result   = requests.delete(f'https://api.github.com/orgs/Exporterhubv3/members/{username}', headers=headers)
+        
+        if result.status_code != 204:
+            return JsonResponse({'message' : 'GITHUB_API_FAIL'}, status=400)
+
+        User.objects.filter(username=username).update(type_id=USER_CODE)
+
+        return JsonResponse({'message' : 'SUCCESS'}, status=204)
+
+        
+
+
