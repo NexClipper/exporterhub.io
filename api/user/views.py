@@ -10,7 +10,7 @@ from django.core.exceptions  import ObjectDoesNotExist
 
 from .models                 import User, UserType, Bucket, Star
 from exporter.models         import Exporter
-from user.utils              import login_decorator, login_check, admin_decorator
+from user.utils              import login_decorator, admin_decorator
 
 
 class GithubLoginView(View):
@@ -159,7 +159,6 @@ class BucketView(View):
                 result = requests.post(f'https://api.github.com/repos/{repo_info}/forks', headers=headers)
 
                 if result.status_code != 202:
-                    print("error")
                     return JsonResponse({'message': 'GITHUB_API_FAIL'}, status=400)
 
                 Bucket.objects.create(
@@ -248,8 +247,9 @@ class TestView(View):
         headers = {'accept': 'application/json'}
         token   = requests.post('https://github.com/login/oauth/access_token',data=data, headers=headers)
         token   = token.json()
-        print(token)
+
         return JsonResponse({'message' : 'SUCCESS', 'token':token}, status = 200)
+
 
 USER_CODE          = 1
 PENDING_ADMIN_CODE = 2

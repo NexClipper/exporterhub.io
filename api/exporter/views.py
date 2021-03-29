@@ -218,6 +218,7 @@ class ExporterDetailView(View):
     @login_check
     def get(self, request, exporter_id):
         try:
+            user     = request.user
             exporter = Exporter.objects.get(id=exporter_id)
             exporter.view_count += 1
             exporter.save()
@@ -229,6 +230,9 @@ class ExporterDetailView(View):
                     'category'       : exporter.category.name,
                     'official'       : exporter.official.name,
                     'stars'          : exporter.stars,
+                    "is_star"        : user.starred_exporters.filter(id=exporter.id).exists() if user else False,
+                    "is_bucket"      : user.added_exporters.filter(id=exporter.id).exists() if user else False,
+                    "is_new"         : (timezone.now() - exporter.created_at).days <= 7,
                     'repository_url' : exporter.repository_url,
                     'description'    : exporter.description,
                     'readme'         : exporter.readme.decode('utf-8'),
