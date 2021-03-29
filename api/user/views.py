@@ -22,6 +22,7 @@ class GithubLoginView(View):
             user_info    = requests.get('https://api.github.com/user', headers=headers)
             user_data    = user_info.json()
 
+            github_id         = user_data['id']
             username          = user_data.get('login')
             email             = user_data.get('email')
             organization      = user_data.get('company')
@@ -35,7 +36,8 @@ class GithubLoginView(View):
                     'organization'     : organization,
                     'profile_image_url': profile_image_url,
                     'type'             : UserType.objects.get(name=usertype_name),
-                    'github_token'     : github_token
+                    'github_token'     : github_token,
+                    'github_id'        : github_id
                 }
             )[0]
             token = jwt.encode({'user_id':user.id, 'usertype':user.type.name}, settings.SECRET_KEY, algorithm=settings.ALGORITHM)
