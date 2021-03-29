@@ -24,6 +24,7 @@ class Exporter(models.Model):
     readme_url     = models.URLField(max_length=2000)
     readme         = models.BinaryField()
     comment        = models.TextField(null=True)
+    view_count     = models.PositiveIntegerField(default=0)
     created_at     = models.DateTimeField(auto_now_add=True)
     modified_at    = models.DateTimeField(auto_now=True)
 

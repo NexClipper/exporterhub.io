@@ -184,8 +184,8 @@ class BucketView(View):
             user    = request.user
             headers = {'Authorization' : 'token ' + user.github_token}
 
-            exporter_id      = request.GET['exporter_id']
-            is_delete_all    = request.GET.get('is_delete_all')
+            exporter_id      = request.GET['exporter-id']
+            is_delete_all    = request.GET.get('deleteall')
             exporter         = Exporter.objects.get(id=exporter_id)
             forked_exporter  = Bucket.objects.get(exporter=exporter, user=user)
             forked_repo_info = forked_exporter.forked_repository_url.replace('https://github.com/', '')
