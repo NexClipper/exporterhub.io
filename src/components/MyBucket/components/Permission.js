@@ -12,6 +12,7 @@ const Permission = () => {
   const [adminArr, setAdminArr] = useState([]);
   const token = sessionStorage.getItem("access_token");
   const dispatch = useDispatch();
+
   const inputHandler = (e) => {
     // const payload = { filterType: "value", data: e.target.value.toLowerCase() };
     // dispatch(filterByUser(payload));
