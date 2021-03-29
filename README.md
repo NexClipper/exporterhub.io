@@ -137,6 +137,3 @@ Exporterhub.io is licensed under the MIT License. See [LICENSE](https://github.c
 
 
 <p align="right"> Supported by <a href="https://wecode.co.kr/"><img src="https://raw.githubusercontent.com/NexClipper/exporterhub.io/master/assets/wecode_logo.jpg" width= 120></a></p>
-
-
-
