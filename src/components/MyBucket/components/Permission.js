@@ -7,6 +7,7 @@ import AdminContent from "../../Content/AdminContent";
 import { filterByUser } from "../../../store/actions/exporterActions";
 import { SearchOutlined } from "@ant-design/icons";
 import axios from "axios";
+import { ADMIN_API } from "../../../config";
 
 const Permission = () => {
   const [adminArr, setAdminArr] = useState([]);
@@ -21,7 +22,7 @@ const Permission = () => {
   useEffect(() => {
     axios({
       method: "GET",
-      url: "http://10.153.5.102:8000/user/admin",
+      url: `${ADMIN_API}`,
       headers: {
         Authorization: token,
       },

@@ -3,7 +3,7 @@ import { useParams } from "react-router";
 import axios from "axios";
 import styled from "styled-components";
 import { AiFillStar } from "react-icons/ai";
-import { EXPORTER_API } from "../../config";
+import { BUCKET_API, EXPORTER_API } from "../../config";
 import Exporter from "./components/Exporter";
 import Dashboard from "./components/Dashboard";
 import Alert from "./components/Alert";
@@ -43,7 +43,7 @@ const ContentDetail = () => {
 
     axios({
       method: "POST",
-      url: "http://10.153.4.240:8000/user/bucket",
+      url: `${BUCKET_API}`,
       headers: {
         Authorization: sessionStorage.getItem("access_token"),
       },

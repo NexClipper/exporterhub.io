@@ -2,6 +2,7 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
+import { BUCKET_API } from "../../../config";
 import { loadMoreData } from "../../../store/actions/exporterActions";
 import ContentExporters from "../../Content/ContentExporters";
 
@@ -19,7 +20,7 @@ const Fork = () => {
   const getForkedExporter = () => {
     axios({
       method: "GET",
-      url: "http://10.153.4.240:8000/user/bucket",
+      url: `${BUCKET_API}`,
       headers: {
         Authorization: sessionStorage.getItem("access_token"),
       },
