@@ -35,6 +35,32 @@ const ContentDetail = () => {
     setActiveTab(id);
   };
 
+  const addToFork = (exporterInfo) => {
+    if (!sessionStorage.getItem("access_token")) {
+      alert("You need to Sign in");
+      return;
+    }
+
+    axios({
+      method: "POST",
+      url: "http://10.153.4.240:8000/user/bucket",
+      headers: {
+        Authorization: sessionStorage.getItem("access_token"),
+      },
+      data: {
+        exporter_id: exporterInfo["exporter_id"],
+      },
+    })
+      .then((res) => {
+        console.log(res);
+        console.log("성공!!");
+      })
+      .catch((err) => {
+        console.log(err);
+        console.log("에러 ㅠㅠ");
+      });
+  };
+
   return (
     <>
       <Header>
@@ -48,7 +74,7 @@ const ContentDetail = () => {
                 <a href={exporterInfo.repository_url} target="_blank">
                   <Name>{exporterInfo.name}</Name>
                 </a>
-                <Button>
+                <Button onClick={() => addToFork(exporterInfo)}>
                   <span>
                     <RiShoppingBasketLine />
                   </span>

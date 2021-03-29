@@ -1,3 +1,4 @@
+import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
@@ -5,9 +6,32 @@ import { loadMoreData } from "../../../store/actions/exporterActions";
 import ContentExporters from "../../Content/ContentExporters";
 
 const Fork = () => {
+  const [forkedExporters, setForkedExporters] = useState([]);
+
   const { filteredExporters, exposedExporters, totalCount } = useSelector(
     (store) => store.exporterReducer
   );
+
+  useEffect(() => {
+    getForkedExporter();
+  }, []);
+
+  const getForkedExporter = () => {
+    axios({
+      method: "GET",
+      url: "http://10.153.4.240:8000/user/bucket",
+      headers: {
+        Authorization: sessionStorage.getItem("access_token"),
+      },
+    })
+      .then((res) => {
+        setForkedExporters(res.data.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
   const tokenState = useSelector((store) => store.tokenReducer);
   const dispatch = useDispatch();
   const [scrollAct, setScrollAct] = useState(false);
@@ -29,7 +53,12 @@ const Fork = () => {
   return (
     <Container>
       {/* <ReadmeTitle>Fork</ReadmeTitle> */}
-      <ContentExporters exporters={exposedExporters} fork={true} />
+      <ContentExporters
+        // exporters={exposedExporters}
+        exporters={forkedExporters}
+        fork={true}
+        mybucket={true}
+      />
     </Container>
   );
 };
