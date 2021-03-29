@@ -21,6 +21,7 @@ import {
 } from "./config";
 
 import Login from "./components/Login/Login";
+import MyBucketPage from "./pages/MyBucketPage";
 
 function Routes() {
   const dispatch = useDispatch();
@@ -51,6 +52,7 @@ function Routes() {
           <Route exact path="/callback" component={Login} />
           <Route exact path="/detail/:id" component={ExporterHubDetailPage} />
           <Route exact path="/detail" component={ExporterHubDetailPage} />
+          <Route exact path="/mybucket" component={MyBucketPage} />
           {PUBLIC_SERVICE === "n" && (
             <Route exact path="/admin" component={AdminPage} />
           )}
