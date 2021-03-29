@@ -4,7 +4,7 @@ import styled from "styled-components";
 import CardExporter from "./CardExporter";
 import EditModal from "../Modal/EditModal";
 
-const ContentExporters = ({ exporters, fork }) => {
+const ContentExporters = ({ exporters, fork, mybucket }) => {
   const {
     push,
     location: { pathname },
@@ -24,7 +24,7 @@ const ContentExporters = ({ exporters, fork }) => {
   };
 
   return (
-    <ExporterContainer fork={fork}>
+    <ExporterContainer fork={fork} mybucket={mybucket}>
       {exporters &&
         exporters.map((exporter) => (
           <CardExporter
@@ -33,6 +33,7 @@ const ContentExporters = ({ exporters, fork }) => {
             // cardClick={pathname === "/" ? goToDetail : modalClick}
             cardClick={pathname === "/" ? goToDetail : goToDetail}
             fork={fork}
+            mybucket={mybucket}
           />
         ))}
       {isModalActive && (
@@ -47,7 +48,7 @@ const ExporterContainer = styled.div`
   flex-direction: row;
   flex-wrap: wrap;
   width: ${({ theme }) => (theme.width.content - theme.width.card) * 1.5}px;
-  width: ${(props) => props.fork && "100%"};
+  width: ${(props) => props.mybucket && "100%"};
 
   @media ${({ theme }) => theme.media.mobile} {
     flex-direction: column;

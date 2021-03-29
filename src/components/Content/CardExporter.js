@@ -4,7 +4,7 @@ import styled from "styled-components";
 import { AiFillStar } from "react-icons/ai";
 import { RiDeleteBinLine } from "react-icons/ri";
 
-const CardExporter = ({ exporter, cardClick, fork }) => {
+const CardExporter = ({ exporter, cardClick, fork, mybucket }) => {
   const {
     exporter_id,
     name,
@@ -20,7 +20,7 @@ const CardExporter = ({ exporter, cardClick, fork }) => {
   };
 
   return (
-    <Div onClick={() => cardClick(exporter_id)} fork={fork}>
+    <Div onClick={() => cardClick(exporter_id)} fork={fork} mybucket={mybucket}>
       <header>
         <span>
           <Icon>
@@ -92,9 +92,9 @@ const Div = styled.div`
   align-items: center;
   margin-right: ${({ theme }) =>
     (theme.width.content - theme.width.card * 3) / 2}px;
-  margin-right: ${(props) => props.fork && "20px"};
+  margin-right: ${(props) => props.mybucket && "20px"};
   &:nth-child(4n) {
-    margin-right: ${(props) => props.fork && "0"};
+    margin-right: ${(props) => props.mybucket && "0"};
   }
   margin-bottom: 20px;
   border-radius: 5px;
