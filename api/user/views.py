@@ -290,22 +290,28 @@ class AdminView(View):
         } for admin in User.objects.filter(type_id=ADMIN_CODE)]
 
         return JsonResponse({'message' : 'SUCCESS', 'data':admin}, status=200)
-
+        
+        except KeyError:
+            return JsonResponse({'message' : 'KEY_ERROR'}, status=400)
+    
     @admin_decorator
     def patch(self, request):
-        user     = request.user  
-        data     = json.loads(request.body)
-        username = data['username']
-        headers  = {'Authorization' : 'token ' + user.github_token}
-        result   = requests.delete(f'https://api.github.com/orgs/Exporterhubv3/members/{username}', headers=headers)
-        
-        if result.status_code != 204:
-            return JsonResponse({'message' : 'GITHUB_API_FAIL'}, status=400)
+        try:
+            user     = request.user  
+            data     = json.loads(request.body)
+            username = data['username']
+            headers  = {'Authorization' : 'token ' + user.github_token}
+            result   = requests.delete(f'https://api.github.com/orgs/Exporterhubv3/members/{username}', headers=headers)
+            
+            if result.status_code != 204:
+                return JsonResponse({'message' : 'GITHUB_API_FAIL'}, status=400)
 
-        User.objects.filter(username=username).update(type_id=USER_CODE)
+            User.objects.filter(username=username).update(type_id=USER_CODE)
 
-        return JsonResponse({'message' : 'SUCCESS'}, status=204)
+            return JsonResponse({'message' : 'SUCCESS'}, status=204)
 
+        except KeyError:
+            return JsonResponse({'message' : 'KEY_ERROR'}, status=400)
         
 
 
