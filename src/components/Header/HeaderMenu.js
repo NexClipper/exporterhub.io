@@ -4,14 +4,20 @@ import styled from "styled-components";
 import { PUBLIC_SERVICE, API_SURVER } from "../../config";
 import { GithubOutlined } from "@ant-design/icons";
 import axios from "axios";
+import { useDispatch, useSelector } from "react-redux";
+import { getLoginState } from "../../store/actions/exporterActions";
 
 require("dotenv").config();
 
 const HeaderMenu = () => {
-  const [isLogin, setIsLogin] = useState(false);
+  const isLogin = useSelector((store) => store.loginReducer);
+  const dispatch = useDispatch();
+  console.log(isLogin);
+
+  // const [isLogin, setIsLogin] = useState(false);
 
   const clientID = "e0766f48a0ed436d36d4";
-  const url = `https://github.com/login/oauth/authorize?client_id=${clientID}&redirect_uri=http://localhost:3000/callback&scope=user,repo,delete_repo`;
+  const url = `https://github.com/login/oauth/authorize?client_id=${clientID}&redirect_uri=http://localhost:3000/callback&scope=user,repo,delete_repo,admin:org`;
 
   // console.log(API_SURVER);
   const {
@@ -20,14 +26,16 @@ const HeaderMenu = () => {
   } = useHistory();
   // console.log(PUBLIC_SERVICE);
 
-  useEffect(() => {
-    if (sessionStorage.getItem("access_token")) {
-      setIsLogin(true);
-    }
-  }, [isLogin]);
+  //이거
+  // useEffect(() => {
+  //   if (sessionStorage.getItem("access_token")) {
+  //     setIsLogin(true);
+  //   }
+  // }, [isLogin]);
 
   const handleSignOut = () => {
-    setIsLogin(false);
+    // setIsLogin(false);
+    dispatch(getLoginState(false));
     sessionStorage.removeItem("access_token");
   };
 
@@ -36,7 +44,7 @@ const HeaderMenu = () => {
       {isLogin ? (
         <>
           <Button>ADMIN</Button>
-          <Button>MY BUCKET</Button>
+          <Button onClick={() => push("/mybucket")}>MY BUCKET</Button>
           <Button onClick={() => handleSignOut()}>SIGN OUT</Button>
         </>
       ) : (

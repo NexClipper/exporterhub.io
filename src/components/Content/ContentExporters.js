@@ -4,7 +4,7 @@ import styled from "styled-components";
 import CardExporter from "./CardExporter";
 import EditModal from "../Modal/EditModal";
 
-const ContentExporters = ({ exporters }) => {
+const ContentExporters = ({ exporters, fork }) => {
   const {
     push,
     location: { pathname },
@@ -24,13 +24,15 @@ const ContentExporters = ({ exporters }) => {
   };
 
   return (
-    <ExporterContainer>
+    <ExporterContainer fork={fork}>
       {exporters &&
         exporters.map((exporter) => (
           <CardExporter
             key={exporter.exporter_id}
             exporter={exporter}
-            cardClick={pathname === "/" ? goToDetail : modalClick}
+            // cardClick={pathname === "/" ? goToDetail : modalClick}
+            cardClick={pathname === "/" ? goToDetail : goToDetail}
+            fork={fork}
           />
         ))}
       {isModalActive && (
@@ -45,6 +47,8 @@ const ExporterContainer = styled.div`
   flex-direction: row;
   flex-wrap: wrap;
   width: ${({ theme }) => (theme.width.content - theme.width.card) * 1.5}px;
+  width: ${(props) => props.fork && "100%"};
+
   @media ${({ theme }) => theme.media.mobile} {
     flex-direction: column;
     flex-wrap: nowrap;

@@ -2,8 +2,9 @@ import React from "react";
 import { withRouter } from "react-router-dom";
 import styled from "styled-components";
 import { AiFillStar } from "react-icons/ai";
+import { RiDeleteBinLine } from "react-icons/ri";
 
-const CardExporter = ({ exporter, cardClick }) => {
+const CardExporter = ({ exporter, cardClick, fork }) => {
   const {
     exporter_id,
     name,
@@ -14,8 +15,12 @@ const CardExporter = ({ exporter, cardClick }) => {
     category,
   } = exporter;
 
+  const unforkRepo = () => {
+    console.log("unforkRepo");
+  };
+
   return (
-    <Div onClick={() => cardClick(exporter_id)}>
+    <Div onClick={() => cardClick(exporter_id)} fork={fork}>
       <header>
         <span>
           <Icon>
@@ -38,11 +43,46 @@ const CardExporter = ({ exporter, cardClick }) => {
           <p>{description}</p>
         </Section>
       </Article>
+      {fork && (
+        <Unfork onClick={unforkRepo} className="unfork">
+          <div>
+            <RiDeleteBinLine />
+            <span>Unfork this project repo</span>
+          </div>
+        </Unfork>
+      )}
     </Div>
   );
 };
 
+const Unfork = styled.div`
+  position: absolute;
+  bottom: 0;
+  background-color: #fafbfc;
+  color: #c6474e;
+  width: 100%;
+  border: 1px solid #d9dbdb;
+  text-align: center;
+  font-size: 15px;
+  height: 70px;
+  line-height: 70px;
+  display: none;
+  font-weight: 500;
+  border-radius: 0 0 5px 5px;
+
+  div {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    span {
+      margin-left: 5px;
+    }
+  }
+`;
+
 const Div = styled.div`
+  position: relative;
   width: ${({ theme }) => theme.width.card}px;
   height: 320px;
   transition: 0.1s ease-in-out;
@@ -52,6 +92,10 @@ const Div = styled.div`
   align-items: center;
   margin-right: ${({ theme }) =>
     (theme.width.content - theme.width.card * 3) / 2}px;
+  margin-right: ${(props) => props.fork && "20px"};
+  &:nth-child(4n) {
+    margin-right: ${(props) => props.fork && "0"};
+  }
   margin-bottom: 20px;
   border-radius: 5px;
   box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
@@ -60,6 +104,11 @@ const Div = styled.div`
   &:hover {
     transform: scale(1.05);
   }
+
+  &:hover .unfork {
+    display: block;
+  }
+
   @media ${({ theme }) => theme.media.mobile} {
     height: 120px;
     width: 100%;
