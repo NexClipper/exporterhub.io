@@ -2,6 +2,7 @@ import React from "react";
 import { useDispatch } from "react-redux";
 import axios from "axios";
 import { getLoginState } from "../../store/actions/exporterActions";
+import { LOGIN_API } from "../../config";
 
 const Login = ({ history }) => {
   const clientID = "e0766f48a0ed436d36d4";
@@ -34,7 +35,7 @@ const Login = ({ history }) => {
   const setAccessToken = (token) => {
     axios({
       method: "POST",
-      url: "http://10.153.5.102:8000/user/login",
+      url: `${LOGIN_API}`,
       data: {
         token: token,
       },
