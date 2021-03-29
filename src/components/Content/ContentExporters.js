@@ -4,7 +4,12 @@ import styled from "styled-components";
 import CardExporter from "./CardExporter";
 import EditModal from "../Modal/EditModal";
 
-const ContentExporters = ({ exporters, fork, mybucket }) => {
+const ContentExporters = ({
+  exporters,
+  fork,
+  mybucket,
+  setIsForkModalActive,
+}) => {
   const {
     push,
     location: { pathname },
@@ -34,6 +39,7 @@ const ContentExporters = ({ exporters, fork, mybucket }) => {
             cardClick={pathname === "/" ? goToDetail : goToDetail}
             fork={fork}
             mybucket={mybucket}
+            setIsForkModalActive={setIsForkModalActive}
           />
         ))}
       {isModalActive && (

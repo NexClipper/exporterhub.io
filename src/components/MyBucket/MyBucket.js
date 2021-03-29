@@ -2,29 +2,30 @@ import { useState, useEffect } from "react";
 import { useParams } from "react-router";
 import axios from "axios";
 import styled from "styled-components";
-
 import { EXPORTER_API } from "../../config";
-
 import { RiUserSettingsLine } from "react-icons/ri";
-
 import Fork from "./components/Fork";
 import Permission from "./components/Permission";
-import Resister from "./components/Resister";
+import UnforkModal from "../Modal/UnforkModal";
 
 const TABMENU = [
   { id: 0, tabName: "Fork" },
   { id: 1, tabName: "Permission" },
-  { id: 2, tabName: "Resister" },
 ];
 
 const MyBucket = () => {
   const { id } = useParams();
   const [exporterInfo, setExporterInfo] = useState([]);
   const [activeTab, setActiveTab] = useState(0);
+  const [isForkModalActive, setIsForkModalActive] = useState(false);
+
+  const cancleModal = () => {
+    setIsForkModalActive(false);
+  };
+
   const ACTIVECONTENT_OBJ = {
-    0: <Fork />,
+    0: <Fork setIsForkModalActive={setIsForkModalActive} />,
     1: <Permission />,
-    2: <Resister />,
   };
 
   useEffect(() => {
@@ -76,6 +77,7 @@ const MyBucket = () => {
         </Container>
       </Nav>
       <Main>{ACTIVECONTENT_OBJ[activeTab]}</Main>
+      {isForkModalActive && <UnforkModal cancleModal={cancleModal} />}
     </>
   );
 };

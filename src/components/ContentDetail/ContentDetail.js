@@ -3,7 +3,7 @@ import { useParams } from "react-router";
 import axios from "axios";
 import styled from "styled-components";
 import { AiFillStar } from "react-icons/ai";
-import { BUCKET_API, EXPORTER_API } from "../../config";
+import { BUCKET_API, EXPORTER_API, SERVER } from "../../config";
 import Exporter from "./components/Exporter";
 import Dashboard from "./components/Dashboard";
 import Alert from "./components/Alert";
@@ -19,6 +19,9 @@ const ContentDetail = () => {
   const { id } = useParams();
   const [exporterInfo, setExporterInfo] = useState([]);
   const [activeTab, setActiveTab] = useState(0);
+  const [forkState, setForkState] = useState();
+  const [starState, setStarState] = useState();
+  const [starNumber, setStarNumber] = useState();
   const ACTIVECONTENT_OBJ = {
     0: <Exporter readmeContent={exporterInfo.readme} />,
     1: <Dashboard />,
@@ -26,10 +29,45 @@ const ContentDetail = () => {
   };
 
   useEffect(() => {
-    axios.get(`${EXPORTER_API}/${id}`).then((res) => {
-      setExporterInfo(res.data);
-    });
+    // axios.get(`${EXPORTER_API}/${id}`).then((res) => {
+    //   setExporterInfo(res.data);
+    // });
+    if (sessionStorage.getItem("access_token")) {
+      axios({
+        method: "GET",
+        url: `${EXPORTER_API}/${id}`,
+        headers: {
+          Authorization: sessionStorage.getItem("access_token"),
+        },
+      })
+        .then((res) => {
+          setExporterInfo(res.data);
+          setForkState(res.data.is_bucket);
+          setStarState(res.data.is_star);
+          setStarNumber(res.data.stars);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    } else {
+      axios({
+        method: "GET",
+        url: `${EXPORTER_API}/${id}`,
+      })
+        .then((res) => {
+          console.log(res);
+          setExporterInfo(res.data);
+          setForkState(res.data.is_bucket);
+          setStarState(res.data.is_star);
+          setStarNumber(res.data.stars);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
   }, []);
+
+  console.log(forkState);
 
   const handleActiveTab = (id) => {
     setActiveTab(id);
@@ -41,9 +79,45 @@ const ContentDetail = () => {
       return;
     }
 
+    if (!forkState) {
+      axios({
+        method: "POST",
+        url: `${BUCKET_API}`,
+        headers: {
+          Authorization: sessionStorage.getItem("access_token"),
+        },
+        data: {
+          exporter_id: exporterInfo["exporter_id"],
+        },
+      })
+        .then((res) => {
+          console.log(res);
+          console.log("성공!!");
+          setForkState(true);
+        })
+        .catch((err) => {
+          console.log(err);
+          console.log("에러 ㅠㅠ");
+        });
+    }
+  };
+
+  const handleStar = () => {
+    if (!sessionStorage.getItem("access_token")) {
+      alert("You need to Sign in");
+      return;
+    }
+
+    console.log(starState);
+    if (starState) {
+      setStarNumber((prev) => prev - 1);
+    } else {
+      setStarNumber((prev) => prev + 1);
+    }
+
     axios({
       method: "POST",
-      url: `${BUCKET_API}`,
+      url: `${SERVER}/user/star`,
       headers: {
         Authorization: sessionStorage.getItem("access_token"),
       },
@@ -53,12 +127,14 @@ const ContentDetail = () => {
     })
       .then((res) => {
         console.log(res);
-        console.log("성공!!");
+        console.log("star 성공!!");
       })
       .catch((err) => {
         console.log(err);
-        console.log("에러 ㅠㅠ");
+        console.log("star 에러 ㅠㅠ");
       });
+
+    setStarState(!starState);
   };
 
   return (
@@ -74,17 +150,18 @@ const ContentDetail = () => {
                 <a href={exporterInfo.repository_url} target="_blank">
                   <Name>{exporterInfo.name}</Name>
                 </a>
-                <Button onClick={() => addToFork(exporterInfo)}>
-                  <span>
-                    <RiShoppingBasketLine />
-                  </span>
-                  <span>Add</span>
+                <Button
+                  forkState={forkState}
+                  onClick={() => addToFork(exporterInfo)}
+                >
+                  <span>{!forkState && <RiShoppingBasketLine />}</span>
+                  <span>{forkState ? "Added" : "Add"}</span>
                 </Button>
               </div>
               <div>
                 <Category>{exporterInfo.category}</Category>
-                <StarIcon>
-                  <AiFillStar /> {exporterInfo.stars}
+                <StarIcon onClick={handleStar} starState={starState}>
+                  <AiFillStar /> {starNumber && starNumber}
                 </StarIcon>
               </div>
             </div>
@@ -151,14 +228,19 @@ const Name = styled.h4`
 `;
 
 const Button = styled.button`
+  width: 60px;
+  height: 25px;
   display: flex;
+  justify-content: center;
   align-items: center;
-  padding: 5px 10px;
+  /* padding: 5px 10px; */
   background: #ffffff;
   box-shadow: 1px 1px 6px 1px rgba(0, 0, 0, 0.1);
   border-radius: 5px;
   font-size: 12px;
   font-weight: 600;
+  color: ${(props) => (props.forkState ? "#8D8D8D" : "black")};
+  cursor: ${(props) => props.forkState && "default"};
 
   span {
     font-size: 12px;
@@ -184,7 +266,9 @@ const Category = styled.p`
 const StarIcon = styled.span`
   font-size: 18px;
   font-weight: 500;
-  color: #ffd200;
+  /* color: #ffd200; */
+  color: ${(props) => (props.starState ? "#ffd200" : "#8D8D8D")};
+  cursor: pointer;
 
   svg {
     vertical-align: middle;

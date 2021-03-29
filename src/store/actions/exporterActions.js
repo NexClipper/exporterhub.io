@@ -8,6 +8,7 @@ const LOAD_MORE_DATA = "LOAD_MORE_DATA";
 const LOAD_CATEGORIES = "LOAD_CATEGORIES";
 const GET_TOKEN_STATE = "GET_TOKEN_STATE";
 const GET_LOGIN_STATE = "GET_LOGIN_STATE";
+const TARGET_UNFORK_REPO = "TARGET_UNFORK_REPO";
 
 export const filterByValue = (payload) => ({
   type: FILTER_BY_VALUE,
@@ -56,5 +57,10 @@ export const getTokenState = (payload) => ({
 
 export const getLoginState = (payload) => ({
   type: GET_LOGIN_STATE,
+  payload,
+});
+
+export const targetUnforkRepo = (payload) => ({
+  type: TARGET_UNFORK_REPO,
   payload,
 });
