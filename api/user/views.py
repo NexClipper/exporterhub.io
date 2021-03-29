@@ -62,7 +62,7 @@ class StarView(View):
             headers = {'Authorization' : 'token ' + user.github_token} 
 
             data        = json.loads(request.body)
-            exporter_id = data['exporterId']
+            exporter_id = data['exporter_id']
             exporter    = Exporter.objects.get(id=exporter_id)
             repo_info   = exporter.repository_url.replace('https://github.com/', '')
             
@@ -150,7 +150,7 @@ class BucketView(View):
             headers = {'Authorization' : 'token ' + user.github_token}
 
             data        = json.loads(request.body)
-            exporter_id = data['exporterId']
+            exporter_id = data['exporter_id']
             exporter    = Exporter.objects.get(id=exporter_id)
             repo_info   = exporter.repository_url.replace('https://github.com/', '')
             repo_name   = repo_info.split('/')[-1]
@@ -180,8 +180,8 @@ class BucketView(View):
             user    = request.user
             headers = {'Authorization' : 'token ' + user.github_token}
 
-            exporter_id      = request.GET['exporterId']
-            is_delete_all    = request.GET.get('isDeleteAll')
+            exporter_id      = request.GET['exporter_id']
+            is_delete_all    = request.GET.get('is_delete_all')
             exporter         = Exporter.objects.get(id=exporter_id)
             forked_exporter  = Bucket.objects.get(exporter=exporter, user=user)
             forked_repo_info = forked_exporter.forked_repository_url.replace('https://github.com/', '')
@@ -219,16 +219,16 @@ class BucketView(View):
 
         exporters = [
                 {
-                    "exporterId"    : forked_exporter.id,
-                    "name"          : forked_exporter.name,
-                    "logoUrl"       : forked_exporter.logo_url,
-                    "category"      : forked_exporter.category.name,
-                    "official"      : forked_exporter.official.name,
-                    "stars"         : forked_exporter.stars,
-                    "isStar"        : user.starred_exporters.filter(id=forked_exporter.id).exists(),
-                    "repositoryUrl" : forked_exporter.repository_url,
-                    "description"   : forked_exporter.description,
-                    "recentRelease" : forked_exporter.release_set.order_by('date').last().date if forked_exporter.release_set.filter().exists() else '1970-01-01',
+                    "exporter_id"    : forked_exporter.id,
+                    "name"           : forked_exporter.name,
+                    "logo_url"       : forked_exporter.logo_url,
+                    "category"       : forked_exporter.category.name,
+                    "official"       : forked_exporter.official.name,
+                    "stars"          : forked_exporter.stars,
+                    "is_star"        : user.starred_exporters.filter(id=forked_exporter.id).exists(),
+                    "repository_url" : forked_exporter.repository_url,
+                    "description"    : forked_exporter.description,
+                    "recent_release" : forked_exporter.release_set.order_by('date').last().date if forked_exporter.release_set.filter().exists() else '1970-01-01',
                 } for forked_exporter in forked_exporters]
         
         return JsonResponse({'data': exporters}, status=200)
