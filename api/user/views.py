@@ -20,8 +20,11 @@ class GithubLoginView(View):
             github_token = data['token']
             headers      = {'Authorization' : 'token ' + github_token} 
             user_info    = requests.get('https://api.github.com/user', headers=headers)
-            user_data    = user_info.json()
+            
+            if user_info.status_code != 200:
+                return JsonResponse({'message': 'GITHUB_API_FAIL'}, status=400)
 
+            user_data         = user_info.json()
             github_id         = user_data['id']
             username          = user_data.get('login')
             email             = user_data.get('email')
@@ -42,7 +45,7 @@ class GithubLoginView(View):
             )[0]
             token = jwt.encode({'user_id':user.id, 'usertype':user.type.name}, settings.SECRET_KEY, algorithm=settings.ALGORITHM)
             
-            return JsonResponse({'message' : 'SUCCESS', 'access_token':token}, status = 200)
+            return JsonResponse({'message' : 'SUCCESS', 'access_token':token, 'type': user.type.name}, status = 200)
         
         except KeyError:
             return JsonResponse({'message': 'KEY_ERROR'}, status=400)
