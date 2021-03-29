@@ -268,28 +268,29 @@ class AdminView(View):
 
     @admin_decorator
     def get(self, request):
-        user    = request.user   
-        headers = {'Authorization' : 'token ' + user.github_token}
-        result  = requests.get('https://api.github.com/orgs/Exporterhubv3/members', headers=headers)
-        
-        if result.status_code != 200:
-            return JsonResponse({'message' : 'GITHUB_API_FAIL'}, status=400)
-        
-        result_json = result.json()
-        admin_list  = [admin_info['login'] for admin_info in result_json]
-   
-        for pending_admin in User.objects.filter(type_id=PENDING_ADMIN_CODE):
-            if pending_admin in admin_list:
-                pending_admin.type.name='admin'
-                pending_admins.save()
+        try:
+            user    = request.user   
+            headers = {'Authorization' : 'token ' + user.github_token}
+            result  = requests.get('https://api.github.com/orgs/Exporterhubv3/members', headers=headers)
+            
+            if result.status_code != 200:
+                return JsonResponse({'message' : 'GITHUB_API_FAIL'}, status=400)
+            
+            result_json = result.json()
+            admin_list  = [admin_info['login'] for admin_info in result_json]
+    
+            for pending_admin in User.objects.filter(type_id=PENDING_ADMIN_CODE):
+                if pending_admin in admin_list:
+                    pending_admin.type.name='admin'
+                    pending_admins.save()
 
-        admin = [{
-            'username'        : admin.username,
-            'usertype'        : 'Admin',
-            'profileImageUrl' : admin.profile_image_url
-        } for admin in User.objects.filter(type_id=ADMIN_CODE)]
+            admin = [{
+                'username'        : admin.username,
+                'usertype'        : 'Admin',
+                'profileImageUrl' : admin.profile_image_url
+            } for admin in User.objects.filter(type_id=ADMIN_CODE)]
 
-        return JsonResponse({'message' : 'SUCCESS', 'data':admin}, status=200)
+            return JsonResponse({'message' : 'SUCCESS', 'data':admin}, status=200)
         
         except KeyError:
             return JsonResponse({'message' : 'KEY_ERROR'}, status=400)
@@ -312,6 +313,21 @@ class AdminView(View):
 
         except KeyError:
             return JsonResponse({'message' : 'KEY_ERROR'}, status=400)
+
+
+
+class UserListView(View):
+    @admin_decorator
+    def get(self, request):
+        keyword  = request.GET.get('q')
         
+        if not keyword:
+            return JsonResponse({'message':'NEED_KEYWORD'}, status=400)
+        
+        users = [{
+            'username'        : user.username,
+            'usertype'        : user.type.name,
+            'profileImageUrl' : user.profile_image_url
+        } for user in User.objects.filter(username__icontains=keyword)]
 
-
+        return JsonResponse({'message' : 'SUCCESS', 'data':users}, status=200)

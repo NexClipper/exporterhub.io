@@ -56,7 +56,7 @@ def admin_decorator(func):
 
         try:
             access_token = request.headers['Authorization']
-            payload      = jwt.decode(access_token, SECRET_KEY, ALGORITHM)
+            payload      = jwt.decode(access_token, settings.SECRET_KEY, settings.ALGORITHM)
             login_user   = User.objects.get(id=payload['user_id'])
 
             if not login_user.type.name == 'admin':
