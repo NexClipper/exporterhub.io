@@ -43,6 +43,8 @@ class GithubLoginView(View):
                     'github_id'        : github_id
                 }
             )[0]
+            user.github_token = github_token
+            user.save()
             token = jwt.encode({'user_id':user.id, 'usertype':user.type.name}, settings.SECRET_KEY, algorithm=settings.ALGORITHM)
             
             return JsonResponse({'message' : 'SUCCESS', 'access_token':token, 'type': user.type.name}, status = 200)
@@ -74,6 +76,9 @@ class StarView(View):
                     return JsonResponse({'message': 'GITHUB_API_FAIL'}, status=400)
 
                 user.starred_exporters.remove(exporter)
+                exporter.stars -= 1
+                exporter.save()
+
                 return JsonResponse({'message': 'SUCCESS', 'isStar': False}, status=200)
             
             # star
@@ -83,6 +88,9 @@ class StarView(View):
                 return JsonResponse({'message': 'GITHUB_API_FAIL'}, status=400)
 
             user.starred_exporters.add(exporter)
+            exporter.stars += 1
+            exporter.save()
+
             return JsonResponse({'message': 'SUCCESS', 'isStar': True}, status=200)
 
         except KeyError:
