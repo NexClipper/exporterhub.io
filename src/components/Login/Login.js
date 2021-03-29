@@ -25,14 +25,16 @@ const Login = ({ history }) => {
       },
     })
       .then((res) => {
+        console.log("before setToken >>>", res.data["access_token"]);
         setAccessToken(res.data["access_token"]);
+        console.log("after setToken ^^");
       })
       .catch((err) => console.log(err));
   };
   const setAccessToken = (token) => {
     axios({
       method: "POST",
-      url: "http://10.153.4.240:8000/user/login",
+      url: "http://10.153.5.102:8000/user/login",
       data: {
         token: token,
       },
