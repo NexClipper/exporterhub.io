@@ -227,7 +227,7 @@ class TestView(View):
         data = {
             'client_id':'ee39a6aa02038e0866cf',
             'client_secret': 'f4ae0fd4d2d17eb2c799b0c73a1cadbcd9057f84',
-            'code' : '3ec7134d2385da68a09c'
+            'code' : '51e82edb0acd1d345369'
         }
         headers = {'accept': 'application/json'}
         token   = requests.post('https://github.com/login/oauth/access_token',data=data, headers=headers)
