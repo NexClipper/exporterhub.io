@@ -5,7 +5,7 @@ import styled from "styled-components";
 import { EXPORTER_ADMIN_API } from "../../config";
 
 const RegisterModal = ({ cancleModal }) => {
-  const categories = useSelector(store => store.categoryReducer);
+  const categories = useSelector((store) => store.categoryReducer);
   const [repoUrl, setRepoUrl] = useState("Default");
   const [category, setCategory] = useState("Default");
   const [failMessage, setFailMessage] = useState("");
@@ -13,21 +13,21 @@ const RegisterModal = ({ cancleModal }) => {
     axios
       .post(EXPORTER_ADMIN_API, {
         repo_url: repoUrl,
-        category: category
+        category: category,
       })
       .then(() => {
         window.location.reload();
       })
-      .catch(error => {
+      .catch((error) => {
         setFailMessage(error.response?.data.message);
       });
   };
 
-  const inputRepoUrl = e => {
+  const inputRepoUrl = (e) => {
     setRepoUrl(e.target.value);
   };
 
-  const selectCategory = e => {
+  const selectCategory = (e) => {
     setCategory(e.target.value);
   };
 
@@ -44,7 +44,7 @@ const RegisterModal = ({ cancleModal }) => {
           ></input>
           <select className="inputDiv" onChange={selectCategory}>
             <option>Select category</option>
-            {categories.map(category => {
+            {categories.map((category) => {
               return <option>{category.category_name}</option>;
             })}
           </select>

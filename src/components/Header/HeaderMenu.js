@@ -1,36 +1,63 @@
+import { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import styled from "styled-components";
 import { PUBLIC_SERVICE, API_SURVER } from "../../config";
 import { GithubOutlined } from "@ant-design/icons";
+import axios from "axios";
+import { useDispatch, useSelector } from "react-redux";
+import { getLoginState } from "../../store/actions/exporterActions";
 
 require("dotenv").config();
 
-// const HEADER_MENUS = [
-//   { title: "Company", link: "https://www.nexclipper.io/" },
-//   { title: "Blog", link: "https://nexclipper.github.io/blog/" },
-// ];
-
 const HeaderMenu = () => {
-  console.log(API_SURVER);
+  const isLogin = useSelector((store) => store.loginReducer);
+  const dispatch = useDispatch();
+  console.log(isLogin);
+
+  // const [isLogin, setIsLogin] = useState(false);
+
+  const clientID = "e0766f48a0ed436d36d4";
+  const url = `https://github.com/login/oauth/authorize?client_id=${clientID}&redirect_uri=http://localhost:3000/callback&scope=user,repo,delete_repo,admin:org`;
+
+  // console.log(API_SURVER);
   const {
     push,
     location: { pathname },
   } = useHistory();
   // console.log(PUBLIC_SERVICE);
+
+  //이거
+  // useEffect(() => {
+  //   if (sessionStorage.getItem("access_token")) {
+  //     setIsLogin(true);
+  //   }
+  // }, [isLogin]);
+
+  const handleSignOut = () => {
+    // setIsLogin(false);
+    dispatch(getLoginState(false));
+    sessionStorage.removeItem("access_token");
+  };
+
   return (
     <Div>
-      {/* {HEADER_MENUS.map((menu, idx) => (
-        <a href={menu.link} key={idx}>
-          {menu.title}
-        </a>
-      ))} */}
-      <a
-        style={{ color: "black", fontSize: "35px" }}
+      {isLogin ? (
+        <>
+          <Button>ADMIN</Button>
+          <Button onClick={() => push("/mybucket")}>MY BUCKET</Button>
+          <Button onClick={() => handleSignOut()}>SIGN OUT</Button>
+        </>
+      ) : (
+        <Button>
+          <a href={url}>SIGN IN</a>
+        </Button>
+      )}
+      <GitHubLink
         href="https://github.com/NexClipper/exporterhub.io"
         target="_blank"
       >
         <GithubOutlined />
-      </a>
+      </GitHubLink>
 
       {PUBLIC_SERVICE === "n" && (
         <span
@@ -59,9 +86,24 @@ const Div = styled.div`
   }
   span {
     margin-left: 30px;
-    // color: tomato;
     cursor: pointer;
   }
+`;
+
+const Button = styled.button`
+  color: #73c7aa;
+  font-weight: 600;
+  font-size: 14px;
+  margin-left: 30px;
+
+  a {
+    color: inherit;
+  }
+`;
+
+const GitHubLink = styled.a`
+  font-size: 35px;
+  color: #cccccc;
 `;
 
 export default HeaderMenu;
