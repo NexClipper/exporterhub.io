@@ -6,7 +6,7 @@ import { sortByPopularity } from "../../store/actions/exporterActions";
 import { filterByValue } from "../../store/actions/exporterActions";
 import { CATEGORIES_API } from "../../config";
 const ContentMenu = ({ totalCount }) => {
-  console.log(CATEGORIES_API);
+  // console.log(CATEGORIES_API);
   const [categories, setCategories] = useState([]);
   const dispatch = useDispatch();
   const optionSelector = (e) => {

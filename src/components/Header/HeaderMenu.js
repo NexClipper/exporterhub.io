@@ -12,9 +12,7 @@ require("dotenv").config();
 const HeaderMenu = () => {
   const isLogin = useSelector((store) => store.loginReducer);
   const dispatch = useDispatch();
-  console.log(isLogin);
-
-  // const [isLogin, setIsLogin] = useState(false);
+  // console.log(isLogin);
 
   const clientID = "e0766f48a0ed436d36d4";
   const url = `https://github.com/login/oauth/authorize?client_id=${clientID}&redirect_uri=http://localhost:3000/callback&scope=user,repo,delete_repo,admin:org`;
@@ -26,15 +24,7 @@ const HeaderMenu = () => {
   } = useHistory();
   // console.log(PUBLIC_SERVICE);
 
-  //이거
-  // useEffect(() => {
-  //   if (sessionStorage.getItem("access_token")) {
-  //     setIsLogin(true);
-  //   }
-  // }, [isLogin]);
-
   const handleSignOut = () => {
-    // setIsLogin(false);
     dispatch(getLoginState(false));
     sessionStorage.removeItem("access_token");
   };
