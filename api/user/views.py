@@ -159,6 +159,7 @@ class BucketView(View):
                 result = requests.post(f'https://api.github.com/repos/{repo_info}/forks', headers=headers)
 
                 if result.status_code != 202:
+                    print("error")
                     return JsonResponse({'message': 'GITHUB_API_FAIL'}, status=400)
 
                 Bucket.objects.create(
@@ -173,6 +174,9 @@ class BucketView(View):
 
         except KeyError:
             return JsonResponse({'message': 'KEY_ERROR'}, status=400)
+
+        except Exporter.DoesNotExist:
+            return JsonResponse({'message': 'EXPORTER_DOSE_NOT_EXIST'}, status=410)
 
     @login_decorator
     def delete(self, request):
