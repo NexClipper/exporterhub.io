@@ -301,18 +301,18 @@ class AdminView(View):
             user    = request.user   
             headers = {'Authorization' : 'token ' + user.github_token}
             result  = requests.get('https://api.github.com/orgs/Exporterhubv3/members', headers=headers)
-            
+          
             if result.status_code != 200:
                 return JsonResponse({'message' : 'GITHUB_API_FAIL'}, status=400)
             
             result_json = result.json()
             admin_list  = [admin_info['login'] for admin_info in result_json]
-    
+           
             for pending_admin in User.objects.filter(type_id=PENDING_ADMIN_CODE):
-                if pending_admin in admin_list:
-                    pending_admin.type.name='admin'
-                    pending_admins.save()
-
+                if pending_admin.username in admin_list:
+                    pending_admin.type_id = ADMIN_CODE
+                    pending_admin.save()
+               
             admin = [{
                 'username'        : admin.username,
                 'usertype'        : 'Admin',
