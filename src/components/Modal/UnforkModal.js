@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { useSelector } from "react-redux";
 import axios from "axios";
 import styled from "styled-components";
@@ -42,9 +41,11 @@ const UnforkModal = ({ cancleModal }) => {
         <img src="assets/image.png" alt="modal" />
         <Container>
           <button onClick={() => handleUnfork(0)}>
-            Unfork from mybucket only
+            Remove from my bucket only
           </button>
-          <button onClick={() => handleUnfork(1)}>Unfork from GitHub</button>
+          <button onClick={() => handleUnfork(1)}>
+            Unfork an exporter on GitHub
+          </button>
         </Container>
         <Back onClick={cancleModal}>Back</Back>
       </Div>
@@ -86,10 +87,15 @@ const Container = styled.div`
   button {
     width: 250px;
     margin-bottom: 10px;
-    background-color: #eeeeee;
+    background-color: #eef0f1;
     padding: 10px 0;
     text-align: center;
     border-radius: 3px;
+    color: #9e9e9e;
+
+    &:hover {
+      color: #c6474e;
+    }
   }
 `;
 

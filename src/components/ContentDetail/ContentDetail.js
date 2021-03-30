@@ -8,6 +8,7 @@ import Exporter from "./components/Exporter";
 import Dashboard from "./components/Dashboard";
 import Alert from "./components/Alert";
 import { RiShoppingBasketLine } from "react-icons/ri";
+import { ImLink } from "react-icons/im";
 
 const TABMENU = [
   { id: 0, tabName: "Exporter" },
@@ -27,6 +28,8 @@ const ContentDetail = () => {
     1: <Dashboard />,
     2: <Alert />,
   };
+
+  console.log(exporterInfo);
 
   useEffect(() => {
     // axios.get(`${EXPORTER_API}/${id}`).then((res) => {
@@ -151,11 +154,21 @@ const ContentDetail = () => {
                   <Name>{exporterInfo.name}</Name>
                 </a>
                 <Button
-                  forkState={forkState}
                   onClick={() => addToFork(exporterInfo)}
+                  forkState={forkState}
                 >
                   <span>{!forkState && <RiShoppingBasketLine />}</span>
-                  <span>{forkState ? "Added" : "Add"}</span>
+                  {forkState ? (
+                    <a
+                      href={exporterInfo.forked_repository_url}
+                      target="_blank"
+                    >
+                      <ImLink className="link" />
+                      Link to forked Exporter
+                    </a>
+                  ) : (
+                    <span>Fork</span>
+                  )}
                 </Button>
               </div>
               <div>
@@ -228,19 +241,18 @@ const Name = styled.h4`
 `;
 
 const Button = styled.button`
-  width: 60px;
+  /* width: 60px; */
   height: 25px;
   display: flex;
   justify-content: center;
   align-items: center;
-  /* padding: 5px 10px; */
+  padding: 0 10px;
   background: #ffffff;
   box-shadow: 1px 1px 6px 1px rgba(0, 0, 0, 0.1);
   border-radius: 5px;
   font-size: 12px;
   font-weight: 600;
   color: ${(props) => (props.forkState ? "#8D8D8D" : "black")};
-  cursor: ${(props) => props.forkState && "default"};
 
   span {
     font-size: 12px;
@@ -250,6 +262,16 @@ const Button = styled.button`
       top: 1px;
       margin-right: 5px;
       font-size: 13px;
+    }
+  }
+
+  a {
+    color: inherit;
+
+    .link {
+      position: relative;
+      top: 1px;
+      margin-right: 5px;
     }
   }
 `;
