@@ -10,12 +10,8 @@ import { changeBucketPage } from "../../store/actions/exporterActions";
 import UnforkModal from "../Modal/UnforkModal";
 import { SERVER } from "../../config";
 
-const TABMENU = [
-  { id: 0, tabName: "Fork" },
-  { id: 1, tabName: "Set Admin" },
-];
-
 const MyBucket = () => {
+  const isAdmin = useSelector((store) => store.adminReducer);
   const changeBucket = useSelector((store) => store.headerReducer);
   const userType = useSelector((store) => store.userReducer);
   const dispatch = useDispatch();
@@ -24,9 +20,28 @@ const MyBucket = () => {
   const [userProfile, setUserProfile] = useState();
 
   const ACTIVECONTENT_OBJ = {
-    0: <Fork setIsForkModalActive={setIsForkModalActive} />,
+    0: (
+      <Fork
+        setIsForkModalActive={setIsForkModalActive}
+        isForkModalActive={isForkModalActive}
+      />
+    ),
     1: <Permission />,
   };
+
+  // const TABMENU = [
+  //   { id: 0, tabName: "Fork" },
+  //   { id: 1, tabName: "Set Admin" },
+  // ];
+
+  const TABMENU = isAdmin
+    ? [
+        { id: 0, tabName: "Fork" },
+        { id: 1, tabName: "Set Admin" },
+      ]
+    : [{ id: 0, tabName: "Fork" }];
+
+  console.log("admin", isAdmin);
 
   const cancleModal = () => {
     setIsForkModalActive(false);

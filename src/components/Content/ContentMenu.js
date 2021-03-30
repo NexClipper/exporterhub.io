@@ -8,8 +8,8 @@ import { CATEGORIES_API } from "../../config";
 import RegisterModal from "../Modal/RegisterModal";
 const ContentMenu = ({ totalCount }) => {
   const [isModalActive, setIsModalActive] = useState(false);
-  const userType = useSelector((store) => store.userReducer);
-  console.log("그래서 뭐야 너? >>", userType);
+  const isAdmin = useSelector((store) => store.adminReducer);
+
   const cancleModal = () => {
     setIsModalActive(false);
   };
@@ -50,7 +50,7 @@ const ContentMenu = ({ totalCount }) => {
           <option>Recent</option>
         </select>
       </SelectBox>
-      {userType === "admin" && (
+      {isAdmin && (
         <Button onClick={() => setIsModalActive(true)}>
           <span>RESISTER</span>
         </Button>

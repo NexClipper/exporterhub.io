@@ -11,7 +11,7 @@ import {
   loadData,
   loadCategoriesData,
   getTokenState,
-  filterByUser,
+  getAdminState,
 } from "./store/actions/exporterActions";
 import AdminPage from "./pages/AdminPage";
 import {
@@ -19,7 +19,7 @@ import {
   EXPORTERS_API,
   TOKEN_API,
   PUBLIC_SERVICE,
-  LOGIN_API,
+  SERVER,
 } from "./config";
 
 import Login from "./components/Login/Login";
@@ -64,8 +64,26 @@ function Routes() {
         .catch((err) => console.log("라우트통신실패", err));
     };
     fetchData();
-    userType();
+    userAdminState();
   }, []);
+
+  const userAdminState = () => {
+    if (sessionStorage.getItem("access_token")) {
+      axios({
+        method: "GET",
+        url: `${SERVER}/user/check`,
+        headers: {
+          Authorization: sessionStorage.getItem("access_token"),
+        },
+      })
+        .then((res) => {
+          dispatch(getAdminState(res.data.is_admin));
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
+  };
 
   return (
     <>

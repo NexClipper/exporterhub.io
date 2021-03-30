@@ -1,6 +1,7 @@
 import json
 import jwt
 import requests
+import re
 
 from django.views            import View
 from django.http             import JsonResponse
@@ -133,11 +134,11 @@ class ProfileView(View):
         try:
             user         = request.user
             data         = json.loads(request.body)
-            email        = data.get('email', user.email)
+            email        = data.get('email', user.email) 
             fullname     = data.get('name', user.fullname)
             organization = data.get('organization', user.organization)
             
-            if not self.validate_email(email=email):
+            if email and not self.validate_email(email=email):
                 return JsonResponse({"message": "EMAIL_VALIDATION_ERROR"}, status=400)
 
             user = User.objects.get(id=user.id)
@@ -328,9 +329,6 @@ class AdminView(View):
             headers  = {'Authorization' : 'token ' + user.github_token}
             result   = requests.delete(f'https://api.github.com/orgs/Exporterhubv3/members/{username}', headers=headers)
             
-            print(headers)
-            print(username)
-            print(result)
             if result.status_code != 204:
                 return JsonResponse({'message' : 'GITHUB_API_FAIL'}, status=400)
 
@@ -357,3 +355,12 @@ class UserListView(View):
         } for user in User.objects.filter(username__icontains=keyword)]
 
         return JsonResponse({'message' : 'SUCCESS', 'data':users}, status=200)
+
+
+class CheckAdminView(View):
+    @login_decorator
+    def get(self, request):
+        user     = request.user
+        is_admin = user.type.name == 'admin'
+
+        return JsonResponse({'is_admin': is_admin}, status=200)

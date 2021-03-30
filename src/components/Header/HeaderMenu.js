@@ -15,7 +15,7 @@ require("dotenv").config();
 
 const HeaderMenu = () => {
   const isLogin = useSelector((store) => store.loginReducer);
-  const userType = useSelector((store) => store.userReducer);
+  const isAdmin = useSelector((store) => store.adminReducer);
   const dispatch = useDispatch();
 
   const clientID = "e0766f48a0ed436d36d4";
@@ -34,7 +34,6 @@ const HeaderMenu = () => {
     dispatch(getLoginState(false));
     dispatch(filterByUser(""));
     sessionStorage.removeItem("access_token");
-    sessionStorage.removeItem("user_type");
     push("/");
   };
 
@@ -53,7 +52,7 @@ const HeaderMenu = () => {
     <Div>
       {isLogin ? (
         <>
-          {userType === "admin" && (
+          {isAdmin && (
             <Button onClick={(e) => handleBucketPage(e)}>ADMIN</Button>
           )}
           <Button onClick={(e) => handleBucketPage(e)}>MY BUCKET</Button>

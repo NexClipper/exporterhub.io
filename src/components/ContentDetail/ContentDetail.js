@@ -29,12 +29,15 @@ const ContentDetail = () => {
     2: <Alert />,
   };
 
-  console.log(exporterInfo);
+  useEffect(() => {
+    fetchData();
+  }, []);
 
   useEffect(() => {
-    // axios.get(`${EXPORTER_API}/${id}`).then((res) => {
-    //   setExporterInfo(res.data);
-    // });
+    fetchData();
+  }, [forkState]);
+
+  const fetchData = () => {
     if (sessionStorage.getItem("access_token")) {
       axios({
         method: "GET",
@@ -68,9 +71,7 @@ const ContentDetail = () => {
           console.log(err);
         });
     }
-  }, []);
-
-  console.log(forkState);
+  };
 
   const handleActiveTab = (id) => {
     setActiveTab(id);

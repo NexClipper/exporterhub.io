@@ -4,14 +4,16 @@ import styled from "styled-components";
 import axios from "axios";
 import { FiEdit } from "react-icons/fi";
 import { HiOutlineSave } from "react-icons/hi";
+import { useSelector } from "react-redux";
 
 const Dataviewer = ({ data, isEditMode, setIsEditMode, handleMode }) => {
-  const userType = useSelector((store) => store.userReducer);
+  const isAdmin = useSelector((store) => store.adminReducer);
+
   return (
     <>
       <Header>
         <ContentTitle>{data.name}</ContentTitle>
-        {userType === "admin" && (
+        {isAdmin && (
           <Button onClick={handleMode}>
             <span>{!isEditMode ? <FiEdit /> : <HiOutlineSave />}</span>
             <span>{!isEditMode ? "Edit" : "Save"}</span>
