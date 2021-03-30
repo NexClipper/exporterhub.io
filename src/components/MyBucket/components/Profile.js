@@ -1,16 +1,64 @@
-import React from "react";
+import React, { useState } from "react";
+import axios from "axios";
 import styled from "styled-components";
 import { RiUserSettingsLine } from "react-icons/ri";
-import { HiOutlineOfficeBuilding } from "react-icons/hi";
+import { HiOutlineOfficeBuilding, HiOutlineMail } from "react-icons/hi";
+import { AiOutlineUser } from "react-icons/ai";
+import { SERVER } from "../../../config";
 
 const Profile = ({ userProfile }) => {
+  const [isEditMode, setEditMode] = useState(false);
+  const [fullName, setFullName] = useState();
+  const [company, setCompany] = useState();
+  const [email, setEmail] = useState();
+
+  const handleProfileEdit = () => {
+    setEditMode(!isEditMode);
+    setFullName(userProfile.fullName);
+    setCompany(userProfile.organization);
+    setEmail(userProfile.email);
+  };
+
+  const handleInput = (e) => {
+    e.target.name === "fullname" && setFullName(e.target.value);
+    e.target.name === "company" && setCompany(e.target.value);
+    e.target.name === "email" && setEmail(e.target.value);
+  };
+
+  const handleSave = () => {
+    axios({
+      method: "PATCH",
+      url: `${SERVER}/user/profile`,
+      headers: {
+        Authorization: sessionStorage.getItem("access_token"),
+      },
+      data: {
+        email: email,
+        name: fullName,
+        organization: company,
+      },
+    })
+      .then((res) => {
+        window.location.reload();
+      })
+      .catch((err) => {
+        alert("Error");
+        handleProfileEdit();
+      });
+  };
+
   return (
     <UserInfo>
       <ProfileImage src={userProfile.profileImageUrl} />
       <div>
         <div>
-          <Name>{userProfile.username}</Name>
-          <Button>
+          <Name>
+            {userProfile.username}
+            {userProfile.fullName && (
+              <FullName>({userProfile.fullName})</FullName>
+            )}
+          </Name>
+          <Button onClick={handleProfileEdit}>
             <span>
               <RiUserSettingsLine />
             </span>
@@ -22,10 +70,56 @@ const Profile = ({ userProfile }) => {
           <Organization>
             <HiOutlineOfficeBuilding />
             <span>Company : </span>
-            {userProfile.organization}
+            <span>{userProfile.organization}</span>
+          </Organization>
+        )}
+        {userProfile.email && (
+          <Organization>
+            <HiOutlineMail />
+            <span>Email : </span>
+            <span>{userProfile.email}</span>
           </Organization>
         )}
       </div>
+      {isEditMode && (
+        <ProfileEditor>
+          <label>
+            <AiOutlineUser />
+            <input
+              name="fullname"
+              placeholder="Full name"
+              value={fullName}
+              onChange={(e) => handleInput(e)}
+            />
+          </label>
+          <label>
+            <HiOutlineOfficeBuilding />
+            <input
+              name="company"
+              placeholder="Company"
+              value={company}
+              onChange={(e) => handleInput(e)}
+            />
+          </label>
+          <label>
+            <HiOutlineMail />
+            <input
+              name="email"
+              placeholder="Email"
+              value={email}
+              onChange={(e) => handleInput(e)}
+            />
+          </label>
+          <EditorBtns>
+            <Button onClick={handleSave}>
+              <span>Save</span>
+            </Button>
+            <Button onClick={handleProfileEdit}>
+              <span>Cancel</span>
+            </Button>
+          </EditorBtns>
+        </ProfileEditor>
+      )}
     </UserInfo>
   );
 };
@@ -66,6 +160,12 @@ const Name = styled.h4`
   font-size: 17px;
 `;
 
+const FullName = styled.span`
+  display: inline-block;
+  margin-left: 10px;
+  font-size: 15px;
+`;
+
 const Button = styled.button`
   display: flex;
   align-items: center;
@@ -89,6 +189,7 @@ const Button = styled.button`
 `;
 
 const Introduce = styled.p`
+  margin-bottom: 15px;
   color: #999999;
   font-size: 17px;
   font-weight: 500;
@@ -97,10 +198,58 @@ const Introduce = styled.p`
 const Organization = styled.p`
   display: flex;
   align-items: center;
-  margin-top: 13px;
+  margin-bottom: 10px;
   color: #999999;
 
   span {
-    margin-left: 5px;
+    position: relative;
+    top: -2px;
+    margin: 0 0 0 5px;
   }
+`;
+
+const ProfileEditor = styled.div`
+  position: absolute;
+  left: 220px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 350px;
+  height: 200px;
+  background-color: white;
+
+  label {
+    display: flex;
+    align-items: center;
+    width: 280px;
+    margin-bottom: 15px;
+    color: #6c737c;
+
+    span {
+      position: relative;
+      top: -1px;
+      margin-left: 3px;
+    }
+
+    input {
+      width: 220px;
+      height: 25px;
+      margin-left: 10px;
+      padding: 0 5px;
+      border: 1px solid #e2e4e8;
+      color: #25292e;
+      font-weight: 500;
+      outline: none;
+
+      &::placeholder {
+        color: #6c737c;
+      }
+    }
+  }
+`;
+
+const EditorBtns = styled.div`
+  display: flex;
+  justify-content: space-between;
+  width: 130px;
 `;
