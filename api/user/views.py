@@ -329,9 +329,6 @@ class AdminView(View):
             headers  = {'Authorization' : 'token ' + user.github_token}
             result   = requests.delete(f'https://api.github.com/orgs/Exporterhubv3/members/{username}', headers=headers)
             
-            print(headers)
-            print(username)
-            print(result)
             if result.status_code != 204:
                 return JsonResponse({'message' : 'GITHUB_API_FAIL'}, status=400)
 
@@ -358,3 +355,12 @@ class UserListView(View):
         } for user in User.objects.filter(username__icontains=keyword)]
 
         return JsonResponse({'message' : 'SUCCESS', 'data':users}, status=200)
+
+
+class CheckAdminView(View):
+    @login_decorator
+    def get(self, request):
+        user     = request.user
+        is_admin = user.type.name == 'admin'
+
+        return JsonResponse({'is_admin': is_admin}, status=200)

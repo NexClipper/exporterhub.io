@@ -121,6 +121,7 @@ class ExporterView(View):
         except Exception as e:
             return JsonResponse({'message':f"{e}"}, status=400)
 
+    @admin_decorator
     def post(self, request):
         try:
             data      = json.loads(request.body)
@@ -188,6 +189,7 @@ class ExporterView(View):
         except Official.DoesNotExist:
             return JsonResponse({'message':'OFFICIAL_OBJECT_DOES_NOT_EXIST'}, status=410)
      
+    @admin_decorator
     def delete(self, request):
         try:
             exporter_id = request.GET['exporter_id']
@@ -207,6 +209,7 @@ class ExporterView(View):
         except KeyError:
             return JsonResponse({'message':'KEY_ERROR'}, status=400)
 
+    @admin_decorator
     def patch(self, request):
         try:
             exporter_id          = request.GET['exporter_id']

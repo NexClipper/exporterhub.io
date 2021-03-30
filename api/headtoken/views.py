@@ -1,23 +1,20 @@
 import json
-import requests
-import base64
-import re
-import csv
 
 from django.views    import View
 from django.http     import JsonResponse
 
 from .models         import Token
-from exporter.models import Exporter, Release, Category
 
 
 class TokenView(View):
     def get(self, request):
         token = Token.objects.filter()
+
         if not token.exists():
             return JsonResponse({'token_state':False,'token':''}, status=400)
 
         token_valid = token.last().is_valid if Token.objects.filter().exists() else False
+
         return JsonResponse({'TOKEN_VALID':token_valid, 'TOKEN':token.last().token}, status=200)
         
     def post(self, request):
