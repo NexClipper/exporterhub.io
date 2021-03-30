@@ -8,6 +8,8 @@ const Sider = () => {
   const categories = useSelector((store) => store.categoryReducer);
   const [categoryAct, setcategoryAct] = useState(0);
 
+  console.log(categories);
+
   const handleClickCategoryAct = (id) => {
     setcategoryAct(id);
   };

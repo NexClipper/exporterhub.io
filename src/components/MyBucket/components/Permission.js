@@ -89,7 +89,7 @@ const Permission = () => {
   return (
     <Container>
       <PermissionHeader>
-        <PermissionTitle>Permission</PermissionTitle>
+        <PermissionTitle>Set Admin</PermissionTitle>
         <Div>
           <SearchOutlined className="search_icon" />
           <UserSearch>
