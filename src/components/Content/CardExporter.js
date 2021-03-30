@@ -21,6 +21,7 @@ const CardExporter = ({
     logo_url,
     official,
     category,
+    is_new,
   } = exporter;
 
   const dispatch = useDispatch();
@@ -35,6 +36,7 @@ const CardExporter = ({
   return (
     <Div onClick={() => cardClick(exporter_id)} fork={fork} mybucket={mybucket}>
       <header>
+        {is_new && <New>NEW</New>}
         <span>
           <Icon>
             <AiFillStar />
@@ -67,34 +69,6 @@ const CardExporter = ({
     </Div>
   );
 };
-
-const Unfork = styled.div`
-  position: absolute;
-  bottom: 0;
-  background-color: #fafbfc;
-  color: #c6474e;
-  width: 100%;
-  border: 1px solid #d9dbdb;
-  text-align: center;
-  font-size: 15px;
-  height: 70px;
-  line-height: 70px;
-  display: none;
-  font-weight: 500;
-  border-radius: 0 0 5px 5px;
-
-  div {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: relative;
-    top: -2px;
-
-    span {
-      margin-left: 5px;
-    }
-  }
-`;
 
 const Div = styled.div`
   position: relative;
@@ -140,6 +114,14 @@ const Div = styled.div`
       padding: 15px 0;
     }
   }
+`;
+
+const New = styled.p`
+  float: left;
+  padding: 2px 5px;
+  background-color: #6ac4a5;
+  border-radius: 4px;
+  color: white;
 `;
 
 const Article = styled.article`
@@ -205,6 +187,34 @@ const Section = styled.section`
 
 const Icon = styled.span`
   vertical-align: middle;
+`;
+
+const Unfork = styled.div`
+  position: absolute;
+  bottom: 0;
+  background-color: #fafbfc;
+  color: #c6474e;
+  width: 100%;
+  border: 1px solid #d9dbdb;
+  text-align: center;
+  font-size: 15px;
+  height: 70px;
+  line-height: 70px;
+  display: none;
+  font-weight: 500;
+  border-radius: 0 0 5px 5px;
+
+  div {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    top: -2px;
+
+    span {
+      margin-left: 5px;
+    }
+  }
 `;
 
 export default withRouter(CardExporter);
