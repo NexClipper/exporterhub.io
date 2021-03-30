@@ -258,19 +258,24 @@ class AdminView(View):
         try:
             user      = request.user    
             data      = json.loads(request.body)
-            github_id = User.objects.get(username=data['username']).github_id
-
+            invitee   = User.objects.get(username=data['username'])
+            if invitee.type_id != USER_CODE:
+                return JsonResponse({'message':'UNPROCESSABLE_ENTITY'}, status=422)
+            
             data = {
-                'invitee_id': github_id,            
+                'invitee_id': invitee.github_id,            
                 'role'      : 'admin'
             }
 
             headers = {'Authorization' : 'token ' + user.github_token}
             result  = requests.post('https://api.github.com/orgs/Exporterhubv3/invitations', data=json.dumps(data), headers=headers)
 
-            if result.status_code != 201:
-                return JsonResponse({'message': 'GITHUB_API_FAIL'}, status=400)
+            
+            if result.status_code == 404:
+                return JsonResponse({'message': 'GITHUB_API_FAIL'}, status=404)
 
+            invitee.type_id = PENDING_ADMIN_CODE
+            invitee.save()
             return JsonResponse({'message' : 'CREATED'}, status=201)
         
         except KeyError:
@@ -285,18 +290,18 @@ class AdminView(View):
             user    = request.user   
             headers = {'Authorization' : 'token ' + user.github_token}
             result  = requests.get('https://api.github.com/orgs/Exporterhubv3/members', headers=headers)
-            
+          
             if result.status_code != 200:
                 return JsonResponse({'message' : 'GITHUB_API_FAIL'}, status=400)
             
             result_json = result.json()
             admin_list  = [admin_info['login'] for admin_info in result_json]
-    
+           
             for pending_admin in User.objects.filter(type_id=PENDING_ADMIN_CODE):
-                if pending_admin in admin_list:
-                    pending_admin.type.name='admin'
-                    pending_admins.save()
-
+                if pending_admin.username in admin_list:
+                    pending_admin.type_id = ADMIN_CODE
+                    pending_admin.save()
+               
             admin = [{
                 'username'        : admin.username,
                 'usertype'        : 'Admin',
