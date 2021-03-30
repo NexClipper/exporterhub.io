@@ -33,20 +33,22 @@ class GithubLoginView(View):
             intro             = user_data.get('bio')
             usertype_name     = "user" if User.objects.filter().exists() else "admin"
 
-            user, is_created = User.objects.update_or_create(
+            user, is_created = User.objects.get_or_create(
                 username  = username,
                 github_id = github_id,
-                defaults = {
+                defaults  = {
                     'email'            : email,
                     'organization'     : organization,
                     'profile_image_url': profile_image_url,
                     'intro'            : intro,
-                    'github_token'     : github_token
+                    'github_token'     : github_token,
+                    'type'             : UserType.objects.get(name=usertype_name),
                 }
             )
 
-            if is_created:
-                user.type = UserType.objects.get(name=usertype_name) 
+            if not is_created:
+                user.profile_image_url = profile_image_url
+                user.github_token      = github_token
                 user.save()
 
             token = jwt.encode({'user_id': user.id, 'usertype': user.type.name}, settings.SECRET_KEY, algorithm=settings.ALGORITHM)
