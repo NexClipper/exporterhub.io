@@ -6,6 +6,9 @@ import { EXPORTER_API } from "../../config";
 import { RiUserSettingsLine } from "react-icons/ri";
 import Fork from "./components/Fork";
 import Permission from "./components/Permission";
+import Resister from "./components/Resister";
+import { useDispatch, useSelector } from "react-redux";
+import { changeBucketPage } from "../../store/actions/exporterActions";
 import UnforkModal from "../Modal/UnforkModal";
 
 const TABMENU = [
@@ -16,6 +19,8 @@ const TABMENU = [
 const MyBucket = () => {
   const { id } = useParams();
   const [exporterInfo, setExporterInfo] = useState([]);
+  const changeBucket = useSelector((store) => store.headerReducer);
+  const dispatch = useDispatch();
   const [activeTab, setActiveTab] = useState(0);
   const [isForkModalActive, setIsForkModalActive] = useState(false);
 
@@ -33,10 +38,6 @@ const MyBucket = () => {
       setExporterInfo(res.data);
     });
   }, []);
-
-  const handleActiveTab = (id) => {
-    setActiveTab(id);
-  };
 
   return (
     <>
@@ -66,8 +67,8 @@ const MyBucket = () => {
               return (
                 <Tab
                   key={tab.id}
-                  active={activeTab === tab.id}
-                  onClick={() => handleActiveTab(tab.id)}
+                  active={changeBucket === tab.id}
+                  onClick={() => dispatch(changeBucketPage(tab.id))}
                 >
                   {tab.tabName}
                 </Tab>
@@ -76,7 +77,7 @@ const MyBucket = () => {
           </TabList>
         </Container>
       </Nav>
-      <Main>{ACTIVECONTENT_OBJ[activeTab]}</Main>
+      <Main>{ACTIVECONTENT_OBJ[changeBucket]}</Main>
       {isForkModalActive && <UnforkModal cancleModal={cancleModal} />}
     </>
   );
