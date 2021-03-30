@@ -14,6 +14,10 @@ from exporter.models         import Exporter
 from user.utils              import login_decorator, admin_decorator
 
 
+USER_CODE          = 1
+PENDING_ADMIN_CODE = 2
+ADMIN_CODE         = 3
+
 class GithubLoginView(View):
     def post(self, request):
         try:
@@ -51,6 +55,21 @@ class GithubLoginView(View):
                 user.profile_image_url = profile_image_url
                 user.github_token      = github_token
                 user.save()
+            
+            # check pending admins and update to admin
+            if user.type_id == PENDING_ADMIN_CODE:
+                headers = {'Authorization' : 'token ' + user.github_token} 
+                result  = requests.get('https://api.github.com/orgs/Exporterhubv3/members', headers=headers)
+              
+                if result.status_code != 200:
+                    return JsonResponse({'message' : 'GITHUB_API_FAIL'}, status=400)
+                
+                result_data = result.json()
+                admin_list  = [admin_info['login'] for admin_info in result_data]
+                
+                if user.username in admin_list:
+                    user.type_id = ADMIN_CODE
+                    user.save()
 
             token = jwt.encode({'user_id': user.id, 'usertype': user.type.name}, settings.SECRET_KEY, algorithm=settings.ALGORITHM)
             
@@ -255,10 +274,6 @@ class BucketView(View):
         return JsonResponse({'data': exporters}, status=200)
 
 
-USER_CODE          = 1
-PENDING_ADMIN_CODE = 2
-ADMIN_CODE         = 3
-
 class AdminView(View):
     @admin_decorator
     def post(self, request):
@@ -301,8 +316,8 @@ class AdminView(View):
             if result.status_code != 200:
                 return JsonResponse({'message' : 'GITHUB_API_FAIL'}, status=400)
             
-            result_json = result.json()
-            admin_list  = [admin_info['login'] for admin_info in result_json]
+            result_data = result.json()
+            admin_list  = [admin_info['login'] for admin_info in result_data]
            
             for pending_admin in User.objects.filter(type_id=PENDING_ADMIN_CODE):
                 if pending_admin.username in admin_list:
