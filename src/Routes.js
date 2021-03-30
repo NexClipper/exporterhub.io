@@ -42,27 +42,6 @@ function Routes() {
           dispatch(getTokenState(false));
         });
     };
-    const userType = () => {
-      axios({
-        method: "POST",
-        url: `${LOGIN_API}`,
-        data: {
-          token: token,
-        },
-      })
-        .then((res) => {
-          console.log("통신성공 가져온값은? >> ", res.data.type);
-          const userType = res.data.type;
-          if (userType === "admin") {
-            dispatch(filterByUser("admin"));
-          } else if (userType === "user") {
-            dispatch(filterByUser("user"));
-          } else {
-            return;
-          }
-        })
-        .catch((err) => console.log("라우트통신실패", err));
-    };
     fetchData();
     userAdminState();
   }, []);

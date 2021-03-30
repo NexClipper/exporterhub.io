@@ -13,7 +13,6 @@ import { SERVER } from "../../config";
 const MyBucket = () => {
   const isAdmin = useSelector((store) => store.adminReducer);
   const changeBucket = useSelector((store) => store.headerReducer);
-  const userType = useSelector((store) => store.userReducer);
   const dispatch = useDispatch();
 
   const [isForkModalActive, setIsForkModalActive] = useState(false);
@@ -29,17 +28,17 @@ const MyBucket = () => {
     1: <Permission />,
   };
 
-  // const TABMENU = [
-  //   { id: 0, tabName: "Fork" },
-  //   { id: 1, tabName: "Set Admin" },
-  // ];
+  const TABMENU = [
+    { id: 0, tabName: "Fork" },
+    { id: 1, tabName: "Set Admin" },
+  ];
 
-  const TABMENU = isAdmin
-    ? [
-        { id: 0, tabName: "Fork" },
-        { id: 1, tabName: "Set Admin" },
-      ]
-    : [{ id: 0, tabName: "Fork" }];
+  // const TABMENU = isAdmin
+  //   ? [
+  //       { id: 0, tabName: "Fork" },
+  //       { id: 1, tabName: "Set Admin" },
+  //     ]
+  //   : [{ id: 0, tabName: "Fork" }];
 
   console.log("admin", isAdmin);
 
@@ -75,31 +74,15 @@ const MyBucket = () => {
         <Container>
           <TabList>
             {TABMENU.map((tab) => {
-              if (userType === "admin") {
-                return (
-                  <Tab
-                    key={tab.id}
-                    active={changeBucket === tab.id}
-                    onClick={() => dispatch(changeBucketPage(tab.id))}
-                  >
-                    {tab.tabName}
-                  </Tab>
-                );
-              } else {
-                if (tab.tabName === "Fork") {
-                  return (
-                    <Tab
-                      key={tab.id}
-                      active={changeBucket === tab.id}
-                      onClick={() => dispatch(changeBucketPage(tab.id))}
-                    >
-                      {tab.tabName}
-                    </Tab>
-                  );
-                } else {
-                  return;
-                }
-              }
+              return (
+                <Tab
+                  key={tab.id}
+                  active={changeBucket === tab.id}
+                  onClick={() => dispatch(changeBucketPage(tab.id))}
+                >
+                  {tab.tabName}
+                </Tab>
+              );
             })}
           </TabList>
         </Container>
