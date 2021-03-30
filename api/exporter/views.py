@@ -129,6 +129,9 @@ class ExporterView(View):
             category  = data["category"]
             app_name  = data["title"]
 
+            if not(repo_url and category and app_name):
+                return JsonResponse({'message': 'FILL_THE_BLANK'}, status=400)
+
             if Exporter.objects.filter(repository_url=repo_url).exists():
                 return JsonResponse({'message':'EXISTING_REPOSITORY'}, status=400)
 

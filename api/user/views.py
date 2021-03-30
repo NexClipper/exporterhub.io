@@ -56,7 +56,7 @@ class GithubLoginView(View):
                 user.github_token      = github_token
                 user.save()
             
-            # check pending admins and update to admin
+            # check pending admin and update to admin
             if user.type_id == PENDING_ADMIN_CODE:
                 headers = {'Authorization' : 'token ' + user.github_token} 
                 result  = requests.get('https://api.github.com/orgs/Exporterhubv3/members', headers=headers)
