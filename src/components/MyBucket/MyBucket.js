@@ -23,7 +23,12 @@ const MyBucket = () => {
   const [userProfile, setUserProfile] = useState();
 
   const ACTIVECONTENT_OBJ = {
-    0: <Fork setIsForkModalActive={setIsForkModalActive} />,
+    0: (
+      <Fork
+        setIsForkModalActive={setIsForkModalActive}
+        isForkModalActive={isForkModalActive}
+      />
+    ),
     1: <Permission />,
   };
 

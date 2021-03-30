@@ -27,8 +27,8 @@ const UnforkModal = ({ cancleModal }) => {
       },
     })
       .then((res) => {
-        console.log(res);
-        window.location.reload();
+        cancleModal();
+        window.scrollTo(0, 0);
       })
       .catch((err) => {
         console.log(err);

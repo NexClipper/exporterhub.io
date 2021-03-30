@@ -4,12 +4,17 @@ import styled from "styled-components";
 import ContentExporters from "../../Content/ContentExporters";
 import { BUCKET_API } from "../../../config";
 
-const Fork = ({ setIsForkModalActive }) => {
+const Fork = ({ setIsForkModalActive, isForkModalActive }) => {
   const [forkedExporters, setForkedExporters] = useState([]);
+  const change = isForkModalActive;
 
   useEffect(() => {
     getForkedExporter();
   }, []);
+
+  useEffect(() => {
+    getForkedExporter();
+  }, [change]);
 
   const getForkedExporter = () => {
     axios({
