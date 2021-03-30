@@ -1,7 +1,10 @@
 import React from "react";
 import { useDispatch } from "react-redux";
 import axios from "axios";
-import { getLoginState } from "../../store/actions/exporterActions";
+import {
+  getAdminState,
+  getLoginState,
+} from "../../store/actions/exporterActions";
 import { LOGIN_API } from "../../config";
 
 const Login = ({ history }) => {
@@ -41,6 +44,7 @@ const Login = ({ history }) => {
       .then((res) => {
         sessionStorage.setItem("access_token", res.data.access_token);
         dispatch(getLoginState(true));
+        dispatch(getAdminState(res.data.type === "admin"));
         history.push("/");
       })
       .catch((err) => console.log(err));
