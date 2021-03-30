@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import styled from "styled-components";
 import { sortByPopularity } from "../../store/actions/exporterActions";
@@ -8,6 +8,7 @@ import { CATEGORIES_API } from "../../config";
 import RegisterModal from "../Modal/RegisterModal";
 const ContentMenu = ({ totalCount }) => {
   const [isModalActive, setIsModalActive] = useState(false);
+  const isAdmin = useSelector((store) => store.adminReducer);
 
   const cancleModal = () => {
     setIsModalActive(false);
@@ -49,9 +50,12 @@ const ContentMenu = ({ totalCount }) => {
           <option>Recent</option>
         </select>
       </SelectBox>
-      <Button onClick={() => setIsModalActive(true)}>
-        <span>RESISTER</span>
-      </Button>
+      {isAdmin && (
+        <Button onClick={() => setIsModalActive(true)}>
+          <span>RESISTER</span>
+        </Button>
+      )}
+
       {isModalActive && <RegisterModal cancleModal={cancleModal} />}
     </Div>
   );
