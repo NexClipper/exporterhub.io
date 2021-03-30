@@ -1,6 +1,7 @@
 import json
 import jwt
 import requests
+import re
 
 from django.views            import View
 from django.http             import JsonResponse
@@ -133,11 +134,11 @@ class ProfileView(View):
         try:
             user         = request.user
             data         = json.loads(request.body)
-            email        = data.get('email', user.email)
+            email        = data.get('email', user.email) 
             fullname     = data.get('name', user.fullname)
             organization = data.get('organization', user.organization)
             
-            if not self.validate_email(email=email):
+            if email and not self.validate_email(email=email):
                 return JsonResponse({"message": "EMAIL_VALIDATION_ERROR"}, status=400)
 
             user = User.objects.get(id=user.id)
