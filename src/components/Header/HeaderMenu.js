@@ -8,16 +8,20 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   getLoginState,
   changeBucketPage,
+  filterByUser,
 } from "../../store/actions/exporterActions";
 
 require("dotenv").config();
 
 const HeaderMenu = () => {
   const isLogin = useSelector((store) => store.loginReducer);
+  const userType = useSelector((store) => store.userReducer);
   const dispatch = useDispatch();
 
   const clientID = "e0766f48a0ed436d36d4";
   const url = `https://github.com/login/oauth/authorize?client_id=${clientID}&redirect_uri=http://localhost:3000/callback&scope=user,repo,delete_repo,admin:org`;
+
+  // console.log('어드민이니? >>', )
 
   // console.log(API_SURVER);
   const {
@@ -28,7 +32,10 @@ const HeaderMenu = () => {
 
   const handleSignOut = () => {
     dispatch(getLoginState(false));
+    dispatch(filterByUser(""));
     sessionStorage.removeItem("access_token");
+    sessionStorage.removeItem("user_type");
+    push("/");
   };
 
   const handleBucketPage = (e) => {
@@ -46,7 +53,9 @@ const HeaderMenu = () => {
     <Div>
       {isLogin ? (
         <>
-          <Button onClick={(e) => handleBucketPage(e)}>ADMIN</Button>
+          {userType === "admin" && (
+            <Button onClick={(e) => handleBucketPage(e)}>ADMIN</Button>
+          )}
           <Button onClick={(e) => handleBucketPage(e)}>MY BUCKET</Button>
           <Button onClick={() => handleSignOut()}>SIGN OUT</Button>
         </>

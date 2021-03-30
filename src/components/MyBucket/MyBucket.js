@@ -17,6 +17,7 @@ const TABMENU = [
 
 const MyBucket = () => {
   const changeBucket = useSelector((store) => store.headerReducer);
+  const userType = useSelector((store) => store.userReducer);
   const dispatch = useDispatch();
 
   const [isForkModalActive, setIsForkModalActive] = useState(false);
@@ -59,15 +60,31 @@ const MyBucket = () => {
         <Container>
           <TabList>
             {TABMENU.map((tab) => {
-              return (
-                <Tab
-                  key={tab.id}
-                  active={changeBucket === tab.id}
-                  onClick={() => dispatch(changeBucketPage(tab.id))}
-                >
-                  {tab.tabName}
-                </Tab>
-              );
+              if (userType === "admin") {
+                return (
+                  <Tab
+                    key={tab.id}
+                    active={changeBucket === tab.id}
+                    onClick={() => dispatch(changeBucketPage(tab.id))}
+                  >
+                    {tab.tabName}
+                  </Tab>
+                );
+              } else {
+                if (tab.tabName === "Fork") {
+                  return (
+                    <Tab
+                      key={tab.id}
+                      active={changeBucket === tab.id}
+                      onClick={() => dispatch(changeBucketPage(tab.id))}
+                    >
+                      {tab.tabName}
+                    </Tab>
+                  );
+                } else {
+                  return;
+                }
+              }
             })}
           </TabList>
         </Container>

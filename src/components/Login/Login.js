@@ -1,7 +1,10 @@
 import React from "react";
 import { useDispatch } from "react-redux";
 import axios from "axios";
-import { getLoginState } from "../../store/actions/exporterActions";
+import {
+  getLoginState,
+  filterByUser,
+} from "../../store/actions/exporterActions";
 import { LOGIN_API } from "../../config";
 
 const Login = ({ history }) => {
@@ -40,7 +43,15 @@ const Login = ({ history }) => {
     })
       .then((res) => {
         sessionStorage.setItem("access_token", res.data.access_token);
+        sessionStorage.setItem("user_type", res.data.type);
         dispatch(getLoginState(true));
+        if (res.data.type === "admin") {
+          dispatch(filterByUser("admin"));
+        } else if (res.data.type === "user") {
+          dispatch(filterByUser("user"));
+        } else {
+          return;
+        }
         history.push("/");
       })
       .catch((err) => console.log(err));
