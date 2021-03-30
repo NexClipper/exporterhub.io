@@ -269,7 +269,7 @@ class AdminView(View):
         try:
             user      = request.user    
             data      = json.loads(request.body)
-            github_id = User.objects.get(username=data['name']).github_id
+            github_id = User.objects.get(username=data['username']).github_id
 
             data = {
                 'invitee_id': github_id,            
