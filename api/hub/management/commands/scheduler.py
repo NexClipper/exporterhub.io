@@ -28,13 +28,14 @@ logger.addHandler(stream_handler)
 api_url = 'https://api.github.com/repos/'
 PATTERN = r"!\[(\w*|\s|\w+( \w+)*)\]\(([^,:!]*|\/[^,:!]*\.\w+|\w*.\w*)\)"
 TOKEN = Token.objects.filter().last()
-
-def create_or_updatd_exporters():
+print(TOKEN)
+def create_or_update_exporters():
     if TOKEN.is_valid:
         logger.info('CHECK_EXPORTERS_START')
         headers       = {'Authorization' : 'token ' + TOKEN.token}
         exporters     = Exporter.objects.select_related('category', 'official').prefetch_related('release_set').order_by('id')
-        exporter_list = 'https://raw.githubusercontent.com/NexClipper/exporterhub.io/main/api/exporter_list.csv'
+        exporter_list = 'https://raw.githubusercontent.com/NexClipper/exporterhub.io/feature/dev/api/exporter_list.csv'       
+        # exporter_list = 'https://raw.githubusercontent.com/NexClipper/exporterhub.io/main/api/exporter_list.csv'
         repo_get      = requests.get(exporter_list)
 
         if repo_get.status_code != 200:
@@ -44,10 +45,11 @@ def create_or_updatd_exporters():
         next(repo_infos, None)
 
         for info in repo_infos:
-            repo_name     = info[0]
-            repo_url      = info[1]
-            repo_official = 'Official' if info[2] == '1' else 'Unofficial'
-            repo_category = info[3]
+            app_name      = info[0]
+            repo_name     = info[1]
+            repo_url      = info[2]
+            repo_official = 'Official' if info[3] == '1' else 'Unofficial'
+            repo_category = info[4]
 
             if 'https://github.com/' not in repo_url:
                 logger.error(f"NOT_GITHUB_REPOSITORY ({repo_url})")
@@ -58,7 +60,7 @@ def create_or_updatd_exporters():
             repository      = requests.get(repo_api_url, headers=headers)
 
             if repository.status_code == 401:
-                Token.objects.filter(token=token).update(is_valid=False)
+                Token.objects.filter(token=TOKEN.token).update(is_valid=False)
                 logger.error("INVALID_TOKEN")
 
             elif repository.status_code == 200:
@@ -91,6 +93,7 @@ def create_or_updatd_exporters():
                         description    = repo_data["description"],
                         readme_url     = repo_url + "/blob/master/README.md",
                         readme         = new_readme.encode('utf-8'),
+                        app_name       = app_name.replace(' ','-')
                     )
 
                     releases = sorted(release_data, key=lambda x: x["created_at"])
@@ -113,6 +116,7 @@ def create_or_updatd_exporters():
                         exporter.stars       = repo_data["stargazers_count"]
                         exporter.description = repo_data["description"]
                         exporter.readme      = new_readme.encode('utf-8')
+                        exporter.app_name    = app_name.replace(' ','-')
                         exporter.save()
                         logger.info(f'id: {exporter.id} name: {exporter.name} | SUCCESSFULLY_UPDATED_REPOSITORY_INFO | {datetime.datetime.now()}')
                 
@@ -153,14 +157,14 @@ class Command(BaseCommand):
         scheduler.add_jobstore(DjangoJobStore(),'default')
 
         scheduler.add_job(
-            create_or_updatd_exporters,
+            create_or_update_exporters,
             trigger=CronTrigger(hour='*/4'),
-            id='create_or_updatd_exporters',
+            id='create_or_update_exporters',
             max_instances=1,
             replace_existing=True,
             next_run_time=datetime.datetime.now(),
         )
-        logger.info("Added job 'create_or_updatd_exporters'.")
+        logger.info("Added job 'create_or_update_exporters'.")
 
         scheduler.add_job(
             delete_old_job_executions,
