@@ -123,7 +123,7 @@ If you have Specific exporter to contribute to [ExporterHub.io](https://exporter
 feel free to [send issues](https://github.com/NexClipper/exporterhub.io/issues) or [pull requests](https://github.com/NexClipper/exporterhub.io/pulls).  
 
 ## Service Map
-![servicemap](https://raw.githubusercontent.com/NexClipper/exporterhub.io/master/assets/exporterhub_v2.png)
+![servicemap](https://raw.githubusercontent.com/NexClipper/exporterhub.io/master/assets/exporterhub_v3.png)
 
 
 
