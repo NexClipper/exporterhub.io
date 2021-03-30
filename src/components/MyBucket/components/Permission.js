@@ -211,6 +211,7 @@ const UserContainer = styled.div`
 
 const AdminContainer = styled.div`
   ${({ theme }) => theme.container}
-  height: 400px;
+  height: fit-content;
+  max-height: 400px;
   overflow-y: auto;
 `;
