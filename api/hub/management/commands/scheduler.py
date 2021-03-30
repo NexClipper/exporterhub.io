@@ -34,7 +34,8 @@ def create_or_update_exporters():
         logger.info('CHECK_EXPORTERS_START')
         headers       = {'Authorization' : 'token ' + TOKEN.token}
         exporters     = Exporter.objects.select_related('category', 'official').prefetch_related('release_set').order_by('id')
-        exporter_list = 'https://raw.githubusercontent.com/NexClipper/exporterhub.io/main/api/exporter_list.csv'
+        exporter_list = 'https://raw.githubusercontent.com/NexClipper/exporterhub.io/feature/BE_csv/api/exporter_list.csv'       
+        # exporter_list = 'https://raw.githubusercontent.com/NexClipper/exporterhub.io/main/api/exporter_list.csv'
         repo_get      = requests.get(exporter_list)
 
         if repo_get.status_code != 200:
@@ -59,7 +60,7 @@ def create_or_update_exporters():
             repository      = requests.get(repo_api_url, headers=headers)
 
             if repository.status_code == 401:
-                Token.objects.filter(token=TOKEN).update(is_valid=False)
+                Token.objects.filter(token=TOKEN.token).update(is_valid=False)
                 logger.error("INVALID_TOKEN")
 
             elif repository.status_code == 200:
