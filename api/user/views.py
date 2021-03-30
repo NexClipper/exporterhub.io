@@ -8,7 +8,7 @@ from django.db.models        import Q
 from django.conf             import settings
 from django.core.exceptions  import ObjectDoesNotExist
 
-from .models                 import User, UserType, Bucket, Star
+from .models                 import User, UserType, Bucket 
 from exporter.models         import Exporter
 from user.utils              import login_decorator, admin_decorator
 
@@ -30,24 +30,25 @@ class GithubLoginView(View):
             email             = user_data.get('email')
             organization      = user_data.get('company')
             profile_image_url = user_data.get('avatar_url')
+            intro             = user_data.get('bio')
             usertype_name     = "user" if User.objects.filter().exists() else "admin"
 
-            user = User.objects.get_or_create(
-                username = username,
+            user = User.objects.update_or_create(
+                username  = username,
+                github_id = github_id,
                 defaults = {
                     'email'            : email,
                     'organization'     : organization,
                     'profile_image_url': profile_image_url,
+                    'intro'            : intro,
                     'type'             : UserType.objects.get(name=usertype_name),
-                    'github_token'     : github_token,
-                    'github_id'        : github_id
+                    'github_token'     : github_token
                 }
             )[0]
-            user.github_token = github_token
-            user.save()
-            token = jwt.encode({'user_id':user.id, 'usertype':user.type.name}, settings.SECRET_KEY, algorithm=settings.ALGORITHM)
             
-            return JsonResponse({'message' : 'SUCCESS', 'access_token':token, 'type': user.type.name}, status = 200)
+            token = jwt.encode({'user_id': user.id, 'usertype': user.type.name}, settings.SECRET_KEY, algorithm=settings.ALGORITHM)
+            
+            return JsonResponse({'message' : 'SUCCESS', 'access_token': token, 'type': user.type.name}, status = 200)
         
         except KeyError:
             return JsonResponse({'message': 'KEY_ERROR'}, status=400)
@@ -112,11 +113,13 @@ class ProfileView(View):
     def get(self, request):
         user = request.user
         data = {
-            'username'    : user.username,
-            'email'       : user.email,
-            'fullName'    : user.fullname,
-            'organization': user.organization,
-            'type'        : user.type.name
+            'username'        : user.username,
+            'email'           : user.email,
+            'fullName'        : user.fullname,
+            'organization'    : user.organization,
+            'profileImageUrl' : user.profile_image_url,
+            'intro'           : user.intro,
+            'type'            : user.type.name
         }
         return JsonResponse({'message': 'SUCCESS', 'data': data}, status=200)
 
@@ -243,20 +246,6 @@ class BucketView(View):
                 } for forked_exporter in forked_exporters]
         
         return JsonResponse({'data': exporters}, status=200)
-
-
-class TestView(View):
-    def get(self, request):
-        data = {
-            'client_id'    : 'ee39a6aa02038e0866cf',
-            'client_secret': 'f4ae0fd4d2d17eb2c799b0c73a1cadbcd9057f84',
-            'code' : '3ec7134d2385da68a09c'
-        }
-        headers = {'accept': 'application/json'}
-        token   = requests.post('https://github.com/login/oauth/access_token',data=data, headers=headers)
-        token   = token.json()
-
-        return JsonResponse({'message' : 'SUCCESS', 'token':token}, status = 200)
 
 
 USER_CODE          = 1
