@@ -21,7 +21,7 @@ PATTERN = r"!\[(\w*|\s|\w+( \w+)*)\]\(([^,:!]*|\/[^,:!]*\.\w+|\w*.\w*)\)"
 
 class CategoryView(View):
     def get(self, request):
-        categories = Category.objects.all()
+        categories = Category.objects.all().order_by('name')
         data = {
             "categories": [{   
                 "category_id"  : category.id,

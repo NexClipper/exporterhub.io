@@ -33,7 +33,7 @@ class GithubLoginView(View):
             intro             = user_data.get('bio')
             usertype_name     = "user" if User.objects.filter().exists() else "admin"
 
-            user = User.objects.update_or_create(
+            user, is_created = User.objects.update_or_create(
                 username  = username,
                 github_id = github_id,
                 defaults = {
@@ -41,11 +41,14 @@ class GithubLoginView(View):
                     'organization'     : organization,
                     'profile_image_url': profile_image_url,
                     'intro'            : intro,
-                    'type'             : UserType.objects.get(name=usertype_name),
                     'github_token'     : github_token
                 }
-            )[0]
-            
+            )
+
+            if is_created:
+                user.type = UserType.objects.get(name=usertype_name) 
+                user.save()
+
             token = jwt.encode({'user_id': user.id, 'usertype': user.type.name}, settings.SECRET_KEY, algorithm=settings.ALGORITHM)
             
             return JsonResponse({'message' : 'SUCCESS', 'access_token': token, 'type': user.type.name}, status = 200)
@@ -260,6 +263,7 @@ class AdminView(View):
             user      = request.user    
             data      = json.loads(request.body)
             invitee   = User.objects.get(username=data['username'])
+
             if invitee.type_id != USER_CODE:
                 return JsonResponse({'message':'UNPROCESSABLE_ENTITY'}, status=422)
             
