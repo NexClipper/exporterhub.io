@@ -233,16 +233,17 @@ class BucketView(View):
 
         exporters = [
                 {
-                    "exporter_id"    : forked_exporter.id,
-                    "name"           : forked_exporter.name,
-                    "logo_url"       : forked_exporter.logo_url,
-                    "category"       : forked_exporter.category.name,
-                    "official"       : forked_exporter.official.name,
-                    "stars"          : forked_exporter.stars,
-                    "is_star"        : user.starred_exporters.filter(id=forked_exporter.id).exists(),
-                    "repository_url" : forked_exporter.repository_url,
-                    "description"    : forked_exporter.description,
-                    "recent_release" : forked_exporter.release_set.order_by('date').last().date if forked_exporter.release_set.filter().exists() else '1970-01-01',
+                    "exporter_id"           : forked_exporter.id,
+                    "name"                  : forked_exporter.name,
+                    "logo_url"              : forked_exporter.logo_url,
+                    "category"              : forked_exporter.category.name,
+                    "official"              : forked_exporter.official.name,
+                    "stars"                 : forked_exporter.stars,
+                    "is_star"               : user.starred_exporters.filter(id=forked_exporter.id).exists(),
+                    "repository_url"        : forked_exporter.repository_url,
+                    "forked_repository_url" : Bucket.objects.get(user_id=user.id, exporter_id=forked_exporter.id).forked_repository_url,
+                    "description"           : forked_exporter.description,
+                    "recent_release"        : forked_exporter.release_set.order_by('date').last().date if forked_exporter.release_set.filter().exists() else '1970-01-01',
                 } for forked_exporter in forked_exporters]
         
         return JsonResponse({'data': exporters}, status=200)
@@ -270,7 +271,6 @@ class AdminView(View):
             headers = {'Authorization' : 'token ' + user.github_token}
             result  = requests.post('https://api.github.com/orgs/Exporterhubv3/invitations', data=json.dumps(data), headers=headers)
 
-            
             if result.status_code == 404:
                 return JsonResponse({'message': 'GITHUB_API_FAIL'}, status=404)
 
@@ -334,7 +334,6 @@ class AdminView(View):
 
         except KeyError:
             return JsonResponse({'message' : 'KEY_ERROR'}, status=400)
-
 
 
 class UserListView(View):
