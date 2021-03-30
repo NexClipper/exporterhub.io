@@ -27,6 +27,8 @@ const Fork = ({ setIsForkModalActive }) => {
       });
   };
 
+  console.log(forkedExporters);
+
   return (
     <Container>
       <ContentExporters
