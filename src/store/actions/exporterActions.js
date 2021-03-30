@@ -10,6 +10,7 @@ const LOAD_CATEGORIES = "LOAD_CATEGORIES";
 const GET_TOKEN_STATE = "GET_TOKEN_STATE";
 const GET_LOGIN_STATE = "GET_LOGIN_STATE";
 const TARGET_UNFORK_REPO = "TARGET_UNFORK_REPO";
+const GET_ADMIN_STATE = "GET_ADMIN_STATE";
 
 export const changeBucketPage = (payload) => ({
   type: CHANGE_BUCKET_PAGE,
@@ -68,5 +69,10 @@ export const getLoginState = (payload) => ({
 
 export const targetUnforkRepo = (payload) => ({
   type: TARGET_UNFORK_REPO,
+  payload,
+});
+
+export const getAdminState = (payload) => ({
+  type: GET_ADMIN_STATE,
   payload,
 });
