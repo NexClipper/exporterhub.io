@@ -3,8 +3,16 @@ import { withRouter } from "react-router-dom";
 import styled from "styled-components";
 import { AiFillStar } from "react-icons/ai";
 import { RiDeleteBinLine } from "react-icons/ri";
+import { useDispatch } from "react-redux";
+import { targetUnforkRepo } from "../../store/actions/exporterActions";
 
-const CardExporter = ({ exporter, cardClick, fork, mybucket }) => {
+const CardExporter = ({
+  exporter,
+  cardClick,
+  fork,
+  mybucket,
+  setIsForkModalActive,
+}) => {
   const {
     exporter_id,
     name,
@@ -15,8 +23,13 @@ const CardExporter = ({ exporter, cardClick, fork, mybucket }) => {
     category,
   } = exporter;
 
-  const unforkRepo = () => {
-    console.log("unforkRepo");
+  const dispatch = useDispatch();
+
+  const unforkRepo = (e, id) => {
+    e.stopPropagation();
+    setIsForkModalActive(true);
+    console.log("unforkRepo", id);
+    dispatch(targetUnforkRepo(id));
   };
 
   return (
@@ -44,7 +57,7 @@ const CardExporter = ({ exporter, cardClick, fork, mybucket }) => {
         </Section>
       </Article>
       {fork && (
-        <Unfork onClick={unforkRepo} className="unfork">
+        <Unfork onClick={(e) => unforkRepo(e, exporter_id)} className="unfork">
           <div>
             <RiDeleteBinLine />
             <span>Unfork this project repo</span>
@@ -74,6 +87,8 @@ const Unfork = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
+    position: relative;
+    top: -2px;
 
     span {
       margin-left: 5px;
