@@ -11,6 +11,7 @@ from django.db.models       import Q, Max
 from django.utils           import timezone
 
 from .models                import Category, Exporter, Release, Official
+from user.models            import Bucket
 from headtoken.models       import Token
 from user.utils             import login_check, admin_decorator
 
@@ -229,22 +230,28 @@ class ExporterDetailView(View):
             exporter = Exporter.objects.get(id=exporter_id)
             exporter.view_count += 1
             exporter.save()
+ 
+            if user and user.added_exporters.filter(id=exporter.id).exists():
+                forked_repository_url = Bucket.objects.get(user_id=user.id, exporter_id=exporter.id).forked_repository_url
+            else:
+                forked_repository_url = None
 
             data = {
-                    'exporter_id'    : exporter.id,
-                    'name'           : exporter.name,
-                    'logo_url'       : exporter.logo_url,
-                    'category'       : exporter.category.name,
-                    'official'       : exporter.official.name,
-                    'stars'          : exporter.stars,
-                    "is_star"        : user.starred_exporters.filter(id=exporter.id).exists() if user else False,
-                    "is_bucket"      : user.added_exporters.filter(id=exporter.id).exists() if user else False,
-                    "is_new"         : (timezone.now() - exporter.created_at).days <= 7,
-                    'repository_url' : exporter.repository_url,
-                    'description'    : exporter.description,
-                    'readme'         : exporter.readme.decode('utf-8'),
-                    'recent_release' : exporter.release_set.order_by('date').last().date if exporter.release_set.filter().exists() else '1970-01-01',
-                    'release'        : [{
+                    'exporter_id'           : exporter.id,
+                    'name'                  : exporter.name,
+                    'logo_url'              : exporter.logo_url,
+                    'category'              : exporter.category.name,
+                    'official'              : exporter.official.name,
+                    'stars'                 : exporter.stars,
+                    "is_star"               : user.starred_exporters.filter(id=exporter.id).exists() if user else False,
+                    "is_bucket"             : user.added_exporters.filter(id=exporter.id).exists() if user else False,
+                    "is_new"                : (timezone.now() - exporter.created_at).days <= 7,
+                    'repository_url'        : exporter.repository_url,
+                    'forked_repository_url' : forked_repository_url,
+                    'description'           : exporter.description,
+                    'readme'                : exporter.readme.decode('utf-8'),
+                    'recent_release'        : exporter.release_set.order_by('date').last().date if exporter.release_set.filter().exists() else '1970-01-01',
+                    'release'               : [{
                         'release_version': release.version,
                         'release_date'   : release.date,
                         'release_url'    : release.release_url

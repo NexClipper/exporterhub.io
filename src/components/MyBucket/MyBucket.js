@@ -4,6 +4,9 @@ import styled from "styled-components";
 import Profile from "./components/Profile";
 import Fork from "./components/Fork";
 import Permission from "./components/Permission";
+
+import { useDispatch, useSelector } from "react-redux";
+import { changeBucketPage } from "../../store/actions/exporterActions";
 import UnforkModal from "../Modal/UnforkModal";
 import { SERVER } from "../../config";
 
@@ -13,17 +16,15 @@ const TABMENU = [
 ];
 
 const MyBucket = () => {
-  const [activeTab, setActiveTab] = useState(0);
+  const changeBucket = useSelector((store) => store.headerReducer);
+  const dispatch = useDispatch();
+
   const [isForkModalActive, setIsForkModalActive] = useState(false);
   const [userProfile, setUserProfile] = useState();
 
   const ACTIVECONTENT_OBJ = {
     0: <Fork setIsForkModalActive={setIsForkModalActive} />,
     1: <Permission />,
-  };
-
-  const handleActiveTab = (id) => {
-    setActiveTab(id);
   };
 
   const cancleModal = () => {
@@ -61,8 +62,8 @@ const MyBucket = () => {
               return (
                 <Tab
                   key={tab.id}
-                  active={activeTab === tab.id}
-                  onClick={() => handleActiveTab(tab.id)}
+                  active={changeBucket === tab.id}
+                  onClick={() => dispatch(changeBucketPage(tab.id))}
                 >
                   {tab.tabName}
                 </Tab>
@@ -71,7 +72,7 @@ const MyBucket = () => {
           </TabList>
         </Container>
       </Nav>
-      <Main>{ACTIVECONTENT_OBJ[activeTab]}</Main>
+      <Main>{ACTIVECONTENT_OBJ[changeBucket]}</Main>
       {isForkModalActive && <UnforkModal cancleModal={cancleModal} />}
     </>
   );

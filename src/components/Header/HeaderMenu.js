@@ -5,14 +5,16 @@ import { PUBLIC_SERVICE, API_SURVER } from "../../config";
 import { GithubOutlined } from "@ant-design/icons";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
-import { getLoginState } from "../../store/actions/exporterActions";
+import {
+  getLoginState,
+  changeBucketPage,
+} from "../../store/actions/exporterActions";
 
 require("dotenv").config();
 
 const HeaderMenu = () => {
   const isLogin = useSelector((store) => store.loginReducer);
   const dispatch = useDispatch();
-  // console.log(isLogin);
 
   const clientID = "e0766f48a0ed436d36d4";
   const url = `https://github.com/login/oauth/authorize?client_id=${clientID}&redirect_uri=http://localhost:3000/callback&scope=user,repo,delete_repo,admin:org`;
@@ -29,12 +31,23 @@ const HeaderMenu = () => {
     sessionStorage.removeItem("access_token");
   };
 
+  const handleBucketPage = (e) => {
+    const page = e.target.innerHTML;
+    if (page === "ADMIN") {
+      dispatch(changeBucketPage(1));
+      push("/mybucket");
+    } else if (page === "MY BUCKET") {
+      dispatch(changeBucketPage(0));
+      push("/mybucket");
+    }
+  };
+
   return (
     <Div>
       {isLogin ? (
         <>
-          <Button>ADMIN</Button>
-          <Button onClick={() => push("/mybucket")}>MY BUCKET</Button>
+          <Button onClick={(e) => handleBucketPage(e)}>ADMIN</Button>
+          <Button onClick={(e) => handleBucketPage(e)}>MY BUCKET</Button>
           <Button onClick={() => handleSignOut()}>SIGN OUT</Button>
         </>
       ) : (

@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 
-const AdminContent = ({ admin }) => {
+const AdminContent = ({ admin, deleteAdmin }) => {
   return (
     <AdminCard>
       <AdminInfo>
@@ -11,7 +11,9 @@ const AdminContent = ({ admin }) => {
           <span>{admin.usertype}</span>
         </Info>
       </AdminInfo>
-      <AdminResign>Resign</AdminResign>
+      <AdminResign onClick={() => deleteAdmin(admin.username)}>
+        Resign
+      </AdminResign>
     </AdminCard>
   );
 };

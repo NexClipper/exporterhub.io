@@ -9,6 +9,7 @@ export const EXPORTER_ADMIN_API = `${API_SURVER}:8000/exporter`;
 // export const TOKEN_API = `${API_SURVER}:8000/token`;
 
 export const SERVER = "http://10.153.1.58:8000";
+// export const SERVER = "http://10.153.1.74:8000";
 export const EXPORTERS_API = `${SERVER}/exporter`;
 export const EXPORTER_API = `${SERVER}/exporter`;
 export const CATEGORIES_API = `${SERVER}/exporter/categories`;
