@@ -60,7 +60,7 @@ const CardExporter = ({
         <Unfork onClick={(e) => unforkRepo(e, exporter_id)} className="unfork">
           <div>
             <RiDeleteBinLine />
-            <span>Unfork this project repo</span>
+            <span>Unfork this exporter</span>
           </div>
         </Unfork>
       )}

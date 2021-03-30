@@ -1,62 +1,57 @@
-import { useState, useEffect } from "react";
-import { useParams } from "react-router";
+import { useEffect, useState } from "react";
 import axios from "axios";
 import styled from "styled-components";
-import { EXPORTER_API } from "../../config";
-import { RiUserSettingsLine } from "react-icons/ri";
+import Profile from "./components/Profile";
 import Fork from "./components/Fork";
 import Permission from "./components/Permission";
 import UnforkModal from "../Modal/UnforkModal";
+import { SERVER } from "../../config";
 
 const TABMENU = [
   { id: 0, tabName: "Fork" },
-  { id: 1, tabName: "Permission" },
+  { id: 1, tabName: "Set Admin" },
 ];
 
 const MyBucket = () => {
-  const { id } = useParams();
-  const [exporterInfo, setExporterInfo] = useState([]);
   const [activeTab, setActiveTab] = useState(0);
   const [isForkModalActive, setIsForkModalActive] = useState(false);
-
-  const cancleModal = () => {
-    setIsForkModalActive(false);
-  };
+  const [userProfile, setUserProfile] = useState();
 
   const ACTIVECONTENT_OBJ = {
     0: <Fork setIsForkModalActive={setIsForkModalActive} />,
     1: <Permission />,
   };
 
-  useEffect(() => {
-    axios.get(`${EXPORTER_API}/${id}`).then((res) => {
-      setExporterInfo(res.data);
-    });
-  }, []);
-
   const handleActiveTab = (id) => {
     setActiveTab(id);
   };
+
+  const cancleModal = () => {
+    setIsForkModalActive(false);
+  };
+
+  useEffect(() => {
+    axios({
+      method: "GET",
+      url: `${SERVER}/user/profile`,
+      headers: {
+        Authorization: sessionStorage.getItem("access_token"),
+      },
+    })
+      .then((res) => {
+        console.log(res.data.data);
+        setUserProfile(res.data.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
 
   return (
     <>
       <Header>
         <Container>
-          <UserInfo>
-            <ProfileImage src="https://avatars.githubusercontent.com/u/75073867?v=4" />
-            <div>
-              <div>
-                <Name>saemsolyoo</Name>
-                <Button>
-                  <span>
-                    <RiUserSettingsLine />
-                  </span>
-                  <span>Edit Profile</span>
-                </Button>
-              </div>
-              <Introduce>beautiful world</Introduce>
-            </div>
-          </UserInfo>
+          {userProfile && <Profile userProfile={userProfile} />}
         </Container>
       </Header>
       <Nav>
@@ -86,87 +81,6 @@ const Header = styled.header`
   padding: 80px 0;
 `;
 
-const UserInfo = styled.div`
-  display: flex;
-  align-items: center;
-
-  div {
-    div {
-      display: flex;
-      align-items: center;
-
-      &:first-child {
-        margin-bottom: 20px;
-      }
-    }
-  }
-`;
-
-const ProfileImage = styled.img`
-  width: 150px;
-  height: 150px;
-  margin-right: 70px;
-  border-radius: 50%;
-
-  /* @media ${({ theme }) => theme.media.mobile} {
-    width: 150px;
-    height: 150px;
-  } */
-`;
-
-const Name = styled.h4`
-  margin-right: 30px;
-  color: #000000;
-  font-size: 17px;
-`;
-
-const Button = styled.button`
-  display: flex;
-  align-items: center;
-  padding: 5px 10px;
-  background: #ffffff;
-  box-shadow: 1px 1px 6px 1px rgba(0, 0, 0, 0.1);
-  border-radius: 5px;
-  font-size: 12px;
-  font-weight: 600;
-
-  span {
-    font-size: 12px;
-
-    &:first-child {
-      position: relative;
-      top: 1px;
-      margin-right: 5px;
-      font-size: 13px;
-    }
-  }
-`;
-
-const Introduce = styled.p`
-  color: #999999;
-  font-size: 17px;
-  font-weight: 500;
-`;
-
-const Category = styled.p`
-  margin-right: 15px;
-  padding: 5px 20px 8px 20px;
-  font-size: 17px;
-  font-weight: 400;
-  border-radius: 5px;
-  background-color: #f1f4f8;
-`;
-
-const StarIcon = styled.span`
-  font-size: 18px;
-  font-weight: 500;
-  color: #ffd200;
-
-  svg {
-    vertical-align: middle;
-  }
-`;
-
 const Nav = styled.nav`
   width: 100%;
   border-bottom: 1px solid #eaecef;
@@ -190,8 +104,9 @@ const Tab = styled.li`
 `;
 
 const Main = styled.main`
+  min-height: calc(100vh - 568px);
+  max-height: fit-content;
   padding: 90px 0 50px;
-  border-radius: 50px 0 0 0;
   background: #f7f9fc;
 
   @media ${({ theme }) => theme.media.mobile} {
