@@ -320,6 +320,9 @@ class AdminView(View):
             headers  = {'Authorization' : 'token ' + user.github_token}
             result   = requests.delete(f'https://api.github.com/orgs/Exporterhubv3/members/{username}', headers=headers)
             
+            print(headers)
+            print(username)
+            print(result)
             if result.status_code != 204:
                 return JsonResponse({'message' : 'GITHUB_API_FAIL'}, status=400)
 
