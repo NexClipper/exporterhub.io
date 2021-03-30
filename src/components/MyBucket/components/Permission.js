@@ -2,13 +2,10 @@ import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { useDispatch } from "react-redux";
 import AdminContent from "../../Content/AdminContent";
-
-//필터변경
 import { SearchOutlined } from "@ant-design/icons";
 import axios from "axios";
 import { changeBucketPage } from "../../../store/actions/exporterActions";
 import { ADMIN_API, SERVER } from "../../../config";
-// import userTable from "./userTable.json";
 import UsersContent from "../../Content/UsersContent";
 
 const Permission = () => {
@@ -26,25 +23,12 @@ const Permission = () => {
       headers: {
         Authorization: token,
       },
-      // method: "GET",
-      // url: "/data/userTable.json",
     }).then((res) => {
-      console.log("czcz >>> ", res.data.data);
+      console.log("setUserArr >> ", res.data.data);
       setUserArr(res.data.data);
-      // =======
-      // const users = res.data;
-      // console.log("users는 >> ", users);
-      // const filterUserData = users.filter((user) => {
-      //   return user.name.includes(searchUser);
-      // });
-      // setUserArr(filterUserData);
-      // console.log("필터링 됬음 >> ", filterUserData);
-      // console.log("필터 된것은 >> ", filterUserData);
-      // setUserArr(res.data);
-      // console.log(res.data);
     });
   };
-  console.log(searchUser);
+  console.log("typing >> ", searchUser);
 
   useEffect(() => {
     axios({
@@ -60,36 +44,27 @@ const Permission = () => {
       .catch((err) => console.log(err));
   }, []);
 
-  const addAdmin = (user) => {
-    console.log("뭐눌렀니? >>>", user);
-    console.log(typeof user);
-    setSearchUser("");
-    axios({
-      method: "POST",
-      url: `${ADMIN_API}`,
-      data: {
-        username: user,
-      },
-      headers: {
-        Authorization: token,
-      },
-    })
-      .then((res) => {
-        console.log("ㅎㅎ >>>", res);
+  const addAdmin = (user, type) => {
+    if (type === "admin" || type === "admin pending") {
+      return;
+    } else {
+      console.log("username >>>", user);
+      setSearchUser("");
+      axios({
+        method: "POST",
+        url: `${ADMIN_API}`,
+        data: {
+          username: user,
+        },
+        headers: {
+          Authorization: token,
+        },
       })
-      .catch((err) => console.log(err));
-    // axios({
-    //   method: "POST",
-    //   url: "",
-    //   data: {},
-    //   headers: {
-    //     Authorization: token,
-    //   },
-    // })
-    //   .then((res) => {
-    //     console.log("성공했니? >>", res);
-    //   })
-    //   .catch((err) => console.log(err));
+        .then((res) => {
+          console.log("addAdmin success!! >>>", res);
+        })
+        .catch((err) => console.log(err));
+    }
   };
 
   const deleteAdmin = (name) => {

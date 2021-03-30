@@ -26,9 +26,7 @@ const Login = ({ history }) => {
       },
     })
       .then((res) => {
-        console.log("before setToken >>>", res.data["access_token"]);
         setAccessToken(res.data["access_token"]);
-        console.log("after setToken ^^");
       })
       .catch((err) => console.log(err));
   };

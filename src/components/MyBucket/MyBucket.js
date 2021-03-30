@@ -33,8 +33,6 @@ const MyBucket = () => {
     1: <Permission />,
   };
 
-  console.log("우악 >>>", changeBucket);
-
   useEffect(() => {
     axios.get(`${EXPORTER_API}/${id}`).then((res) => {
       setExporterInfo(res.data);
