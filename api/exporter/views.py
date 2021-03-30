@@ -2,13 +2,17 @@ import json
 import requests
 import base64
 import re
+import csv
 
 from django.views           import View
 from django.http            import JsonResponse
 from django.core.exceptions import ObjectDoesNotExist
+from django.db.models       import Q, Max
+from django.utils           import timezone
 
-from .models                import Category, Exporter, Release
+from .models                import Category, Exporter, Release, Official
 from headtoken.models       import Token
+from user.utils             import login_check, admin_decorator
 
 api_url = 'https://api.github.com/repos/'
 PATTERN = r"!\[(\w*|\s|\w+( \w+)*)\]\(([^,:!]*|\/[^,:!]*\.\w+|\w*.\w*)\)"
@@ -67,9 +71,32 @@ class ExporterView(View):
 
                 return 'INVALID_TOKEN'
 
+    @login_check
     def get(self, request):
         try:
-            exporters = Exporter.objects.select_related('category', 'official').prefetch_related('release_set').order_by('id')
+            user          = request.user
+            category      = request.GET.get('category')
+            official_type = request.GET.get('type')
+            sort          = request.GET.get('sort', 'popular')
+            sort_dict     = {
+                'popular' : '-stars', 
+                'recent'  : 'date', 
+                'trending': '-view_count'
+            }
+            
+            q = Q()
+            if category:
+                q.add(Q(category__name__icontains=category), Q.AND)
+
+            if official_type:
+                q.add(Q(official__name__istartswith=official_type), Q.AND)
+
+            if sort == 'recent':    
+                exporters = Exporter.objects.select_related('category', 'official').prefetch_related('release_set')\
+                            .filter(q).annotate(recent=Max('release__date')).order_by('-recent')
+            else:
+                exporters = Exporter.objects.select_related('category', 'official').filter(q).order_by(sort_dict[sort])
+
             data = {
                 "exporters": [{
                     "exporter_id"    : exporter.id,
@@ -78,17 +105,17 @@ class ExporterView(View):
                     "category"       : exporter.category.name,
                     "official"       : exporter.official.name,
                     "stars"          : exporter.stars,
+                    "is_star"        : user.starred_exporters.filter(id=exporter.id).exists() if user else False,
+                    "is_bucket"      : user.added_exporters.filter(id=exporter.id).exists() if user else False,
+                    "is_new"         : (timezone.now() - exporter.created_at).days <= 7,
                     "repository_url" : exporter.repository_url,
-                    "description"    : exporter.description,
-                    "recent_release" : exporter.release_set.order_by('date').last().date if exporter.release_set.filter().exists() else '1970-01-01',
-                    "release"        : [{
-                        "release_version": release.version,
-                        "release_date"   : release.date,
-                        "release_url"    : release.release_url
-                    } for release in exporter.release_set.all()],
+                    "description"    : exporter.description,   
                 }for exporter in exporters]
             }
             return JsonResponse(data, status=200)
+
+        except KeyError:
+            return JsonResponse({'message': 'KEY_ERROR'}, status=400)
 
         except Exception as e:
             return JsonResponse({'message':f"{e}"}, status=400)
@@ -102,10 +129,7 @@ class ExporterView(View):
             if Exporter.objects.filter(repository_url=repo_url).exists():
                 return JsonResponse({'message':'EXISTING_REPOSITORY'}, status=400)
 
-            OFFICIAL_ID      = 1
-            NON_OFFICIAL_ID  = 2
-
-            official = OFFICIAL_ID if "prometheus/" in repo_url else NON_OFFICIAL_ID
+            official = Official.objects.get(name='Official') if "prometheus/" in repo_url else Official.objects.get(name='Unofficial')
 
             repo_info = self.get_repo(repo_url)
 
@@ -124,7 +148,7 @@ class ExporterView(View):
 
                 exporter = Exporter.objects.create(
                     category       = Category.objects.get(name=category),
-                    official_id    = official,
+                    official       = official,
                     name           = repo_info["name"],
                     logo_url       = repo_info["logo_url"],
                     stars          = repo_info["stars"],
@@ -142,6 +166,12 @@ class ExporterView(View):
                         version     = info["release_version"],
                         date        = info["release_date"]
                     ).save()
+
+                file   = open("exporter_list.csv", 'a', newline='')
+                writer = csv.writer(file)
+                writer.writerow([repo_info["name"], repo_url, 1 if "prometheus/" in repo_url else 0, category])
+                file.close()
+
                 return JsonResponse({'message':'SUCCESS'}, status=201)
             
             return JsonResponse({'message':'WRONG_REPOSITORY'}, status=400)
@@ -151,6 +181,9 @@ class ExporterView(View):
         
         except Category.DoesNotExist:
             return JsonResponse({'message':'NO_CATEGORY'}, status=400)
+
+        except Official.DoesNotExist:
+            return JsonResponse({'message':'OFFICIAL_OBJECT_DOES_NOT_EXIST'}, status=410)
      
     def delete(self, request):
         try:
@@ -189,16 +222,24 @@ class ExporterView(View):
 
 
 class ExporterDetailView(View):
+    @login_check
     def get(self, request, exporter_id):
         try:
-            exporter=Exporter.objects.get(id=exporter_id)
-            data={
+            user     = request.user
+            exporter = Exporter.objects.get(id=exporter_id)
+            exporter.view_count += 1
+            exporter.save()
+
+            data = {
                     'exporter_id'    : exporter.id,
                     'name'           : exporter.name,
                     'logo_url'       : exporter.logo_url,
                     'category'       : exporter.category.name,
                     'official'       : exporter.official.name,
                     'stars'          : exporter.stars,
+                    "is_star"        : user.starred_exporters.filter(id=exporter.id).exists() if user else False,
+                    "is_bucket"      : user.added_exporters.filter(id=exporter.id).exists() if user else False,
+                    "is_new"         : (timezone.now() - exporter.created_at).days <= 7,
                     'repository_url' : exporter.repository_url,
                     'description'    : exporter.description,
                     'readme'         : exporter.readme.decode('utf-8'),

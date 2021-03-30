@@ -5,7 +5,14 @@ import styled from "styled-components";
 import { sortByPopularity } from "../../store/actions/exporterActions";
 import { filterByValue } from "../../store/actions/exporterActions";
 import { CATEGORIES_API } from "../../config";
+import RegisterModal from "../Modal/RegisterModal";
 const ContentMenu = ({ totalCount }) => {
+  const [isModalActive, setIsModalActive] = useState(false);
+
+  const cancleModal = () => {
+    setIsModalActive(false);
+  };
+
   // console.log(CATEGORIES_API);
   const [categories, setCategories] = useState([]);
   const dispatch = useDispatch();
@@ -25,7 +32,7 @@ const ContentMenu = ({ totalCount }) => {
   }, []);
   return (
     <Div>
-      <span>{totalCount} items</span>
+      {/* <span>{totalCount} items</span> */}
       <SelectBox>
         <Select onChange={callDispatch}>
           <option>All</option>
@@ -42,6 +49,10 @@ const ContentMenu = ({ totalCount }) => {
           <option>Recent</option>
         </select>
       </SelectBox>
+      <Button onClick={() => setIsModalActive(true)}>
+        <span>RESISTER</span>
+      </Button>
+      {isModalActive && <RegisterModal cancleModal={cancleModal} />}
     </Div>
   );
 };
@@ -78,4 +89,16 @@ const Select = styled.select`
     font-size: 13px;
   }
 `;
+
+const Button = styled.button`
+  display: flex;
+  align-items: center;
+  padding: 7px 10px;
+  background: #ffffff;
+  box-shadow: 1px 1px 6px 1px rgba(0, 0, 0, 0.1);
+  border-radius: 5px;
+  font-size: 12px;
+  font-weight: 600;
+`;
+
 export default ContentMenu;

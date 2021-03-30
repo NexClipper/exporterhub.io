@@ -5,6 +5,7 @@ import tokenReducer from "./tokenReducer";
 import loginReducer from "./loginReducer";
 // import userReducer from "./userReducer";
 import headerReducer from "./headerReducer";
+import unforkReducer from "./unforkReducer";
 
 export default combineReducers({
   exporterReducer,
@@ -13,4 +14,5 @@ export default combineReducers({
   loginReducer,
   // userReducer,
   headerReducer,
+  unforkReducer,
 });

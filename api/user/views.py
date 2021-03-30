@@ -10,7 +10,7 @@ from django.core.exceptions  import ObjectDoesNotExist
 
 from .models                 import User, UserType, Bucket, Star
 from exporter.models         import Exporter
-from user.utils              import login_decorator, login_check, admin_decorator
+from user.utils              import login_decorator, admin_decorator
 
 
 class GithubLoginView(View):
@@ -43,6 +43,8 @@ class GithubLoginView(View):
                     'github_id'        : github_id
                 }
             )[0]
+            user.github_token = github_token
+            user.save()
             token = jwt.encode({'user_id':user.id, 'usertype':user.type.name}, settings.SECRET_KEY, algorithm=settings.ALGORITHM)
             
             return JsonResponse({'message' : 'SUCCESS', 'access_token':token, 'type': user.type.name}, status = 200)
@@ -74,6 +76,9 @@ class StarView(View):
                     return JsonResponse({'message': 'GITHUB_API_FAIL'}, status=400)
 
                 user.starred_exporters.remove(exporter)
+                exporter.stars -= 1
+                exporter.save()
+
                 return JsonResponse({'message': 'SUCCESS', 'isStar': False}, status=200)
             
             # star
@@ -83,6 +88,9 @@ class StarView(View):
                 return JsonResponse({'message': 'GITHUB_API_FAIL'}, status=400)
 
             user.starred_exporters.add(exporter)
+            exporter.stars += 1
+            exporter.save()
+
             return JsonResponse({'message': 'SUCCESS', 'isStar': True}, status=200)
 
         except KeyError:
@@ -159,7 +167,6 @@ class BucketView(View):
                 result = requests.post(f'https://api.github.com/repos/{repo_info}/forks', headers=headers)
 
                 if result.status_code != 202:
-                    print("error")
                     return JsonResponse({'message': 'GITHUB_API_FAIL'}, status=400)
 
                 Bucket.objects.create(
@@ -184,8 +191,8 @@ class BucketView(View):
             user    = request.user
             headers = {'Authorization' : 'token ' + user.github_token}
 
-            exporter_id      = request.GET['exporter_id']
-            is_delete_all    = request.GET.get('is_delete_all')
+            exporter_id      = request.GET['exporter-id']
+            is_delete_all    = request.GET.get('deleteall')
             exporter         = Exporter.objects.get(id=exporter_id)
             forked_exporter  = Bucket.objects.get(exporter=exporter, user=user)
             forked_repo_info = forked_exporter.forked_repository_url.replace('https://github.com/', '')
@@ -248,8 +255,9 @@ class TestView(View):
         headers = {'accept': 'application/json'}
         token   = requests.post('https://github.com/login/oauth/access_token',data=data, headers=headers)
         token   = token.json()
-        print(token)
+
         return JsonResponse({'message' : 'SUCCESS', 'token':token}, status = 200)
+
 
 USER_CODE          = 1
 PENDING_ADMIN_CODE = 2
@@ -261,7 +269,7 @@ class AdminView(View):
         try:
             user      = request.user    
             data      = json.loads(request.body)
-            github_id = User.objects.get(username=data['name']).github_id
+            github_id = User.objects.get(username=data['username']).github_id
 
             data = {
                 'invitee_id': github_id,            
@@ -320,6 +328,9 @@ class AdminView(View):
             headers  = {'Authorization' : 'token ' + user.github_token}
             result   = requests.delete(f'https://api.github.com/orgs/Exporterhubv3/members/{username}', headers=headers)
             
+            print(headers)
+            print(username)
+            print(result)
             if result.status_code != 204:
                 return JsonResponse({'message' : 'GITHUB_API_FAIL'}, status=400)
 

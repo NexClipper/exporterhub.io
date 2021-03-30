@@ -6,7 +6,7 @@ import { BUCKET_API } from "../../../config";
 import { loadMoreData } from "../../../store/actions/exporterActions";
 import ContentExporters from "../../Content/ContentExporters";
 
-const Fork = () => {
+const Fork = ({ setIsForkModalActive }) => {
   const [forkedExporters, setForkedExporters] = useState([]);
 
   const { filteredExporters, exposedExporters, totalCount } = useSelector(
@@ -59,6 +59,7 @@ const Fork = () => {
         exporters={forkedExporters}
         fork={true}
         mybucket={true}
+        setIsForkModalActive={setIsForkModalActive}
       />
     </Container>
   );

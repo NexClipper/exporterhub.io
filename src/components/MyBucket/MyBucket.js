@@ -2,21 +2,18 @@ import { useState, useEffect } from "react";
 import { useParams } from "react-router";
 import axios from "axios";
 import styled from "styled-components";
-
 import { EXPORTER_API } from "../../config";
-
 import { RiUserSettingsLine } from "react-icons/ri";
-
 import Fork from "./components/Fork";
 import Permission from "./components/Permission";
 import Resister from "./components/Resister";
 import { useDispatch, useSelector } from "react-redux";
 import { changeBucketPage } from "../../store/actions/exporterActions";
+import UnforkModal from "../Modal/UnforkModal";
 
 const TABMENU = [
   { id: 0, tabName: "Fork" },
   { id: 1, tabName: "Permission" },
-  { id: 2, tabName: "Resister" },
 ];
 
 const MyBucket = () => {
@@ -24,10 +21,16 @@ const MyBucket = () => {
   const [exporterInfo, setExporterInfo] = useState([]);
   const changeBucket = useSelector((store) => store.headerReducer);
   const dispatch = useDispatch();
+  const [activeTab, setActiveTab] = useState(0);
+  const [isForkModalActive, setIsForkModalActive] = useState(false);
+
+  const cancleModal = () => {
+    setIsForkModalActive(false);
+  };
+
   const ACTIVECONTENT_OBJ = {
-    0: <Fork />,
+    0: <Fork setIsForkModalActive={setIsForkModalActive} />,
     1: <Permission />,
-    2: <Resister />,
   };
 
   console.log("우악 >>>", changeBucket);
@@ -77,6 +80,7 @@ const MyBucket = () => {
         </Container>
       </Nav>
       <Main>{ACTIVECONTENT_OBJ[changeBucket]}</Main>
+      {isForkModalActive && <UnforkModal cancleModal={cancleModal} />}
     </>
   );
 };
