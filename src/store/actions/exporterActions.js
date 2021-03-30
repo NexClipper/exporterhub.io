@@ -1,3 +1,4 @@
+const CHANGE_BUCKET_PAGE = "CHANGE_BUCKET_PAGE";
 const SORT_BY_POPULARITY = "SORT_BY_POPULARITY";
 const SORT_BY_CURRENT = "SORT_BY_CURRENT";
 const FILTER_BY_VALUE = "FILTER_BY_VALUE";
@@ -8,6 +9,11 @@ const LOAD_MORE_DATA = "LOAD_MORE_DATA";
 const LOAD_CATEGORIES = "LOAD_CATEGORIES";
 const GET_TOKEN_STATE = "GET_TOKEN_STATE";
 const GET_LOGIN_STATE = "GET_LOGIN_STATE";
+
+export const changeBucketPage = (payload) => ({
+  type: CHANGE_BUCKET_PAGE,
+  payload,
+});
 
 export const filterByValue = (payload) => ({
   type: FILTER_BY_VALUE,

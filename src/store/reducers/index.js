@@ -4,6 +4,7 @@ import categoryReducer from "./categoryReducer";
 import tokenReducer from "./tokenReducer";
 import loginReducer from "./loginReducer";
 // import userReducer from "./userReducer";
+import headerReducer from "./headerReducer";
 
 export default combineReducers({
   exporterReducer,
@@ -11,4 +12,5 @@ export default combineReducers({
   tokenReducer,
   loginReducer,
   // userReducer,
+  headerReducer,
 });
