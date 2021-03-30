@@ -126,6 +126,7 @@ class ExporterView(View):
             data      = json.loads(request.body)
             repo_url  = data["repo_url"]
             category  = data["category"]
+            app_name  = data["title"]
 
             if Exporter.objects.filter(repository_url=repo_url).exists():
                 return JsonResponse({'message':'EXISTING_REPOSITORY'}, status=400)
@@ -157,6 +158,7 @@ class ExporterView(View):
                     description    = repo_info["description"],
                     readme_url     = repo_info["readme_url"],
                     readme         = readme.encode('utf-8'),
+                    app_name       = app_name
                 )
                 release = sorted(repo_info["release"], key=lambda x: x["release_date"])
 
@@ -170,7 +172,7 @@ class ExporterView(View):
 
                 file   = open("exporter_list.csv", 'a', newline='')
                 writer = csv.writer(file)
-                writer.writerow([repo_info["name"], repo_url, 1 if "prometheus/" in repo_url else 0, category])
+                writer.writerow([app_name, repo_info["name"], repo_url, 1 if "prometheus/" in repo_url else 0, category])
                 file.close()
 
                 return JsonResponse({'message':'SUCCESS'}, status=201)
@@ -242,6 +244,7 @@ class ExporterDetailView(View):
                     'logo_url'              : exporter.logo_url,
                     'category'              : exporter.category.name,
                     'official'              : exporter.official.name,
+                    'title'                 : exporter.app_name,
                     'stars'                 : exporter.stars,
                     "is_star"               : user.starred_exporters.filter(id=exporter.id).exists() if user else False,
                     "is_bucket"             : user.added_exporters.filter(id=exporter.id).exists() if user else False,
