@@ -34,7 +34,7 @@ def create_or_update_exporters():
         logger.info('CHECK_EXPORTERS_START')
         headers       = {'Authorization' : 'token ' + TOKEN.token}
         exporters     = Exporter.objects.select_related('category', 'official').prefetch_related('release_set').order_by('id')
-        exporter_list = 'https://raw.githubusercontent.com/NexClipper/exporterhub.io/feature/dev/api/exporter_list.csv'       
+        exporter_list = 'https://raw.githubusercontent.com/NexClipper/exporterhub.io/dev/api/exporter_list.csv'       
         # exporter_list = 'https://raw.githubusercontent.com/NexClipper/exporterhub.io/main/api/exporter_list.csv'
         repo_get      = requests.get(exporter_list)
 

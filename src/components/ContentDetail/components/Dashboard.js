@@ -4,8 +4,8 @@ import axios from "axios";
 
 import Dataviewer from "./Dataviewer";
 
-const Dashboard = () => {
-  const [data, setData] = useState();
+const Dashboard = ({ title }) => {
+  const [content, setContent] = useState();
   const [isEditMode, setIsEditMode] = useState(false);
 
   const handleMode = () => {
@@ -17,27 +17,27 @@ const Dashboard = () => {
   }, []);
 
   const getData = () => {
-    const url =
-      "https://api.github.com/repos/yoosaemsol/github-test/contents/test.json";
+    const url = `https://api.github.com/repos/Exporterhubv3/editor_test/contents/${title}/${title}.json`;
+    // const url = `https://api.github.com/repos/NexClipper/exporterhub.io/contents/package.json`;
     axios
       .get(url)
       .then((res) => {
-        setData(res.data);
+        setContent(atob(res.data.content));
       })
       .catch((error) => {
-        alert("fail");
+        setContent("Null");
       });
   };
   return (
     <Container>
-      {data && (
-        <Dataviewer
-          data={data}
-          isEditMode={isEditMode}
-          setIsEditMode={setIsEditMode}
-          handleMode={handleMode}
-        />
-      )}
+      <Dataviewer
+        content={content}
+        isEditMode={isEditMode}
+        setIsEditMode={setIsEditMode}
+        handleMode={handleMode}
+        title={title}
+        type=".json"
+      />
     </Container>
   );
 };

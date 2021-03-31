@@ -25,7 +25,7 @@ const ContentDetail = () => {
   const [starNumber, setStarNumber] = useState();
   const ACTIVECONTENT_OBJ = {
     0: <Exporter readmeContent={exporterInfo.readme} />,
-    1: <Dashboard />,
+    1: <Dashboard title={exporterInfo.title} />,
     2: <Alert />,
   };
 
@@ -38,6 +38,8 @@ const ContentDetail = () => {
   useEffect(() => {
     fetchData();
   }, [forkState]);
+
+  console.log(">>>??????", exporterInfo);
 
   const fetchData = () => {
     if (sessionStorage.getItem("access_token")) {

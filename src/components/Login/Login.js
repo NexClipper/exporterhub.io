@@ -43,6 +43,7 @@ const Login = ({ history }) => {
     })
       .then((res) => {
         sessionStorage.setItem("access_token", res.data.access_token);
+        sessionStorage.setItem("user_type", res.data.type);
         dispatch(getLoginState(true));
         dispatch(getAdminState(res.data.type === "admin"));
         history.push("/");
