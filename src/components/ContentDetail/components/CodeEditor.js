@@ -31,7 +31,8 @@ const CodeEditor = ({
     setEdittingData(value);
     setPreview(value);
 
-    setDecode(btoa(value));
+    // setDecode(btoa(value));
+    setDecode(btoa(unescape(encodeURIComponent(value))));
   };
 
   const handleReadOnly = () => {
@@ -39,8 +40,8 @@ const CodeEditor = ({
   };
 
   const handlefetchGithub = () => {
-    const encode = btoa(edittingData);
-
+    // const encode = btoa(edittingData);
+    const encode = btoa(unescape(encodeURIComponent(edittingData)));
     const url = `https://api.github.com/repos/Exporterhubv3/editor_test/contents/${title}/${title}${type}`;
     axios
       .put(

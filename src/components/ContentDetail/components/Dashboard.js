@@ -27,7 +27,7 @@ const Dashboard = ({ title, githubToken }) => {
     axios
       .get(url)
       .then((res) => {
-        setGithubContent(atob(res.data.content));
+        setGithubContent(decodeURIComponent(escape(atob(res.data.content))));
         setSha(res.data.sha);
         console.log("github에서 코드 가져왔어!");
       })
