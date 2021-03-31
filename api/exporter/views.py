@@ -10,9 +10,8 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.db.models       import Q, Max
 from django.utils           import timezone
 
-from .models                import Category, Exporter, Release, Official
-from user.models            import Bucket
-from headtoken.models       import Token
+from .models                import Category, Exporter, Release, Official 
+from user.models            import Bucket, Star
 from user.utils             import login_check, admin_decorator
 
 api_url = 'https://api.github.com/repos/'
@@ -32,10 +31,8 @@ class CategoryView(View):
 
 
 class ExporterView(View):
-    def get_repo(self, repo_url):
-        valid_token = Token.objects.filter(is_valid=True)
-        TOKEN       = valid_token.last().token
-        headers     = {'Authorization' : 'token ' + TOKEN} 
+    def get_repo(self, github_token, repo_url):
+        headers     = {'Authorization' : 'token ' + github_token} 
 
         if 'https://github.com/' in repo_url:
             repo_api_url     = api_url + repo_url.replace('https://github.com/','')
@@ -66,10 +63,6 @@ class ExporterView(View):
                 return data
 
             elif repo.status_code == 401:
-                token          = Token.objects.filter().last()
-                token.is_valid = False
-                token.save()
-
                 return 'INVALID_TOKEN'
 
     @login_check
@@ -124,10 +117,11 @@ class ExporterView(View):
     @admin_decorator
     def post(self, request):
         try:
-            data      = json.loads(request.body)
-            repo_url  = data["repo_url"]
-            category  = data["category"]
-            app_name  = data["title"]
+            user     = request.user
+            data     = json.loads(request.body)
+            repo_url = data["repo_url"]
+            category = data["category"]
+            app_name = data["title"]
 
             if not(repo_url and category and app_name):
                 return JsonResponse({'message': 'FILL_THE_BLANK'}, status=400)
@@ -137,7 +131,7 @@ class ExporterView(View):
 
             official = Official.objects.get(name='Official') if "prometheus/" in repo_url else Official.objects.get(name='Unofficial')
 
-            repo_info = self.get_repo(repo_url)
+            repo_info = self.get_repo(github_token=user.github_token, repo_url=repo_url)
 
             if repo_info == 'INVALID_TOKEN':
                 return JsonResponse({'message':'INVALID_TOKEN'}, status=401)
@@ -195,7 +189,7 @@ class ExporterView(View):
     @admin_decorator
     def delete(self, request):
         try:
-            exporter_id = request.GET['exporter_id']
+            exporter_id = request.GET['exporter-id']
             exporter    = Exporter.objects.get(id=exporter_id)
             release     = Release.objects.filter(exporter_id=exporter_id)
 
@@ -215,10 +209,11 @@ class ExporterView(View):
     @admin_decorator
     def patch(self, request):
         try:
-            exporter_id          = request.GET['exporter_id']
-            data                 = json.loads(request.body)
-            category             = data['category']
-            exporter             = Exporter.objects.get(category=category)
+            exporter_id       = request.GET['exporter-id']
+            data              = json.loads(request.body)
+            category          = data['category']
+            exporter          = Exporter.objects.get(id=exporter_id)
+            exporter.category = Category.objects.get(name=category)
             exporter.save()
         
             return JsonResponse({'message':'SUCCESS'}, status=200)
@@ -226,6 +221,9 @@ class ExporterView(View):
         except Exporter.DoesNotExist:
             return JsonResponse({'message':'NO_EXPORTER'}, status=400)
         
+        except Category.DoesNotExist:
+            return JsonResponse({'message':'NO_CATEGORY'}, status=400)
+
         except KeyError:
             return JsonResponse({'message':'KEY_ERROR'}, status=400)
 
@@ -235,9 +233,27 @@ class ExporterDetailView(View):
     def get(self, request, exporter_id):
         try:
             user     = request.user
-            exporter = Exporter.objects.get(id=exporter_id)
+            exporter = Exporter.objects.select_related('category', 'official').prefetch_related('release_set').get(id=exporter_id)
+
             exporter.view_count += 1
             exporter.save()
+
+            # check starred by user at github
+            github_token = user.github_token if user else None
+
+            if github_token:
+                headers   = {'Authorization' : 'token ' + github_token} 
+                repo_info = exporter.repository_url.replace('https://github.com/', '')
+                result    = requests.get(f'https://api.github.com/user/starred/{repo_info}', headers=headers)
+                
+                if result.status_code == 204 and not Star.objects.filter(user=user, exporter=exporter).exists():
+                    Star.objects.create(user=user, exporter=exporter)
+                
+                elif result.status_code == 404 and Star.objects.filter(user=user, exporter=exporter).exists():
+                    Star.objects.filter(user=user, exporter=exporter).delete()
+
+                elif result.status_code != 204 and result.status_code != 404:
+                    return JsonResponse({'message': 'GITHUB_API_FAIL_AT_CHECK_STARRED'}, status=400)
  
             if user and user.added_exporters.filter(id=exporter.id).exists():
                 forked_repository_url = Bucket.objects.get(user_id=user.id, exporter_id=exporter.id).forked_repository_url
@@ -252,9 +268,9 @@ class ExporterDetailView(View):
                     'official'              : exporter.official.name,
                     'title'                 : exporter.app_name,
                     'stars'                 : exporter.stars,
-                    "is_star"               : user.starred_exporters.filter(id=exporter.id).exists() if user else False,
-                    "is_bucket"             : user.added_exporters.filter(id=exporter.id).exists() if user else False,
-                    "is_new"                : (timezone.now() - exporter.created_at).days <= 7,
+                    'is_star'               : user.starred_exporters.filter(id=exporter.id).exists() if user else False,
+                    'is_bucket'             : user.added_exporters.filter(id=exporter.id).exists() if user else False,
+                    'is_new'                : (timezone.now() - exporter.created_at).days <= 7,
                     'repository_url'        : exporter.repository_url,
                     'forked_repository_url' : forked_repository_url,
                     'description'           : exporter.description,
@@ -267,7 +283,7 @@ class ExporterDetailView(View):
                     } for release in exporter.release_set.all()],
                 }
             
-            return JsonResponse(data, status=200)
+            return JsonResponse({'data': data, 'github_token': github_token}, status=200)
 
         except Exporter.DoesNotExist:
             return JsonResponse({'message':'NO_EXPORTER'}, status=400)
