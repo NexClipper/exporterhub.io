@@ -4,14 +4,25 @@ import styled from "styled-components";
 import axios from "axios";
 import { FiEdit } from "react-icons/fi";
 import { HiOutlineSave } from "react-icons/hi";
+import CodeEditor from "./CodeEditor";
 
-const Dataviewer = ({ data, isEditMode, setIsEditMode, handleMode }) => {
+const Dataviewer = ({
+  content,
+  isEditMode,
+  setIsEditMode,
+  handleMode,
+  title,
+  type,
+}) => {
   const isAdmin = useSelector((store) => store.adminReducer);
 
   return (
     <>
       <Header>
-        <ContentTitle>{data.name}</ContentTitle>
+        <ContentTitle>
+          {title}
+          {type}
+        </ContentTitle>
         {isAdmin && (
           <Button onClick={handleMode}>
             <span>{!isEditMode ? <FiEdit /> : <HiOutlineSave />}</span>
@@ -22,9 +33,12 @@ const Dataviewer = ({ data, isEditMode, setIsEditMode, handleMode }) => {
       <ContentBody>
         {!isEditMode ? (
           <Data>
-            <p>{atob(data.content)}</p>
+            {/* <p>{atob(data.content)}</p> */}
+            <p>{content}</p>
           </Data>
-        ) : null}
+        ) : (
+          <CodeEditor content={content} title={title} type={type} />
+        )}
       </ContentBody>
     </>
   );
