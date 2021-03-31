@@ -51,10 +51,11 @@ const ContentDetail = () => {
         },
       })
         .then((res) => {
-          setExporterInfo(res.data);
-          setForkState(res.data.is_bucket);
-          setStarState(res.data.is_star);
-          setStarNumber(res.data.stars);
+          console.log(res.data.github_token);
+          setExporterInfo(res.data.data);
+          setForkState(res.data.data.is_bucket);
+          setStarState(res.data.data.is_star);
+          setStarNumber(res.data.data.stars);
         })
         .catch((err) => {
           console.log(err);
