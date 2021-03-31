@@ -16,27 +16,20 @@ const Permission = () => {
   const dispatch = useDispatch();
 
   const inputHandler = (e) => {
-    // setSearchUser(e.target.value.toLowerCase());
-    // axios({
-    //   method: "GET",
-    //   url: `${SERVER}/user/search?q=${searchUser}`,
-    //   headers: {
-    //     Authorization: token,
-    //   },
-    // }).then((res) => {
-    //   console.log("setUserArr >> ", res.data.data);
-    //   setUserArr(res.data.data);
-    // });
     setSearchUser(e.target.value.toLowerCase());
+  };
+
+  useEffect(() => {
     axios({
       method: "GET",
-      url: "/data/userData.json",
+      url: `${SERVER}/user/search?q=${searchUser}`,
+      headers: {
+        Authorization: token,
+      },
     }).then((res) => {
-      console.log("뭐들어옴", res.data);
-      setUserArr(res.data);
+      setUserArr(res.data.data);
     });
-  };
-  console.log("typing >> ", searchUser);
+  }, [searchUser]);
 
   useEffect(() => {
     axios({
@@ -53,33 +46,26 @@ const Permission = () => {
   }, []);
 
   const addAdmin = (user, type) => {
-    // if (type === "admin" || type === "admin pending") {
-    //   return;
-    // } else {
-    //   console.log("username >>>", user);
-    //   setSearchUser("");
-    //   axios({
-    //     method: "POST",
-    //     url: `${ADMIN_API}`,
-    //     data: {
-    //       username: user,
-    //     },
-    //     headers: {
-    //       Authorization: token,
-    //     },
-    //   })
-    //     .then((res) => {
-    //       console.log("addAdmin success!! >>>", res);
-    //       alert("invitation has been sent to the user's email!!");
-    //     })
-    //     .catch((err) => console.log(err));
-    // }
-    console.log("누른 유저는? >>", user);
-    console.log("누른 타입은? >>", type);
     if (type === "admin" || type === "admin pending") {
       return;
     } else {
-      alert("invitation has been sent to the user's email!!");
+      console.log("username >>>", user);
+      setSearchUser("");
+      axios({
+        method: "POST",
+        url: `${ADMIN_API}`,
+        data: {
+          username: user,
+        },
+        headers: {
+          Authorization: token,
+        },
+      })
+        .then((res) => {
+          console.log("addAdmin success!! >>>", res);
+          alert("invitation has been sent to the user's email!!");
+        })
+        .catch((err) => console.log(err));
     }
   };
 
@@ -135,12 +121,7 @@ const Permission = () => {
       <AdminContainer>
         {adminArr.map((admin, index) => {
           return (
-            <AdminContent
-              admin={admin}
-              key={index}
-              deleteAdmin={deleteAdmin}
-              // onClick={(e) => deleteAdmin(e)}
-            />
+            <AdminContent admin={admin} key={index} deleteAdmin={deleteAdmin} />
           );
         })}
       </AdminContainer>

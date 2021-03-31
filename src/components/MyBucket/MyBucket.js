@@ -28,17 +28,17 @@ const MyBucket = () => {
     1: <Permission />,
   };
 
-  const TABMENU = [
-    { id: 0, tabName: "Fork" },
-    { id: 1, tabName: "Set Admin" },
-  ];
+  // const TABMENU = [
+  //   { id: 0, tabName: "Fork" },
+  //   { id: 1, tabName: "Set Admin" },
+  // ];
 
-  // const TABMENU = isAdmin
-  //   ? [
-  //       { id: 0, tabName: "Fork" },
-  //       { id: 1, tabName: "Set Admin" },
-  //     ]
-  //   : [{ id: 0, tabName: "Fork" }];
+  const TABMENU = isAdmin
+    ? [
+        { id: 0, tabName: "Fork" },
+        { id: 1, tabName: "Set Admin" },
+      ]
+    : [{ id: 0, tabName: "Fork" }];
 
   console.log("admin", isAdmin);
 

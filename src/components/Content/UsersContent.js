@@ -4,7 +4,7 @@ import styled from "styled-components";
 const UsersContent = ({ user, addAdmin }) => {
   return (
     <>
-      {/* <UserCard
+      <UserCard
         onClick={() => addAdmin(user.username, user.usertype)}
         type={user.usertype === "user"}
       >
@@ -13,17 +13,6 @@ const UsersContent = ({ user, addAdmin }) => {
         <Info>
           <h4>{user.username}</h4>
           <span>{user.usertype}</span>
-        </Info>
-      </UserCard> */}
-      <UserCard
-        onClick={() => addAdmin(user.name, user.type)}
-        type={user.type === "user"}
-      >
-        {user.type !== "user" && <Disabled />}
-        <ProfileImg src={user.img} />
-        <Info>
-          <h4>{user.name}</h4>
-          <span>{user.type}</span>
         </Info>
       </UserCard>
     </>
