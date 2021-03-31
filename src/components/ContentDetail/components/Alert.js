@@ -4,9 +4,10 @@ import axios from "axios";
 
 import Dataviewer from "./Dataviewer";
 
-const Alert = () => {
-  const [data, setData] = useState();
+const Alert = ({ title, githubToken }) => {
+  const [githubContent, setGithubContent] = useState();
   const [isEditMode, setIsEditMode] = useState(false);
+  const [sha, setSha] = useState();
 
   const handleMode = () => {
     setIsEditMode(!isEditMode);
@@ -16,28 +17,35 @@ const Alert = () => {
     getData();
   }, []);
 
+  useEffect(() => {
+    getData();
+  }, [isEditMode]);
+
   const getData = () => {
-    const url =
-      "https://api.github.com/repos/NexClipper/exporterhub.io/contents/docker-compose.yml";
+    const url = `https://api.github.com/repos/Exporterhubv3/editor_test/contents/${title}/${title}.yaml`;
+
     axios
       .get(url)
       .then((res) => {
-        setData(res.data);
+        setGithubContent(decodeURIComponent(escape(atob(res.data.content))));
+        setSha(res.data.sha);
+        console.log("github에서 코드 가져왔어!");
       })
       .catch((error) => {
-        alert("fail");
+        setGithubContent("Null");
       });
   };
   return (
     <Container>
-      {data && (
-        <Dataviewer
-          data={data}
-          isEditMode={isEditMode}
-          setIsEditMode={setIsEditMode}
-          handleMode={handleMode}
-        />
-      )}
+      <Dataviewer
+        githubContent={githubContent}
+        isEditMode={isEditMode}
+        handleMode={handleMode}
+        title={title}
+        type=".yaml"
+        githubToken={githubToken}
+        sha={sha}
+      />
     </Container>
   );
 };
