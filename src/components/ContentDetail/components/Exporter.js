@@ -4,6 +4,7 @@ import styled from "styled-components";
 
 const Exporter = ({ readmeContent }) => {
   const content = remarkMarkdown(readmeContent);
+  console.log(">>>> ?? ", readmeContent);
 
   return (
     <Container>
