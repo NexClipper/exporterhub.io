@@ -5,77 +5,77 @@ import styled from "styled-components";
 import "ace-builds/src-noconflict/mode-java";
 import "ace-builds/src-noconflict/theme-github";
 import axios from "axios";
+import { HiOutlineSave } from "react-icons/hi";
 //md test
 import remarkMarkdown from "../remarkMarkdown";
 
-const CodeEditor = ({ content, title, type }) => {
-  const [data, setData] = useState();
+const CodeEditor = ({
+  githubContent,
+  title,
+  type,
+  githubToken,
+  sha,
+  handleMode,
+}) => {
+  const [preview, setPreview] = useState();
+  const [edittingData, setEdittingData] = useState();
+
   const [decode, setDecode] = useState();
   const [readOnly, setReadOnly] = useState(true);
-  const [newData, setNewData] = useState();
-  const [sha, setSha] = useState();
+
   useEffect(() => {
-    setData(content);
-    setDecode(content);
-    // axios({
-    //   method: "get",
-    //   url:
-    //     // 'https://api.github.com/repos/yoosaemsol/exporterhub.io/contents/package.json',
-    //     "https://api.github.com/repos/yoosaemsol/westagram-test/contents/package.json",
-    // }).then((res) => {
-    //   setDecode(atob(res.data.content));
-    //   setSha(res.data.sha);
-    // });
+    setEdittingData(githubContent);
+    setPreview(githubContent);
   }, []);
   const onChange = (value) => {
-    setData(value);
-    console.log(value);
-    // console.log(btoa(value));
+    setEdittingData(value);
+    setPreview(value);
+
     setDecode(btoa(value));
-    // setNewData(btoa(value));
-    setNewData(value);
-    // console.log(newData);
   };
+
   const handleReadOnly = () => {
     setReadOnly(!readOnly);
   };
+
   const handlefetchGithub = () => {
-    console.log(newData);
+    const encode = btoa(edittingData);
+
     const url = `https://api.github.com/repos/Exporterhubv3/editor_test/contents/${title}/${title}${type}`;
     axios
       .put(
         url,
         {
-          // owner: "yoosaemsol",
-          // repo: "github-test",
-          // path: "/test.yaml",
-          // sha: 'e947631b744a1462950a50b687ae33124110ec11',
+          sha: sha,
           message: "put method test",
-          content: decode,
-          // author: {
-          //   name: "93jm",
-          //   email: "mjuikl7588@gmail.com",
-          // },
-          // branch: "main",
+          content: encode,
         },
         {
           headers: {
-            // accept: "application/vnd.github.v3+json",
-            Authorization: "token 16a2c4235c37a63e022c2c755bf1f2fa77142127",
+            Authorization: `token ${githubToken}`,
           },
         }
       )
       .then((res) => {
         console.log("응답뭐래 ? >>>", res);
+        handleMode();
       })
       .catch((error) => {
+        console.log(error);
         console.log("실패");
       });
   };
   const markDownContent = remarkMarkdown(decode);
+
   return (
-    <>
-      <button onClick={handlefetchGithub}>누르면 보내짐ㅋㅋ</button>
+    <Container>
+      <Button onClick={handlefetchGithub}>
+        <span>
+          <HiOutlineSave />
+        </span>
+        <span>Save</span>
+      </Button>
+      {/* <button onClick={handlefetchGithub}>누르면 보내짐ㅋㅋ</button> */}
       <EditorContainer>
         {/* <button onClick={handleReadOnly}>edit</button>
       <button onClick={handlefetchGithub}>save/send</button> */}
@@ -92,7 +92,7 @@ const CodeEditor = ({ content, title, type }) => {
           showPrintMargin={true}
           showGutter={false}
           highlightActiveLine={true}
-          value={data}
+          value={edittingData}
           setOptions={{
             enableBasicAutocompletion: true,
             enableLiveAutocompletion: false,
@@ -104,15 +104,20 @@ const CodeEditor = ({ content, title, type }) => {
           height="100vh"
         />
         <Preview className="code">
-          <Content
+          {/* <Content
             dangerouslySetInnerHTML={{ __html: markDownContent }}
-          ></Content>
+          ></Content> */}
+          <Content dangerouslySetInnerHTML={{ __html: preview }}></Content>
         </Preview>
       </EditorContainer>
-    </>
+    </Container>
   );
 };
 export default CodeEditor;
+
+const Container = styled.div`
+  position: relative;
+`;
 
 const EditorContainer = styled.div`
   display: flex;
@@ -131,4 +136,31 @@ const Content = styled.div`
   width: 100%;
   height: 100%;
   overflow: auto;
+`;
+
+const Button = styled.button`
+  position: absolute;
+  top: -75px;
+  right: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 70px;
+  height: 30px;
+  background: #ffffff;
+  box-shadow: 1px 1px 6px 1px rgba(0, 0, 0, 0.1);
+  border-radius: 5px;
+  font-size: 12px;
+  font-weight: 600;
+
+  span {
+    font-size: 12px;
+
+    &:first-child {
+      position: relative;
+      top: 1px;
+      margin-right: 5px;
+      font-size: 13px;
+    }
+  }
 `;

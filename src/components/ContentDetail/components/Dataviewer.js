@@ -3,16 +3,17 @@ import { useSelector } from "react-redux";
 import styled from "styled-components";
 import axios from "axios";
 import { FiEdit } from "react-icons/fi";
-import { HiOutlineSave } from "react-icons/hi";
+import { BiUndo } from "react-icons/bi";
 import CodeEditor from "./CodeEditor";
 
 const Dataviewer = ({
-  content,
+  githubContent,
   isEditMode,
-  setIsEditMode,
   handleMode,
   title,
   type,
+  githubToken,
+  sha,
 }) => {
   const isAdmin = useSelector((store) => store.adminReducer);
 
@@ -25,8 +26,8 @@ const Dataviewer = ({
         </ContentTitle>
         {isAdmin && (
           <Button onClick={handleMode}>
-            <span>{!isEditMode ? <FiEdit /> : <HiOutlineSave />}</span>
-            <span>{!isEditMode ? "Edit" : "Save"}</span>
+            <span>{!isEditMode ? <FiEdit /> : <BiUndo />}</span>
+            <span>{!isEditMode ? "Edit" : "Back"}</span>
           </Button>
         )}
       </Header>
@@ -34,10 +35,17 @@ const Dataviewer = ({
         {!isEditMode ? (
           <Data>
             {/* <p>{atob(data.content)}</p> */}
-            <p>{content}</p>
+            <p>{githubContent}</p>
           </Data>
         ) : (
-          <CodeEditor content={content} title={title} type={type} />
+          <CodeEditor
+            githubContent={githubContent}
+            title={title}
+            type={type}
+            githubToken={githubToken}
+            sha={sha}
+            handleMode={handleMode}
+          />
         )}
       </ContentBody>
     </>
