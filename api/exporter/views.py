@@ -248,9 +248,13 @@ class ExporterDetailView(View):
                 
                 if result.status_code == 204 and not Star.objects.filter(user=user, exporter=exporter).exists():
                     Star.objects.create(user=user, exporter=exporter)
+                    exporter.stars += 1
+                    exporter.save()
                 
                 elif result.status_code == 404 and Star.objects.filter(user=user, exporter=exporter).exists():
                     Star.objects.filter(user=user, exporter=exporter).delete()
+                    exporter.stars -= 1
+                    exporter.save()
 
                 elif result.status_code != 204 and result.status_code != 404:
                     return JsonResponse({'message': 'GITHUB_API_FAIL_AT_CHECK_STARRED'}, status=400)
