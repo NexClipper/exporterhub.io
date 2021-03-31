@@ -23,9 +23,10 @@ const ContentDetail = () => {
   const [forkState, setForkState] = useState();
   const [starState, setStarState] = useState();
   const [starNumber, setStarNumber] = useState();
+  const [githubToken, setGithubToken] = useState();
   const ACTIVECONTENT_OBJ = {
     0: <Exporter readmeContent={exporterInfo.readme} />,
-    1: <Dashboard title={exporterInfo.title} />,
+    1: <Dashboard title={exporterInfo.title} githubToken={githubToken} />,
     2: <Alert />,
   };
 
@@ -37,8 +38,6 @@ const ContentDetail = () => {
     fetchData();
   }, [forkState]);
 
-  console.log(">>>??????", exporterInfo);
-
   const fetchData = () => {
     if (sessionStorage.getItem("access_token")) {
       axios({
@@ -49,10 +48,11 @@ const ContentDetail = () => {
         },
       })
         .then((res) => {
-          setExporterInfo(res.data);
-          setForkState(res.data.is_bucket);
-          setStarState(res.data.is_star);
-          setStarNumber(res.data.stars);
+          setGithubToken(res.data.github_token);
+          setExporterInfo(res.data.data);
+          setForkState(res.data.data.is_bucket);
+          setStarState(res.data.data.is_star);
+          setStarNumber(res.data.data.stars);
         })
         .catch((err) => {
           console.log(err);
@@ -64,10 +64,10 @@ const ContentDetail = () => {
       })
         .then((res) => {
           console.log(res);
-          setExporterInfo(res.data);
-          setForkState(res.data.is_bucket);
-          setStarState(res.data.is_star);
-          setStarNumber(res.data.stars);
+          setExporterInfo(res.data.data);
+          setForkState(res.data.data.is_bucket);
+          setStarState(res.data.data.is_star);
+          setStarNumber(res.data.data.stars);
         })
         .catch((err) => {
           console.log(err);

@@ -4,9 +4,10 @@ import axios from "axios";
 
 import Dataviewer from "./Dataviewer";
 
-const Dashboard = ({ title }) => {
-  const [content, setContent] = useState();
+const Dashboard = ({ title, githubToken }) => {
+  const [githubContent, setGithubContent] = useState();
   const [isEditMode, setIsEditMode] = useState(false);
+  const [sha, setSha] = useState();
 
   const handleMode = () => {
     setIsEditMode(!isEditMode);
@@ -16,27 +17,34 @@ const Dashboard = ({ title }) => {
     getData();
   }, []);
 
+  useEffect(() => {
+    getData();
+  }, [isEditMode]);
+
   const getData = () => {
     const url = `https://api.github.com/repos/Exporterhubv3/editor_test/contents/${title}/${title}.json`;
-    // const url = `https://api.github.com/repos/NexClipper/exporterhub.io/contents/package.json`;
+
     axios
       .get(url)
       .then((res) => {
-        setContent(atob(res.data.content));
+        setGithubContent(atob(res.data.content));
+        setSha(res.data.sha);
+        console.log("github에서 코드 가져왔어!");
       })
       .catch((error) => {
-        setContent("Null");
+        setGithubContent("Null");
       });
   };
   return (
     <Container>
       <Dataviewer
-        content={content}
+        githubContent={githubContent}
         isEditMode={isEditMode}
-        setIsEditMode={setIsEditMode}
         handleMode={handleMode}
         title={title}
         type=".json"
+        githubToken={githubToken}
+        sha={sha}
       />
     </Container>
   );
