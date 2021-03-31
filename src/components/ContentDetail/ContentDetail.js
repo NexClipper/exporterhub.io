@@ -27,7 +27,7 @@ const ContentDetail = () => {
   const ACTIVECONTENT_OBJ = {
     0: <Exporter readmeContent={exporterInfo.readme} />,
     1: <Dashboard title={exporterInfo.title} githubToken={githubToken} />,
-    2: <Alert />,
+    2: <Alert title={exporterInfo.title} githubToken={githubToken} />,
   };
 
   useEffect(() => {
