@@ -29,6 +29,8 @@ const ContentDetail = () => {
     2: <Alert />,
   };
 
+  console.log(exporterInfo);
+
   useEffect(() => {
     fetchData();
   }, []);
