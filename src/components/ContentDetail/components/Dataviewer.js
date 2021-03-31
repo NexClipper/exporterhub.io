@@ -1,9 +1,9 @@
 import { useState, useEffect } from "react";
+import { useSelector } from "react-redux";
 import styled from "styled-components";
 import axios from "axios";
 import { FiEdit } from "react-icons/fi";
 import { HiOutlineSave } from "react-icons/hi";
-import { useSelector } from "react-redux";
 
 const Dataviewer = ({ data, isEditMode, setIsEditMode, handleMode }) => {
   const isAdmin = useSelector((store) => store.adminReducer);

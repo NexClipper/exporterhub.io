@@ -17,6 +17,9 @@ const Permission = () => {
 
   const inputHandler = (e) => {
     setSearchUser(e.target.value.toLowerCase());
+  };
+
+  useEffect(() => {
     axios({
       method: "GET",
       url: `${SERVER}/user/search?q=${searchUser}`,
@@ -24,11 +27,9 @@ const Permission = () => {
         Authorization: token,
       },
     }).then((res) => {
-      console.log("setUserArr >> ", res.data.data);
       setUserArr(res.data.data);
     });
-  };
-  console.log("typing >> ", searchUser);
+  }, [searchUser]);
 
   useEffect(() => {
     axios({
@@ -62,6 +63,7 @@ const Permission = () => {
       })
         .then((res) => {
           console.log("addAdmin success!! >>>", res);
+          alert("invitation has been sent to the user's email!!");
         })
         .catch((err) => console.log(err));
     }
@@ -119,12 +121,7 @@ const Permission = () => {
       <AdminContainer>
         {adminArr.map((admin, index) => {
           return (
-            <AdminContent
-              admin={admin}
-              key={index}
-              deleteAdmin={deleteAdmin}
-              // onClick={(e) => deleteAdmin(e)}
-            />
+            <AdminContent admin={admin} key={index} deleteAdmin={deleteAdmin} />
           );
         })}
       </AdminContainer>

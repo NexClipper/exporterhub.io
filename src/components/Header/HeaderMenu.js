@@ -8,6 +8,7 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   getLoginState,
   changeBucketPage,
+  filterByUser,
 } from "../../store/actions/exporterActions";
 
 require("dotenv").config();
@@ -20,6 +21,8 @@ const HeaderMenu = () => {
   const clientID = "e0766f48a0ed436d36d4";
   const url = `https://github.com/login/oauth/authorize?client_id=${clientID}&redirect_uri=http://localhost:3000/callback&scope=user,repo,delete_repo,admin:org`;
 
+  // console.log('어드민이니? >>', )
+
   // console.log(API_SURVER);
   const {
     push,
@@ -29,6 +32,7 @@ const HeaderMenu = () => {
 
   const handleSignOut = () => {
     dispatch(getLoginState(false));
+    dispatch(filterByUser(""));
     sessionStorage.removeItem("access_token");
     push("/");
   };
