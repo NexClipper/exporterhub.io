@@ -11,6 +11,7 @@ from django.db.models       import Q, Max
 from django.utils           import timezone
 
 from .models                import Category, Exporter, Release, Official 
+from headtoken.models       import Token
 from user.models            import Bucket, Star
 from user.utils             import login_check, admin_decorator
 
@@ -239,7 +240,7 @@ class ExporterDetailView(View):
             exporter.save()
 
             # check starred by user at github
-            github_token = user.github_token if user else None
+            github_token = user.github_token if user else Token.objects.last().token
 
             if github_token:
                 headers   = {'Authorization' : 'token ' + github_token} 
