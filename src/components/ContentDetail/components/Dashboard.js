@@ -22,7 +22,7 @@ const Dashboard = ({ title, githubToken }) => {
   }, [isEditMode]);
 
   const getData = () => {
-    const url = `https://api.github.com/repos/Exporterhubv3/editor_test/contents/${title}/${title}.json`;
+    const url = `https://api.github.com/repos/Exporterhubv3/editor_test/contents/${title}/${title}_dashboard.json`;
 
     axios
       .get(url)
@@ -42,7 +42,7 @@ const Dashboard = ({ title, githubToken }) => {
         isEditMode={isEditMode}
         handleMode={handleMode}
         title={title}
-        type=".json"
+        type="_dashboard.json"
         githubToken={githubToken}
         sha={sha}
       />

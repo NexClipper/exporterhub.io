@@ -22,7 +22,7 @@ const Alert = ({ title, githubToken }) => {
   }, [isEditMode]);
 
   const getData = () => {
-    const url = `https://api.github.com/repos/Exporterhubv3/editor_test/contents/${title}/${title}.yaml`;
+    const url = `https://api.github.com/repos/Exporterhubv3/editor_test/contents/${title}/${title}_alert.yaml`;
 
     axios
       .get(url)
@@ -42,7 +42,7 @@ const Alert = ({ title, githubToken }) => {
         isEditMode={isEditMode}
         handleMode={handleMode}
         title={title}
-        type=".yaml"
+        type="_alert.yaml"
         githubToken={githubToken}
         sha={sha}
       />
