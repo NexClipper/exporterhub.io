@@ -68,6 +68,7 @@ const ContentDetail = () => {
           setForkState(res.data.data.is_bucket);
           setStarState(res.data.data.is_star);
           setStarNumber(res.data.data.stars);
+          setGithubToken(res.data.data.github_token);
         })
         .catch((err) => {
           console.log(err);
