@@ -4,7 +4,7 @@ import styled from "styled-components";
 import Profile from "./components/Profile";
 import Fork from "./components/Fork";
 import Permission from "./components/Permission";
-
+import { useHistory } from "react-router";
 import { useDispatch, useSelector } from "react-redux";
 import { changeBucketPage } from "../../store/actions/exporterActions";
 import UnforkModal from "../Modal/UnforkModal";
@@ -14,10 +14,10 @@ const MyBucket = () => {
   const isAdmin = useSelector((store) => store.adminReducer);
   const changeBucket = useSelector((store) => store.headerReducer);
   const dispatch = useDispatch();
-
+  const history = useHistory();
   const [isForkModalActive, setIsForkModalActive] = useState(false);
   const [userProfile, setUserProfile] = useState();
-
+  console.log("여기 버켓이야 버켓 !!! ", history.location.pathname);
   const ACTIVECONTENT_OBJ = {
     0: (
       <Fork
@@ -40,8 +40,6 @@ const MyBucket = () => {
       ]
     : [{ id: 0, tabName: "Fork" }];
 
-  console.log("admin", isAdmin);
-
   const cancleModal = () => {
     setIsForkModalActive(false);
   };
@@ -61,7 +59,16 @@ const MyBucket = () => {
       .catch((err) => {
         console.log(err);
       });
+    handleLocalStorage();
   }, []);
+
+  const handleLocalStorage = () => {
+    if (history.location.pathname === "/mybucket") {
+      localStorage.setItem("activeTab", "0");
+    } else {
+      return;
+    }
+  };
 
   return (
     <>

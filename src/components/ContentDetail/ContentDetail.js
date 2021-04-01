@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useParams } from "react-router";
+import { useParams, useHistory } from "react-router";
 import axios from "axios";
 import styled from "styled-components";
 import { AiFillStar } from "react-icons/ai";
@@ -9,6 +9,7 @@ import Dashboard from "./components/Dashboard";
 import Alert from "./components/Alert";
 import { RiShoppingBasketLine } from "react-icons/ri";
 import { ImLink } from "react-icons/im";
+import useLocalStorage from "react-use-localstorage";
 
 const TABMENU = [
   { id: 0, tabName: "Exporter" },
@@ -18,8 +19,10 @@ const TABMENU = [
 
 const ContentDetail = () => {
   const { id } = useParams();
+  const historyf = useHistory();
+  const [test, setTest] = useLocalStorage("activeTab", 0);
   const [exporterInfo, setExporterInfo] = useState([]);
-  const [activeTab, setActiveTab] = useState(0);
+  // const [activeTab, setActiveTab] = useState(0);
   const [forkState, setForkState] = useState();
   const [starState, setStarState] = useState();
   const [starNumber, setStarNumber] = useState();
@@ -68,6 +71,7 @@ const ContentDetail = () => {
           setForkState(res.data.data.is_bucket);
           setStarState(res.data.data.is_star);
           setStarNumber(res.data.data.stars);
+          setGithubToken(res.data.data.github_token);
         })
         .catch((err) => {
           console.log(err);
@@ -76,7 +80,8 @@ const ContentDetail = () => {
   };
 
   const handleActiveTab = (id) => {
-    setActiveTab(id);
+    setTest(id);
+    // setActiveTab(id);
   };
 
   const addToFork = (exporterInfo) => {
@@ -191,7 +196,8 @@ const ContentDetail = () => {
               return (
                 <Tab
                   key={tab.id}
-                  active={activeTab === tab.id}
+                  active={test == tab.id}
+                  // active={localStorage.getItem("activeTab") == tab.id}
                   onClick={() => handleActiveTab(tab.id)}
                 >
                   {tab.tabName}
@@ -201,7 +207,7 @@ const ContentDetail = () => {
           </TabList>
         </Container>
       </Nav>
-      <Main>{ACTIVECONTENT_OBJ[activeTab]}</Main>
+      <Main>{ACTIVECONTENT_OBJ[test]}</Main>
     </>
   );
 };
