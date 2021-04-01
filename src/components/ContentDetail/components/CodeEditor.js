@@ -39,9 +39,23 @@ const CodeEditor = ({
     setReadOnly(!readOnly);
   };
 
+  const filter = (content) => {
+    const test = content;
+
+    const codeBlock = "```";
+
+    const start = test.indexOf(codeBlock) + 3;
+    const last = test.lastIndexOf(codeBlock);
+
+    test.indexOf(codeBlock);
+
+    return test.slice(start, last);
+  };
+
   const handlefetchGithub = () => {
     // const encode = btoa(edittingData);
-    const encode = btoa(unescape(encodeURIComponent(edittingData)));
+    const codeblock = filter(edittingData);
+    const encode = btoa(unescape(encodeURIComponent(codeblock)));
     const url = `https://api.github.com/repos/Exporterhubv3/editor_test/contents/${title}/${title}${type}`;
     axios
       .put(
@@ -66,7 +80,7 @@ const CodeEditor = ({
         console.log("실패");
       });
   };
-  const markDownContent = remarkMarkdown(decode);
+  const markDownContent = remarkMarkdown(preview);
 
   return (
     <Container>
@@ -105,10 +119,10 @@ const CodeEditor = ({
           height="100vh"
         />
         <Preview className="code">
-          {/* <Content
+          <Content
             dangerouslySetInnerHTML={{ __html: markDownContent }}
-          ></Content> */}
-          <Content dangerouslySetInnerHTML={{ __html: preview }}></Content>
+          ></Content>
+          {/* <Content dangerouslySetInnerHTML={{ __html: preview }}></Content> */}
         </Preview>
       </EditorContainer>
     </Container>
