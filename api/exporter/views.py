@@ -230,6 +230,25 @@ class ExporterView(View):
 
 
 class ExporterDetailView(View):
+    def get_contents(self, app_name, content_type, file_type, headers):
+        result = requests.get(f'https://api.github.com/repos/Exporterhubv3/editor_test/contents/{app_name}/{app_name}_{content_type}.{file_type}', headers=headers)
+        data = result.json()
+
+        if result.status_code == 200:
+            content = data['content']
+            sha     = data['sha']
+
+        elif result.status_code == 404:
+            content = None
+            sha     = None
+
+        contents = {
+            'content' : content,
+            'sha'     : sha
+        }
+
+        return contents
+
     @login_check
     def get(self, request, exporter_id):
         try:
@@ -239,11 +258,11 @@ class ExporterDetailView(View):
             exporter.view_count += 1
             exporter.save()
 
-            # check starred by user at github
             github_token = user.github_token if user else Token.objects.last().token
-
-            if github_token:
-                headers   = {'Authorization' : 'token ' + github_token} 
+            headers      = {'Authorization' : 'token ' + github_token} 
+            
+            # check starred by user at github
+            if user:
                 repo_info = exporter.repository_url.replace('https://github.com/', '')
                 result    = requests.get(f'https://api.github.com/user/starred/{repo_info}', headers=headers)
                 
@@ -265,6 +284,20 @@ class ExporterDetailView(View):
             else:
                 forked_repository_url = None
 
+            dashboard_json_info  = self.get_contents(app_name=exporter.app_name, content_type='dashboard', file_type='json', headers=headers)
+            dashboard_json_sha   = dashboard_json_info['sha']
+            
+            dashboard_md_info    = self.get_contents(app_name=exporter.app_name, content_type='dashboard', file_type='md', headers=headers)
+            dashboard_md_sha     = dashboard_md_info['sha']
+            dashboard_md_content = base64.b64decode(dashboard_md_info['content']).decode('utf-8') if dashboard_md_info['content'] else None
+            
+            alert_yaml_info      = self.get_contents(app_name=exporter.app_name, content_type='alert', file_type='yaml', headers=headers)
+            alert_yaml_sha       = alert_yaml_info['sha']
+            
+            alert_md_info        = self.get_contents(app_name=exporter.app_name, content_type='alert', file_type='md', headers=headers)
+            alert_md_sha         = alert_md_info['sha']
+            alert_md_content     = base64.b64decode(alert_md_info['content']).decode('utf-8') if alert_md_info['content'] else None
+
             data = {
                     'exporter_id'           : exporter.id,
                     'name'                  : exporter.name,
@@ -280,6 +313,16 @@ class ExporterDetailView(View):
                     'forked_repository_url' : forked_repository_url,
                     'description'           : exporter.description,
                     'readme'                : exporter.readme.decode('utf-8'),
+                    'dashboard'             : {
+                        'json_sha'   : dashboard_json_sha,
+                        'md_sha'     : dashboard_md_sha,
+                        'md_content' : dashboard_md_content
+                    },
+                    'alert'                 : {
+                        'yaml_sha'   : alert_yaml_sha,
+                        'md_sha'     : alert_md_sha,
+                        'md_content' : alert_md_content
+                    },
                     'recent_release'        : exporter.release_set.order_by('date').last().date if exporter.release_set.filter().exists() else '1970-01-01',
                     'release'               : [{
                         'release_version': release.version,
@@ -288,7 +331,7 @@ class ExporterDetailView(View):
                     } for release in exporter.release_set.all()],
                 }
             
-            return JsonResponse({'data': data, 'github_token': github_token}, status=200)
+            return JsonResponse({'data': data}, status=200)
 
         except Exporter.DoesNotExist:
             return JsonResponse({'message':'NO_EXPORTER'}, status=400)
