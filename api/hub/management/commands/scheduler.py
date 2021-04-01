@@ -1,10 +1,10 @@
 import requests
 import base64
 import logging
-import datetime
 import time
 import re
 import csv
+from datetime import datetime, date
 
 from apscheduler.schedulers.blocking import BlockingScheduler
 from apscheduler.triggers.cron       import CronTrigger
@@ -39,7 +39,7 @@ def create_or_update_exporters():
         repo_get      = requests.get(exporter_list)
 
         if repo_get.status_code != 200:
-            logger.error(f"ERROR_CHECK_EXPORTERHUB'S_LIST({exporter_list}) | {datetime.datetime.now()}")
+            logger.error(f"ERROR_CHECK_EXPORTERHUB'S_LIST({exporter_list}) | {datetime.now()}")
 
         repo_infos = csv.reader(repo_get.text.strip().split('\n'))
         next(repo_infos, None)
@@ -106,19 +106,22 @@ def create_or_update_exporters():
                             date        = release["created_at"]
                         ).save()
 
-                    logger.info(f'id: {exporter.id} name: {exporter.name} | SUCCESSFULLY_ADDED_REPOSITORY_AND_RELEASES | {datetime.datetime.now()}')
+                    logger.info(f'id: {exporter.id} name: {exporter.name} | SUCCESSFULLY_ADDED_REPOSITORY_AND_RELEASES | {datetime.now()}')
                 
                 # update exporter
                 else:
                     exporter = exporters.get(repository_url=repo_url)
 
-                    if str(exporter.modified_at) < repo_data['updated_at']:
+                    updated_time_db     = date.strftime(exporter.modified_at, '%Y-%m-%d %H:%M:%S')
+                    updated_time_remote = datetime.strptime(repo_data['updated_at'], '%Y-%m-%dT%H:%M:%SZ').strftime('%Y-%m-%d %H:%M:%S')
+
+                    if updated_time_db < updated_time_remote:
                         exporter.stars       = repo_data["stargazers_count"]
                         exporter.description = repo_data["description"]
                         exporter.readme      = new_readme.encode('utf-8')
                         exporter.app_name    = app_name.replace(' ','-')
                         exporter.save()
-                        logger.info(f'id: {exporter.id} name: {exporter.name} | SUCCESSFULLY_UPDATED_REPOSITORY_INFO | {datetime.datetime.now()}')
+                        logger.info(f'id: {exporter.id} name: {exporter.name} | SUCCESSFULLY_UPDATED_REPOSITORY_INFO | {datetime.now()}')
                 
                     releases = sorted(release_data, key=lambda x: x["created_at"])
 
@@ -133,10 +136,10 @@ def create_or_update_exporters():
                             date        = release['created_at']
                         )[1]
                         if is_created:
-                            logger.info(f'id: {exporter.id} name: {exporter.name} SUCCESSFULLY_UPDATED_LASTEST_RELEASE_INFO | {datetime.datetime.now()}')
+                            logger.info(f'id: {exporter.id} name: {exporter.name} SUCCESSFULLY_UPDATED_LASTEST_RELEASE_INFO | {datetime.now()}')
 
             else:
-                logger.error(f"ERROR_CHECK_REPOSITORY({repo_url}) | {datetime.datetime.now()}")
+                logger.error(f"ERROR_CHECK_REPOSITORY({repo_url}) | {datetime.now()}")
 
         logger.info('CHECK_EXPORTERS_DONE')
 
@@ -162,7 +165,7 @@ class Command(BaseCommand):
             id='create_or_update_exporters',
             max_instances=1,
             replace_existing=True,
-            next_run_time=datetime.datetime.now(),
+            next_run_time=datetime.now(),
         )
         logger.info("Added job 'create_or_update_exporters'.")
 
@@ -183,7 +186,7 @@ class Command(BaseCommand):
             id='no_token',
             max_instances=1,
             replace_existing=True,
-            next_run_time=datetime.datetime.now(),
+            next_run_time=datetime.now(),
         )
 
         try:
