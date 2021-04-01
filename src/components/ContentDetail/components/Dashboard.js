@@ -1,29 +1,23 @@
 import { useState, useEffect } from "react";
 import styled from "styled-components";
 import axios from "axios";
-
 import Dataviewer from "./Dataviewer";
 import remarkMarkdown from "../remarkMarkdown";
-
 const Dashboard = ({ title, githubToken }) => {
   const [githubContent, setGithubContent] = useState();
   const [isEditMode, setIsEditMode] = useState(false);
   const [mdSha, setMdSha] = useState();
   const [fileSha, setFileSha] = useState();
-
   const handleMode = () => {
     setIsEditMode(!isEditMode);
   };
-
   useEffect(() => {
     getData();
   }, []);
-
   useEffect(() => {
     getData();
   }, [isEditMode]);
   console.log(title);
-
   const getData = () => {
     const mdUrl = `https://api.github.com/repos/Exporterhubv3/editor_test/contents/${title}/${title}_dashboard.md`;
     const fileUrl = `https://api.github.com/repos/Exporterhubv3/editor_test/contents/${title}/${title}_dashboard.json`;
@@ -45,7 +39,6 @@ const Dashboard = ({ title, githubToken }) => {
       .catch((error) => {
         setGithubContent("Null");
       });
-
     axios
       .get(
         fileUrl,
@@ -85,9 +78,7 @@ const Dashboard = ({ title, githubToken }) => {
     </Container>
   );
 };
-
 export default Dashboard;
-
 const Container = styled.div`
   ${({ theme }) => theme.container}
   position: relative;

@@ -1,32 +1,25 @@
 import { useState, useEffect } from "react";
 import styled from "styled-components";
 import axios from "axios";
-
 import Dataviewer from "./Dataviewer";
 import remarkMarkdown from "../remarkMarkdown";
-
 const Alert = ({ title, githubToken }) => {
   const [githubContent, setGithubContent] = useState();
   const [isEditMode, setIsEditMode] = useState(false);
   const [mdSha, setMdSha] = useState();
   const [fileSha, setFileSha] = useState();
-
   const handleMode = () => {
     setIsEditMode(!isEditMode);
   };
-
   useEffect(() => {
     getData();
   }, []);
-
   useEffect(() => {
     getData();
   }, [isEditMode]);
-
   const getData = () => {
     const mdUrl = `https://api.github.com/repos/Exporterhubv3/editor_test/contents/${title}/${title}_alert.md`;
     const fileUrl = `https://api.github.com/repos/Exporterhubv3/editor_test/contents/${title}/${title}_alert.yaml`;
-
     axios
       .get(
         mdUrl,
@@ -45,7 +38,6 @@ const Alert = ({ title, githubToken }) => {
       .catch((error) => {
         setGithubContent("Null");
       });
-
     axios
       .get(
         fileUrl,
@@ -84,9 +76,7 @@ const Alert = ({ title, githubToken }) => {
     </Container>
   );
 };
-
 export default Alert;
-
 const Container = styled.div`
   ${({ theme }) => theme.container}
   position: relative;
