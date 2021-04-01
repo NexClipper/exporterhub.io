@@ -173,7 +173,7 @@ class ProfileView(View):
 
     @login_decorator
     def delete(self, reuquest):
-        reuquest.user.delete()
+        request.user.delete()
         
         return JsonResponse({'message': 'SUCCESS'}, status=200)
 
