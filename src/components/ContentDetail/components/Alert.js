@@ -1,29 +1,23 @@
 import { useState, useEffect } from "react";
 import styled from "styled-components";
 import axios from "axios";
-
 import Dataviewer from "./Dataviewer";
-
 const Alert = ({ title, githubToken }) => {
   const [githubContent, setGithubContent] = useState();
   const [isEditMode, setIsEditMode] = useState(false);
   const [sha, setSha] = useState();
-
   const handleMode = () => {
     setIsEditMode(!isEditMode);
   };
-
   useEffect(() => {
     getData();
   }, []);
-
   useEffect(() => {
     getData();
   }, [isEditMode]);
-
   const getData = () => {
     const url = `https://api.github.com/repos/Exporterhubv3/editor_test/contents/${title}/${title}_alert.yaml`;
-
+    console.log("여기", url);
     axios
       .get(url)
       .then((res) => {
@@ -49,9 +43,7 @@ const Alert = ({ title, githubToken }) => {
     </Container>
   );
 };
-
 export default Alert;
-
 const Container = styled.div`
   ${({ theme }) => theme.container}
   position: relative;

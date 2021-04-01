@@ -1,5 +1,12 @@
 import React, { useEffect } from "react";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  useHistory,
+  // browserHistory,
+} from "react-router-dom";
+// import { useHistory, browserHistory } from "react-router";
 import { useDispatch } from "react-redux";
 import axios from "axios";
 import Header from "./components/Header/Header";
@@ -28,6 +35,10 @@ import MyBucketPage from "./pages/MyBucketPage";
 function Routes() {
   const token = sessionStorage.getItem("access_token");
   const dispatch = useDispatch();
+  const historyf = useHistory();
+  // const location = useLocation();
+  // const currentURL = browserHistory.getCurrentLocation();
+
   useEffect(() => {
     const fetchData = async () => {
       const exportersData = await axios(EXPORTERS_API);
@@ -44,6 +55,7 @@ function Routes() {
     };
     fetchData();
     userAdminState();
+    handleLocalStorage();
   }, []);
 
   const userAdminState = () => {
@@ -61,6 +73,14 @@ function Routes() {
         .catch((err) => {
           console.log(err);
         });
+    }
+  };
+
+  const handleLocalStorage = () => {
+    if (window.location.pathname === "/") {
+      localStorage.setItem("activeTab", "0");
+    } else {
+      return;
     }
   };
 
