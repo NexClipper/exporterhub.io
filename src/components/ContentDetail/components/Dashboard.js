@@ -57,7 +57,9 @@ const Dashboard = ({ title, githubToken }) => {
         console.log(error);
       });
   };
+
   const markDownContent = remarkMarkdown(githubContent);
+
   return (
     <Container>
       <Dataviewer
