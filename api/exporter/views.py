@@ -230,24 +230,22 @@ class ExporterView(View):
 
 
 class ExporterDetailView(View):
-    def get_contents(self, app_name, content_type, file_type, headers):
-        result = requests.get(f'https://api.github.com/repos/Exporterhubv3/editor_test/contents/{app_name}/{app_name}_{content_type}.{file_type}', headers=headers)
-        data = result.json()
+    def check_starred(self, user, exporter, headers):
+        repo_info = exporter.repository_url.replace('https://github.com/', '')
+        result    = requests.get(f'https://api.github.com/user/starred/{repo_info}', headers=headers)
+        
+        if result.status_code == 204 and not Star.objects.filter(user=user, exporter=exporter).exists():
+            Star.objects.create(user=user, exporter=exporter)
+            exporter.stars += 1
+            exporter.save()
+        
+        elif result.status_code == 404 and Star.objects.filter(user=user, exporter=exporter).exists():
+            Star.objects.filter(user=user, exporter=exporter).delete()
+            exporter.stars -= 1
+            exporter.save()
 
-        if result.status_code == 200:
-            content = data['content']
-            sha     = data['sha']
-
-        elif result.status_code == 404:
-            content = None
-            sha     = None
-
-        contents = {
-            'content' : content,
-            'sha'     : sha
-        }
-
-        return contents
+        elif result.status_code != 204 and result.status_code != 404:
+            return 'ERROR'
 
     @login_check
     def get(self, request, exporter_id):
@@ -263,40 +261,13 @@ class ExporterDetailView(View):
             
             # check starred by user at github
             if user:
-                repo_info = exporter.repository_url.replace('https://github.com/', '')
-                result    = requests.get(f'https://api.github.com/user/starred/{repo_info}', headers=headers)
-                
-                if result.status_code == 204 and not Star.objects.filter(user=user, exporter=exporter).exists():
-                    Star.objects.create(user=user, exporter=exporter)
-                    exporter.stars += 1
-                    exporter.save()
-                
-                elif result.status_code == 404 and Star.objects.filter(user=user, exporter=exporter).exists():
-                    Star.objects.filter(user=user, exporter=exporter).delete()
-                    exporter.stars -= 1
-                    exporter.save()
-
-                elif result.status_code != 204 and result.status_code != 404:
+                if self.check_starred(user=user, exporter=exporter, headers=headers) == 'ERROR':
                     return JsonResponse({'message': 'GITHUB_API_FAIL_AT_CHECK_STARRED'}, status=400)
  
             if user and user.added_exporters.filter(id=exporter.id).exists():
                 forked_repository_url = Bucket.objects.get(user_id=user.id, exporter_id=exporter.id).forked_repository_url
             else:
                 forked_repository_url = None
-
-            dashboard_json_info  = self.get_contents(app_name=exporter.app_name, content_type='dashboard', file_type='json', headers=headers)
-            dashboard_json_sha   = dashboard_json_info['sha']
-            
-            dashboard_md_info    = self.get_contents(app_name=exporter.app_name, content_type='dashboard', file_type='md', headers=headers)
-            dashboard_md_sha     = dashboard_md_info['sha']
-            dashboard_md_content = base64.b64decode(dashboard_md_info['content']).decode('utf-8') if dashboard_md_info['content'] else None
-            
-            alert_yaml_info      = self.get_contents(app_name=exporter.app_name, content_type='alert', file_type='yaml', headers=headers)
-            alert_yaml_sha       = alert_yaml_info['sha']
-            
-            alert_md_info        = self.get_contents(app_name=exporter.app_name, content_type='alert', file_type='md', headers=headers)
-            alert_md_sha         = alert_md_info['sha']
-            alert_md_content     = base64.b64decode(alert_md_info['content']).decode('utf-8') if alert_md_info['content'] else None
 
             data = {
                     'exporter_id'           : exporter.id,
@@ -313,16 +284,6 @@ class ExporterDetailView(View):
                     'forked_repository_url' : forked_repository_url,
                     'description'           : exporter.description,
                     'readme'                : exporter.readme.decode('utf-8'),
-                    'dashboard'             : {
-                        'json_sha'   : dashboard_json_sha,
-                        'md_sha'     : dashboard_md_sha,
-                        'md_content' : dashboard_md_content
-                    },
-                    'alert'                 : {
-                        'yaml_sha'   : alert_yaml_sha,
-                        'md_sha'     : alert_md_sha,
-                        'md_content' : alert_md_content
-                    },
                     'recent_release'        : exporter.release_set.order_by('date').last().date if exporter.release_set.filter().exists() else '1970-01-01',
                     'release'               : [{
                         'release_version': release.version,
@@ -335,3 +296,63 @@ class ExporterDetailView(View):
 
         except Exporter.DoesNotExist:
             return JsonResponse({'message':'NO_EXPORTER'}, status=400)
+
+
+class ExporterTabView(View):
+    def get_contents(self, app_name, content_type, file_type, headers):
+        result = requests.get(f'https://api.github.com/repos/Exporterhubv3/editor_test/contents/{app_name}/{app_name}_{content_type}.{file_type}', headers=headers)
+        data   = result.json()
+
+        if result.status_code == 200:
+            contents = {
+                'content' : data['content'],
+                'sha'     : data['sha']
+            }
+        elif result.status_code == 404:
+            contents = {
+                'content' : None,
+                'sha'     : None
+            }
+        else:
+            contents = "ERROR"
+
+        return contents
+
+    @login_check
+    def get(self, request, exporter_id):
+        try:
+            user         = request.user
+            exporter     = Exporter.objects.get(id=exporter_id)
+            github_token = user.github_token if user else Token.objects.last().token
+            headers      = {'Authorization' : 'token ' + github_token}
+
+            content_type = request.GET['type']
+            file_type    = {
+                'dashboard': 'json',
+                'alert'    : 'yaml'
+            }
+
+            code_file_info = self.get_contents(app_name=exporter.app_name, content_type=content_type, file_type=file_type[content_type], headers=headers)
+            md_file_info   = self.get_contents(app_name=exporter.app_name, content_type=content_type, file_type='md', headers=headers)
+
+            if code_file_info == 'ERROR' or md_file_info == 'ERROR':
+                return JsonResponse({'message': 'GITHUB_API_FAIL'}, status=400)
+
+            code_file_sha   = code_file_info['sha']
+            md_file_sha     = md_file_info['sha']
+            md_file_content = base64.b64decode(md_file_info['content']).decode('utf-8') if md_file_info['content'] else None
+
+            data = {
+                'code_sha'   : code_file_sha,
+                'md_sha'     : md_file_sha,
+                'md_content' : md_file_content
+            }
+
+            return JsonResponse(data, status=200)
+
+        except KeyError:
+            return JsonResponse({'message': 'KEY_ERROR'}, status=400)
+
+        except Exporter.DoesNotExist:
+            return JsonResponse({'message': 'NO_EXPORTER'}, status=404)
+
