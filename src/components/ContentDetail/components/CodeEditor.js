@@ -13,8 +13,10 @@ const CodeEditor = ({
   githubContent,
   title,
   type,
+  file,
   githubToken,
-  sha,
+  mdSha,
+  fileSha,
   handleMode,
 }) => {
   const [preview, setPreview] = useState();
@@ -52,18 +54,14 @@ const CodeEditor = ({
     return test.slice(start, last);
   };
 
-  const handlefetchGithub = () => {
-    // const encode = btoa(edittingData);
-    const codeblock = filter(edittingData);
-    const encode = btoa(unescape(encodeURIComponent(codeblock)));
-    const url = `https://api.github.com/repos/Exporterhubv3/editor_test/contents/${title}/${title}${type}`;
+  const fetchCodeBlock = (blockEncode, codeUrl, wholeEncode, mdUrl) => {
     axios
       .put(
-        url,
+        codeUrl,
         {
-          sha: sha,
+          sha: fileSha,
           message: "put method test",
-          content: encode,
+          content: blockEncode,
         },
         {
           headers: {
@@ -72,13 +70,62 @@ const CodeEditor = ({
         }
       )
       .then((res) => {
-        console.log("응답뭐래 ? >>>", res);
+        console.log("codeUrl SUCCESS", res);
+      })
+      .then(() => {
+        fetchMarkDown(wholeEncode, mdUrl);
         handleMode();
       })
       .catch((error) => {
         console.log(error);
         console.log("실패");
       });
+  };
+
+  const fetchMarkDown = (wholeEncode, mdUrl) => {
+    console.log("fetchMarkDown 함수 호출됨");
+    axios
+      .put(
+        mdUrl,
+        {
+          sha: mdSha,
+          message: "put method test",
+          content: wholeEncode,
+        },
+        {
+          headers: {
+            Authorization: `token ${githubToken}`,
+          },
+        }
+      )
+      .then((res) => {
+        console.log("mdUrl SUCCESS", res);
+        handleMode();
+      })
+      .catch((error) => {
+        console.log(error);
+        console.log("md PUT실패");
+      });
+  };
+
+  console.log("type", type);
+  console.log("file", file);
+
+  const handlefetchGithub = () => {
+    // const encode = btoa(edittingData);
+    const codeblock = filter(edittingData);
+    const blockEncode = btoa(unescape(encodeURIComponent(codeblock)));
+    const wholeEncode = btoa(unescape(encodeURIComponent(edittingData)));
+    const codeUrl = `https://api.github.com/repos/Exporterhubv3/editor_test/contents/${title}/${title}${type}${file}`;
+    const mdUrl = `https://api.github.com/repos/Exporterhubv3/editor_test/contents/${title}/${title}${type}.md`;
+
+    //codeblock
+    console.log("codeblock");
+    fetchCodeBlock(blockEncode, codeUrl, wholeEncode, mdUrl);
+
+    //wholeCode
+    console.log("wholeCode");
+    // fetchMarkDown(wholeEncode, mdUrl);
   };
   const markDownContent = remarkMarkdown(preview);
 
@@ -119,9 +166,11 @@ const CodeEditor = ({
           height="100vh"
         />
         <Preview className="code">
-          <Content
-            dangerouslySetInnerHTML={{ __html: markDownContent }}
-          ></Content>
+          <MarkdownBody>
+            <Content
+              dangerouslySetInnerHTML={{ __html: markDownContent }}
+            ></Content>
+          </MarkdownBody>
           {/* <Content dangerouslySetInnerHTML={{ __html: preview }}></Content> */}
         </Preview>
       </EditorContainer>
@@ -177,5 +226,99 @@ const Button = styled.button`
       margin-right: 5px;
       font-size: 13px;
     }
+  }
+`;
+
+const MarkdownBody = styled.div`
+  * {
+    line-height: 1.8;
+  }
+
+  code {
+    margin: 0;
+    padding: 0.2em 0.4em;
+    background-color: rgba(27, 31, 35, 0.05);
+    border-radius: 6px;
+    font-size: 13px;
+    font-family: "Noto Sans KR", sans-serif;
+  }
+
+  pre {
+    margin-bottom: 16px;
+    padding: 16px;
+    overflow: auto;
+    line-height: 1.45;
+    background-color: #f0f4f8;
+    border-radius: 6px;
+    font-size: 13px;
+
+    tt,
+    code {
+      background-color: #f0f4f8;
+      line-height: 1.6;
+    }
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    margin: 24px 0 16px;
+    line-height: 1.25;
+  }
+
+  h1,
+  h2 {
+    padding-bottom: 0.3em;
+    border-bottom: 1px solid #eaecef;
+    font-weight: 600;
+  }
+
+  h2 {
+    font-size: 1.5em;
+    font-weight: 500;
+  }
+
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-size: 1.25em;
+    font-weight: 400;
+  }
+
+  p {
+    margin-bottom: 16px;
+    font-size: 15px;
+  }
+
+  blockquote {
+    padding: 0 1em;
+    border-left: 0.25em solid #dfe2e5;
+    color: #6a737d;
+  }
+
+  ul {
+    margin-bottom: 16px;
+    padding-left: 2em;
+    list-style-type: disc;
+
+    li {
+      line-height: 2;
+    }
+  }
+
+  img {
+    max-width: 100%;
+  }
+
+  hr {
+    height: 0.25em;
+    padding: 0;
+    margin: 24px 0;
+    background-color: #e1e4e8;
+    border: 0;
   }
 `;
