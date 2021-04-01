@@ -1,7 +1,5 @@
-import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import styled from "styled-components";
-import axios from "axios";
 import { FiEdit } from "react-icons/fi";
 import { BiUndo } from "react-icons/bi";
 import CodeEditor from "./CodeEditor";
@@ -13,9 +11,8 @@ const Dataviewer = ({
   title,
   type,
   file,
-  githubToken,
   mdSha,
-  fileSha,
+  codeSha,
   markDownContent,
 }) => {
   const isAdmin = useSelector((store) => store.adminReducer);
@@ -48,12 +45,8 @@ const Dataviewer = ({
         ) : (
           <CodeEditor
             githubContent={githubContent}
-            title={title}
-            type={type}
-            file={file}
-            githubToken={githubToken}
             mdSha={mdSha}
-            fileSha={fileSha}
+            codeSha={codeSha}
             handleMode={handleMode}
           />
         )}

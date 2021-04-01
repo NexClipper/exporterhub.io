@@ -13,6 +13,7 @@ export const EXPORTERS_API = `${SERVER}/exporter`;
 export const EXPORTER_API = `${SERVER}/exporter`;
 export const CATEGORIES_API = `${SERVER}/exporter/categories`;
 export const TOKEN_API = `${SERVER}/headtoken`;
+export const STAR_API = `${SERVER}/user/star`;
 export const BUCKET_API = `${SERVER}/user/bucket`;
 export const LOGIN_API = `${SERVER}/user/login`;
 export const ADMIN_API = `${SERVER}/user/admin`;
