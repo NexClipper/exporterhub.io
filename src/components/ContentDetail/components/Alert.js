@@ -23,7 +23,7 @@ const Alert = ({ title, githubToken }) => {
 
   const getData = () => {
     const url = `https://api.github.com/repos/Exporterhubv3/editor_test/contents/${title}/${title}_alert.yaml`;
-
+    console.log("여기", url);
     axios
       .get(url)
       .then((res) => {

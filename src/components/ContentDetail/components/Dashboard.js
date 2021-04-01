@@ -20,12 +20,21 @@ const Dashboard = ({ title, githubToken }) => {
   useEffect(() => {
     getData();
   }, [isEditMode]);
+  console.log(title);
 
   const getData = () => {
     const url = `https://api.github.com/repos/Exporterhubv3/editor_test/contents/${title}/${title}_dashboard.json`;
 
     axios
-      .get(url)
+      .get(
+        url,
+        {},
+        {
+          headers: {
+            Authorization: `token ${githubToken}`,
+          },
+        }
+      )
       .then((res) => {
         setGithubContent(decodeURIComponent(escape(atob(res.data.content))));
         setSha(res.data.sha);
