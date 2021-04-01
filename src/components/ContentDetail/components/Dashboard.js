@@ -3,11 +3,13 @@ import styled from "styled-components";
 import axios from "axios";
 
 import Dataviewer from "./Dataviewer";
+import remarkMarkdown from "../remarkMarkdown";
 
 const Dashboard = ({ title, githubToken }) => {
   const [githubContent, setGithubContent] = useState();
   const [isEditMode, setIsEditMode] = useState(false);
-  const [sha, setSha] = useState();
+  const [mdSha, setMdSha] = useState();
+  const [fileSha, setFileSha] = useState();
 
   const handleMode = () => {
     setIsEditMode(!isEditMode);
@@ -23,11 +25,11 @@ const Dashboard = ({ title, githubToken }) => {
   console.log(title);
 
   const getData = () => {
-    const url = `https://api.github.com/repos/Exporterhubv3/editor_test/contents/${title}/${title}_dashboard.json`;
-
+    const mdUrl = `https://api.github.com/repos/Exporterhubv3/editor_test/contents/${title}/${title}_dashboard.md`;
+    const fileUrl = `https://api.github.com/repos/Exporterhubv3/editor_test/contents/${title}/${title}_dashboard.json`;
     axios
       .get(
-        url,
+        mdUrl,
         {},
         {
           headers: {
@@ -37,23 +39,48 @@ const Dashboard = ({ title, githubToken }) => {
       )
       .then((res) => {
         setGithubContent(decodeURIComponent(escape(atob(res.data.content))));
-        setSha(res.data.sha);
+        setMdSha(res.data.sha);
         console.log("github에서 코드 가져왔어!");
       })
       .catch((error) => {
         setGithubContent("Null");
       });
+
+    axios
+      .get(
+        fileUrl,
+        {},
+        {
+          headers: {
+            Authorization: `token ${githubToken}`,
+          },
+        }
+      )
+      .then((res) => {
+        setFileSha(res.data.sha);
+      })
+      .catch((error) => {
+        console.log("file Dashboard Sha error");
+        console.log(error);
+      });
   };
+
+  const markDownContent = remarkMarkdown(githubContent);
+
   return (
     <Container>
       <Dataviewer
         githubContent={githubContent}
+        markDownContent={markDownContent}
         isEditMode={isEditMode}
         handleMode={handleMode}
         title={title}
-        type="_dashboard.json"
+        // type="_dashboard.json"
+        file=".json"
+        type="_dashboard"
         githubToken={githubToken}
-        sha={sha}
+        mdSha={mdSha}
+        fileSha={fileSha}
       />
     </Container>
   );
