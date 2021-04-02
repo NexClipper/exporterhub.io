@@ -311,7 +311,7 @@ class AdminView(View):
         try:
             user    = request.user   
             headers = {'Authorization' : 'token ' + user.github_token}
-            result  = requests.get('https://api.github.com/orgs/NexClipper/members', headers=headers)
+            result  = requests.get('https://api.github.com/orgs/Exporterhubv3/members', headers=headers)
           
             if result.status_code != 200:
                 return JsonResponse({'message' : 'GITHUB_API_FAIL'}, status=400)
