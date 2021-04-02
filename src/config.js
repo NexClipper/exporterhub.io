@@ -8,7 +8,7 @@ export const PUBLIC_SERVICE = process.env.REACT_APP_API_STATUS; //- if the PUBLI
 // export const EXPORTER_ADMIN_API = `${API_SURVER}:8000/exporter`;
 // export const TOKEN_API = `${API_SURVER}:8000/token`;
 
-export const SERVER = "http://10.153.4.139:8000";
+export const SERVER = "http://10.153.6.186:8000";
 export const EXPORTERS_API = `${SERVER}/exporter`;
 export const EXPORTER_API = `${SERVER}/exporter`;
 export const CATEGORIES_API = `${SERVER}/exporter/categories`;

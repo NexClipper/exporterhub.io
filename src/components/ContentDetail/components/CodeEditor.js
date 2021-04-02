@@ -141,9 +141,7 @@ const CodeEditor = ({
         mdFile: wholeEncode,
         "md-SHA": mdSha,
         message:
-          mdSha === null
-            ? `CREATE ${title}${type}${file}`
-            : `UPDATE ${title}${type}${file}`,
+          mdSha === null ? `CREATE ${title}${type}` : `UPDATE ${title}${type}`,
       },
     })
       .then(() => {
