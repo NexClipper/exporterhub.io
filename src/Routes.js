@@ -96,9 +96,9 @@ function Routes() {
           <Route exact path="/detail/:id" component={ExporterHubDetailPage} />
           <Route exact path="/detail" component={ExporterHubDetailPage} />
           <Route exact path="/mybucket" component={MyBucketPage} />
-          {PUBLIC_SERVICE === "n" && (
+          {/* {PUBLIC_SERVICE === "n" && (
             <Route exact path="/admin" component={AdminPage} />
-          )}
+          )} */}
         </Switch>
         <Footer />
       </Router>
