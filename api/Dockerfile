@@ -2,7 +2,7 @@
 FROM python:3.8
 
 ## It is just Label when it has build automation.
-LABEL version=0.1
+LABEL version=release-api0.2.9
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
 		netcat \
