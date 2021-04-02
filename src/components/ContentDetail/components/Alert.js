@@ -3,57 +3,46 @@ import styled from "styled-components";
 import axios from "axios";
 import Dataviewer from "./Dataviewer";
 import remarkMarkdown from "../remarkMarkdown";
-const Alert = ({ title, githubToken }) => {
+import { useParams } from "react-router";
+import { SERVER } from "../../../config";
+
+const Alert = ({ title }) => {
+  const { id } = useParams();
   const [githubContent, setGithubContent] = useState();
-  const [isEditMode, setIsEditMode] = useState(false);
   const [mdSha, setMdSha] = useState();
-  const [fileSha, setFileSha] = useState();
+  const [codeSha, setCodeSha] = useState();
+  const [isEditMode, setIsEditMode] = useState(false);
+
   const handleMode = () => {
     setIsEditMode(!isEditMode);
   };
+
   useEffect(() => {
     getData();
   }, []);
+
   useEffect(() => {
     getData();
   }, [isEditMode]);
+
   const getData = () => {
-    const mdUrl = `https://api.github.com/repos/Exporterhubv3/editor_test/contents/${title}/${title}_alert.md`;
-    const fileUrl = `https://api.github.com/repos/Exporterhubv3/editor_test/contents/${title}/${title}_alert.yaml`;
-    axios
-      .get(
-        mdUrl,
-        {},
-        {
-          headers: {
-            Authorization: `token ${githubToken}`,
-          },
-        }
-      )
+    const TOKEN = sessionStorage.getItem("access_token");
+    const HEADER = TOKEN && { Authorization: TOKEN };
+
+    axios({
+      method: "GET",
+      url: `${SERVER}/exporter/${id}/tab?type=alert`,
+      headers: HEADER,
+    })
       .then((res) => {
-        setGithubContent(decodeURIComponent(escape(atob(res.data.content))));
-        setMdSha(res.data.sha);
-        console.log("github에서 코드 가져왔어!");
+        setGithubContent(
+          res.data.md_content === null ? "null" : res.data.md_content
+        );
+        setMdSha(res.data.md_sha);
+        setCodeSha(res.data.code_sha);
       })
-      .catch((error) => {
-        setGithubContent("Null");
-      });
-    axios
-      .get(
-        fileUrl,
-        {},
-        {
-          headers: {
-            Authorization: `token ${githubToken}`,
-          },
-        }
-      )
-      .then((res) => {
-        setFileSha(res.data.sha);
-      })
-      .catch((error) => {
-        console.log("file Alert Sha error");
-        console.log(error);
+      .catch((err) => {
+        console.log(err);
       });
   };
 
@@ -67,11 +56,10 @@ const Alert = ({ title, githubToken }) => {
         isEditMode={isEditMode}
         handleMode={handleMode}
         title={title}
-        // type="_alert.yaml"
         file=".yaml"
         type="_alert"
-        githubToken={githubToken}
         mdSha={mdSha}
+        codeSha={codeSha}
       />
     </Container>
   );

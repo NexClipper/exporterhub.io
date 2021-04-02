@@ -127,7 +127,7 @@ const Tab = styled.li`
 `;
 
 const Main = styled.main`
-  min-height: calc(100vh - 568px);
+  min-height: calc(100vh - 436px);
   max-height: fit-content;
   padding: 90px 0 50px;
   background: #f7f9fc;
