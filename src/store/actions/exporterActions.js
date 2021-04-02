@@ -1,11 +1,10 @@
 const CHANGE_BUCKET_PAGE = "CHANGE_BUCKET_PAGE";
-const SORT_BY_POPULARITY = "SORT_BY_POPULARITY";
-const SORT_BY_CURRENT = "SORT_BY_CURRENT";
-const FILTER_BY_VALUE = "FILTER_BY_VALUE";
-const FILTER_BY_TYPE = "FILTER_BY_TYPE";
 const FILTER_BY_USER = "FILTER_BY_USER";
-const LOAD_DATA = "LOAD_DATA";
-const LOAD_MORE_DATA = "LOAD_MORE_DATA";
+const ALL_DATA = "ALL_DATA";
+const FILTER_BY_SEARCH = "FILTER_BY_SEARCH";
+const FILTER_BY_NAV = "FILTER_BY_NAV";
+const FILTER_BY_CATE = "FILTER_BY_CATE";
+const FILTER_BY_SORT = "FILTER_BY_SORT";
 const LOAD_CATEGORIES = "LOAD_CATEGORIES";
 const GET_TOKEN_STATE = "GET_TOKEN_STATE";
 const GET_LOGIN_STATE = "GET_LOGIN_STATE";
@@ -17,13 +16,24 @@ export const changeBucketPage = (payload) => ({
   payload,
 });
 
-export const filterByValue = (payload) => ({
-  type: FILTER_BY_VALUE,
+// Filter
+export const filterBySearch = (payload) => ({
+  type: FILTER_BY_SEARCH,
   payload,
 });
 
-export const filterByType = (payload) => ({
-  type: FILTER_BY_TYPE,
+export const filterByNav = (payload) => ({
+  type: FILTER_BY_NAV,
+  payload,
+});
+
+export const filterByCate = (payload) => ({
+  type: FILTER_BY_CATE,
+  payload,
+});
+
+export const filterBySort = (payload) => ({
+  type: FILTER_BY_SORT,
   payload,
 });
 
@@ -32,23 +42,8 @@ export const filterByUser = (payload) => ({
   payload,
 });
 
-export const sortByPopularity = (payload) => ({
-  type: SORT_BY_POPULARITY,
-  payload,
-});
-
-export const sortByCurrent = (payload) => ({
-  type: SORT_BY_CURRENT,
-  payload,
-});
-
-export const loadData = (payload) => ({
-  type: LOAD_DATA,
-  payload,
-});
-
-export const loadMoreData = (payload) => ({
-  type: LOAD_MORE_DATA,
+export const allData = (payload) => ({
+  type: ALL_DATA,
   payload,
 });
 

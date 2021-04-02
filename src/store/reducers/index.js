@@ -1,5 +1,4 @@
 import { combineReducers } from "redux";
-import exporterReducer from "./exporterReducer";
 import categoryReducer from "./categoryReducer";
 import tokenReducer from "./tokenReducer";
 import loginReducer from "./loginReducer";
@@ -7,9 +6,14 @@ import userReducer from "./userReducer";
 import headerReducer from "./headerReducer";
 import unforkReducer from "./unforkReducer";
 import adminReducer from "./adminReducer";
+// ======
+import allExporterReducer from "./allExporterReducer";
+import searchFilterReducer from "./searchFilterReducer";
+import navFilterReducer from "./navFilterReducer";
+import cateFilterReducer from "./cateFilterReducer";
+import sortFilterReducer from "./sortFilterReducer";
 
 export default combineReducers({
-  exporterReducer,
   categoryReducer,
   tokenReducer,
   loginReducer,
@@ -17,4 +21,10 @@ export default combineReducers({
   headerReducer,
   unforkReducer,
   adminReducer,
+  //===
+  allExporterReducer,
+  navFilterReducer,
+  cateFilterReducer,
+  sortFilterReducer,
+  searchFilterReducer,
 });

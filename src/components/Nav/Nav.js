@@ -1,16 +1,23 @@
-import React from "react";
-import { useDispatch } from "react-redux";
-import { filterByValue } from "../../store/actions/exporterActions";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { filterByNav, allData } from "../../store/actions/exporterActions";
 import { useState } from "react";
 import styled from "styled-components";
 
 const Nav = () => {
-  const dispatch = useDispatch();
   const [isOfficial, setIsOfficial] = useState(0);
+  const dispatch = useDispatch();
+
   const callDispatch = (e) => {
-    const payload = { filterType: "type", data: e.target.innerText };
-    dispatch(filterByValue(payload));
+    if (e.target.innerText === "All") {
+      const payload = "";
+      dispatch(filterByNav(payload));
+    } else {
+      const payload = e.target.innerText;
+      dispatch(filterByNav(payload));
+    }
   };
+
   return (
     <Navigation>
       <Container>

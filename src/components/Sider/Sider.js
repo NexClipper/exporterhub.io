@@ -1,6 +1,6 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { filterByValue } from "../../store/actions/exporterActions";
+import { filterByCate } from "../../store/actions/exporterActions";
 import styled from "styled-components";
 
 const Sider = () => {
@@ -8,15 +8,18 @@ const Sider = () => {
   const categories = useSelector((store) => store.categoryReducer);
   const [categoryAct, setcategoryAct] = useState(0);
 
-  console.log(categories);
-
   const handleClickCategoryAct = (id) => {
     setcategoryAct(id);
   };
 
   const callDispatch = (e) => {
-    const payload = { filterType: "category", data: e.target.innerText };
-    dispatch(filterByValue(payload));
+    if (e.target.innerText === "All") {
+      const payload = "";
+      dispatch(filterByCate(payload));
+    } else {
+      const payload = e.target.innerText;
+      dispatch(filterByCate(payload));
+    }
   };
 
   return (
