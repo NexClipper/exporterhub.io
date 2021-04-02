@@ -4,13 +4,14 @@ import styled from "styled-components";
 import { RiUserSettingsLine } from "react-icons/ri";
 import { HiOutlineOfficeBuilding, HiOutlineMail } from "react-icons/hi";
 import { AiOutlineUser } from "react-icons/ai";
-import { SERVER } from "../../../config";
+import { API_SURVER, SERVER } from "../../../config";
 
 const Profile = ({ userProfile }) => {
   const [isEditMode, setEditMode] = useState(false);
   const [fullName, setFullName] = useState();
   const [company, setCompany] = useState();
   const [email, setEmail] = useState();
+  const [alertModal, setAlertModal] = useState(false);
 
   const handleProfileEdit = () => {
     setEditMode(!isEditMode);
@@ -28,7 +29,7 @@ const Profile = ({ userProfile }) => {
   const handleSave = () => {
     axios({
       method: "PATCH",
-      url: `${SERVER}/user/profile`,
+      url: `${API_SURVER}:8000/user/profile`,
       headers: {
         Authorization: sessionStorage.getItem("access_token"),
       },
@@ -42,9 +43,20 @@ const Profile = ({ userProfile }) => {
         window.location.reload();
       })
       .catch((err) => {
-        alert("Error");
-        handleProfileEdit();
+        // alert("Error");
+        showAlertModal();
+        // handleProfileEdit();
       });
+  };
+
+  const showAlertModal = () => {
+    setAlertModal(true);
+
+    setTimeout(() => {
+      setAlertModal(false);
+    }, 3000);
+
+    handleProfileEdit();
   };
 
   return (
@@ -120,11 +132,59 @@ const Profile = ({ userProfile }) => {
           </EditorBtns>
         </ProfileEditor>
       )}
+      <AlertModal isActive={alertModal}>
+        <p>ERROR : Check your email address</p>
+      </AlertModal>
     </UserInfo>
   );
 };
 
 export default Profile;
+
+const AlertModal = styled.div`
+  display: ${(props) => (props.isActive ? "flex" : "none")};
+  justify-content: center;
+  top: -70px;
+  width: 100%;
+  position: absolute;
+  animation: move 2s ease-in-out;
+  opacity: 0%;
+
+  p {
+    width: 300px;
+    height: 50px;
+    padding: 15px 20px;
+    background: #ffffff;
+    box-shadow: 1px 1px 6px 1px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    font-weight: 600;
+    font-size: 13px;
+    text-align: center;
+    line-height: 1.6;
+  }
+
+  @keyframes move {
+    0% {
+      transform: translateY(0);
+      opacity: 100%;
+    }
+    20% {
+      transform: translateY(14px);
+      opacity: 100%;
+    }
+    95% {
+      transform: translateY(14px);
+      opacity: 100%;
+    }
+    98% {
+      opacity: 80%;
+    }
+    100% {
+      transform: translateY(0);
+      opacity: 0%;
+    }
+  }
+`;
 
 const UserInfo = styled.div`
   display: flex;

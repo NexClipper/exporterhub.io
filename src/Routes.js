@@ -27,6 +27,7 @@ import {
   TOKEN_API,
   PUBLIC_SERVICE,
   SERVER,
+  API_SURVER,
 } from "./config";
 
 import Login from "./components/Login/Login";
@@ -62,7 +63,7 @@ function Routes() {
     if (sessionStorage.getItem("access_token")) {
       axios({
         method: "GET",
-        url: `${SERVER}/user/check`,
+        url: `${API_SURVER}:8000/user/check`,
         headers: {
           Authorization: sessionStorage.getItem("access_token"),
         },

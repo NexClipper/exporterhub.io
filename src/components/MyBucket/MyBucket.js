@@ -8,7 +8,7 @@ import { useHistory } from "react-router";
 import { useDispatch, useSelector } from "react-redux";
 import { changeBucketPage } from "../../store/actions/exporterActions";
 import UnforkModal from "../Modal/UnforkModal";
-import { SERVER } from "../../config";
+import { API_SURVER, SERVER } from "../../config";
 
 const MyBucket = () => {
   const isAdmin = useSelector((store) => store.adminReducer);
@@ -47,7 +47,7 @@ const MyBucket = () => {
   useEffect(() => {
     axios({
       method: "GET",
-      url: `${SERVER}/user/profile`,
+      url: `${API_SURVER}:8000/user/profile`,
       headers: {
         Authorization: sessionStorage.getItem("access_token"),
       },

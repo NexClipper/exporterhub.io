@@ -8,7 +8,7 @@ import axios from "axios";
 import { HiOutlineSave } from "react-icons/hi";
 //md test
 import remarkMarkdown from "../remarkMarkdown";
-import { SERVER } from "../../../config";
+import { API_SURVER, SERVER } from "../../../config";
 import { useParams } from "react-router";
 
 const CodeEditor = ({
@@ -55,81 +55,14 @@ const CodeEditor = ({
     return test.slice(start, last);
   };
 
-  // const fetchCodeBlock = (blockEncode, codeUrl, wholeEncode, mdUrl) => {
-  //   axios
-  //     .put(
-  //       codeUrl,
-  //       {
-  //         sha: fileSha,
-  //         message: "put method test",
-  //         content: blockEncode,
-  //       },
-  //       {
-  //         headers: {
-  //           Authorization: `token ${githubToken}`,
-  //         },
-  //       }
-  //     )
-  //     .then((res) => {
-  //       console.log("codeUrl SUCCESS", res);
-  //     })
-  //     .then(() => {
-  //       fetchMarkDown(wholeEncode, mdUrl);
-  //       handleMode();
-  //     })
-  //     .catch((error) => {
-  //       console.log(error);
-  //       console.log("실패");
-  //     });
-  // };
-
-  // const fetchMarkDown = (wholeEncode, mdUrl) => {
-  //   console.log("fetchMarkDown 함수 호출됨");
-  //   axios
-  //     .put(
-  //       mdUrl,
-  //       {
-  //         sha: mdSha,
-  //         message: "put method test",
-  //         content: wholeEncode,
-  //       },
-  //       {
-  //         headers: {
-  //           Authorization: `token ${githubToken}`,
-  //         },
-  //       }
-  //     )
-  //     .then((res) => {
-  //       console.log("mdUrl SUCCESS", res);
-  //       handleMode();
-  //     })
-  //     .catch((error) => {
-  //       console.log(error);
-  //       console.log("md PUT실패");
-  //     });
-  // };
-
   const handlefetchGithub = () => {
-    console.log("비교", edittingData === githubContent);
-
     const codeblock = filter(edittingData);
     const blockEncode = btoa(unescape(encodeURIComponent(codeblock)));
     const wholeEncode = btoa(unescape(encodeURIComponent(edittingData)));
 
-    const body = {
-      codeFileName: `${title}${type}${file}`,
-      codeBlock: blockEncode,
-      "code-SHA": codeSha,
-      mdFileName: `${title}${type}.md`,
-      mdFile: wholeEncode,
-      "md-SHA": mdSha,
-      message:
-        mdSha === null ? `CREATE ${title}${type}` : `UPDATE ${title}${type}`,
-    };
-
     axios({
       method: "POST",
-      url: `${SERVER}/exporter/${id}/tab`,
+      url: `${API_SURVER}:8000/exporter/${id}/tab`,
       headers: {
         Authorization: sessionStorage.getItem("access_token"),
       },
@@ -141,9 +74,7 @@ const CodeEditor = ({
         mdFile: wholeEncode,
         "md-SHA": mdSha,
         message:
-          mdSha === null
-            ? `CREATE ${title}${type}${file}`
-            : `UPDATE ${title}${type}${file}`,
+          mdSha === null ? `CREATE ${title}${type}` : `UPDATE ${title}${type}`,
       },
     })
       .then(() => {
@@ -155,26 +86,7 @@ const CodeEditor = ({
         console.log(err);
         handleMode();
       });
-
-    console.log(body);
   };
-
-  // const handlefetchGithub = () => {
-  //   // const encode = btoa(edittingData); 주석
-  //   const codeblock = filter(edittingData);
-  //   const blockEncode = btoa(unescape(encodeURIComponent(codeblock)));
-  //   const wholeEncode = btoa(unescape(encodeURIComponent(edittingData)));
-  //   const codeUrl = `https://api.github.com/repos/Exporterhubv3/editor_test/contents/${title}/${title}${type}${file}`;
-  //   const mdUrl = `https://api.github.com/repos/Exporterhubv3/editor_test/contents/${title}/${title}${type}.md`;
-
-  //   //codeblock 주석
-  //   console.log("codeblock");
-  //   fetchCodeBlock(blockEncode, codeUrl, wholeEncode, mdUrl);
-
-  //   //wholeCode 주석
-  //   console.log("wholeCode");
-  //   // fetchMarkDown(wholeEncode, mdUrl); 주석
-  // };
 
   const markDownContent = remarkMarkdown(preview);
 

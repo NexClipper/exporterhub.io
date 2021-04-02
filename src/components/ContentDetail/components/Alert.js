@@ -4,7 +4,7 @@ import axios from "axios";
 import Dataviewer from "./Dataviewer";
 import remarkMarkdown from "../remarkMarkdown";
 import { useParams } from "react-router";
-import { SERVER } from "../../../config";
+import { API_SURVER, SERVER } from "../../../config";
 
 const Alert = ({ title }) => {
   const { id } = useParams();
@@ -31,7 +31,7 @@ const Alert = ({ title }) => {
 
     axios({
       method: "GET",
-      url: `${SERVER}/exporter/${id}/tab?type=alert`,
+      url: `${API_SURVER}:8000/exporter/${id}/tab?type=alert`,
       headers: HEADER,
     })
       .then((res) => {
