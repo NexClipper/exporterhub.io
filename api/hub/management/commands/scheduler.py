@@ -1,7 +1,6 @@
 import requests
 import base64
 import logging
-import time
 import re
 import csv
 from datetime import datetime, date
@@ -28,14 +27,13 @@ logger.addHandler(stream_handler)
 api_url = 'https://api.github.com/repos/'
 PATTERN = r"!\[(\w*|\s|\w+( \w+)*)\]\(([^,:!]*|\/[^,:!]*\.\w+|\w*.\w*)\)"
 TOKEN = Token.objects.filter().last()
-print(TOKEN)
+
 def create_or_update_exporters():
-    if TOKEN.is_valid:
+    if Token.objects.filter().exists() and TOKEN.is_valid:
         logger.info('CHECK_EXPORTERS_START')
         headers       = {'Authorization' : 'token ' + TOKEN.token}
         exporters     = Exporter.objects.select_related('category', 'official').prefetch_related('release_set').order_by('id')
-        exporter_list = 'https://raw.githubusercontent.com/NexClipper/exporterhub.io/dev/api/exporter_list.csv'       
-        # exporter_list = 'https://raw.githubusercontent.com/NexClipper/exporterhub.io/main/api/exporter_list.csv'
+        exporter_list = 'https://raw.githubusercontent.com/NexClipper/exporterhub.io/main/api/exporter_list.csv'
         repo_get      = requests.get(exporter_list)
 
         if repo_get.status_code != 200:

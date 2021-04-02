@@ -17,15 +17,19 @@ WORKDIR /data
 ## File & Directory copy to WORKDIR
 COPY requirements.txt /data/
 COPY manage.py /data/
-COPY exporterhub_schema.sql /data/
+#COPY exporterhub_schema.sql /data/
 COPY entrypoint.sh /data/
-COPY my_settings.py /data/
+#COPY my_settings.py /data/
 
 ## Initializing for run
 RUN pip install -r requirements.txt
 
 COPY exporterhub /data/exporterhub
 COPY hub /data/hub
+COPY exporter /data/exporter
+COPY user /data/user
+COPY headtoken /data/headtoken
+COPY exporter_list.csv /data
 
 ## For test run
 ##ENTRYPOINT ["tail","-f","/data/package.json"]

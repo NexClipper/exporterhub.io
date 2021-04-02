@@ -59,7 +59,7 @@ class GithubLoginView(View):
             # check pending admin and update to admin
             if user.type_id == PENDING_ADMIN_CODE:
                 headers = {'Authorization' : 'token ' + user.github_token} 
-                result  = requests.get('https://api.github.com/orgs/Exporterhubv3/members', headers=headers)
+                result  = requests.get('https://api.github.com/orgs/NexClipper/members', headers=headers)
               
                 if result.status_code != 200:
                     return JsonResponse({'message' : 'GITHUB_API_FAIL'}, status=400)
@@ -291,7 +291,7 @@ class AdminView(View):
             }
 
             headers = {'Authorization' : 'token ' + user.github_token}
-            result  = requests.post('https://api.github.com/orgs/Exporterhubv3/invitations', data=json.dumps(data), headers=headers)
+            result  = requests.post('https://api.github.com/orgs/NexClipper/invitations', data=json.dumps(data), headers=headers)
 
             if result.status_code == 404:
                 return JsonResponse({'message': 'GITHUB_API_FAIL'}, status=404)
@@ -311,7 +311,7 @@ class AdminView(View):
         try:
             user    = request.user   
             headers = {'Authorization' : 'token ' + user.github_token}
-            result  = requests.get('https://api.github.com/orgs/Exporterhubv3/members', headers=headers)
+            result  = requests.get('https://api.github.com/orgs/NexClipper/members', headers=headers)
           
             if result.status_code != 200:
                 return JsonResponse({'message' : 'GITHUB_API_FAIL'}, status=400)
@@ -342,7 +342,7 @@ class AdminView(View):
             data     = json.loads(request.body)
             username = data['username']
             headers  = {'Authorization' : 'token ' + user.github_token}
-            result   = requests.delete(f'https://api.github.com/orgs/Exporterhubv3/members/{username}', headers=headers)
+            result   = requests.delete(f'https://api.github.com/orgs/NexClipper/members/{username}', headers=headers)
             
             if result.status_code != 204:
                 return JsonResponse({'message' : 'GITHUB_API_FAIL'}, status=400)
