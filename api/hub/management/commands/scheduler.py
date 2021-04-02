@@ -154,20 +154,21 @@ class Command(BaseCommand):
 
     def handle(self,*args, **options):
 
-        scheduler = BlockingScheduler(timezone=settings.TIME_ZONE)
-        scheduler.add_jobstore(DjangoJobStore(),'default')
+        token_check_scheduler = BlockingScheduler(timezone=settings.TIME_ZONE)
+        crawl_scheduler       = BlockingScheduler(timezone=settings.TIME_ZONE)
+        token_check_scheduler.add_jobstore(DjangoJobStore(),'default')
+        crawl_scheduler.add_jobstore(DjangoJobStore(),'default')
 
-        scheduler.add_job(
-            create_or_update_exporters,
-            trigger=CronTrigger(hour='*/4'),
-            id='create_or_update_exporters',
+        token_check_scheduler.add_job(
+            no_token,
+            trigger=CronTrigger(minute='*/1'),
+            id='no_token',
             max_instances=1,
             replace_existing=True,
             next_run_time=datetime.now(),
         )
-        logger.info("Added job 'create_or_update_exporters'.")
 
-        scheduler.add_job(
+        token_check_scheduler.add_job(
             delete_old_job_executions,
             trigger=CronTrigger(
                 day_of_week="mon", hour="00", minute="00"
@@ -178,19 +179,36 @@ class Command(BaseCommand):
         )
         logger.info("Added weekly job 'delete_old_job_executions'.")
 
-        scheduler.add_job(
-            no_token,
-            trigger=CronTrigger(minute='*/1'),
-            id='no_token',
+        crawl_scheduler.add_job(
+            create_or_update_exporters,
+            trigger=CronTrigger(hour='*/4'),
+            id='create_or_update_exporters',
             max_instances=1,
             replace_existing=True,
             next_run_time=datetime.now(),
         )
+        logger.info("Added job 'create_or_update_exporters'.")
+
+        crawl_scheduler.add_job(
+            delete_old_job_executions,
+            trigger=CronTrigger(
+                day_of_week="mon", hour="00", minute="00"
+            ),
+            id='delete_old_job_executions',
+            max_instances=1,
+            replace_existing=True,
+        )
+        logger.info("Added weekly job 'delete_old_job_executions'.")
+
 
         try:
             logger.info('Starting scheduler...')
-            scheduler.start()
+            token_check_scheduler.start()
+            #if token_check_scheduler 
+            crawl_scheduler.start()
+
         except KeyboardInterrupt:
             logger.info('Stopping scheduler...')
-            scheduler.shutdown()
+            token_check_scheduler.shutdown()
+            crawl_scheduler.shutdown()
             logger.info('Scheduler shut down successfully.')

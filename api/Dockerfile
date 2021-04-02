@@ -48,6 +48,3 @@ EXPOSE 8000
 ## ENTRYPOINT will be runs at the end of container attached
 ENTRYPOINT /data/entrypoint.sh
 
-
-
-
