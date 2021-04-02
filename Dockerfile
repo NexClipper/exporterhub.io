@@ -16,6 +16,9 @@ COPY ./src  /data/src
 COPY ./public /data/public
 COPY ./entrypoint.sh  /data
 COPY ./dotenv  /data/.env
+COPY ./.eslintrc.json /data
+COPY ./.prettierrc.json /data
+
 
 ## Build of node runs
 RUN npm i -s dotenv
