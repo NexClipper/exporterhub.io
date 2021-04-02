@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import axios from "axios";
 import { AiFillStar } from "react-icons/ai";
@@ -16,6 +16,7 @@ const OpenSourceInfo = ({
   setStarNumber,
 }) => {
   const TOKEN = sessionStorage.getItem("access_token");
+  const [alertModal, setAlertModal] = useState(false);
 
   const addToFork = (exporterInfo) => {
     if (!TOKEN) {
@@ -37,6 +38,7 @@ const OpenSourceInfo = ({
         .then(() => {
           console.log("SUCCESS : fork");
           setForkState(true);
+          showAlertModal();
         })
         .catch((err) => {
           console.log("ERROR : fork");
@@ -76,6 +78,14 @@ const OpenSourceInfo = ({
     setStarState(!starState);
   };
 
+  const showAlertModal = () => {
+    setAlertModal(true);
+
+    setTimeout(() => {
+      setAlertModal(false);
+    }, 3000);
+  };
+
   return (
     <Info>
       <a href={exporterInfo.repository_url} target="_blank">
@@ -105,11 +115,59 @@ const OpenSourceInfo = ({
           </StarIcon>
         </div>
       </div>
+      <AlertModal isActive={alertModal}>
+        <p>This Exporter has been forked with Github</p>
+      </AlertModal>
     </Info>
   );
 };
 
 export default OpenSourceInfo;
+
+const AlertModal = styled.div`
+  display: ${(props) => (props.isActive ? "flex" : "none")};
+  justify-content: center;
+  top: -70px;
+  width: 100%;
+  position: absolute;
+  animation: move 2s ease-in-out;
+  opacity: 0%;
+
+  p {
+    width: 300px;
+    height: 50px;
+    padding: 15px 20px;
+    background: #ffffff;
+    box-shadow: 1px 1px 6px 1px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    font-weight: 600;
+    font-size: 13px;
+    text-align: center;
+    line-height: 1.6;
+  }
+
+  @keyframes move {
+    0% {
+      transform: translateY(0);
+      opacity: 100%;
+    }
+    20% {
+      transform: translateY(14px);
+      opacity: 100%;
+    }
+    95% {
+      transform: translateY(14px);
+      opacity: 100%;
+    }
+    98% {
+      opacity: 80%;
+    }
+    100% {
+      transform: translateY(0);
+      opacity: 0%;
+    }
+  }
+`;
 
 const Info = styled.div`
   display: flex;

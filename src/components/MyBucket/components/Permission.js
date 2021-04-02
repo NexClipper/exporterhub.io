@@ -5,7 +5,7 @@ import AdminContent from "../../Content/AdminContent";
 import { SearchOutlined } from "@ant-design/icons";
 import axios from "axios";
 import { changeBucketPage } from "../../../store/actions/exporterActions";
-import { ADMIN_API, SERVER } from "../../../config";
+import { ADMIN_API, API_SURVER, SERVER } from "../../../config";
 import UsersContent from "../../Content/UsersContent";
 
 const Permission = () => {
@@ -22,7 +22,7 @@ const Permission = () => {
   useEffect(() => {
     axios({
       method: "GET",
-      url: `${SERVER}/user/search?q=${searchUser}`,
+      url: `${API_SURVER}:8000/user/search?q=${searchUser}`,
       headers: {
         Authorization: token,
       },
