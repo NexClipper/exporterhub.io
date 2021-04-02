@@ -300,7 +300,9 @@ class ExporterDetailView(View):
 
 class ExporterTabView(View):
     def get_contents(self, app_name, content_type, file_type, headers):
-        result = requests.get(f'https://api.github.com/repos/Exporterhubv3/editor_test/contents/{app_name}/{app_name}_{content_type}.{file_type}', headers=headers)
+        repo   = "Exporterhubv3/editor_test"        
+        url    = f"https://api.github.com/repos/{repo}/contents/{app_name}/{app_name}_{content_type}.{file_type}"
+        result = requests.get(url, headers=headers)
         data   = result.json()
 
         if result.status_code == 200:
@@ -314,7 +316,7 @@ class ExporterTabView(View):
                 'sha'     : None
             }
         else:
-            contents = "ERROR"
+            contents = "GITHUB_GET_REPO_ERROR"
 
         return contents
 
@@ -335,7 +337,7 @@ class ExporterTabView(View):
             code_file_info = self.get_contents(app_name=exporter.app_name, content_type=content_type, file_type=file_type[content_type], headers=headers)
             md_file_info   = self.get_contents(app_name=exporter.app_name, content_type=content_type, file_type='md', headers=headers)
 
-            if code_file_info == 'ERROR' or md_file_info == 'ERROR':
+            if code_file_info == 'GITHUB_GET_REPO_ERROR' or md_file_info == 'GITHUB_GET_REPO_ERROR':
                 return JsonResponse({'message': 'GITHUB_API_FAIL'}, status=400)
 
             code_file_sha   = code_file_info['sha']
@@ -355,4 +357,60 @@ class ExporterTabView(View):
 
         except Exporter.DoesNotExist:
             return JsonResponse({'message': 'NO_EXPORTER'}, status=404)
+    
+    def push_to_github(self, app_name, file_name, token, message, content, sha):
+        repo = "Exporterhubv3/editor_test"        
+        url  = f"https://api.github.com/repos/{repo}/contents/{app_name}/{file_name}"
+        
+        data     = requests.get(url, headers={'Content-Type': 'application/json', 'Authorization': 'token ' + token})
+        contents = json.dumps({
+                        "message" : message,
+                        "content" : content,
+                        "sha"     : sha
+                    })
+        if data.status_code == 404:
+            result = requests.put(url, data=contents, headers={'Authorization': 'token ' + token})
+            
+        elif data.status_code == 200:   
+            repo_content = data.json()['content'].replace('\n', '')
 
+            if content != repo_content:
+                result  = requests.put(url, data=contents, headers={'Authorization': 'token ' + token})
+                
+        else:
+            return "GITHUB_REPO_API_ERROR"
+        
+
+    @admin_decorator
+    def post(self, request, exporter_id):
+        try:
+            user           = request.user
+            exporter       = Exporter.objects.get(id=exporter_id)
+            token          = user.github_token
+            data           = json.loads(request.body)
+            app_name       = exporter.app_name
+
+            code_file_name = data["codeFileName"]
+            code_content   = data["codeBlock"]
+            code_sha       = data["code-SHA"]
+
+            md_file_name   = data["mdFileName"]
+            md_content     = data["mdFile"]
+            md_sha         = data["md-SHA"]
+
+            message        = data["message"]
+
+            if not app_name:
+                return JsonResponse({'message': 'TITLE_REQUIRED'}, status=400)
+            
+            code_result = self.push_to_github(app_name=app_name, file_name=code_file_name, token=token, message=message, content=code_content, sha=code_sha)
+            md_result   = self.push_to_github(app_name=app_name, file_name=md_file_name, token=token, message=message, content=md_content, sha=md_sha)
+            
+            if code_result == 'GITHUB_REPO_API_ERROR' or md_result == 'GITHUB_REPO_API_ERROR':
+                return JsonResponse({'message': 'GITHUB_REPO_API_ERROR'}, status=404)
+            
+            return JsonResponse({'message': 'SUCCESS'}, status=200)
+
+        except KeyError:
+            return JsonResponse({'message': 'KEY_ERROR'}, status=400)
+            
