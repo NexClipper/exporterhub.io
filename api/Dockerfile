@@ -30,8 +30,6 @@ COPY exporter /data/exporter
 COPY user /data/user
 COPY headtoken /data/headtoken
 COPY exporter_list.csv /data
-COPY csv /data/csv
-COPY db_uploader.py /data
 
 ## For test run
 ##ENTRYPOINT ["tail","-f","/data/package.json"]
@@ -47,7 +45,4 @@ EXPOSE 8000
 
 ## ENTRYPOINT will be runs at the end of container attached
 ENTRYPOINT /data/entrypoint.sh
-
-
-
 

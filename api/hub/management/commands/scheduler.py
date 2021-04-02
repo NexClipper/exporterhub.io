@@ -154,8 +154,17 @@ class Command(BaseCommand):
 
     def handle(self,*args, **options):
 
-        scheduler = BlockingScheduler(timezone=settings.TIME_ZONE)
+        scheduler       = BlockingScheduler(timezone=settings.TIME_ZONE)
         scheduler.add_jobstore(DjangoJobStore(),'default')
+
+        scheduler.add_job(
+            no_token,
+            trigger=CronTrigger(minute='*/1'),
+            id='no_token',
+            max_instances=1,
+            replace_existing=True,
+            next_run_time=datetime.now(),
+        )
 
         scheduler.add_job(
             create_or_update_exporters,
@@ -178,18 +187,10 @@ class Command(BaseCommand):
         )
         logger.info("Added weekly job 'delete_old_job_executions'.")
 
-        scheduler.add_job(
-            no_token,
-            trigger=CronTrigger(minute='*/1'),
-            id='no_token',
-            max_instances=1,
-            replace_existing=True,
-            next_run_time=datetime.now(),
-        )
-
         try:
             logger.info('Starting scheduler...')
             scheduler.start()
+
         except KeyboardInterrupt:
             logger.info('Stopping scheduler...')
             scheduler.shutdown()

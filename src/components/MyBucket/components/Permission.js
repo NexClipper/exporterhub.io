@@ -12,6 +12,7 @@ const Permission = () => {
   const [searchUser, setSearchUser] = useState();
   const [adminArr, setAdminArr] = useState([]);
   const [userArr, setUserArr] = useState();
+  const [alertModal, setAlertModal] = useState(false);
   const token = sessionStorage.getItem("access_token");
   const dispatch = useDispatch();
 
@@ -63,7 +64,7 @@ const Permission = () => {
       })
         .then((res) => {
           console.log("addAdmin success!! >>>", res);
-          alert("invitation has been sent to the user's email!!");
+          showAlertModal();
         })
         .catch((err) => console.log(err));
     }
@@ -86,6 +87,14 @@ const Permission = () => {
         }
       })
       .catch((err) => console.log(err));
+  };
+
+  const showAlertModal = () => {
+    setAlertModal(true);
+
+    setTimeout(() => {
+      setAlertModal(false);
+    }, 5000);
   };
 
   return (
@@ -125,6 +134,9 @@ const Permission = () => {
           );
         })}
       </AdminContainer>
+      <AlertModal isActive={alertModal}>
+        <p>Invitation has been sent to the user's email!!</p>
+      </AlertModal>
     </Container>
   );
 };
@@ -211,4 +223,49 @@ const AdminContainer = styled.div`
   height: fit-content;
   max-height: 400px;
   overflow-y: auto;
+`;
+
+const AlertModal = styled.div`
+  display: ${(props) => (props.isActive ? "flex" : "none")};
+  justify-content: center;
+  top: -83px;
+  width: 100%;
+  position: absolute;
+  animation: move 2s ease-in-out;
+  opacity: 0%;
+
+  p {
+    width: fit-content;
+    height: 50px;
+    padding: 15px 20px;
+    background: #ffffff;
+    box-shadow: 1px 1px 6px 1px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    font-weight: 600;
+    font-size: 13px;
+    text-align: center;
+    line-height: 1.6;
+  }
+
+  @keyframes move {
+    0% {
+      transform: translateY(0);
+      opacity: 100%;
+    }
+    20% {
+      transform: translateY(14px);
+      opacity: 100%;
+    }
+    95% {
+      transform: translateY(14px);
+      opacity: 100%;
+    }
+    98% {
+      opacity: 80%;
+    }
+    100% {
+      transform: translateY(0);
+      opacity: 0%;
+    }
+  }
 `;

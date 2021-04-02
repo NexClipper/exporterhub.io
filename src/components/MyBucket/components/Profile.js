@@ -43,9 +43,7 @@ const Profile = ({ userProfile }) => {
         window.location.reload();
       })
       .catch((err) => {
-        // alert("Error");
         showAlertModal();
-        // handleProfileEdit();
       });
   };
 
@@ -218,6 +216,7 @@ const Name = styled.h4`
   margin-right: 30px;
   color: #000000;
   font-size: 17px;
+  user-select: none;
 `;
 
 const FullName = styled.span`
@@ -235,6 +234,7 @@ const Button = styled.button`
   border-radius: 5px;
   font-size: 12px;
   font-weight: 600;
+  user-select: none;
 
   span {
     font-size: 12px;
@@ -253,6 +253,7 @@ const Introduce = styled.p`
   color: #999999;
   font-size: 17px;
   font-weight: 500;
+  user-select: none;
 `;
 
 const Organization = styled.p`
@@ -260,6 +261,7 @@ const Organization = styled.p`
   align-items: center;
   margin-bottom: 10px;
   color: #999999;
+  user-select: none;
 
   span {
     position: relative;

@@ -17,10 +17,12 @@ const OpenSourceInfo = ({
 }) => {
   const TOKEN = sessionStorage.getItem("access_token");
   const [alertModal, setAlertModal] = useState(false);
+  const [alertMsg, setAlertMsg] = useState();
 
   const addToFork = (exporterInfo) => {
     if (!TOKEN) {
-      alert("You need to Sign in");
+      setAlertMsg("You need to Sign in");
+      showAlertModal();
       return;
     }
 
@@ -38,6 +40,9 @@ const OpenSourceInfo = ({
         .then(() => {
           console.log("SUCCESS : fork");
           setForkState(true);
+          setAlertMsg("This Exporter has been forked with Github");
+        })
+        .then(() => {
           showAlertModal();
         })
         .catch((err) => {
@@ -49,7 +54,8 @@ const OpenSourceInfo = ({
 
   const handleStar = () => {
     if (!TOKEN) {
-      alert("You need to Sign in");
+      setAlertMsg("You need to Sign in");
+      showAlertModal();
       return;
     }
 
@@ -116,7 +122,7 @@ const OpenSourceInfo = ({
         </div>
       </div>
       <AlertModal isActive={alertModal}>
-        <p>This Exporter has been forked with Github</p>
+        <p>{alertMsg}</p>
       </AlertModal>
     </Info>
   );
@@ -172,6 +178,7 @@ const AlertModal = styled.div`
 const Info = styled.div`
   display: flex;
   align-items: center;
+  user-select: none;
 
   div {
     div {
@@ -254,7 +261,6 @@ const Category = styled.p`
 const StarIcon = styled.span`
   font-size: 18px;
   font-weight: 500;
-  /* color: #ffd200; */
   color: ${(props) => (props.starState ? "#ffd200" : "#8D8D8D")};
   cursor: pointer;
 

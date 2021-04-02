@@ -18,6 +18,7 @@ import Login from "./components/Login/Login";
 import MyBucketPage from "./pages/MyBucketPage";
 
 function Routes() {
+  const TOKEN = sessionStorage.getItem("access_token");
   const dispatch = useDispatch();
 
   useEffect(() => {
