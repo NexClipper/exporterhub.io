@@ -34,7 +34,7 @@ import Login from "./components/Login/Login";
 import MyBucketPage from "./pages/MyBucketPage";
 
 function Routes() {
-  const token = sessionStorage.getItem("access_token");
+  const TOKEN = sessionStorage.getItem("access_token");
   const dispatch = useDispatch();
   const historyf = useHistory();
   // const location = useLocation();
@@ -95,7 +95,7 @@ function Routes() {
           <Route exact path="/callback" component={Login} />
           <Route exact path="/detail/:id" component={ExporterHubDetailPage} />
           <Route exact path="/detail" component={ExporterHubDetailPage} />
-          <Route exact path="/mybucket" component={MyBucketPage} />
+          {TOKEN && <Route exact path="/mybucket" component={MyBucketPage} />}
           {/* {PUBLIC_SERVICE === "n" && (
             <Route exact path="/admin" component={AdminPage} />
           )} */}

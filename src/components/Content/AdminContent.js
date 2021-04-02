@@ -68,6 +68,7 @@ const AdminResign = styled.button`
   background-color: #fafbfc;
   border: 1px solid #d9dbdb;
   cursor: pointer;
+  user-select: none;
 
   &:hover {
     background-color: #f1f1f1;

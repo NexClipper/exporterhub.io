@@ -128,6 +128,7 @@ const Tab = styled.li`
   text-align: center;
   box-sizing: border-box;
   cursor: pointer;
+  user-select: none;
 `;
 
 const Main = styled.main`
