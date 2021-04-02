@@ -8,10 +8,13 @@ export const PUBLIC_SERVICE = process.env.REACT_APP_API_STATUS; //- if the PUBLI
 // export const EXPORTER_ADMIN_API = `${API_SURVER}:8000/exporter`;
 // export const TOKEN_API = `${API_SURVER}:8000/token`;
 
-export const SERVER = "http://10.153.1.182:8000";
+export const SERVER = "http://10.153.6.186:8000";
 export const EXPORTERS_API = `${SERVER}/exporter`;
 export const EXPORTER_API = `${SERVER}/exporter`;
+
+//카테고리 데이터
 export const CATEGORIES_API = `${SERVER}/exporter/categories`;
+
 export const TOKEN_API = `${SERVER}/headtoken`;
 export const BUCKET_API = `${SERVER}/user/bucket`;
 export const LOGIN_API = `${SERVER}/user/login`;

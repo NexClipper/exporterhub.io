@@ -1,14 +1,20 @@
 import React from "react";
 import { useDispatch } from "react-redux";
-import { filterByValue } from "../../store/actions/exporterActions";
+import {
+  filterByValue,
+  filterBySearch,
+} from "../../store/actions/exporterActions";
 import styled from "styled-components";
 import { SearchOutlined } from "@ant-design/icons";
 
 const Search = () => {
   const dispatch = useDispatch();
   const inputHandler = (e) => {
-    const payload = { filterType: "value", data: e.target.value.toLowerCase() };
-    dispatch(filterByValue(payload));
+    console.log("검색머라함? > ", e.target.value.toLowerCase());
+    const payload = e.target.value.toLowerCase();
+    // const payload = { filterType: "value", data: e.target.value.toLowerCase() };
+    // dispatch(filterByValue(payload));
+    dispatch(filterBySearch(payload));
   };
   return (
     <Div>

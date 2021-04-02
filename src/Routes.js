@@ -1,12 +1,5 @@
 import React, { useEffect } from "react";
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  useHistory,
-  // browserHistory,
-} from "react-router-dom";
-// import { useHistory, browserHistory } from "react-router";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import axios from "axios";
 import Header from "./components/Header/Header";
@@ -19,6 +12,7 @@ import {
   loadCategoriesData,
   getTokenState,
   getAdminState,
+  allData,
 } from "./store/actions/exporterActions";
 import AdminPage from "./pages/AdminPage";
 import {
@@ -33,30 +27,55 @@ import Login from "./components/Login/Login";
 import MyBucketPage from "./pages/MyBucketPage";
 
 function Routes() {
-  const token = sessionStorage.getItem("access_token");
   const dispatch = useDispatch();
-  const historyf = useHistory();
-  // const location = useLocation();
-  // const currentURL = browserHistory.getCurrentLocation();
 
   useEffect(() => {
-    const fetchData = async () => {
-      const exportersData = await axios(EXPORTERS_API);
-      const categoriesData = await axios(CATEGORIES_API);
-      dispatch(loadData(exportersData.data.exporters));
-      dispatch(loadCategoriesData(categoriesData.data.categories));
-      axios(TOKEN_API)
-        .then((res) => {
-          dispatch(getTokenState(res.data.TOKEN_VALID));
-        })
-        .catch(() => {
-          dispatch(getTokenState(false));
-        });
-    };
-    fetchData();
+    // const fetchData = async () => {
+    //   const exportersData = await axios(EXPORTERS_API);
+    //   console.log("너누구야 ?>", exportersData);
+    //   const categoriesData = await axios(CATEGORIES_API);
+    //   dispatch(loadData(exportersData.data.exporters));
+    //   dispatch(loadCategoriesData(categoriesData.data.categories));
+
+    // fetchData();
+    fetchCategoriesData();
+    getToken();
     userAdminState();
     handleLocalStorage();
   }, []);
+
+  const fetchData = () => {
+    axios({
+      method: "GET",
+      url: `${EXPORTERS_API}`,
+    })
+      .then((res) => {
+        dispatch(allData(res.data.exporters));
+        console.log("Routes exporter data", res.data.exporters);
+      })
+      .catch((err) => console.log("에러임", err));
+  };
+
+  const getToken = () => {
+    axios(TOKEN_API)
+      .then((res) => {
+        dispatch(getTokenState(res.data.TOKEN_VALID));
+      })
+      .catch(() => {
+        dispatch(getTokenState(false));
+      });
+  };
+
+  const fetchCategoriesData = () => {
+    axios({
+      method: "GET",
+      url: `${CATEGORIES_API}`,
+    })
+      .then((res) => {
+        dispatch(loadCategoriesData(res.data.categories));
+      })
+      .catch((err) => console.log("에러임", err));
+  };
 
   const userAdminState = () => {
     if (sessionStorage.getItem("access_token")) {
