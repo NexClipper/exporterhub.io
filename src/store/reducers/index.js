@@ -12,10 +12,8 @@ import searchFilterReducer from "./searchFilterReducer";
 import navFilterReducer from "./navFilterReducer";
 import cateFilterReducer from "./cateFilterReducer";
 import sortFilterReducer from "./sortFilterReducer";
-import moreExporterReducer from "./moreExporterReducer";
 
 export default combineReducers({
-  // exporterReducer,
   categoryReducer,
   tokenReducer,
   loginReducer,
@@ -23,11 +21,10 @@ export default combineReducers({
   headerReducer,
   unforkReducer,
   adminReducer,
-  // =====
+  //===
   allExporterReducer,
   navFilterReducer,
   cateFilterReducer,
   sortFilterReducer,
   searchFilterReducer,
-  moreExporterReducer,
 });
