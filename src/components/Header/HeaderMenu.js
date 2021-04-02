@@ -19,7 +19,7 @@ const HeaderMenu = () => {
   const dispatch = useDispatch();
 
   const clientID = "e0766f48a0ed436d36d4";
-  const url = `https://github.com/login/oauth/authorize?client_id=${clientID}&redirect_uri=http://localhost:8000/callback&scope=user,repo,delete_repo,admin:org`;
+  const url = `https://github.com/login/oauth/authorize?client_id=${clientID}&redirect_uri=http://localhost:8080/callback&scope=user,repo,delete_repo,admin:org`;
 
   // console.log('어드민이니? >>', )
 
