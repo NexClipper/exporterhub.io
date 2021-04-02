@@ -8,8 +8,19 @@ import axios from "axios";
 import { HiOutlineSave } from "react-icons/hi";
 //md test
 import remarkMarkdown from "../remarkMarkdown";
+import { SERVER } from "../../../config";
+import { useParams } from "react-router";
 
-const CodeEditor = ({ githubContent, mdSha, codeSha, handleMode }) => {
+const CodeEditor = ({
+  githubContent,
+  mdSha,
+  codeSha,
+  handleMode,
+  title,
+  type,
+  file,
+}) => {
+  const { id } = useParams();
   const [preview, setPreview] = useState();
   const [edittingData, setEdittingData] = useState();
 
@@ -99,27 +110,53 @@ const CodeEditor = ({ githubContent, mdSha, codeSha, handleMode }) => {
   // };
 
   const handlefetchGithub = () => {
+    console.log("비교", edittingData === githubContent);
+
     const codeblock = filter(edittingData);
     const blockEncode = btoa(unescape(encodeURIComponent(codeblock)));
     const wholeEncode = btoa(unescape(encodeURIComponent(edittingData)));
-    // console.log("CodeBlock");
-    // console.log(blockEncode);
-    // console.log("ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ");
-    // console.log("전체코드 md 파일");
-    // console.log(wholeEncode);
-    // console.log("ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ");
-    // console.log("md-SHA", mdSha);
-    // console.log("code-SHA", codeSha);
 
     const body = {
-      CodeBlock: blockEncode,
-      MdFile: wholeEncode,
-      "md-SHA": mdSha,
+      codeFileName: `${title}${type}${file}`,
+      codeBlock: blockEncode,
       "code-SHA": codeSha,
+      mdFileName: `${title}${type}.md`,
+      mdFile: wholeEncode,
+      "md-SHA": mdSha,
+      message:
+        mdSha === null ? `CREATE ${title}${type}` : `UPDATE ${title}${type}`,
     };
 
+    axios({
+      method: "POST",
+      url: `${SERVER}/exporter/${id}/tab`,
+      headers: {
+        Authorization: sessionStorage.getItem("access_token"),
+      },
+      data: {
+        codeFileName: `${title}${type}${file}`,
+        codeBlock: blockEncode,
+        "code-SHA": codeSha,
+        mdFileName: `${title}${type}.md`,
+        mdFile: wholeEncode,
+        "md-SHA": mdSha,
+        message:
+          mdSha === null
+            ? `CREATE ${title}${type}${file}`
+            : `UPDATE ${title}${type}${file}`,
+      },
+    })
+      .then(() => {
+        console.log("SUCCESS : PUT");
+        handleMode();
+      })
+      .catch((err) => {
+        console.log("ERROR : PUT");
+        console.log(err);
+        handleMode();
+      });
+
     console.log(body);
-    handleMode();
   };
 
   // const handlefetchGithub = () => {

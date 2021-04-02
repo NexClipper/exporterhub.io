@@ -56,7 +56,6 @@ const Alert = ({ title }) => {
         isEditMode={isEditMode}
         handleMode={handleMode}
         title={title}
-        // type="_alert.yaml"
         file=".yaml"
         type="_alert"
         mdSha={mdSha}

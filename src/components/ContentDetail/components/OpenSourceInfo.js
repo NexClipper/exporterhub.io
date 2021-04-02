@@ -79,7 +79,7 @@ const OpenSourceInfo = ({
   return (
     <Info>
       <a href={exporterInfo.repository_url} target="_blank">
-        <HeaderLogo src={exporterInfo.logo_url} alt="opensource_logo" />
+        <HeaderLogo src={exporterInfo.logo_url} />
       </a>
       <div>
         <div>
@@ -127,7 +127,10 @@ const Info = styled.div`
   }
 `;
 
-const HeaderLogo = styled.img`
+const HeaderLogo = styled.div`
+  background-image: url(${(props) => props.src});
+  background-repeat: no-repeat;
+  background-size: cover;
   width: 150px;
   height: 150px;
   margin-right: 70px;
@@ -187,6 +190,7 @@ const Category = styled.p`
   font-weight: 400;
   border-radius: 5px;
   background-color: #f1f4f8;
+  min-height: 30px;
 `;
 
 const StarIcon = styled.span`

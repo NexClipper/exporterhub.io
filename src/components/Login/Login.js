@@ -6,6 +6,8 @@ import {
   getLoginState,
 } from "../../store/actions/exporterActions";
 import { LOGIN_API } from "../../config";
+import styled from "styled-components";
+import { AiOutlineLoading3Quarters } from "react-icons/ai";
 
 const Login = ({ history }) => {
   const clientID = "e0766f48a0ed436d36d4";
@@ -52,7 +54,37 @@ const Login = ({ history }) => {
   };
   getAccessToken();
 
-  return <div></div>;
+  return (
+    <LoginPage>
+      <Loading>
+        <AiOutlineLoading3Quarters className="spinner" />
+      </Loading>
+    </LoginPage>
+  );
 };
 
 export default Login;
+
+const LoginPage = styled.div`
+  height: calc(100vh - 255px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
+const Loading = styled.div`
+  font-size: 13px;
+
+  .spinner {
+    animation: spin 2s linear infinite;
+  }
+
+  @keyframes spin {
+    from {
+      transform: rotate(0);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
+`;

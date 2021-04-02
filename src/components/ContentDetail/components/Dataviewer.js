@@ -3,6 +3,8 @@ import styled from "styled-components";
 import { FiEdit } from "react-icons/fi";
 import { BiUndo } from "react-icons/bi";
 import CodeEditor from "./CodeEditor";
+import { RiCreativeCommonsSaLine } from "react-icons/ri";
+import { AiOutlineLoading3Quarters } from "react-icons/ai";
 
 const Dataviewer = ({
   githubContent,
@@ -16,6 +18,9 @@ const Dataviewer = ({
   markDownContent,
 }) => {
   const isAdmin = useSelector((store) => store.adminReducer);
+  console.log("hi");
+  !markDownContent && console.log("YES");
+  const editBtnText = mdSha ? "Edit" : "Create";
 
   return (
     <>
@@ -23,24 +28,28 @@ const Dataviewer = ({
         <ContentTitle>
           {title}
           {type}
+          {file}
         </ContentTitle>
-        {isAdmin && (
+        {isAdmin && markDownContent && (
           <Button onClick={handleMode}>
             <span>{!isEditMode ? <FiEdit /> : <BiUndo />}</span>
-            <span>{!isEditMode ? "Edit" : "Back"}</span>
+            <span>{!isEditMode ? editBtnText : "Back"}</span>
           </Button>
         )}
       </Header>
       <ContentBody>
         {!isEditMode ? (
           <Data>
-            {/* <p>{atob(data.content)}</p> */}
-            {/* <p>{githubContent}</p> */}
             <MarkdownBody>
               <Content
                 dangerouslySetInnerHTML={{ __html: markDownContent }}
               ></Content>
             </MarkdownBody>
+            {!markDownContent && (
+              <Loading>
+                <AiOutlineLoading3Quarters className="spinner" />
+              </Loading>
+            )}
           </Data>
         ) : (
           <CodeEditor
@@ -48,6 +57,9 @@ const Dataviewer = ({
             mdSha={mdSha}
             codeSha={codeSha}
             handleMode={handleMode}
+            title={title}
+            type={type}
+            file={file}
           />
         )}
       </ContentBody>
@@ -86,7 +98,7 @@ const Button = styled.button`
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 70px;
+  width: 75px;
   height: 30px;
   background: #ffffff;
   box-shadow: 1px 1px 6px 1px rgba(0, 0, 0, 0.1);
@@ -203,5 +215,24 @@ const MarkdownBody = styled.div`
     margin: 24px 0;
     background-color: #e1e4e8;
     border: 0;
+  }
+`;
+
+const Loading = styled.div`
+  text-align: center;
+  font-size: 13px;
+  margin-top: 20px;
+
+  .spinner {
+    animation: spin 2s linear infinite;
+  }
+
+  @keyframes spin {
+    from {
+      transform: rotate(0);
+    }
+    to {
+      transform: rotate(360deg);
+    }
   }
 `;

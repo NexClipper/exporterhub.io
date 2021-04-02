@@ -33,6 +33,7 @@ const ContentDetail = () => {
   const TOKEN = sessionStorage.getItem("access_token");
 
   useEffect(() => {
+    window.scrollTo(0, 0);
     fetchData();
   }, []);
 
@@ -130,8 +131,8 @@ const Tab = styled.li`
 `;
 
 const Main = styled.main`
+  min-height: calc(100vh - 436px);
   padding: 90px 0 50px;
-  border-radius: 50px 0 0 0;
   background: #f7f9fc;
 
   @media ${({ theme }) => theme.media.mobile} {

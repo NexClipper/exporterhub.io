@@ -40,12 +40,8 @@ const UnforkModal = ({ cancleModal }) => {
       <Div>
         <img src="assets/image.png" alt="modal" />
         <Container>
-          <button onClick={() => handleUnfork(0)}>
-            Remove from my bucket only
-          </button>
-          <button onClick={() => handleUnfork(1)}>
-            Unfork an exporter on GitHub
-          </button>
+          <button onClick={() => handleUnfork(0)}>Remove from my bucket</button>
+          <button onClick={() => handleUnfork(1)}>Unfork with GitHub</button>
         </Container>
         <Back onClick={cancleModal}>Back</Back>
       </Div>
