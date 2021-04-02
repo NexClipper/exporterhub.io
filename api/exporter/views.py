@@ -359,8 +359,8 @@ class ExporterTabView(View):
             return JsonResponse({'message': 'NO_EXPORTER'}, status=404)
     
     def push_to_github(self, app_name, file_name, token, message, content, sha):
-        repo = "Exporterhubv3/editor_test"        
-        url  = f"https://api.github.com/repos/{repo}/contents/{app_name}/{file_name}"
+        repo = "NexClipper/exporterhub.io"        
+        url  = f"https://api.github.com/repos/{repo}/contents/contents/{app_name}/{file_name}"
         
         data     = requests.get(url, headers={'Content-Type': 'application/json', 'Authorization': 'token ' + token})
         contents = json.dumps({
