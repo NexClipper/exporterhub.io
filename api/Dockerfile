@@ -2,7 +2,7 @@
 FROM python:3.8
 
 ## It is just Label when it has build automation.
-LABEL version=0.1
+LABEL version=release-api0.2.9
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
 		netcat \
@@ -17,15 +17,21 @@ WORKDIR /data
 ## File & Directory copy to WORKDIR
 COPY requirements.txt /data/
 COPY manage.py /data/
-COPY exporterhub_schema.sql /data/
+#COPY exporterhub_schema.sql /data/
 COPY entrypoint.sh /data/
-COPY my_settings.py /data/
+#COPY my_settings.py /data/
 
 ## Initializing for run
 RUN pip install -r requirements.txt
 
 COPY exporterhub /data/exporterhub
 COPY hub /data/hub
+COPY exporter /data/exporter
+COPY user /data/user
+COPY headtoken /data/headtoken
+COPY exporter_list.csv /data
+COPY csv /data/csv
+COPY db_uploader.py /data
 
 ## For test run
 ##ENTRYPOINT ["tail","-f","/data/package.json"]

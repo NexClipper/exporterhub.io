@@ -8,37 +8,38 @@ import axios from "axios";
 import { HiOutlineSave } from "react-icons/hi";
 //md test
 import remarkMarkdown from "../remarkMarkdown";
+import { API_SURVER, SERVER } from "../../../config";
+import { useParams } from "react-router";
 
 const CodeEditor = ({
   githubContent,
+  mdSha,
+  codeSha,
+  handleMode,
   title,
   type,
   file,
-  githubToken,
-  mdSha,
-  fileSha,
-  handleMode,
 }) => {
+  const { id } = useParams();
   const [preview, setPreview] = useState();
   const [edittingData, setEdittingData] = useState();
 
   const [decode, setDecode] = useState();
   const [readOnly, setReadOnly] = useState(true);
 
+  const githubToken = "밑에 변수때매,, 백엔드 통신하고 지울거야";
+
   useEffect(() => {
     setEdittingData(githubContent);
     setPreview(githubContent);
   }, []);
+
   const onChange = (value) => {
     setEdittingData(value);
     setPreview(value);
 
     // setDecode(btoa(value));
     setDecode(btoa(unescape(encodeURIComponent(value))));
-  };
-
-  const handleReadOnly = () => {
-    setReadOnly(!readOnly);
   };
 
   const filter = (content) => {
@@ -54,79 +55,39 @@ const CodeEditor = ({
     return test.slice(start, last);
   };
 
-  const fetchCodeBlock = (blockEncode, codeUrl, wholeEncode, mdUrl) => {
-    axios
-      .put(
-        codeUrl,
-        {
-          sha: fileSha,
-          message: "put method test",
-          content: blockEncode,
-        },
-        {
-          headers: {
-            Authorization: `token ${githubToken}`,
-          },
-        }
-      )
-      .then((res) => {
-        console.log("codeUrl SUCCESS", res);
-      })
-      .then(() => {
-        fetchMarkDown(wholeEncode, mdUrl);
-        handleMode();
-      })
-      .catch((error) => {
-        console.log(error);
-        console.log("실패");
-      });
-  };
-
-  const fetchMarkDown = (wholeEncode, mdUrl) => {
-    console.log("fetchMarkDown 함수 호출됨");
-    axios
-      .put(
-        mdUrl,
-        {
-          sha: mdSha,
-          message: "put method test",
-          content: wholeEncode,
-        },
-        {
-          headers: {
-            Authorization: `token ${githubToken}`,
-          },
-        }
-      )
-      .then((res) => {
-        console.log("mdUrl SUCCESS", res);
-        handleMode();
-      })
-      .catch((error) => {
-        console.log(error);
-        console.log("md PUT실패");
-      });
-  };
-
-  console.log("type", type);
-  console.log("file", file);
-
   const handlefetchGithub = () => {
-    // const encode = btoa(edittingData);
     const codeblock = filter(edittingData);
     const blockEncode = btoa(unescape(encodeURIComponent(codeblock)));
     const wholeEncode = btoa(unescape(encodeURIComponent(edittingData)));
-    const codeUrl = `https://api.github.com/repos/Exporterhubv3/editor_test/contents/${title}/${title}${type}${file}`;
-    const mdUrl = `https://api.github.com/repos/Exporterhubv3/editor_test/contents/${title}/${title}${type}.md`;
 
-    //codeblock
-    console.log("codeblock");
-    fetchCodeBlock(blockEncode, codeUrl, wholeEncode, mdUrl);
-
-    //wholeCode
-    console.log("wholeCode");
-    // fetchMarkDown(wholeEncode, mdUrl);
+    axios({
+      method: "POST",
+      url: `${API_SURVER}:8000/exporter/${id}/tab`,
+      headers: {
+        Authorization: sessionStorage.getItem("access_token"),
+      },
+      data: {
+        codeFileName: `${title}${type}${file}`,
+        codeBlock: blockEncode,
+        "code-SHA": codeSha,
+        mdFileName: `${title}${type}.md`,
+        mdFile: wholeEncode,
+        "md-SHA": mdSha,
+        message:
+          mdSha === null ? `CREATE ${title}${type}` : `UPDATE ${title}${type}`,
+      },
+    })
+      .then(() => {
+        console.log("SUCCESS : PUT");
+        handleMode();
+      })
+      .catch((err) => {
+        console.log("ERROR : PUT");
+        console.log(err);
+        handleMode();
+      });
   };
+
   const markDownContent = remarkMarkdown(preview);
 
   return (
@@ -137,33 +98,29 @@ const CodeEditor = ({
         </span>
         <span>Save</span>
       </Button>
-      {/* <button onClick={handlefetchGithub}>누르면 보내짐ㅋㅋ</button> */}
       <EditorContainer>
-        {/* <button onClick={handleReadOnly}>edit</button>
-      <button onClick={handlefetchGithub}>save/send</button> */}
         <AceEditor
-          // readOnly={readOnly}
           disabled
           placeholder="Add your code!"
-          mode="json"
-          // theme="tomorrow"
+          mode="javascript"
+          theme="dracula"
           name="blah2"
           // onLoad={this.onLoad}
           onChange={onChange}
-          fontSize={15}
+          fontSize={14}
           showPrintMargin={true}
           showGutter={false}
           highlightActiveLine={true}
           value={edittingData}
           setOptions={{
             enableBasicAutocompletion: true,
-            enableLiveAutocompletion: false,
+            enableLiveAutocompletion: true,
             enableSnippets: true,
             showLineNumbers: false,
             tabSize: 2,
           }}
           width="50%"
-          height="100vh"
+          height="800px"
         />
         <Preview className="code">
           <MarkdownBody>
@@ -181,6 +138,22 @@ export default CodeEditor;
 
 const Container = styled.div`
   position: relative;
+  padding: 10px;
+  background-color: white;
+  border-radius: 3px;
+  /* border-top-left-radius: 3px;
+  border-top-right-radius: 3px; */
+
+  .ace_editor,
+  .ace_editor * {
+    font-family: "Monaco", "Menlo", "Ubuntu Mono", "Droid Sans Mono", "Consolas",
+      monospace !important;
+    font-size: 14px !important;
+    font-weight: 400 !important;
+    letter-spacing: 0 !important;
+    line-height: 1.3 !important;
+    /* background-color: red; */
+  }
 `;
 
 const EditorContainer = styled.div`
@@ -230,8 +203,17 @@ const Button = styled.button`
 `;
 
 const MarkdownBody = styled.div`
+  /* margin-left: 15px; */
+  padding-left: 10px;
+  padding-top: 0;
+  border-radius: 3px;
+  background-color: white;
+  height: 800px;
+
   * {
-    line-height: 1.8;
+    line-height: 1.3;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+      Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
   }
 
   code {
@@ -240,7 +222,7 @@ const MarkdownBody = styled.div`
     background-color: rgba(27, 31, 35, 0.05);
     border-radius: 6px;
     font-size: 13px;
-    font-family: "Noto Sans KR", sans-serif;
+    /* font-family: "Noto Sans KR", sans-serif; */
   }
 
   pre {
@@ -265,7 +247,7 @@ const MarkdownBody = styled.div`
   h4,
   h5,
   h6 {
-    margin: 24px 0 16px;
+    margin: 0 0 16px;
     line-height: 1.25;
   }
 
@@ -298,6 +280,12 @@ const MarkdownBody = styled.div`
     padding: 0 1em;
     border-left: 0.25em solid #dfe2e5;
     color: #6a737d;
+    font-size: 16px;
+    font-weight: 500;
+
+    & > p {
+      margin-bottom: 0;
+    }
   }
 
   ul {
@@ -306,7 +294,7 @@ const MarkdownBody = styled.div`
     list-style-type: disc;
 
     li {
-      line-height: 2;
+      line-height: 1.5;
     }
   }
 
@@ -320,5 +308,10 @@ const MarkdownBody = styled.div`
     margin: 24px 0;
     background-color: #e1e4e8;
     border: 0;
+  }
+
+  a {
+    color: #6fc6a8;
+    font-weight: 500;
   }
 `;

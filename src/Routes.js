@@ -21,6 +21,7 @@ import {
   TOKEN_API,
   PUBLIC_SERVICE,
   SERVER,
+  API_SURVER,
 } from "./config";
 
 import Login from "./components/Login/Login";
@@ -81,7 +82,7 @@ function Routes() {
     if (sessionStorage.getItem("access_token")) {
       axios({
         method: "GET",
-        url: `${SERVER}/user/check`,
+        url: `${API_SURVER}:8000/user/check`,
         headers: {
           Authorization: sessionStorage.getItem("access_token"),
         },
@@ -114,9 +115,9 @@ function Routes() {
           <Route exact path="/detail/:id" component={ExporterHubDetailPage} />
           <Route exact path="/detail" component={ExporterHubDetailPage} />
           <Route exact path="/mybucket" component={MyBucketPage} />
-          {PUBLIC_SERVICE === "n" && (
+          {/* {PUBLIC_SERVICE === "n" && (
             <Route exact path="/admin" component={AdminPage} />
-          )}
+          )} */}
         </Switch>
         <Footer />
       </Router>

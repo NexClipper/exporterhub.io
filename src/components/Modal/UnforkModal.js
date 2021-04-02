@@ -1,7 +1,7 @@
 import { useSelector } from "react-redux";
 import axios from "axios";
 import styled from "styled-components";
-import { SERVER } from "../../config";
+import { API_SURVER, SERVER } from "../../config";
 
 const UnforkModal = ({ cancleModal }) => {
   const selectedRepo = useSelector((store) => store.unforkReducer);
@@ -12,11 +12,11 @@ const UnforkModal = ({ cancleModal }) => {
     if (option === 0) {
       console.log("Unfork from mybucket only");
       console.log(selectedRepo);
-      UNFORK_API = `${SERVER}/user/bucket?exporter-id=${selectedRepo}`;
+      UNFORK_API = `${API_SURVER}:8000/user/bucket?exporter-id=${selectedRepo}`;
     } else if (option === 1) {
       console.log("Unfork from GitHub");
       console.log(selectedRepo);
-      UNFORK_API = `${SERVER}/user/bucket?exporter-id=${selectedRepo}&deleteall=yes`;
+      UNFORK_API = `${API_SURVER}:8000/user/bucket?exporter-id=${selectedRepo}&deleteall=yes`;
     }
 
     axios({
@@ -40,12 +40,8 @@ const UnforkModal = ({ cancleModal }) => {
       <Div>
         <img src="assets/image.png" alt="modal" />
         <Container>
-          <button onClick={() => handleUnfork(0)}>
-            Remove from my bucket only
-          </button>
-          <button onClick={() => handleUnfork(1)}>
-            Unfork an exporter on GitHub
-          </button>
+          <button onClick={() => handleUnfork(0)}>Remove from my bucket</button>
+          <button onClick={() => handleUnfork(1)}>Unfork with GitHub</button>
         </Container>
         <Back onClick={cancleModal}>Back</Back>
       </Div>
@@ -92,6 +88,7 @@ const Container = styled.div`
     text-align: center;
     border-radius: 3px;
     color: #9e9e9e;
+    font-weight: 500;
 
     &:hover {
       color: #c6474e;
