@@ -3,43 +3,60 @@ import base64
 import logging
 import re
 import csv
-from datetime import datetime, date
+from datetime                          import datetime, date
 
-from apscheduler.schedulers.blocking import BlockingScheduler
-from apscheduler.triggers.cron       import CronTrigger
-from django_apscheduler.jobstores    import DjangoJobStore
-from django_apscheduler.models       import DjangoJobExecution
+# apscheduler
+from apscheduler.schedulers.blocking   import BlockingScheduler
+from apscheduler.triggers.cron         import CronTrigger
+from apscheduler.events                import EVENT_JOB_ERROR, EVENT_JOB_EXECUTED
+from django_apscheduler.jobstores      import DjangoJobStore
+from django_apscheduler.models         import DjangoJobExecution
 
-from django.conf                     import settings
-from django.core.management.base     import BaseCommand
+from django.conf                       import settings
+from django.core.management.base       import BaseCommand
 
-from exporter.models                 import Exporter, Release, Category, Official
-from headtoken.models                import Token
+from exporter.models                   import Exporter, Release, Category, Official
+from headtoken.models                  import Token
 
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.INFO)
 
 file_handler   = logging.FileHandler('update.log')
 stream_handler = logging.StreamHandler()
+
 logger.addHandler(file_handler)
 logger.addHandler(stream_handler)
 
-api_url = 'https://api.github.com/repos/'
-PATTERN = r"!\[(\w*|\s|\w+( \w+)*)\]\(([^,:!]*|\/[^,:!]*\.\w+|\w*.\w*)\)"
-TOKEN = Token.objects.filter().last()
+scheduler = BlockingScheduler(timezone=settings.TIME_ZONE)
 
+api_url   = 'https://api.github.com/repos/'
+PATTERN   = r"!\[(\w*|\s|\w+( \w+)*)\]\(([^,:!]*|\/[^,:!]*\.\w+|\w*.\w*)\)"
+
+def check_token():
+    if Token.objects.filter(is_valid=True).exists():
+        logger.info('Valid token check')
+        return "VALID_TOKEN"
+
+    logger.info('No token. Input valid token first.')
+
+            
 def create_or_update_exporters():
-    if Token.objects.filter().exists() and TOKEN.is_valid:
+    if Token.objects.filter(is_valid=True).exists():
+        TOKEN = Token.objects.last().token
         logger.info('CHECK_EXPORTERS_START')
-        headers       = {'Authorization' : 'token ' + TOKEN.token}
+        headers       = {'Authorization' : 'token ' + TOKEN}
         exporters     = Exporter.objects.select_related('category', 'official').prefetch_related('release_set').order_by('id')
-        exporter_list = 'https://raw.githubusercontent.com/NexClipper/exporterhub.io/main/api/exporter_list.csv'
-        repo_get      = requests.get(exporter_list)
+#        exporter_list = 'https://raw.githubusercontent.com/NexClipper/exporterhub.io/main/api/exporter_list.csv'
+        
+#        repo_get      = requests.get(exporter_list)
+#
+#        if repo_get.status_code != 200:
+#            logger.error(f"ERROR_CHECK_EXPORTERHUB'S_LIST({exporter_list}) | {datetime.now()}")
+#
+#        repo_infos = csv.reader(repo_get.text.strip().split('\n'))
+        exporter_list_file = open('exporter_list.csv', 'r', encoding='utf-8') 
+        repo_infos         = csv.reader(exporter_list_file)
 
-        if repo_get.status_code != 200:
-            logger.error(f"ERROR_CHECK_EXPORTERHUB'S_LIST({exporter_list}) | {datetime.now()}")
-
-        repo_infos = csv.reader(repo_get.text.strip().split('\n'))
         next(repo_infos, None)
 
         for info in repo_infos:
@@ -58,7 +75,7 @@ def create_or_update_exporters():
             repository      = requests.get(repo_api_url, headers=headers)
 
             if repository.status_code == 401:
-                Token.objects.filter(token=TOKEN.token).update(is_valid=False)
+                Token.objects.filter(token=TOKEN).update(is_valid=False)
                 logger.error("INVALID_TOKEN")
 
             elif repository.status_code == 200:
@@ -141,49 +158,55 @@ def create_or_update_exporters():
 
         logger.info('CHECK_EXPORTERS_DONE')
 
+    else:
+        logger.info('NO_VALID_TOKEN')
+
+
 def delete_old_job_executions(max_age=604_800):
     """This job deletes all apscheduler job executions older than `max_age` from the database."""
     DjangoJobExecution.objects.delete_old_job_executions(max_age)
 
-def no_token():
-    if not Token.objects.filter(is_valid=True).exists():
-        logger.info('No token. Input valid token first.')
+def listener(event):
+    if not event.exception:
+        if scheduler.get_job('check_token'):
+            job = scheduler.get_job('check_token')
+       
+            if job.func() == 'VALID_TOKEN':
+                scheduler.remove_job('check_token')
+                logger.info('Remove check_token job.')
+
+                scheduler.add_job(
+                    create_or_update_exporters,
+                    trigger          = CronTrigger(hour='*/4'),
+                    id               = 'create_or_update_exporters',
+                    max_instances    = 1,
+                    replace_existing = True,
+                    next_run_time    = datetime.now()
+                )
+                logger.info("Added job 'create_or_update_exporters'.")
+                
 
 class Command(BaseCommand):
-    help="Update exporters' GitHub repository information."
-
     def handle(self,*args, **options):
-
-        scheduler       = BlockingScheduler(timezone=settings.TIME_ZONE)
         scheduler.add_jobstore(DjangoJobStore(),'default')
+        scheduler.add_listener(listener, EVENT_JOB_EXECUTED | EVENT_JOB_ERROR)
 
         scheduler.add_job(
-            no_token,
-            trigger=CronTrigger(minute='*/1'),
-            id='no_token',
-            max_instances=1,
-            replace_existing=True,
-            next_run_time=datetime.now(),
+            check_token,
+            trigger          = CronTrigger(second='*/20'),
+            id               = 'check_token',
+            max_instances    = 1,
+            replace_existing = True,
+            next_run_time    = datetime.now(),
         )
-
-        scheduler.add_job(
-            create_or_update_exporters,
-            trigger=CronTrigger(hour='*/4'),
-            id='create_or_update_exporters',
-            max_instances=1,
-            replace_existing=True,
-            next_run_time=datetime.now(),
-        )
-        logger.info("Added job 'create_or_update_exporters'.")
-
+        logger.info("Added job 'check_token'")
+        
         scheduler.add_job(
             delete_old_job_executions,
-            trigger=CronTrigger(
-                day_of_week="mon", hour="00", minute="00"
-            ),
-            id='delete_old_job_executions',
-            max_instances=1,
-            replace_existing=True,
+            trigger          = CronTrigger(day_of_week="mon", hour="00", minute="00"),
+            id               = 'delete_old_job_executions',
+            max_instances    = 1,
+            replace_existing = True,
         )
         logger.info("Added weekly job 'delete_old_job_executions'.")
 
@@ -195,3 +218,4 @@ class Command(BaseCommand):
             logger.info('Stopping scheduler...')
             scheduler.shutdown()
             logger.info('Scheduler shut down successfully.')
+
