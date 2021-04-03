@@ -1,4 +1,5 @@
 import json
+import requests
 
 from django.views    import View
 from django.http     import JsonResponse
@@ -8,31 +9,37 @@ from .models         import Token
 
 class TokenView(View):
     def get(self, request):
-        token = Token.objects.filter()
 
-        if not token.exists():
-            return JsonResponse({'token_state':False,'token':''}, status=400)
+        if not Token.objects.filter().exists():
+            return JsonResponse({'token_state':False, 'token':''}, status=400)
+        
+        token_info  = Token.objects.last()
+        headers     = {'Authorization': 'token ' + token_info.token}
+        
+        check_valid = requests.get('https://api.github.com/repos/NexClipper/exporterhub.io', headers=headers)
+        if check_valid.status_code == 401:
+            token_info.is_valid = False
+            token_info.save()
 
-        token_valid = token.last().is_valid if Token.objects.filter().exists() else False
-
-        return JsonResponse({'TOKEN_VALID':token_valid, 'TOKEN':token.last().token}, status=200)
+        return JsonResponse({'TOKEN_VALID': token_info.is_valid, 'TOKEN': token_info.token}, status=200)
         
     def post(self, request):
         try:
             data         = json.loads(request.body)
             input_token  = data['token']
             
-            if Token.objects.filter().exists():
-                Token.objects.filter().update(token=input_token, is_valid=True)
-            else:
-                Token.objects.create(token=input_token, is_valid=True)
-
-            token=Token.objects.filter().last()
+            Token.objects.update_or_create(
+                defaults = {
+                    'token'   : input_token,
+                    'is_valid': True
+                }
+            )
 
             return JsonResponse({'message': 'SUCCESS'}, status=200)
             
         except KeyError:
             return JsonResponse({'message':'KEY_ERROR'}, status=400)
+
 
 class InitView(View):
     def get(self, request):
