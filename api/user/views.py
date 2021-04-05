@@ -37,7 +37,6 @@ class GithubLoginView(View):
             organization      = user_data.get('company')
             profile_image_url = user_data.get('avatar_url')
             intro             = user_data.get('bio')
-            #intro             =base64.b64decode(user_data.get('bio')).decode('utf-8').encode('utf-8')
             usertype_name     = "user" if User.objects.filter().exists() else "admin"
 
             user, is_created = User.objects.get_or_create(
@@ -55,6 +54,7 @@ class GithubLoginView(View):
 
             if not is_created:
                 user.profile_image_url = profile_image_url
+                user.intro             = intro
                 user.github_token      = github_token
                 user.save()
             
