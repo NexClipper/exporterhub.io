@@ -17,7 +17,6 @@ const TABMENU = [
 
 const ContentDetail = () => {
   const { id } = useParams();
-  const historyf = useHistory();
   const [test, setTest] = useLocalStorage("activeTab", 0);
   const [exporterInfo, setExporterInfo] = useState([]);
   const [forkState, setForkState] = useState();
@@ -62,6 +61,10 @@ const ContentDetail = () => {
 
   const handleActiveTab = (id) => {
     setTest(id);
+  };
+
+  window.onpopstate = function (event) {
+    localStorage.setItem("activeTab", 0);
   };
 
   return (

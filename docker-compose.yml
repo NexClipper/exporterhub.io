@@ -6,7 +6,7 @@ services:
       - "8080:3000"
     environment:
        SERVICE_PUBLIC: "n"
-      #SERVICE_URL: "http://172.28.128.3"
+      #  SERVICE_URL: "http://172.28.128.3"
        SERVICE_URL: "http://localhost"
     depends_on:
       - api
