@@ -3,7 +3,6 @@ import styled from "styled-components";
 import { FiEdit } from "react-icons/fi";
 import { BiUndo } from "react-icons/bi";
 import CodeEditor from "./CodeEditor";
-import { RiCreativeCommonsSaLine } from "react-icons/ri";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
 
 const Dataviewer = ({

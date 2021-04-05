@@ -1,9 +1,9 @@
-import { useState, useEffect } from "react";
+import React from "react";
 import { useHistory } from "react-router-dom";
 import styled from "styled-components";
-import { PUBLIC_SERVICE, API_SURVER } from "../../config";
+// import { PUBLIC_SERVICE, API_SURVER } from "../../config";
+import { API_SURVER } from "../../config";
 import { GithubOutlined } from "@ant-design/icons";
-import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import {
   getLoginState,
@@ -18,12 +18,12 @@ const HeaderMenu = () => {
   const isAdmin = useSelector((store) => store.adminReducer);
   const dispatch = useDispatch();
 
-  const clientID = "e0766f48a0ed436d36d4";
+  const clientID = "c6123cae7942f1588f62";
   const url = `https://github.com/login/oauth/authorize?client_id=${clientID}&redirect_uri=${API_SURVER}:8080/callback&scope=user,repo,delete_repo,admin:org`;
 
   const {
     push,
-    location: { pathname },
+    // location: { pathname },
   } = useHistory();
   // console.log(PUBLIC_SERVICE);
 

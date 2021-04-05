@@ -1,8 +1,8 @@
-import { useState } from "react";
+import React from "react";
 import { useHistory } from "react-router-dom";
 import styled from "styled-components";
 import CardExporter from "./CardExporter";
-import EditModal from "../Modal/EditModal";
+// import EditModal from "../Modal/EditModal";
 
 const ContentExporters = ({
   exporters,
@@ -14,19 +14,19 @@ const ContentExporters = ({
     push,
     location: { pathname },
   } = useHistory();
-  const [isModalActive, setIsModalActive] = useState(false);
-  const [exporterId, setExporterId] = useState();
+  // const [isModalActive, setIsModalActive] = useState(false);
+  // const [exporterId, setExporterId] = useState();
 
   const goToDetail = (id) => {
     push(`/detail/${id}`);
   };
-  const modalClick = (id) => {
-    setIsModalActive(true);
-    setExporterId(id);
-  };
-  const cancleModal = () => {
-    setIsModalActive(false);
-  };
+  // const modalClick = (id) => {
+  //   setIsModalActive(true);
+  //   setExporterId(id);
+  // };
+  // const cancleModal = () => {
+  //   setIsModalActive(false);
+  // };
 
   return (
     <ExporterContainer fork={fork} mybucket={mybucket}>
@@ -42,9 +42,9 @@ const ContentExporters = ({
             setIsForkModalActive={setIsForkModalActive}
           />
         ))}
-      {isModalActive && (
+      {/* {isModalActive && (
         <EditModal exporterId={exporterId} cancleModal={cancleModal} />
-      )}
+      )} */}
     </ExporterContainer>
   );
 };

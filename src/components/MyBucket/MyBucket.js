@@ -8,7 +8,7 @@ import { useHistory } from "react-router";
 import { useDispatch, useSelector } from "react-redux";
 import { changeBucketPage } from "../../store/actions/exporterActions";
 import UnforkModal from "../Modal/UnforkModal";
-import { API_SURVER, SERVER } from "../../config";
+import { API_SURVER } from "../../config";
 
 const MyBucket = () => {
   const isAdmin = useSelector((store) => store.adminReducer);

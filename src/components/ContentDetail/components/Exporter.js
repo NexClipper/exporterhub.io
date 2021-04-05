@@ -1,7 +1,6 @@
 import React from "react";
 import remarkMarkdown from "../remarkMarkdown";
 import styled from "styled-components";
-import { AiOutlineLoading3Quarters } from "react-icons/ai";
 
 const Exporter = ({ readmeContent }) => {
   const content = remarkMarkdown(readmeContent);
@@ -12,11 +11,6 @@ const Exporter = ({ readmeContent }) => {
       <MarkdownBody
         dangerouslySetInnerHTML={{ __html: content }}
       ></MarkdownBody>
-      {/* {!content && (
-        <Loading>
-          <AiOutlineLoading3Quarters className="spinner" />
-        </Loading>
-      )} */}
     </Container>
   );
 };
@@ -128,24 +122,5 @@ const MarkdownBody = styled.div`
     margin: 24px 0;
     background-color: #e1e4e8;
     border: 0;
-  }
-`;
-
-const Loading = styled.div`
-  text-align: center;
-  font-size: 13px;
-  margin-top: 100px;
-
-  .spinner {
-    animation: spin 2s linear infinite;
-  }
-
-  @keyframes spin {
-    from {
-      transform: rotate(0);
-    }
-    to {
-      transform: rotate(360deg);
-    }
   }
 `;

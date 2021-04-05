@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useParams, useHistory } from "react-router";
+import { useParams } from "react-router";
 import useLocalStorage from "react-use-localstorage";
 import axios from "axios";
 import styled from "styled-components";

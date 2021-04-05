@@ -10,8 +10,8 @@ import styled from "styled-components";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
 
 const Login = ({ history }) => {
-  const clientID = "e0766f48a0ed436d36d4";
-  const clientSecret = "aaffe151d27e8adefdebac55afc88d74dfac5590";
+  const clientID = "c6123cae7942f1588f62";
+  const clientSecret = "f0f2490d70f074c765378d44070f12f8f05ba1a8";
   const callBackUrl = window.location.href;
   const code = callBackUrl.substring(callBackUrl.indexOf("=") + 1);
   const dispatch = useDispatch();
