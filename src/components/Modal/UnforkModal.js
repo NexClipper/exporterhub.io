@@ -1,7 +1,7 @@
 import { useSelector } from "react-redux";
 import axios from "axios";
 import styled from "styled-components";
-import { API_SURVER, SERVER } from "../../config";
+import { API_SURVER } from "../../config";
 
 const UnforkModal = ({ cancleModal }) => {
   const selectedRepo = useSelector((store) => store.unforkReducer);

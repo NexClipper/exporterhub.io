@@ -4,7 +4,7 @@ import styled from "styled-components";
 import { RiUserSettingsLine } from "react-icons/ri";
 import { HiOutlineOfficeBuilding, HiOutlineMail } from "react-icons/hi";
 import { AiOutlineUser } from "react-icons/ai";
-import { API_SURVER, SERVER } from "../../../config";
+import { API_SURVER } from "../../../config";
 
 const Profile = ({ userProfile }) => {
   const [isEditMode, setEditMode] = useState(false);

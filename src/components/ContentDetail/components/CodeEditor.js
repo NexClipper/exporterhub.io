@@ -8,7 +8,7 @@ import axios from "axios";
 import { HiOutlineSave } from "react-icons/hi";
 //md test
 import remarkMarkdown from "../remarkMarkdown";
-import { API_SURVER, SERVER } from "../../../config";
+import { API_SURVER } from "../../../config";
 import { useParams } from "react-router";
 
 const CodeEditor = ({
@@ -24,22 +24,21 @@ const CodeEditor = ({
   const [preview, setPreview] = useState();
   const [edittingData, setEdittingData] = useState();
 
-  const [decode, setDecode] = useState();
-  const [readOnly, setReadOnly] = useState(true);
-
-  const githubToken = "밑에 변수때매,, 백엔드 통신하고 지울거야";
+  // const [decode, setDecode] = useState();
 
   useEffect(() => {
     setEdittingData(githubContent);
     setPreview(githubContent);
-  }, []);
+  }, [githubContent]);
+
+  // console.log("preview 는 무슨타입? >>", typeof preview);
+  // console.log("edittingData 는 무슨타입? >>", typeof edittingData);
 
   const onChange = (value) => {
     setEdittingData(value);
     setPreview(value);
 
-    // setDecode(btoa(value));
-    setDecode(btoa(unescape(encodeURIComponent(value))));
+    // setDecode(btoa(unescape(encodeURIComponent(value))));
   };
 
   const filter = (content) => {

@@ -1,9 +1,9 @@
-import { useState, useEffect } from "react";
+import React from "react";
 import { useHistory } from "react-router-dom";
 import styled from "styled-components";
-import { PUBLIC_SERVICE, API_SURVER } from "../../config";
+// import { PUBLIC_SERVICE, API_SURVER } from "../../config";
+import { API_SURVER } from "../../config";
 import { GithubOutlined } from "@ant-design/icons";
-import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import {
   getLoginState,
@@ -23,7 +23,7 @@ const HeaderMenu = () => {
 
   const {
     push,
-    location: { pathname },
+    // location: { pathname },
   } = useHistory();
   // console.log(PUBLIC_SERVICE);
 

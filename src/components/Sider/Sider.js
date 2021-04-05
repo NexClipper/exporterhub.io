@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { filterByCate } from "../../store/actions/exporterActions";
 import styled from "styled-components";

@@ -7,6 +7,9 @@ import rootReducer from "./store/reducers";
 import { GlobalStyle } from "./styles/GlobalStyle";
 import { ThemeProvider } from "styled-components";
 import theme from "./styles/common";
+import ReactGA from "react-ga";
+ReactGA.initialize("UA-122075277-6");
+ReactGA.pageview(window.location.pathname + window.location.search);
 
 const store = createStore(rootReducer);
 
