@@ -18,7 +18,7 @@ const HeaderMenu = () => {
   const isAdmin = useSelector((store) => store.adminReducer);
   const dispatch = useDispatch();
 
-  const clientID = "e0766f48a0ed436d36d4";
+  const clientID = "c6123cae7942f1588f62";
   const url = `https://github.com/login/oauth/authorize?client_id=${clientID}&redirect_uri=${API_SURVER}:8080/callback&scope=user,repo,delete_repo,admin:org`;
 
   const {
