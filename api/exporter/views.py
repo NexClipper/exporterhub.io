@@ -9,6 +9,7 @@ from django.http            import JsonResponse
 from django.core.exceptions import ObjectDoesNotExist
 from django.db.models       import Q, Max
 from django.utils           import timezone
+from django.conf            import settings
 
 from .models                import Category, Exporter, Release, Official 
 from headtoken.models       import Token
@@ -300,7 +301,7 @@ class ExporterDetailView(View):
 
 class ExporterTabView(View):
     def get_contents(self, app_name, content_type, file_type, headers):
-        repo   = "Exporterhubv3/editor_test"        
+        repo   = f"{settings.ORGANIZATION}/editor_test"        
         url    = f"https://api.github.com/repos/{repo}/contents/contents/{app_name}/{app_name}_{content_type}.{file_type}"
         result = requests.get(url, headers=headers)
         data   = result.json()
@@ -359,7 +360,7 @@ class ExporterTabView(View):
             return JsonResponse({'message': 'NO_EXPORTER'}, status=404)
     
     def push_to_github(self, app_name, file_name, token, message, content, sha):
-        repo = "Exporterhubv3/editor_test"        
+        repo = f"{settings.ORGANIZATION}/editor_test"        
         url  = f"https://api.github.com/repos/{repo}/contents/contents/{app_name}/{file_name}"
         
         data     = requests.get(url, headers={'Content-Type': 'application/json', 'Authorization': 'token ' + token})

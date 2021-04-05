@@ -2,6 +2,7 @@ import json
 import jwt
 import requests
 import re
+import base64
 
 from django.views            import View
 from django.http             import JsonResponse
@@ -36,6 +37,7 @@ class GithubLoginView(View):
             organization      = user_data.get('company')
             profile_image_url = user_data.get('avatar_url')
             intro             = user_data.get('bio')
+            #intro             =base64.b64decode(user_data.get('bio')).decode('utf-8').encode('utf-8')
             usertype_name     = "user" if User.objects.filter().exists() else "admin"
 
             user, is_created = User.objects.get_or_create(
@@ -59,7 +61,8 @@ class GithubLoginView(View):
             # check pending admin and update to admin
             if user.type_id == PENDING_ADMIN_CODE:
                 headers = {'Authorization' : 'token ' + user.github_token} 
-                result  = requests.get('https://api.github.com/orgs/NexClipper/members', headers=headers)
+                data = {'role': 'admin'}
+                result  = requests.get(f'https://api.github.com/orgs/{settings.ORGANIZATION}/members', data=data, headers=headers)
               
                 if result.status_code != 200:
                     return JsonResponse({'message' : 'GITHUB_API_FAIL'}, status=400)
@@ -291,7 +294,7 @@ class AdminView(View):
             }
 
             headers = {'Authorization' : 'token ' + user.github_token}
-            result  = requests.post('https://api.github.com/orgs/NexClipper/invitations', data=json.dumps(data), headers=headers)
+            result  = requests.post(f'https://api.github.com/orgs/{settings.ORGANIZATION}/invitations', data=json.dumps(data), headers=headers)
 
             if result.status_code == 404:
                 return JsonResponse({'message': 'GITHUB_API_FAIL'}, status=404)
@@ -310,8 +313,9 @@ class AdminView(View):
     def get(self, request):
         try:
             user    = request.user   
+            data    = {'role': 'admin'}
             headers = {'Authorization' : 'token ' + user.github_token}
-            result  = requests.get('https://api.github.com/orgs/Exporterhubv3/members', headers=headers)
+            result  = requests.get(f'https://api.github.com/orgs/{settings.ORGANIZATION}/members', data=data, headers=headers)
           
             if result.status_code != 200:
                 return JsonResponse({'message' : 'GITHUB_API_FAIL'}, status=400)
@@ -342,7 +346,7 @@ class AdminView(View):
             data     = json.loads(request.body)
             username = data['username']
             headers  = {'Authorization' : 'token ' + user.github_token}
-            result   = requests.delete(f'https://api.github.com/orgs/NexClipper/members/{username}', headers=headers)
+            result   = requests.delete(f'https://api.github.com/orgs/{settings.ORGANIZATION}/members/{username}', headers=headers)
             
             if result.status_code != 204:
                 return JsonResponse({'message' : 'GITHUB_API_FAIL'}, status=400)

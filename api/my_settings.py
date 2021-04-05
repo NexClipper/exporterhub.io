@@ -13,3 +13,5 @@ DATABASES = {
         'PORT'    : "3306",
     }
 }
+
+ORGANIZATION = "NEED_TO_SET_UP"

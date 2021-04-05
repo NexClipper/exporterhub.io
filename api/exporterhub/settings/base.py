@@ -13,8 +13,10 @@ SECRET_KEY = os.environ.get('SECRET_KEY', 'unsafe-secret-key')
 
 ALGORITHM = os.environ.get('ALGORITHM')
 
+ORGANIZATION = os.environ.get('ORGANIZATION')
+
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
