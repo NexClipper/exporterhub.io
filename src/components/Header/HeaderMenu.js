@@ -2,7 +2,7 @@ import React from "react";
 import { useHistory } from "react-router-dom";
 import styled from "styled-components";
 // import { PUBLIC_SERVICE, API_SURVER } from "../../config";
-import { API_SURVER } from "../../config";
+import { API_SURVER, CLIENT_ID } from "../../config";
 import { GithubOutlined } from "@ant-design/icons";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -18,7 +18,7 @@ const HeaderMenu = () => {
   const isAdmin = useSelector((store) => store.adminReducer);
   const dispatch = useDispatch();
 
-  const clientID = "c6123cae7942f1588f62";
+  const clientID = CLIENT_ID;
   const url = `https://github.com/login/oauth/authorize?client_id=${clientID}&redirect_uri=${API_SURVER}:8080/callback&scope=user,repo,delete_repo,admin:org`;
 
   const {

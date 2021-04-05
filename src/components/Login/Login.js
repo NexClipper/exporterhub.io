@@ -5,13 +5,13 @@ import {
   getAdminState,
   getLoginState,
 } from "../../store/actions/exporterActions";
-import { LOGIN_API } from "../../config";
+import { CLIENT_ID, CLIENT_SECRETS, LOGIN_API } from "../../config";
 import styled from "styled-components";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
 
 const Login = ({ history }) => {
-  const clientID = "c6123cae7942f1588f62";
-  const clientSecret = "f0f2490d70f074c765378d44070f12f8f05ba1a8";
+  const clientID = CLIENT_ID;
+  const clientSecret = CLIENT_SECRETS;
   const callBackUrl = window.location.href;
   const code = callBackUrl.substring(callBackUrl.indexOf("=") + 1);
   const dispatch = useDispatch();

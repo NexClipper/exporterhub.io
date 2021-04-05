@@ -28,3 +28,6 @@ export const BUCKET_API = `${API_SURVER}:8000/user/bucket`;
 export const LOGIN_API = `${API_SURVER}:8000/user/login`;
 export const ADMIN_API = `${API_SURVER}:8000/user/admin`;
 export const EXPORTER_ADMIN_API = `${API_SURVER}:8000/exporter`;
+
+export const CLIENT_ID = process.env.REACT_APP_API_CLIENT_ID;
+export const CLIENT_SECRETS = process.env.REACT_APP_API_CLIENT_SECRETS;

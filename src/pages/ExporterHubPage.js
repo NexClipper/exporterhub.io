@@ -3,6 +3,7 @@ import styled from "styled-components";
 import Content from "../components/Content/Content";
 import Nav from "../components/Nav/Nav";
 import Sider from "../components/Sider/Sider";
+import { CLIENT_ID, CLIENT_SECRETS } from "../config";
 
 const ExporterHubPage = () => {
   return (
