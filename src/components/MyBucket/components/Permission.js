@@ -5,7 +5,7 @@ import AdminContent from "../../Content/AdminContent";
 import { SearchOutlined } from "@ant-design/icons";
 import axios from "axios";
 import { changeBucketPage } from "../../../store/actions/exporterActions";
-import { ADMIN_API, API_SURVER, SERVER } from "../../../config";
+import { ADMIN_API, API_SURVER } from "../../../config";
 import UsersContent from "../../Content/UsersContent";
 
 const Permission = () => {

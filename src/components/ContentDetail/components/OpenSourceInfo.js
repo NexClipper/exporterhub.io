@@ -94,18 +94,26 @@ const OpenSourceInfo = ({
 
   return (
     <Info>
-      <a href={exporterInfo.repository_url} target="_blank">
+      <a href={exporterInfo.repository_url} target="_blank" rel="noreferrer">
         <HeaderLogo src={exporterInfo.logo_url} />
       </a>
       <div>
         <div>
-          <a href={exporterInfo.repository_url} target="_blank">
+          <a
+            href={exporterInfo.repository_url}
+            target="_blank"
+            rel="noreferrer"
+          >
             <Name>{exporterInfo.name}</Name>
           </a>
           <Button onClick={() => addToFork(exporterInfo)} forkState={forkState}>
             <span>{!forkState && <RiShoppingBasketLine />}</span>
             {forkState ? (
-              <a href={exporterInfo.forked_repository_url} target="_blank">
+              <a
+                href={exporterInfo.forked_repository_url}
+                target="_blank"
+                rel="noreferrer"
+              >
                 <ImLink className="link" />
                 Link to forked Exporter
               </a>

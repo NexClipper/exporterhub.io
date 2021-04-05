@@ -7,12 +7,20 @@ const Footer = () => {
         <ul>
           <h3>PROJECT</h3>
           <li>
-            <a href="https://www.nexclipper.io/" target="_blank">
+            <a
+              href="https://www.nexclipper.io/"
+              target="_blank"
+              rel="noreferrer"
+            >
               nexclipper.io
             </a>
           </li>
           <li>
-            <a href="https://nexclipper.github.io/blog/" target="_blank">
+            <a
+              href="https://nexclipper.github.io/blog/"
+              target="_blank"
+              rel="noreferrer"
+            >
               Blog
             </a>
           </li>
@@ -20,7 +28,11 @@ const Footer = () => {
         <ul>
           <h3>COMMUNITY</h3>
           <li>
-            <a href="https://github.com/NexClipper" target="_blank">
+            <a
+              href="https://github.com/NexClipper"
+              target="_blank"
+              rel="noreferrer"
+            >
               Github
             </a>
           </li>
@@ -28,6 +40,7 @@ const Footer = () => {
             <a
               href="https://nexclipper.slack.com/messages/C01QMS57AJG"
               target="_blank"
+              rel="noreferrer"
             >
               Slack
             </a>

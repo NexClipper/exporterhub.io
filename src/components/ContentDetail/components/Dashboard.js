@@ -4,7 +4,7 @@ import axios from "axios";
 import Dataviewer from "./Dataviewer";
 import remarkMarkdown from "../remarkMarkdown";
 import { useParams } from "react-router";
-import { API_SURVER, SERVER } from "../../../config";
+import { API_SURVER } from "../../../config";
 
 const Dashboard = ({ title }) => {
   const { id } = useParams();
