@@ -39,6 +39,7 @@ services:
       DB_HOST: maria_db
       DB_PORT: "3306"
       APP_STAT: "scheduler"
+      # You can add and modify below setup to './.env' file for externel configuration without security issue.
       SECRET_KEY: ${SECRET_KEY}
     depends_on:
       - maria_db
