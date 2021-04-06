@@ -16,10 +16,9 @@
 <!--lint disable awesome-toc-->
 ## Contents
 * [Definition of ExporterHub.io](https://github.com/NexClipper/exporterhub.io#Definition-of-exporterhubio)
-* [Road map](https://github.com/NexClipper/exporterhub.io#roadmap)
 * [See Demo](https://github.com/NexClipper/exporterhub.io#Demo)
 * [Diagram Overview](https://github.com/NexClipper/exporterhub.io#diagram-overview)
-* [Kick-start](https://github.com/NexClipper/exporterhub.io#kickstart)
+* [Kickstart](https://github.com/NexClipper/exporterhub.io#kickstart)
 * [Contribute](https://github.com/NexClipper/exporterhub.io#contribute)
 * [References](https://github.com/NexClipper/exporterhub.io#references)
 * [License](https://github.com/NexClipper/exporterhub.io#license)
@@ -27,6 +26,7 @@
 
 
 ## Definition of [ExporterHub.io](https://exporterhub.io/)
+
 
 ### ExporterHub.io is an application for the Prometheus Exporters community.
 ExporterHub.io is not just a curated list, but also provides exporter installation guide, alert rule configuration, and dashboard configuration.
@@ -39,16 +39,12 @@ Each exporter's page contains the followings:
 * Bucket (able to manage personal Github Repository as well)
 * Edit Dashboard and Alert-rule by Admin
 
-## See Demo
-* Image click to Youtube for the full examples and guides:  
-  [![Demo](https://raw.githubusercontent.com/NexClipper/exporterhub.io/master/assets/demo_01.png)](https://youtu.be/wa4dknZk7Kk)
-
-## Road map
-To help and ease you with best-practice Prometheus, ExporterHub.io discovers and recommends the best-fit exporter(s) available to expose metrics data from your specific systems and services being monitored.
-
-Using the best-fit exporter(s) helps standardizing metrics data exposition practices, maximizing monitoring experience with minimal manual inputs.
-
 ExporterHub.io recommends the best-fit exporter(s) to support Prometheus monitoring needs in enterprise environments with complex and closed network security settings.
+
+To help and ease you with best-practice Prometheus, ExporterHub.io discovers and recommends the best-fit exporter(s) available to expose metrics data from your specific systems and services being monitored.
+### The features that distinguish Exporterhub.io from other applications are:
+
+
 
 <!--lint disable no-undefined-references-->
 * [x] Installation Guide, Metric Collection Flags, Recommended Alert-rule
@@ -61,14 +57,23 @@ ExporterHub.io recommends the best-fit exporter(s) to support Prometheus monitor
   * [ ] Install exporters automatically
   * [ ] Generate Alert Rules
   * [ ] Recommend best-fit exporter(s)
+
+## See Demo
+* Image click to Youtube for the full examples and guides:  
+  [![Demo](https://raw.githubusercontent.com/NexClipper/exporterhub.io/master/assets/demo_01.png)](https://youtu.be/wa4dknZk7Kk)
+
+
+
+
+
   
 
-## Architecture Overview
+## Diagram Overview
 <!--lint disable awesome-list-item-->
 * Image click to Youtube:
   * [![Diagram Overview](https://img.youtube.com/vi/pPZfNi6qms4/0.jpg)](https://youtu.be/pPZfNi6qms4)
 
-## Kick-start
+## Kickstart
 ### Ready: Token is required for GitHub information crawling
 <!--lint disable awesome-list-item-->
 * ___Create Token before the App runs as below.___
@@ -114,17 +119,14 @@ ORGANIZATION="NEED_TO_SET_UP"
 * ___"NEED_TO_SET_UP" parts are to be linked to docker-compose.yml as below: ___
 <img src="https://images.velog.io/images/dvkim202550/post/1033e78b-1800-4a01-9614-e24cc569b64f/image.png" width="300">
 
-### 5. build image before running
 
-```
-make build
-```
+### 5. build image before running
+*  run the command `make build` at `/exporterhub.io` 
+
 
 ### 6. Run by default(in localhost)
-* Run the docker-compose as below
-```
-make run
-```
+
+*  run the command `make run` at `/exporterhub.io` 
 
 ### 6. Or, Run for external network
 * If you want to run the server in extenal server or instance, please make sure the `SERVICE_URL` for API server IP or URL as below
@@ -141,10 +143,7 @@ services:
        CLIENT_ID: ${CLIENT_ID}
        CLIENT_SECRETS: ${CLIENT_SECRETS}
 ```   
-* and next, run the docker-compose as below
-```
-make run
-```
+* then, run the command `make run` at `/exporterhub.io` 
       
 ### 7. Initial Check & Set
 <!--lint disable awesome-list-item-->
