@@ -5,7 +5,7 @@ import { AiFillStar } from "react-icons/ai";
 import { RiShoppingBasketLine } from "react-icons/ri";
 import { ImLink } from "react-icons/im";
 import { BUCKET_API, STAR_API } from "../../../config";
-
+import { useSelector } from "react-redux";
 const OpenSourceInfo = ({
   exporterInfo,
   forkState,
@@ -18,14 +18,13 @@ const OpenSourceInfo = ({
   const TOKEN = sessionStorage.getItem("access_token");
   const [alertModal, setAlertModal] = useState(false);
   const [alertMsg, setAlertMsg] = useState();
-
+  const changeTheme = useSelector((store) => store.darkThemeReducer);
   const addToFork = (exporterInfo) => {
     if (!TOKEN) {
       setAlertMsg("You need to Sign in");
       showAlertModal();
       return;
     }
-
     if (!forkState) {
       axios({
         method: "POST",
@@ -51,18 +50,15 @@ const OpenSourceInfo = ({
         });
     }
   };
-
   const handleStar = () => {
     if (!TOKEN) {
       setAlertMsg("You need to Sign in");
       showAlertModal();
       return;
     }
-
     starState
       ? setStarNumber((prev) => prev - 1)
       : setStarNumber((prev) => prev + 1);
-
     axios({
       method: "POST",
       url: `${STAR_API}`,
@@ -80,18 +76,14 @@ const OpenSourceInfo = ({
         console.log("ERROR : STAR");
         console.log(err);
       });
-
     setStarState(!starState);
   };
-
   const showAlertModal = () => {
     setAlertModal(true);
-
     setTimeout(() => {
       setAlertModal(false);
     }, 3000);
   };
-
   return (
     <Info>
       <a href={exporterInfo.repository_url} target="_blank" rel="noreferrer">
@@ -104,9 +96,13 @@ const OpenSourceInfo = ({
             target="_blank"
             rel="noreferrer"
           >
-            <Name>{exporterInfo.name}</Name>
+            <Name dark={changeTheme}>{exporterInfo.name}</Name>
           </a>
-          <Button onClick={() => addToFork(exporterInfo)} forkState={forkState}>
+          <Button
+            dark={changeTheme}
+            onClick={() => addToFork(exporterInfo)}
+            forkState={forkState}
+          >
             <span>{!forkState && <RiShoppingBasketLine />}</span>
             {forkState ? (
               <a
@@ -123,9 +119,13 @@ const OpenSourceInfo = ({
           </Button>
         </div>
         <div>
-          <Category>{exporterInfo.category}</Category>
-          <StarIcon onClick={handleStar} starState={starState}>
-            <AiFillStar /> {starNumber && starNumber}
+          <Category dark={changeTheme}>{exporterInfo.category}</Category>
+          <StarIcon
+            dark={changeTheme}
+            onClick={handleStar}
+            starState={starState}
+          >
+            <AiFillStar dark={changeTheme} /> {starNumber && starNumber}
           </StarIcon>
         </div>
       </div>
@@ -135,9 +135,7 @@ const OpenSourceInfo = ({
     </Info>
   );
 };
-
 export default OpenSourceInfo;
-
 const AlertModal = styled.div`
   display: ${(props) => (props.isActive ? "flex" : "none")};
   justify-content: center;
@@ -146,7 +144,6 @@ const AlertModal = styled.div`
   position: absolute;
   animation: move 2s ease-in-out;
   opacity: 0%;
-
   p {
     width: 300px;
     height: 50px;
@@ -159,7 +156,6 @@ const AlertModal = styled.div`
     text-align: center;
     line-height: 1.6;
   }
-
   @keyframes move {
     0% {
       transform: translateY(0);
@@ -182,24 +178,20 @@ const AlertModal = styled.div`
     }
   }
 `;
-
 const Info = styled.div`
   display: flex;
   align-items: center;
   user-select: none;
-
   div {
     div {
       display: flex;
       align-items: center;
-
       &:first-child {
         margin-bottom: 20px;
       }
     }
   }
 `;
-
 const HeaderLogo = styled.div`
   background-image: url(${(props) => props.src});
   background-repeat: no-repeat;
@@ -207,19 +199,16 @@ const HeaderLogo = styled.div`
   width: 150px;
   height: 150px;
   margin-right: 70px;
-
   @media ${({ theme }) => theme.media.mobile} {
     width: 150px;
     height: 150px;
   }
 `;
-
 const Name = styled.h4`
   margin-right: 30px;
-  color: #000000;
+  color: ${(props) => (props.dark ? "#f5f6f7" : "#000000")};
   font-size: 17px;
 `;
-
 const Button = styled.button`
   /* width: 60px; */
   height: 25px;
@@ -227,16 +216,14 @@ const Button = styled.button`
   justify-content: center;
   align-items: center;
   padding: 0 10px;
-  background: #ffffff;
+  background-color: ${(props) => (props.dark ? "#f5f6f7" : "#ffffff")};
   box-shadow: 1px 1px 6px 1px rgba(0, 0, 0, 0.1);
   border-radius: 5px;
   font-size: 12px;
   font-weight: 600;
   color: ${(props) => (props.forkState ? "#8D8D8D" : "black")};
-
   span {
     font-size: 12px;
-
     &:first-child {
       position: relative;
       top: 1px;
@@ -244,10 +231,8 @@ const Button = styled.button`
       font-size: 13px;
     }
   }
-
   a {
     color: inherit;
-
     .link {
       position: relative;
       top: 1px;
@@ -255,23 +240,22 @@ const Button = styled.button`
     }
   }
 `;
-
 const Category = styled.p`
   margin-right: 15px;
   padding: 5px 20px 8px 20px;
   font-size: 17px;
   font-weight: 400;
+  color: ${(props) => (props.dark ? "#f5f6f7" : "#000000")};
+  border: ${(props) => props.dark && "1px solid #f5f6f7"};
   border-radius: 5px;
-  background-color: #f1f4f8;
+  background-color: ${(props) => !props.dark && "#f1f4f8"};
   min-height: 30px;
 `;
-
 const StarIcon = styled.span`
   font-size: 18px;
   font-weight: 500;
   color: ${(props) => (props.starState ? "#ffd200" : "#8D8D8D")};
   cursor: pointer;
-
   svg {
     vertical-align: middle;
   }
