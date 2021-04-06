@@ -22,8 +22,7 @@ class TokenView(View):
             token_info.is_valid = False
             token_info.save()
 
-        #return JsonResponse({'TOKEN_VALID': token_info.is_valid, 'TOKEN': token_info.token}, status=200)
-        return JsonResponse({'TOKEN_VALID': token_info.is_valid, 'TOKEN': token_info.token, "secret": settings.SECRET_KEY}, status=200)
+        return JsonResponse({'TOKEN_VALID': token_info.is_valid, 'TOKEN': token_info.token}, status=200)
         
     def post(self, request):
         try:
