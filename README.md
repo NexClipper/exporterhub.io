@@ -95,44 +95,17 @@ https://docs.github.com/en/rest/guides/basics-of-authentication
 ![](https://images.velog.io/images/dvkim202550/post/a29c1acf-f14f-446e-9b54-170c40bda50b/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA%202021-04-05%20%E1%84%8B%E1%85%A9%E1%84%92%E1%85%AE%202.49.50.png)
 
 
-### 3. Write docker-compose.yaml accordingly.
-* ___"NEED_TO_SET_UP" parts are to be revised.___
-```yml
-services:
-  expoterhub:
-    image: nexclipper/exporterhub:latest
-    ports:
-      - "8080:3000"
-    environment:
-#      SERVICE_URL: "http://localhost"
-       SERVICE_URL: "NEED_TO_SET_UP"
-       CLIENT_ID: "NEED_TO_SET_UP"
-       CLIENT_SECRETS: "NEED_TO_SET_UP"
-    depends_on:
-      - api
-```
-```yml
-  api:
-    image: nexclipper/exporterhub-api:latest
-    restart: always
-    ports:
-      - "8000:8000"
-    environment:
-      APP_DB_ENGINE: django.db.backends.mysql
-      DB_NAME: exporterhub
-      DB_USER: root
-      DB_PASSWORD: secret
-      DB_HOST: maria_db
-      DB_PORT: "3306"
-      SECRET_KEY: "supersecretkey"
-      ALGORITHM: "HS256"
-      APP_STAT: "server"
-      ORGANIZATION: "NEED_TO_SET_UP"
-    depends_on:
-      - maria_db
-```
+### 3. Write docker-compose.yml accordingly.
+* ___"NEED_TO_SET_UP" parts are to be revised.___ in `./.env` file
+```sh
+REACT_APP_API_URL="http://NEED_TO_SET_UP"
+REACT_APP_API_STATUS="y"
 
-
+CLIENT_ID="NEED_TO_SET_UP"
+CLIENT_SECRETS="NEED_TO_SET_UP"
+ORGANIZATION="NEED_TO_SET_UP"
+SECRET_KEY="NEED_TO_SET_UP"
+```
 
 ### Run by default(in localhost)
 * Run the docker-compose as below
@@ -143,14 +116,7 @@ docker-compose up -d
 ### Or, Run for external network
 * If youn want to run the server in extenal server or instance. Please make sure the `SERVICE_URL` for API server IP or URL as below
 ```
-services:
-  expoterhub:
-    image: nexclipper/exporterhub:latest
-    ports:
-      - "8080:3000"
-    environment:
-#      SERVICE_URL: "http://localhost"
-       SERVICE_URL: "http://192.168.10.11"
+SERVICE_URL="http://192.168.10.11"
 ```   
 
       
