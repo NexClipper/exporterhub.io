@@ -19,7 +19,7 @@ const HeaderMenu = () => {
   const dispatch = useDispatch();
 
   const clientID = CLIENT_ID;
-  const url = `https://github.com/login/oauth/authorize?client_id=${clientID}&redirect_uri=${API_SURVER}:8080/callback&scope=user,repo,delete_repo,admin:org`;
+  const url = `https://github.com/login/oauth/authorize?client_id=${clientID}&redirect_uri=${API_SURVER}/callback&scope=user,repo,delete_repo,admin:org`;
 
   const {
     push,
