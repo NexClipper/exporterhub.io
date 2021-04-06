@@ -30,7 +30,7 @@
 ## Definition of [ExporterHub.io](https://exporterhub.io/)
 ![](https://images.velog.io/images/dvkim202550/post/795be79c-80c6-4b62-96ff-17247885b00c/image.png)
 
-### ExporterHub.io is an application(based on React and Python) for the Prometheus Exporters community.
+### ExporterHub.io is an application for the Prometheus Exporters community.
 ExporterHub.io is not just a curated list, but also provides exporter installation guide, alert rule configuration, and dashboard configuration.
 Each exporter's page contains the followings:
 * Official GitHub (Origin Repository)
@@ -55,6 +55,8 @@ ExporterHub.io recommends the best-fit exporter(s) to support Prometheus monitor
 <!--lint disable no-undefined-references-->
 * [x] Installation Guide, Metric Collection Flags, Recommended Alert-rule
 * [x] Card Style GitHub Page
+* [x] Admin Authorizaion
+* [x] Register exporters, edit Dashboard and Alert by Admin
 * [x] Easy search of Exporters
 * [x] Personalization (Add, Delete)
 * [ ] NexClipper Cloud Integration (coming soon)
@@ -77,8 +79,8 @@ ExporterHub.io recommends the best-fit exporter(s) to support Prometheus monitor
 
 ### ※ Github env settings below must be done under   _<u>organization account settings</u>_, not in personal.
 
-### 1. Create organization : for authorizing and managing admins.
-
+### 1. Create organization
+* ___This must be done before authorizing and managing admins.___
 * ___Github docs reference:___
    * https://docs.github.com/en/github/setting-up-and-managing-organizations-and-teams/creating-a-new-organization-from-scratch
 
@@ -86,6 +88,9 @@ ExporterHub.io recommends the best-fit exporter(s) to support Prometheus monitor
 
 ### 2. Create and register an OAuth app under your organization.
 * ___Client ID, Client Secrets, and callback url(Service URL) are required for authentication.___
+* ___Github docs:___
+https://docs.github.com/en/rest/guides/basics-of-authentication
+
 
 ![](https://images.velog.io/images/dvkim202550/post/a29c1acf-f14f-446e-9b54-170c40bda50b/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA%202021-04-05%20%E1%84%8B%E1%85%A9%E1%84%92%E1%85%AE%202.49.50.png)
 
@@ -179,6 +184,7 @@ services:
 * [SLOs with Prometheus](https://promtools.dev/)
 * [Awesome Prometheus](https://github.com/roaldnefs/awesome-prometheus)
 * [Promcat](https://promcat.io/)
+* [Github Documentation](https://docs.github.com/en)
 
 ## Contribute
 Contributions are welcome!
