@@ -69,7 +69,7 @@ ExporterHub.io recommends the best-fit exporter(s) to support Prometheus monitor
 * Image click to Youtube:
   * [![Diagram Overview](https://img.youtube.com/vi/pPZfNi6qms4/0.jpg)](https://youtu.be/pPZfNi6qms4)
 
-## Kickstart
+## Kick-start
 ### Ready: Token is required for GitHub information crawling
 <!--lint disable awesome-list-item-->
 * ___Create Token before the App runs as below.___
