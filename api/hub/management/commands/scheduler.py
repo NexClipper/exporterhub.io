@@ -46,14 +46,6 @@ def create_or_update_exporters():
         logger.info('CHECK_EXPORTERS_START')
         headers       = {'Authorization' : 'token ' + TOKEN}
         exporters     = Exporter.objects.select_related('category', 'official').prefetch_related('release_set').order_by('id')
-#        exporter_list = 'https://raw.githubusercontent.com/NexClipper/exporterhub.io/main/api/exporter_list.csv'
-        
-#        repo_get      = requests.get(exporter_list)
-#
-#        if repo_get.status_code != 200:
-#            logger.error(f"ERROR_CHECK_EXPORTERHUB'S_LIST({exporter_list}) | {datetime.now()}")
-#
-#        repo_infos = csv.reader(repo_get.text.strip().split('\n'))
         exporter_list_file = open('exporter_list.csv', 'r', encoding='utf-8') 
         repo_infos         = csv.reader(exporter_list_file)
 

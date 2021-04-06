@@ -81,7 +81,7 @@ DATABASES = {
         'PASSWORD': os.environ.get('DB_PASSWORD', ''),
         'HOST': os.environ.get('DB_HOST', None),
         'PORT': os.environ.get('DB_PORT', None),
-        'CONN_MAX_AGE': 600,
+        'CONN_MAX_AGE': 3600,
     }
 }
 
