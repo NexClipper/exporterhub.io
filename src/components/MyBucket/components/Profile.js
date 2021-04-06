@@ -29,7 +29,7 @@ const Profile = ({ userProfile }) => {
   const handleSave = () => {
     axios({
       method: "PATCH",
-      url: `${API_SURVER}:8000/user/profile`,
+      url: `${API_SURVER}/user/profile`,
       headers: {
         Authorization: sessionStorage.getItem("access_token"),
       },

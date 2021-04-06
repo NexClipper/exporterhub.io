@@ -61,7 +61,7 @@ const CodeEditor = ({
 
     axios({
       method: "POST",
-      url: `${API_SURVER}:8000/exporter/${id}/tab`,
+      url: `${API_SURVER}/exporter/${id}/tab`,
       headers: {
         Authorization: sessionStorage.getItem("access_token"),
       },

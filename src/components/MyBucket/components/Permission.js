@@ -23,7 +23,7 @@ const Permission = () => {
   useEffect(() => {
     axios({
       method: "GET",
-      url: `${API_SURVER}:8000/user/search?q=${searchUser}`,
+      url: `${API_SURVER}/user/search?q=${searchUser}`,
       headers: {
         Authorization: token,
       },

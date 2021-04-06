@@ -65,7 +65,7 @@ function Routes() {
     if (sessionStorage.getItem("access_token")) {
       axios({
         method: "GET",
-        url: `${API_SURVER}:8000/user/check`,
+        url: `${API_SURVER}/user/check`,
         headers: {
           Authorization: sessionStorage.getItem("access_token"),
         },
