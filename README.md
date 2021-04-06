@@ -126,7 +126,7 @@ docker-compose up -d
 ```
 
 ### 6. Or, Run for external network
-* If youn want to run the server in extenal server or instance. Please make sure the `SERVICE_URL` for API server IP or URL as below
+* If you want to run the server in extenal server or instance, please make sure the `SERVICE_URL` for API server IP or URL as below
 ```
 services:
   expoterhub:
