@@ -7,7 +7,6 @@
 <!--lint disable awesome-heading-->
  > ### A Curated List of Prometheus Exporters
  > #### Powered by <a href="https://nexclipper.io"><img src="https://raw.githubusercontent.com/NexClipper/exporterhub.io/master/assets/NexCloud_en.png" width= 120></a>
- > Come and join us!: https://app.slack.com/client/TC3DP3HPG/C01RTA59G66
  
 
 
@@ -183,7 +182,8 @@ services:
 ## Contribute
 Contributions are welcome!
 If you have Specific exporter to contribute to [ExporterHub.io](https://exporterhub.io/), 
-feel free to [send issues](https://github.com/NexClipper/exporterhub.io/issues) or [pull requests](https://github.com/NexClipper/exporterhub.io/pulls).  
+feel free to [send issues](https://github.com/NexClipper/exporterhub.io/issues) or [pull requests](https://github.com/NexClipper/exporterhub.io/pulls).
+Come and join us!: https://app.slack.com/client/TC3DP3HPG/C01RTA59G66
 
 ## Service Map
 ![servicemap](https://raw.githubusercontent.com/NexClipper/exporterhub.io/master/assets/exporterhub_v3.png)
