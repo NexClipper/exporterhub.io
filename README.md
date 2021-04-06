@@ -88,12 +88,15 @@ ExporterHub.io recommends the best-fit exporter(s) to support Prometheus monitor
 
 
 ### 2. Create and register an OAuth app under your organization.
-* ___Client ID, Client Secrets, and callback url(Service URL) are required for authentication.___
-* ___image:___
+* ___1) Click developer settings tab of organization and create OAuth Apps___
+![](https://images.velog.io/images/dvkim202550/post/8a04b5f7-9e44-4658-8bdb-77d89836257e/image.png)
+* ___2) Client ID, Client Secrets, and callback url(Service URL) are required for authentication.___
+
 
 
 ![](https://images.velog.io/images/dvkim202550/post/a29c1acf-f14f-446e-9b54-170c40bda50b/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA%202021-04-05%20%E1%84%8B%E1%85%A9%E1%84%92%E1%85%AE%202.49.50.png)
 
+![](https://images.velog.io/images/dvkim202550/post/9d2ea3ac-d84a-41b6-b20e-86eb7861acc0/image.png)
 
 ### 3. Write docker-compose.yaml accordingly.
 * ___"NEED_TO_SET_UP" parts are to be revised.___
@@ -130,6 +133,7 @@ services:
       ORGANIZATION: "NEED_TO_SET_UP"
     depends_on:
       - maria_db
+	
 ```
 
 
