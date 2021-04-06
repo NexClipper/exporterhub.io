@@ -245,7 +245,7 @@ const Button = styled.button`
 
     &:first-child {
       position: relative;
-      top: 1px;
+      right: -2px;
       margin-right: 5px;
       font-size: 13px;
     }
