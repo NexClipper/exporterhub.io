@@ -90,8 +90,10 @@ ExporterHub.io recommends the best-fit exporter(s) to support Prometheus monitor
 
 ### 3. Create and register an OAuth app under your organization.
 * ___1) Click developer settings tab of organization. While you create OAuth Apps, please take note of redirect url of authentication.___
+
 ![](https://images.velog.io/images/dvkim202550/post/a81cec66-cfba-424e-bc07-c54052deb22b/image.png)
 ![](https://images.velog.io/images/dvkim202550/post/c49ff46d-39de-4ed5-8d66-9a8b6aeb5544/image.png)
+
 * ___2) Client ID, Client Secrets, and callback url(Service URL) are required for authentication.___
 
 
@@ -112,7 +114,7 @@ ALGORITHM="NEED_TO_SET_UP"
 ORGANIZATION="NEED_TO_SET_UP"
 ```
 * ___"NEED_TO_SET_UP" parts are to be linked to docker-compose.yml as below: ___
-<img src="https://images.velog.io/images/dvkim202550/post/1033e78b-1800-4a01-9614-e24cc569b64f/image.png" width="300" height="300">
+<img src="https://images.velog.io/images/dvkim202550/post/1033e78b-1800-4a01-9614-e24cc569b64f/image.png" width="300">
 
 
 
