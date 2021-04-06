@@ -27,7 +27,6 @@
 
 
 ## Definition of [ExporterHub.io](https://exporterhub.io/)
-![](https://images.velog.io/images/dvkim202550/post/795be79c-80c6-4b62-96ff-17247885b00c/image.png)
 
 ### ExporterHub.io is an application for the Prometheus Exporters community.
 ExporterHub.io is not just a curated list, but also provides exporter installation guide, alert rule configuration, and dashboard configuration.
