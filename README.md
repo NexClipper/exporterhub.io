@@ -16,7 +16,7 @@
 <!--lint disable awesome-toc-->
 ## Contents
 * [Definition of ExporterHub.io](https://github.com/NexClipper/exporterhub.io#Definition-of-exporterhubio)
-* [Roadmap](https://github.com/NexClipper/exporterhub.io#roadmap)
+* [Road map](https://github.com/NexClipper/exporterhub.io#roadmap)
 * [See Demo](https://github.com/NexClipper/exporterhub.io#Demo)
 * [Diagram Overview](https://github.com/NexClipper/exporterhub.io#diagram-overview)
 * [Kickstart](https://github.com/NexClipper/exporterhub.io#kickstart)
@@ -44,7 +44,7 @@ Each exporter's page contains the followings:
 * Image click to Youtube for the full examples and guides:  
   [![Demo](https://raw.githubusercontent.com/NexClipper/exporterhub.io/master/assets/demo_01.png)](https://youtu.be/wa4dknZk7Kk)
 
-## Roadmap
+## Road map
 To help and ease you with best-practice Prometheus, ExporterHub.io discovers and recommends the best-fit exporter(s) available to expose metrics data from your specific systems and services being monitored.
 
 Using the best-fit exporter(s) helps standardizing metrics data exposition practices, maximizing monitoring experience with minimal manual inputs.
@@ -64,7 +64,7 @@ ExporterHub.io recommends the best-fit exporter(s) to support Prometheus monitor
   * [ ] Recommend best-fit exporter(s)
   
 
-## Diagram Overview
+## Architecture Overview
 <!--lint disable awesome-list-item-->
 * Image click to Youtube:
   * [![Diagram Overview](https://img.youtube.com/vi/pPZfNi6qms4/0.jpg)](https://youtu.be/pPZfNi6qms4)
