@@ -6,16 +6,16 @@ services:
       - "8080:3000"
     environment:
        SERVICE_PUBLIC: "n"
-       SERVICE_URL: ${SERVICE_URL}
+       # You can add and modify below setup to './.env' file for externel configuration without security issue.
+       SERVICE_URL: ${REACT_APP_API_URL}
        CLIENT_ID: ${CLIENT_ID}
        CLIENT_SECRETS: ${CLIENT_SECRETS}
-       #SERVICE_URL: "http://localhost"
     depends_on:
       - api
   maria_db:
     image: mariadb:10.4.17
     command: --default-authentication-plugin=mysql_native_password
-    command: --max-allowed-packet=67108864
+    command: --max-allowed-packet=1024*1024*1024
     command: --wait_timeout=28800
     command: --character-set-server=utf8mb4 --collation-server=utf8mb4_general_ci --skip-character-set-client-handshake
     restart: always
@@ -29,6 +29,8 @@ services:
   scheduler:
     image: nexclipper/exporterhub-api:latest
     restart: always
+    env_file: 
+      - ./.env 
     environment:
       APP_DB_ENGINE: django.db.backends.mysql
       DB_NAME: exporterhub
@@ -37,7 +39,8 @@ services:
       DB_HOST: maria_db
       DB_PORT: "3306"
       APP_STAT: "scheduler"
-      SECRET_KEY: "supersecretkey"
+      # You can add and modify below setup to './.env' file for externel configuration without security issue.
+      SECRET_KEY: ${SECRET_KEY}
     depends_on:
       - maria_db
       - api
@@ -46,6 +49,8 @@ services:
     restart: always
     ports:
       - "8000:8000"
+    env_file: 
+      - ./.env 
     environment:
       APP_DB_ENGINE: django.db.backends.mysql
       DB_NAME: exporterhub
@@ -53,9 +58,11 @@ services:
       DB_PASSWORD: secret
       DB_HOST: maria_db
       DB_PORT: "3306"
-      SECRET_KEY: "supersecretkey"
-      ALGORITHM: 'HS256'
+
       APP_STAT: "server"
-      ORGANIZATION: "Exporterhubv3"
+      # You can add and modify below setup to './.env' file for externel configuration without security issue.
+      ORGANIZATION: ${ORGANIZATION}
+      SECRET_KEY: ${SECRET_KEY}
+      ALGORITHM: ${ALGORITHM}
     depends_on:
       - maria_db
