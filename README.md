@@ -81,15 +81,15 @@ ExporterHub.io recommends the best-fit exporter(s) to support Prometheus monitor
 
 ### 1. Create organization
 * ___This must be done before authorizing and managing admins.___
-* ___Github docs reference:___
-   * https://docs.github.com/en/github/setting-up-and-managing-organizations-and-teams/creating-a-new-organization-from-scratch
+* ___Github link:___
+   * https://github.com/settings/organizations
+   ![](https://images.velog.io/images/dvkim202550/post/3f9a9079-f491-4089-9867-554ba5cd70c5/image.png)
 
 
 
 ### 2. Create and register an OAuth app under your organization.
 * ___Client ID, Client Secrets, and callback url(Service URL) are required for authentication.___
-* ___Github docs:___
-https://docs.github.com/en/rest/guides/basics-of-authentication
+* ___image:___
 
 
 ![](https://images.velog.io/images/dvkim202550/post/a29c1acf-f14f-446e-9b54-170c40bda50b/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA%202021-04-05%20%E1%84%8B%E1%85%A9%E1%84%92%E1%85%AE%202.49.50.png)
@@ -124,12 +124,13 @@ services:
       DB_PASSWORD: secret
       DB_HOST: maria_db
       DB_PORT: "3306"
-      SECRET_KEY: "supersecretkey"
-      ALGORITHM: "HS256"
+      SECRET_KEY: "SECRET_KEY"
+      ALGORITHM: "ALGORITHM"
       APP_STAT: "server"
       ORGANIZATION: "NEED_TO_SET_UP"
     depends_on:
       - maria_db
+	
 ```
 
 
