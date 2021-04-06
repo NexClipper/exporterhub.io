@@ -184,6 +184,7 @@ const AlertModal = styled.div`
 `;
 
 const Info = styled.div`
+  position: relative;
   display: flex;
   align-items: center;
   user-select: none;
@@ -193,8 +194,25 @@ const Info = styled.div`
       display: flex;
       align-items: center;
 
+      @media ${({ theme }) => theme.media.mobile} {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
       &:first-child {
         margin-bottom: 20px;
+
+        @media ${({ theme }) => theme.media.mobile} {
+          margin-bottom: 3px;
+        }
+      }
+
+      &:nth-child(2) {
+        @media ${({ theme }) => theme.media.mobile} {
+          position: absolute;
+          top: 41px;
+          flex-direction: row;
+        }
       }
     }
   }
@@ -209,8 +227,10 @@ const HeaderLogo = styled.div`
   margin-right: 70px;
 
   @media ${({ theme }) => theme.media.mobile} {
-    width: 150px;
-    height: 150px;
+    width: 120px;
+    height: 120px;
+    margin-right: 15px;
+    margin-left: 15px;
   }
 `;
 
@@ -218,6 +238,11 @@ const Name = styled.h4`
   margin-right: 30px;
   color: #000000;
   font-size: 17px;
+
+  @media ${({ theme }) => theme.media.mobile} {
+    margin-bottom: 50px;
+    font-size: 15px;
+  }
 `;
 
 const Button = styled.button`
@@ -264,6 +289,12 @@ const Category = styled.p`
   border-radius: 5px;
   background-color: #f1f4f8;
   min-height: 30px;
+
+  @media ${({ theme }) => theme.media.mobile} {
+    margin-bottom: 50px;
+    font-size: 13px;
+    padding: 7px 10px 6px 10px;
+  }
 `;
 
 const StarIcon = styled.span`
@@ -274,5 +305,11 @@ const StarIcon = styled.span`
 
   svg {
     vertical-align: middle;
+  }
+
+  @media ${({ theme }) => theme.media.mobile} {
+    position: relative;
+    top: 3px;
+    font-size: 14px;
   }
 `;
