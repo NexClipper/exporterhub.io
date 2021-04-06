@@ -12,11 +12,11 @@ const UnforkModal = ({ cancleModal }) => {
     if (option === 0) {
       console.log("Unfork from mybucket only");
       console.log(selectedRepo);
-      UNFORK_API = `${API_SURVER}:8000/user/bucket?exporter-id=${selectedRepo}`;
+      UNFORK_API = `${API_SURVER}/user/bucket?exporter-id=${selectedRepo}`;
     } else if (option === 1) {
       console.log("Unfork from GitHub");
       console.log(selectedRepo);
-      UNFORK_API = `${API_SURVER}:8000/user/bucket?exporter-id=${selectedRepo}&deleteall=yes`;
+      UNFORK_API = `${API_SURVER}/user/bucket?exporter-id=${selectedRepo}&deleteall=yes`;
     }
 
     axios({

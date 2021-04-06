@@ -27,7 +27,7 @@ const Dashboard = ({ title }) => {
     const HEADER = TOKEN && { Authorization: TOKEN };
     axios({
       method: "GET",
-      url: `${API_SURVER}:8000/exporter/${id}/tab?type=dashboard`,
+      url: `${API_SURVER}/exporter/${id}/tab?type=dashboard`,
       headers: HEADER,
     })
       .then((res) => {
