@@ -128,7 +128,7 @@ ORGANIZATION="NEED_TO_SET_UP"
 
 *  run the command `make run` at `/exporterhub.io` 
 
-### 6. Or, Run for external network
+### 7. Or, Run for external network
 * If you want to run the server in extenal server or instance, please make sure the `SERVICE_URL` for API server IP or URL as below
 ```
 services:
@@ -145,12 +145,16 @@ services:
 ```   
 * then, run the command `make run` at `/exporterhub.io` 
       
-### 7. Initial Check & Set
+### 8. Initial Check & Set
 <!--lint disable awesome-list-item-->
 * At the begining, input the generated Token to landing page as below. (http://localhost:8080)
+
 ![](https://images.velog.io/images/dvkim202550/post/b584e1ee-78ad-460f-8380-9e3af9c96b3a/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA%202021-04-06%20%E1%84%8B%E1%85%A9%E1%84%92%E1%85%AE%209.11.58.png)
+
 * Inintial settings are done if you get landing page with exporter cards as below.
+* 
 ![](https://images.velog.io/images/dvkim202550/post/36725e5c-19f9-4c17-874c-74fffbb9ac42/image.png)
+
 ## Maintenance
 ### Easy to Update a list of exporters by Pull Request as below
 * https://github.com/NexClipper/exporterhub.io/blob/main/api/exporter_list.csv
