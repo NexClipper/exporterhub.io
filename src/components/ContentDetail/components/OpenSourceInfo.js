@@ -259,6 +259,12 @@ const Button = styled.button`
   font-weight: 600;
   color: ${(props) => (props.forkState ? "#8D8D8D" : "black")};
 
+  @media ${({ theme }) => theme.media.mobile} {
+    position: relative;
+    top: 2px;
+    z-index: 10;
+  }
+
   span {
     font-size: 12px;
 
@@ -309,7 +315,7 @@ const StarIcon = styled.span`
 
   @media ${({ theme }) => theme.media.mobile} {
     position: relative;
-    top: 3px;
+    top: 5px;
     font-size: 14px;
   }
 `;

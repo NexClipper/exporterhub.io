@@ -79,6 +79,11 @@ const ContentTitle = styled.h4`
   font-size: 30px;
   font-weight: 500;
   letter-spacing: 0.08rem;
+
+  @media ${({ theme }) => theme.media.mobile} {
+    font-size: 18px;
+    padding-left: 10px;
+  }
 `;
 
 const ContentBody = styled.div``;
