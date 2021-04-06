@@ -84,7 +84,7 @@ const Admin = styled.button`
   }
 
   @media ${({ theme }) => theme.media.mobile} {
-    display: block;
+    /* display: block; */
   }
 `;
 

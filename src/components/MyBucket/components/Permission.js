@@ -153,12 +153,6 @@ const Container = styled.div`
     position: relative;
     left: 30px;
     z-index: 1;
-    @media ${({ theme }) => theme.media.mobile} {
-      position: absolute;
-      left: 12px;
-      top: 50%;
-      transform: translateY(-50%);
-    }
   }
 `;
 
