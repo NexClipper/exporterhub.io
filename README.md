@@ -124,8 +124,8 @@ services:
       DB_PASSWORD: secret
       DB_HOST: maria_db
       DB_PORT: "3306"
-      SECRET_KEY: "SECRET_KEY"
-      ALGORITHM: "ALGORITHM"
+      SECRET_KEY: "supersecretkey"
+      ALGORITHM: "HS256"
       APP_STAT: "server"
       ORGANIZATION: "NEED_TO_SET_UP"
     depends_on:
