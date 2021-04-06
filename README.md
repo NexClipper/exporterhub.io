@@ -81,56 +81,42 @@ ExporterHub.io recommends the best-fit exporter(s) to support Prometheus monitor
 
 ### 1. Create organization
 * ___This must be done before authorizing and managing admins.___
-* ___Github docs reference:___
-   * https://docs.github.com/en/github/setting-up-and-managing-organizations-and-teams/creating-a-new-organization-from-scratch
+* ___Github link:___
+   * https://github.com/settings/organizations
+![](https://images.velog.io/images/dvkim202550/post/6b5b5bfd-b757-4c8e-89af-f06dcfc0df4c/image.png)
+
+### 2. `Fork` NexClipper/exporterhub.io to organization, not to personal account.
+![](https://images.velog.io/images/dvkim202550/post/836ab379-2d34-4669-b884-fd912709d460/image.png)
+
+### 3. Create and register an OAuth app under your organization.
+* ___1) Click developer settings tab of organization. While you create OAuth Apps, please take note of redirect url of authentication.___
+
+![](https://images.velog.io/images/dvkim202550/post/a81cec66-cfba-424e-bc07-c54052deb22b/image.png)
+![](https://images.velog.io/images/dvkim202550/post/c49ff46d-39de-4ed5-8d66-9a8b6aeb5544/image.png)
+
+* ___2) Client ID, Client Secrets, and callback url(Service URL) are required for authentication.___
 
 
 
-### 2. Create and register an OAuth app under your organization.
-* ___Client ID, Client Secrets, and callback url(Service URL) are required for authentication.___
-* ___Github docs:___
-https://docs.github.com/en/rest/guides/basics-of-authentication
+![](https://images.velog.io/images/dvkim202550/post/168d8232-2951-4a77-ab8f-881fdb85b457/image.png)
 
 
-![](https://images.velog.io/images/dvkim202550/post/a29c1acf-f14f-446e-9b54-170c40bda50b/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA%202021-04-05%20%E1%84%8B%E1%85%A9%E1%84%92%E1%85%AE%202.49.50.png)
-
-
-### 3. Write docker-compose.yaml accordingly.
-* ___"NEED_TO_SET_UP" parts are to be revised.___
+### 4. Write docker-compose.yml accordingly.
+* ___"NEED_TO_SET_UP" parts are to be revised in   ```./.env```file: ___
 ```yml
-services:
-  expoterhub:
-    image: nexclipper/exporterhub:latest
-    ports:
-      - "8080:3000"
-    environment:
-#      SERVICE_URL: "http://localhost"
-       SERVICE_URL: "NEED_TO_SET_UP"
-       CLIENT_ID: "NEED_TO_SET_UP"
-       CLIENT_SECRETS: "NEED_TO_SET_UP"
-    depends_on:
-      - api
+REACT_APP_API_URL="NEED_TO_SET_UP"
+REACT_APP_API_STATUS="y"
+
+CLIENT_ID="NEED_TO_SET_UP"
+CLIENT_SECRETS="NEED_TO_SET_UP"
+SECRET_KEY="NEED_TO_SET_UP"
+ALGORITHM="NEED_TO_SET_UP"
+ORGANIZATION="NEED_TO_SET_UP"
 ```
-```yml
-  api:
-    image: nexclipper/exporterhub-api:latest
-    restart: always
-    ports:
-      - "8000:8000"
-    environment:
-      APP_DB_ENGINE: django.db.backends.mysql
-      DB_NAME: exporterhub
-      DB_USER: root
-      DB_PASSWORD: secret
-      DB_HOST: maria_db
-      DB_PORT: "3306"
-      SECRET_KEY: "SECRET_KEY"
-      ALGORITHM: "ALGORITHM"
-      APP_STAT: "server"
-      ORGANIZATION: "NEED_TO_SET_UP"
-    depends_on:
-      - maria_db
-```
+* ___"NEED_TO_SET_UP" parts are to be linked to docker-compose.yml as below: ___
+<img src="https://images.velog.io/images/dvkim202550/post/1033e78b-1800-4a01-9614-e24cc569b64f/image.png" width="300">
+
+
 
 
 

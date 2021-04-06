@@ -36,7 +36,7 @@ const Alert = ({ title }) => {
     })
       .then((res) => {
         setGithubContent(
-          res.data.md_content === null ? "null" : res.data.md_content
+          res.data.md_content === null ? "N/A" : res.data.md_content
         );
         setMdSha(res.data.md_sha);
         setCodeSha(res.data.code_sha);
