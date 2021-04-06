@@ -19,7 +19,7 @@
 * [Road map](https://github.com/NexClipper/exporterhub.io#roadmap)
 * [See Demo](https://github.com/NexClipper/exporterhub.io#Demo)
 * [Diagram Overview](https://github.com/NexClipper/exporterhub.io#diagram-overview)
-* [Kickstart](https://github.com/NexClipper/exporterhub.io#kickstart)
+* [Kick-start](https://github.com/NexClipper/exporterhub.io#kickstart)
 * [Contribute](https://github.com/NexClipper/exporterhub.io#contribute)
 * [References](https://github.com/NexClipper/exporterhub.io#references)
 * [License](https://github.com/NexClipper/exporterhub.io#license)
