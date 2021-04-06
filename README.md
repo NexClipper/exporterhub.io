@@ -119,13 +119,13 @@ ORGANIZATION="NEED_TO_SET_UP"
 
 
 
-### Run by default(in localhost)
+### 5. Run by default(in localhost)
 * Run the docker-compose as below
 ```
 docker-compose up -d 
 ```
 
-### Or, Run for external network
+### 6. Or, Run for external network
 * If youn want to run the server in extenal server or instance. Please make sure the `SERVICE_URL` for API server IP or URL as below
 ```
 services:
@@ -142,7 +142,7 @@ services:
 ```   
 
       
-### Initial Check & Set
+### 7. Initial Check & Set
 <!--lint disable awesome-list-item-->
 * At the begining, input the generated Token to landing page as below. (http://localhost:8080)
 ![](https://images.velog.io/images/dvkim202550/post/1cc90c6b-2504-4066-ae2b-24ed97aa9f33/image.png)
