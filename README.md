@@ -12,7 +12,6 @@
 
 
 
-![exporterhub](https://raw.githubusercontent.com/NexClipper/exporterhub.io/master/assets/ExporterHub_Logo_H.png)
 <!--lint disable awesome-github-->
 <!--lint disable awesome-toc-->
 ## Contents
@@ -58,7 +57,7 @@ ExporterHub.io recommends the best-fit exporter(s) to support Prometheus monitor
 * [x] Admin Authorizaion
 * [x] Register exporters, edit Dashboard and Alert by Admin
 * [x] Easy search of Exporters
-* [x] Personalization (Add, Delete)
+* [x] Personalization 
 * [ ] NexClipper Cloud Integration (coming soon)
   * [ ] Install exporters automatically
   * [ ] Generate Alert Rules
@@ -71,7 +70,7 @@ ExporterHub.io recommends the best-fit exporter(s) to support Prometheus monitor
   * [![Diagram Overview](https://img.youtube.com/vi/pPZfNi6qms4/0.jpg)](https://youtu.be/pPZfNi6qms4)
 
 ## Kickstart
-### Ready: Token is required for GitHub infomation crawling
+### Ready: Token is required for GitHub information crawling
 <!--lint disable awesome-list-item-->
 * ___Create Token before the App runs as below.___
    * https://github.com/settings/tokens/new
@@ -135,15 +134,18 @@ services:
     ports:
       - "8080:3000"
     environment:
-#      SERVICE_URL: "http://localhost"
-       SERVICE_URL: "http://192.168.10.11"
+       SERVICE_PUBLIC: "n"
+       # You can add and modify below setup to './.env' file for externel configuration without security issue.
+       SERVICE_URL: ${REACT_APP_API_URL}
+       CLIENT_ID: ${CLIENT_ID}
+       CLIENT_SECRETS: ${CLIENT_SECRETS}
 ```   
 
       
-### Check & Set
+### Initial Check & Set
 <!--lint disable awesome-list-item-->
-* And Input the generated Token to landing page as below. (http://localhost:8080)
-   * ![Token input](https://raw.githubusercontent.com/NexClipper/exporterhub.io/master/assets/token.png)
+* At the begining, input the generated Token to landing page as below. (http://localhost:8080)
+![](https://images.velog.io/images/dvkim202550/post/1cc90c6b-2504-4066-ae2b-24ed97aa9f33/image.png)
 
 
 ## Maintenance
