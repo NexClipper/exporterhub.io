@@ -130,7 +130,6 @@ services:
       ORGANIZATION: "NEED_TO_SET_UP"
     depends_on:
       - maria_db
-	
 ```
 
 
