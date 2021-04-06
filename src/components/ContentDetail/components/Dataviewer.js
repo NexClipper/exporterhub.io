@@ -38,7 +38,7 @@ const Dataviewer = ({
       <ContentBody>
         {!isEditMode ? (
           <Data>
-            <MarkdownBody>
+            <MarkdownBody dark={changeTheme}>
               <Content
                 dangerouslySetInnerHTML={{ __html: markDownContent }}
               ></Content>
@@ -75,6 +75,7 @@ const ContentTitle = styled.h4`
   font-size: 30px;
   font-weight: 500;
   letter-spacing: 0.08rem;
+  color: ${(props) => props.dark && "#f5f6f7"}; ;
 `;
 const ContentBody = styled.div``;
 const Data = styled.pre`
@@ -116,25 +117,31 @@ const MarkdownBody = styled.div`
   * {
     line-height: 1.8;
   }
+  a {
+    color: ${(props) => props.dark && "#00a7ee"};
+  }
+
   code {
     margin: 0;
     padding: 0.2em 0.4em;
-    background-color: rgba(27, 31, 35, 0.05);
+    background-color: ${(props) => (props.dark ? "#242526" : "#f0f4f8")};
     border-radius: 6px;
     font-size: 13px;
     font-family: "Noto Sans KR", sans-serif;
+    color: ${(props) => props.dark && "#f5f6f7"};
   }
   pre {
     margin-bottom: 16px;
     padding: 16px;
     overflow: auto;
     line-height: 1.45;
-    background-color: #f0f4f8;
+    background-color: ${(props) => (props.dark ? "#242526" : "#f0f4f8")};
     border-radius: 6px;
     font-size: 13px;
+    /* color: ${(props) => props.dark && "red"}; */
     tt,
     code {
-      background-color: #f0f4f8;
+      background-color: ${(props) => (props.dark ? "#242526" : "#f0f4f8")};
       line-height: 1.6;
     }
   }
@@ -146,6 +153,7 @@ const MarkdownBody = styled.div`
   h6 {
     margin: 24px 0 16px;
     line-height: 1.25;
+    color: ${(props) => props.dark && "#f5f6f7"};
   }
   h1,
   h2 {
@@ -167,6 +175,7 @@ const MarkdownBody = styled.div`
   p {
     margin-bottom: 16px;
     font-size: 15px;
+    color: ${(props) => props.dark && "#f5f6f7"};
   }
   blockquote {
     padding: 0 1em;
@@ -179,6 +188,7 @@ const MarkdownBody = styled.div`
     list-style-type: disc;
     li {
       line-height: 2;
+      color: ${(props) => props.dark && "#f5f6f7"};
     }
   }
   img {

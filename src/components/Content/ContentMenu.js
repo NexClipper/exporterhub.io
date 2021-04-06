@@ -101,6 +101,7 @@ const Select = styled.select`
     display: block;
     width: 80px;
     font-size: 13px;
+    color: ${(props) => (props.dark ? "#ffffff" : "black")};
   }
   /* option {
     color: ${(props) => (props.dark ? "#ffffff" : "black")};

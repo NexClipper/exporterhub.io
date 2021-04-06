@@ -38,7 +38,7 @@ const CardExporter = ({
       mybucket={mybucket}
     >
       <header>
-        {is_new && <New>NEW</New>}
+        {is_new && <New dark={changeTheme}>NEW</New>}
         <span>
           <Icon>
             <AiFillStar />
@@ -122,7 +122,7 @@ const New = styled.p`
   padding: 2px 5px;
   background-color: #6ac4a5;
   border-radius: 4px;
-  color: white;
+  color: ${(props) => (props.dark ? "#242526" : "white")};
 `;
 const Article = styled.article`
   @media ${({ theme }) => theme.media.mobile} {
