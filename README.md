@@ -105,7 +105,7 @@ To help and ease you with best-practice Prometheus, ExporterHub.io discovers and
 
 
 ### 4. Write docker-compose.yml accordingly.
-* ___"NEED_TO_SET_UP" parts are to be revised in   ```./.env```file: ___
+* ___"NEED_TO_SET_UP" parts are to be revised in   ```./.env```file:___
 ```yml
 REACT_APP_API_URL="NEED_TO_SET_UP"
 REACT_APP_API_STATUS="y"
@@ -116,7 +116,7 @@ SECRET_KEY="NEED_TO_SET_UP"
 ALGORITHM="NEED_TO_SET_UP"
 ORGANIZATION="NEED_TO_SET_UP"
 ```
-* ___"NEED_TO_SET_UP" parts are to be linked to docker-compose.yml as below: ___
+* ___"NEED_TO_SET_UP" parts are to be linked to docker-compose.yml as below:___
 <img src="https://images.velog.io/images/dvkim202550/post/1033e78b-1800-4a01-9614-e24cc569b64f/image.png" width="300">
 
 
