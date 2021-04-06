@@ -1,14 +1,14 @@
 import React from "react";
 import { useDispatch } from "react-redux";
-import { filterByValue } from "../../store/actions/exporterActions";
+import { filterBySearch } from "../../store/actions/exporterActions";
 import styled from "styled-components";
 import { SearchOutlined } from "@ant-design/icons";
 
 const Search = () => {
   const dispatch = useDispatch();
   const inputHandler = (e) => {
-    const payload = { filterType: "value", data: e.target.value.toLowerCase() };
-    dispatch(filterByValue(payload));
+    const payload = e.target.value.toLowerCase();
+    dispatch(filterBySearch(payload));
   };
   return (
     <Div>

@@ -18,9 +18,11 @@ const TokenModal = () => {
         token: tokenKey,
       })
       .then((res) => {
-        setIsLoading(false);
-        dispatch(getTokenState(true));
-        window.location.reload();
+        setTimeout(() => {
+          setIsLoading(false);
+          dispatch(getTokenState(true));
+          window.location.reload();
+        }, 40000);
       })
       .catch((error) => {
         setIsLoading(false);

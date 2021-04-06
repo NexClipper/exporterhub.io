@@ -1,22 +1,42 @@
 import { useState, useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import styled from "styled-components";
-import { sortByPopularity } from "../../store/actions/exporterActions";
-import { filterByValue } from "../../store/actions/exporterActions";
+import {
+  filterBySort,
+  filterByCate,
+} from "../../store/actions/exporterActions";
 import { CATEGORIES_API } from "../../config";
-const ContentMenu = ({ totalCount }) => {
-  // console.log(CATEGORIES_API);
+import RegisterModal from "../Modal/RegisterModal";
+const ContentMenu = ({ totaCount }) => {
+  const [isModalActive, setIsModalActive] = useState(false);
+  const isAdmin = useSelector((store) => store.adminReducer);
+
+  const cancleModal = () => {
+    setIsModalActive(false);
+  };
+
   const [categories, setCategories] = useState([]);
   const dispatch = useDispatch();
+
   const optionSelector = (e) => {
-    const payload = e.target.value;
-    dispatch(sortByPopularity(payload));
+    if (e.target.value === "Most popular") {
+      const payload = "popular";
+      dispatch(filterBySort(payload));
+    } else {
+      const payload = e.target.value;
+      dispatch(filterBySort(payload.toLowerCase()));
+    }
   };
+
   const callDispatch = (e) => {
-    console.log(e.target.value);
-    const payload = { filterType: "category", data: e.target.value };
-    dispatch(filterByValue(payload));
+    if (e.target.value === "All") {
+      const payload = "";
+      dispatch(filterByCate(payload));
+    } else {
+      const payload = e.target.value;
+      dispatch(filterByCate(payload));
+    }
   };
   useEffect(() => {
     axios.get(CATEGORIES_API).then((res) => {
@@ -25,11 +45,11 @@ const ContentMenu = ({ totalCount }) => {
   }, []);
   return (
     <Div>
-      <span>{totalCount} items</span>
+      {/* <span>{totalCount} items</span> */}
       <SelectBox>
         <Select onChange={callDispatch}>
           <option>All</option>
-          {categories.length &&
+          {categories &&
             categories.map((category) => (
               <option key={category.category_id}>
                 {category.category_name}
@@ -37,11 +57,17 @@ const ContentMenu = ({ totalCount }) => {
             ))}
         </Select>
         <select onChange={optionSelector}>
-          {/* <option>Sort by</option> */}
           <option>Most popular</option>
           <option>Recent</option>
+          <option>Trending</option>
         </select>
       </SelectBox>
+      {isAdmin && (
+        <Button onClick={() => setIsModalActive(true)}>
+          <span>RESISTER</span>
+        </Button>
+      )}
+      {isModalActive && <RegisterModal cancleModal={cancleModal} />}
     </Div>
   );
 };
@@ -78,4 +104,16 @@ const Select = styled.select`
     font-size: 13px;
   }
 `;
+
+const Button = styled.button`
+  display: flex;
+  align-items: center;
+  padding: 7px 10px;
+  background: #ffffff;
+  box-shadow: 1px 1px 6px 1px rgba(0, 0, 0, 0.1);
+  border-radius: 5px;
+  font-size: 12px;
+  font-weight: 600;
+`;
+
 export default ContentMenu;

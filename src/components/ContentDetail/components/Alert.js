@@ -1,11 +1,16 @@
 import { useState, useEffect } from "react";
 import styled from "styled-components";
 import axios from "axios";
-
 import Dataviewer from "./Dataviewer";
+import remarkMarkdown from "../remarkMarkdown";
+import { useParams } from "react-router";
+import { API_SURVER } from "../../../config";
 
-const Alert = () => {
-  const [data, setData] = useState();
+const Alert = ({ title }) => {
+  const { id } = useParams();
+  const [githubContent, setGithubContent] = useState();
+  const [mdSha, setMdSha] = useState();
+  const [codeSha, setCodeSha] = useState();
   const [isEditMode, setIsEditMode] = useState(false);
 
   const handleMode = () => {
@@ -16,34 +21,50 @@ const Alert = () => {
     getData();
   }, []);
 
+  useEffect(() => {
+    getData();
+  }, [isEditMode]);
+
   const getData = () => {
-    const url =
-      "https://api.github.com/repos/NexClipper/exporterhub.io/contents/docker-compose.yml";
-    axios
-      .get(url)
+    const TOKEN = sessionStorage.getItem("access_token");
+    const HEADER = TOKEN && { Authorization: TOKEN };
+
+    axios({
+      method: "GET",
+      url: `${API_SURVER}:8000/exporter/${id}/tab?type=alert`,
+      headers: HEADER,
+    })
       .then((res) => {
-        setData(res.data);
+        setGithubContent(
+          res.data.md_content === null ? "N/A" : res.data.md_content
+        );
+        setMdSha(res.data.md_sha);
+        setCodeSha(res.data.code_sha);
       })
-      .catch((error) => {
-        alert("fail");
+      .catch((err) => {
+        console.log(err);
       });
   };
+
+  const markDownContent = remarkMarkdown(githubContent);
+
   return (
     <Container>
-      {data && (
-        <Dataviewer
-          data={data}
-          isEditMode={isEditMode}
-          setIsEditMode={setIsEditMode}
-          handleMode={handleMode}
-        />
-      )}
+      <Dataviewer
+        githubContent={githubContent}
+        markDownContent={markDownContent}
+        isEditMode={isEditMode}
+        handleMode={handleMode}
+        title={title}
+        file=".yaml"
+        type="_alert"
+        mdSha={mdSha}
+        codeSha={codeSha}
+      />
     </Container>
   );
 };
-
 export default Alert;
-
 const Container = styled.div`
   ${({ theme }) => theme.container}
   position: relative;

@@ -10,7 +10,7 @@ import { GithubOutlined } from "@ant-design/icons";
 
 const Header = () => {
   const {
-    push,
+    // push,
     location: { pathname },
   } = useHistory();
 
@@ -25,6 +25,7 @@ const Header = () => {
                 style={{ color: "black", fontSize: "35px" }}
                 href="https://github.com/NexClipper/exporterhub.io"
                 target="_blank"
+                rel="noreferrer"
               >
                 <GithubOutlined />
               </a>
@@ -83,7 +84,7 @@ const Admin = styled.button`
   }
 
   @media ${({ theme }) => theme.media.mobile} {
-    display: block;
+    /* display: block; */
   }
 `;
 

@@ -8,39 +8,84 @@ import ExporterHubDetailPage from "./pages/ExporterHubDetailPage";
 import Footer from "./components/Footer/Footer";
 import { GlobalStyle } from "./styles/GlobalStyle";
 import {
-  loadData,
   loadCategoriesData,
   getTokenState,
+  getAdminState,
 } from "./store/actions/exporterActions";
-import AdminPage from "./pages/AdminPage";
-import {
-  CATEGORIES_API,
-  EXPORTERS_API,
-  TOKEN_API,
-  PUBLIC_SERVICE,
-} from "./config";
+import { CATEGORIES_API, TOKEN_API, API_SURVER } from "./config";
 
 import Login from "./components/Login/Login";
 import MyBucketPage from "./pages/MyBucketPage";
 
 function Routes() {
   const dispatch = useDispatch();
+
   useEffect(() => {
-    const fetchData = async () => {
-      const exportersData = await axios(EXPORTERS_API);
-      const categoriesData = await axios(CATEGORIES_API);
-      dispatch(loadData(exportersData.data.exporters));
-      dispatch(loadCategoriesData(categoriesData.data.categories));
-      axios(TOKEN_API)
-        .then((res) => {
-          dispatch(getTokenState(res.data.TOKEN_VALID));
-        })
-        .catch(() => {
-          dispatch(getTokenState(false));
-        });
-    };
-    fetchData();
+    // fetchData();
+    fetchCategoriesData();
+    getToken();
+    userAdminState();
+    handleLocalStorage();
   }, []);
+
+  // const fetchData = () => {
+  //   axios({
+  //     method: "GET",
+  //     url: `${EXPORTERS_API}`,
+  //   })
+  //     .then((res) => {
+  //       dispatch(allData(res.data.exporters));
+  //       console.log("Routes exporter data", res.data.exporters);
+  //     })
+  //     .catch((err) => console.log("에러임", err));
+  // };
+
+  const getToken = () => {
+    axios(TOKEN_API)
+      .then((res) => {
+        dispatch(getTokenState(res.data.TOKEN_VALID));
+      })
+      .catch(() => {
+        dispatch(getTokenState(false));
+      });
+  };
+
+  const fetchCategoriesData = () => {
+    axios({
+      method: "GET",
+      url: `${CATEGORIES_API}`,
+    })
+      .then((res) => {
+        dispatch(loadCategoriesData(res.data.categories));
+      })
+      .catch((err) => console.log("에러임", err));
+  };
+
+  const userAdminState = () => {
+    if (sessionStorage.getItem("access_token")) {
+      axios({
+        method: "GET",
+        url: `${API_SURVER}:8000/user/check`,
+        headers: {
+          Authorization: sessionStorage.getItem("access_token"),
+        },
+      })
+        .then((res) => {
+          dispatch(getAdminState(res.data.is_admin));
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
+  };
+
+  const handleLocalStorage = () => {
+    if (window.location.pathname === "/") {
+      localStorage.setItem("activeTab", "0");
+    } else {
+      return;
+    }
+  };
 
   return (
     <>
@@ -53,9 +98,9 @@ function Routes() {
           <Route exact path="/detail/:id" component={ExporterHubDetailPage} />
           <Route exact path="/detail" component={ExporterHubDetailPage} />
           <Route exact path="/mybucket" component={MyBucketPage} />
-          {PUBLIC_SERVICE === "n" && (
+          {/* {PUBLIC_SERVICE === "n" && (
             <Route exact path="/admin" component={AdminPage} />
-          )}
+          )} */}
         </Switch>
         <Footer />
       </Router>

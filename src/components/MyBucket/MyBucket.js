@@ -1,61 +1,80 @@
-import { useState, useEffect } from "react";
-import { useParams } from "react-router";
+import { useEffect, useState } from "react";
 import axios from "axios";
 import styled from "styled-components";
-
-import { EXPORTER_API } from "../../config";
-
-import { RiUserSettingsLine } from "react-icons/ri";
-
+import Profile from "./components/Profile";
 import Fork from "./components/Fork";
 import Permission from "./components/Permission";
-import Resister from "./components/Resister";
-
-const TABMENU = [
-  { id: 0, tabName: "Fork" },
-  { id: 1, tabName: "Permission" },
-  { id: 2, tabName: "Resister" },
-];
+import { useHistory } from "react-router";
+import { useDispatch, useSelector } from "react-redux";
+import { changeBucketPage } from "../../store/actions/exporterActions";
+import UnforkModal from "../Modal/UnforkModal";
+import { API_SURVER } from "../../config";
 
 const MyBucket = () => {
-  const { id } = useParams();
-  const [exporterInfo, setExporterInfo] = useState([]);
-  const [activeTab, setActiveTab] = useState(0);
+  const isAdmin = useSelector((store) => store.adminReducer);
+  const changeBucket = useSelector((store) => store.headerReducer);
+  const dispatch = useDispatch();
+  const history = useHistory();
+  const [isForkModalActive, setIsForkModalActive] = useState(false);
+  const [userProfile, setUserProfile] = useState();
+  console.log("여기 버켓이야 버켓 !!! ", history.location.pathname);
   const ACTIVECONTENT_OBJ = {
-    0: <Fork />,
+    0: (
+      <Fork
+        setIsForkModalActive={setIsForkModalActive}
+        isForkModalActive={isForkModalActive}
+      />
+    ),
     1: <Permission />,
-    2: <Resister />,
+  };
+
+  // const TABMENU = [
+  //   { id: 0, tabName: "Fork" },
+  //   { id: 1, tabName: "Set Admin" },
+  // ];
+
+  const TABMENU = isAdmin
+    ? [
+        { id: 0, tabName: "Fork" },
+        { id: 1, tabName: "Set Admin" },
+      ]
+    : [{ id: 0, tabName: "Fork" }];
+
+  const cancleModal = () => {
+    setIsForkModalActive(false);
   };
 
   useEffect(() => {
-    axios.get(`${EXPORTER_API}/${id}`).then((res) => {
-      setExporterInfo(res.data);
-    });
+    axios({
+      method: "GET",
+      url: `${API_SURVER}:8000/user/profile`,
+      headers: {
+        Authorization: sessionStorage.getItem("access_token"),
+      },
+    })
+      .then((res) => {
+        console.log(res.data.data);
+        setUserProfile(res.data.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+    handleLocalStorage();
   }, []);
 
-  const handleActiveTab = (id) => {
-    setActiveTab(id);
+  const handleLocalStorage = () => {
+    if (history.location.pathname === "/mybucket") {
+      localStorage.setItem("activeTab", "0");
+    } else {
+      return;
+    }
   };
 
   return (
     <>
       <Header>
         <Container>
-          <UserInfo>
-            <ProfileImage src="https://avatars.githubusercontent.com/u/75073867?v=4" />
-            <div>
-              <div>
-                <Name>saemsolyoo</Name>
-                <Button>
-                  <span>
-                    <RiUserSettingsLine />
-                  </span>
-                  <span>Edit Profile</span>
-                </Button>
-              </div>
-              <Introduce>beautiful world</Introduce>
-            </div>
-          </UserInfo>
+          {userProfile && <Profile userProfile={userProfile} />}
         </Container>
       </Header>
       <Nav>
@@ -65,8 +84,8 @@ const MyBucket = () => {
               return (
                 <Tab
                   key={tab.id}
-                  active={activeTab === tab.id}
-                  onClick={() => handleActiveTab(tab.id)}
+                  active={changeBucket === tab.id}
+                  onClick={() => dispatch(changeBucketPage(tab.id))}
                 >
                   {tab.tabName}
                 </Tab>
@@ -75,94 +94,14 @@ const MyBucket = () => {
           </TabList>
         </Container>
       </Nav>
-      <Main>{ACTIVECONTENT_OBJ[activeTab]}</Main>
+      <Main>{ACTIVECONTENT_OBJ[changeBucket]}</Main>
+      {isForkModalActive && <UnforkModal cancleModal={cancleModal} />}
     </>
   );
 };
 
 const Header = styled.header`
   padding: 80px 0;
-`;
-
-const UserInfo = styled.div`
-  display: flex;
-  align-items: center;
-
-  div {
-    div {
-      display: flex;
-      align-items: center;
-
-      &:first-child {
-        margin-bottom: 20px;
-      }
-    }
-  }
-`;
-
-const ProfileImage = styled.img`
-  width: 150px;
-  height: 150px;
-  margin-right: 70px;
-  border-radius: 50%;
-
-  /* @media ${({ theme }) => theme.media.mobile} {
-    width: 150px;
-    height: 150px;
-  } */
-`;
-
-const Name = styled.h4`
-  margin-right: 30px;
-  color: #000000;
-  font-size: 17px;
-`;
-
-const Button = styled.button`
-  display: flex;
-  align-items: center;
-  padding: 5px 10px;
-  background: #ffffff;
-  box-shadow: 1px 1px 6px 1px rgba(0, 0, 0, 0.1);
-  border-radius: 5px;
-  font-size: 12px;
-  font-weight: 600;
-
-  span {
-    font-size: 12px;
-
-    &:first-child {
-      position: relative;
-      top: 1px;
-      margin-right: 5px;
-      font-size: 13px;
-    }
-  }
-`;
-
-const Introduce = styled.p`
-  color: #999999;
-  font-size: 17px;
-  font-weight: 500;
-`;
-
-const Category = styled.p`
-  margin-right: 15px;
-  padding: 5px 20px 8px 20px;
-  font-size: 17px;
-  font-weight: 400;
-  border-radius: 5px;
-  background-color: #f1f4f8;
-`;
-
-const StarIcon = styled.span`
-  font-size: 18px;
-  font-weight: 500;
-  color: #ffd200;
-
-  svg {
-    vertical-align: middle;
-  }
 `;
 
 const Nav = styled.nav`
@@ -185,16 +124,17 @@ const Tab = styled.li`
   text-align: center;
   box-sizing: border-box;
   cursor: pointer;
+  user-select: none;
 `;
 
 const Main = styled.main`
+  min-height: calc(100vh - 436px);
+  max-height: fit-content;
   padding: 90px 0 50px;
-  border-radius: 50px 0 0 0;
   background: #f7f9fc;
 
   @media ${({ theme }) => theme.media.mobile} {
     padding: 90px 15px 50px;
-    border-radius: 50px 50px 0 0;
   }
 `;
 

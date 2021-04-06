@@ -6,21 +6,41 @@ import { EXPORTER_ADMIN_API } from "../../config";
 
 const RegisterModal = ({ cancleModal }) => {
   const categories = useSelector((store) => store.categoryReducer);
+  const [exporterTitle, setExporterTitle] = useState("");
   const [repoUrl, setRepoUrl] = useState("Default");
   const [category, setCategory] = useState("Default");
   const [failMessage, setFailMessage] = useState("");
+
   const registerExporter = () => {
-    axios
-      .post(EXPORTER_ADMIN_API, {
+    if (exporterTitle.length === 0) {
+      setFailMessage("WRONG_EXPORTER_TITLE");
+      return;
+    }
+
+    axios({
+      method: "POST",
+      url: `${EXPORTER_ADMIN_API}`,
+      data: {
+        title: exporterTitle,
         repo_url: repoUrl,
         category: category,
-      })
+      },
+      headers: {
+        Authorization: sessionStorage.getItem("access_token"),
+      },
+    })
       .then(() => {
+        console.log("regist success");
         window.location.reload();
       })
       .catch((error) => {
+        console.log(error);
         setFailMessage(error.response?.data.message);
       });
+  };
+
+  const inputExporterTitle = (e) => {
+    setExporterTitle(e.target.value);
   };
 
   const inputRepoUrl = (e) => {
@@ -37,6 +57,11 @@ const RegisterModal = ({ cancleModal }) => {
         <img src="assets/image.png" alt="modal" />
         <Container>
           <div>{failMessage}</div>
+          <input
+            className="inputDiv"
+            onChange={inputExporterTitle}
+            placeholder="exporter title"
+          ></input>
           <input
             className="inputDiv"
             onChange={inputRepoUrl}
@@ -73,23 +98,21 @@ const ModalContainer = styled.div`
 
 const Div = styled.div`
   width: 300px;
-  height: 500px;
+  height: fit-content;
+  padding: 50px 0;
   background-color: white;
   ${({ theme }) => theme.positionCenter};
   border: 1px solid rgba(0, 0, 0, 0.3);
   display: flex;
   flex-direction: column;
   align-items: center;
-  img {
-    margin-top: 50px;
-  }
 `;
 
 const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin: 40px 0;
+  margin: 20px 0 40px 0;
   div {
     height: 20px;
     margin-bottom: 20px;

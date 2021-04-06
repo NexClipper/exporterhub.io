@@ -1,13 +1,12 @@
 const FILTER_BY_USER = "FILTER_BY_USER";
-
-const initialState = {
-  name: "",
-};
+let initialState = "";
 
 const userReducer = (state = initialState, action) => {
   switch (action.type) {
     case FILTER_BY_USER:
-      return;
+      return action.payload;
+    default:
+      return state;
   }
 };
 

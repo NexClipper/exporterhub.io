@@ -5,10 +5,29 @@ export const PUBLIC_SERVICE = process.env.REACT_APP_API_STATUS; //- if the PUBLI
 // export const EXPORTERS_API = `${API_SURVER}:8000`;
 // export const EXPORTER_API = `${API_SURVER}:8000/exporters`;
 // export const CATEGORIES_API = `${API_SURVER}:8000/categories`;
-export const EXPORTER_ADMIN_API = `${API_SURVER}:8000/exporter`;
+// export const EXPORTER_ADMIN_API = `${API_SURVER}:8000/exporter`;
 // export const TOKEN_API = `${API_SURVER}:8000/token`;
 
-export const EXPORTERS_API = "http://10.153.4.240:8000/exporter";
-export const EXPORTER_API = "http://10.153.4.240:8000/exporter";
-export const CATEGORIES_API = "http://10.153.4.240:8000/exporter/categories";
-export const TOKEN_API = "http://10.153.4.240:8000/headtoken";
+// export const SERVER = "http://10.153.6.186:8000";
+// export const EXPORTERS_API = `${SERVER}/exporter`;
+// export const EXPORTER_API = `${SERVER}/exporter`;
+// export const CATEGORIES_API = `${SERVER}/exporter/categories`;
+// export const TOKEN_API = `${SERVER}/headtoken`;
+// export const STAR_API = `${SERVER}/user/star`;
+// export const BUCKET_API = `${SERVER}/user/bucket`;
+// export const LOGIN_API = `${SERVER}/user/login`;
+// export const ADMIN_API = `${SERVER}/user/admin`;
+// export const EXPORTER_ADMIN_API = `${SERVER}/exporter`;
+
+export const EXPORTERS_API = `${API_SURVER}:8000/exporter`;
+export const EXPORTER_API = `${API_SURVER}:8000/exporter`;
+export const CATEGORIES_API = `${API_SURVER}:8000/exporter/categories`;
+export const TOKEN_API = `${API_SURVER}:8000/headtoken`;
+export const STAR_API = `${API_SURVER}:8000/user/star`;
+export const BUCKET_API = `${API_SURVER}:8000/user/bucket`;
+export const LOGIN_API = `${API_SURVER}:8000/user/login`;
+export const ADMIN_API = `${API_SURVER}:8000/user/admin`;
+export const EXPORTER_ADMIN_API = `${API_SURVER}:8000/exporter`;
+
+export const CLIENT_ID = process.env.REACT_APP_API_CLIENT_ID;
+export const CLIENT_SECRETS = process.env.REACT_APP_API_CLIENT_SECRETS;

@@ -5,6 +5,7 @@ DATABASES = my_settings.DATABASES
 
 SECRET_KEY = my_settings.SECRET_KEY
 ALGORITHM  = my_settings.ALGORITHM
+ORGANIZATION = my_settings.ORGANIZATION
 
 DEBUG = True
 

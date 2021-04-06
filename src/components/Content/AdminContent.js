@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 
-const AdminContent = ({ admin }) => {
+const AdminContent = ({ admin, deleteAdmin }) => {
   return (
     <AdminCard>
       <AdminInfo>
@@ -11,7 +11,9 @@ const AdminContent = ({ admin }) => {
           <span>{admin.usertype}</span>
         </Info>
       </AdminInfo>
-      <AdminResign>Resign</AdminResign>
+      <AdminResign onClick={() => deleteAdmin(admin.username)}>
+        Resign
+      </AdminResign>
     </AdminCard>
   );
 };
@@ -66,6 +68,7 @@ const AdminResign = styled.button`
   background-color: #fafbfc;
   border: 1px solid #d9dbdb;
   cursor: pointer;
+  user-select: none;
 
   &:hover {
     background-color: #f1f1f1;

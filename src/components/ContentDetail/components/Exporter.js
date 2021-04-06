@@ -18,6 +18,8 @@ const Exporter = ({ readmeContent }) => {
 export default Exporter;
 
 const Container = styled.div`
+  min-height: calc(100vh - 436px);
+
   ${({ theme }) => theme.container}
   position: relative;
 `;

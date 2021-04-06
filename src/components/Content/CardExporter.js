@@ -3,8 +3,16 @@ import { withRouter } from "react-router-dom";
 import styled from "styled-components";
 import { AiFillStar } from "react-icons/ai";
 import { RiDeleteBinLine } from "react-icons/ri";
+import { useDispatch } from "react-redux";
+import { targetUnforkRepo } from "../../store/actions/exporterActions";
 
-const CardExporter = ({ exporter, cardClick, fork, mybucket }) => {
+const CardExporter = ({
+  exporter,
+  cardClick,
+  fork,
+  mybucket,
+  setIsForkModalActive,
+}) => {
   const {
     exporter_id,
     name,
@@ -13,15 +21,22 @@ const CardExporter = ({ exporter, cardClick, fork, mybucket }) => {
     logo_url,
     official,
     category,
+    is_new,
   } = exporter;
 
-  const unforkRepo = () => {
-    console.log("unforkRepo");
+  const dispatch = useDispatch();
+
+  const unforkRepo = (e, id) => {
+    e.stopPropagation();
+    setIsForkModalActive(true);
+    console.log("unforkRepo", id);
+    dispatch(targetUnforkRepo(id));
   };
 
   return (
     <Div onClick={() => cardClick(exporter_id)} fork={fork} mybucket={mybucket}>
       <header>
+        {is_new && <New>NEW</New>}
         <span>
           <Icon>
             <AiFillStar />
@@ -44,42 +59,16 @@ const CardExporter = ({ exporter, cardClick, fork, mybucket }) => {
         </Section>
       </Article>
       {fork && (
-        <Unfork onClick={unforkRepo} className="unfork">
+        <Unfork onClick={(e) => unforkRepo(e, exporter_id)} className="unfork">
           <div>
             <RiDeleteBinLine />
-            <span>Unfork this project repo</span>
+            <span>Unfork this exporter</span>
           </div>
         </Unfork>
       )}
     </Div>
   );
 };
-
-const Unfork = styled.div`
-  position: absolute;
-  bottom: 0;
-  background-color: #fafbfc;
-  color: #c6474e;
-  width: 100%;
-  border: 1px solid #d9dbdb;
-  text-align: center;
-  font-size: 15px;
-  height: 70px;
-  line-height: 70px;
-  display: none;
-  font-weight: 500;
-  border-radius: 0 0 5px 5px;
-
-  div {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    span {
-      margin-left: 5px;
-    }
-  }
-`;
 
 const Div = styled.div`
   position: relative;
@@ -115,6 +104,10 @@ const Div = styled.div`
     align-items: flex-start;
     padding: 0 30px;
     margin-right: 0%;
+
+    &:hover {
+      transform: scale(1.02);
+    }
   }
   header {
     width: 100%;
@@ -125,6 +118,14 @@ const Div = styled.div`
       padding: 15px 0;
     }
   }
+`;
+
+const New = styled.p`
+  float: left;
+  padding: 2px 5px;
+  background-color: #6ac4a5;
+  border-radius: 4px;
+  color: white;
 `;
 
 const Article = styled.article`
@@ -190,6 +191,49 @@ const Section = styled.section`
 
 const Icon = styled.span`
   vertical-align: middle;
+`;
+
+const Unfork = styled.div`
+  position: absolute;
+  bottom: 0;
+  background-color: #fafbfc;
+  color: #c6474e;
+  width: 100%;
+  border: 1px solid #d9dbdb;
+  text-align: center;
+  font-size: 15px;
+  height: 70px;
+  line-height: 70px;
+  display: none;
+  font-weight: 500;
+  border-radius: 0 0 5px 5px;
+
+  div {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    top: -2px;
+
+    span {
+      margin-left: 5px;
+    }
+  }
+
+  @media ${({ theme }) => theme.media.mobile} {
+    width: 80px;
+    height: 100%;
+    right: 0;
+    top: 0;
+
+    div {
+      top: 50%;
+      transform: translateY(-50%);
+      span {
+        display: none;
+      }
+    }
+  }
 `;
 
 export default withRouter(CardExporter);

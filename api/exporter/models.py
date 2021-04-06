@@ -20,10 +20,11 @@ class Exporter(models.Model):
     logo_url       = models.URLField(max_length=2000)
     stars          = models.IntegerField()
     repository_url = models.URLField(max_length=2000)
-    description    = models.TextField()
+    description    = models.TextField(null=True)
     readme_url     = models.URLField(max_length=2000)
     readme         = models.BinaryField()
     comment        = models.TextField(null=True)
+    view_count     = models.PositiveIntegerField(default=0)
     created_at     = models.DateTimeField(auto_now_add=True)
     modified_at    = models.DateTimeField(auto_now=True)
 

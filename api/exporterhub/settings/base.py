@@ -13,8 +13,10 @@ SECRET_KEY = os.environ.get('SECRET_KEY', 'unsafe-secret-key')
 
 ALGORITHM = os.environ.get('ALGORITHM')
 
+ORGANIZATION = os.environ.get('ORGANIZATION')
+
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
@@ -79,7 +81,7 @@ DATABASES = {
         'PASSWORD': os.environ.get('DB_PASSWORD', ''),
         'HOST': os.environ.get('DB_HOST', None),
         'PORT': os.environ.get('DB_PORT', None),
-        'CONN_MAX_AGE': 600,
+        'CONN_MAX_AGE': 3600,
     }
 }
 
