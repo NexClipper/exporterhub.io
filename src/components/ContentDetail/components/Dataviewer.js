@@ -4,7 +4,6 @@ import { FiEdit } from "react-icons/fi";
 import { BiUndo } from "react-icons/bi";
 import CodeEditor from "./CodeEditor";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
-
 const Dataviewer = ({
   githubContent,
   isEditMode,
@@ -17,14 +16,14 @@ const Dataviewer = ({
   markDownContent,
 }) => {
   const isAdmin = useSelector((store) => store.adminReducer);
+  const changeTheme = useSelector((store) => store.darkThemeReducer);
   console.log("hi");
   !markDownContent && console.log("YES");
   const editBtnText = mdSha ? "Edit" : "Create";
-
   return (
     <>
       <Header>
-        <ContentTitle>
+        <ContentTitle dark={changeTheme}>
           {title}
           {type}
           {file}
@@ -39,7 +38,7 @@ const Dataviewer = ({
       <ContentBody>
         {!isEditMode ? (
           <Data>
-            <MarkdownBody>
+            <MarkdownBody dark={changeTheme}>
               <Content
                 dangerouslySetInnerHTML={{ __html: markDownContent }}
               ></Content>
@@ -65,24 +64,20 @@ const Dataviewer = ({
     </>
   );
 };
-
 export default Dataviewer;
-
 const Header = styled.header`
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin-bottom: 45px;
 `;
-
 const ContentTitle = styled.h4`
   font-size: 30px;
   font-weight: 500;
   letter-spacing: 0.08rem;
+  color: ${(props) => props.dark && "#f5f6f7"}; ;
 `;
-
 const ContentBody = styled.div``;
-
 const Data = styled.pre`
   font-family: "Noto Sans KR", sans-serif;
   font-size: 14px;
@@ -92,7 +87,6 @@ const Data = styled.pre`
   border-radius: 5px;
   /* background-color: #f1f4f8; */
 `;
-
 const Button = styled.button`
   display: flex;
   align-items: center;
@@ -104,10 +98,8 @@ const Button = styled.button`
   border-radius: 5px;
   font-size: 12px;
   font-weight: 600;
-
   span {
     font-size: 12px;
-
     &:first-child {
       position: relative;
       top: 1px;
@@ -116,43 +108,43 @@ const Button = styled.button`
     }
   }
 `;
-
 const Content = styled.div`
   width: 100%;
   height: 100%;
   overflow: auto;
 `;
-
 const MarkdownBody = styled.div`
   * {
     line-height: 1.8;
+  }
+  a {
+    color: ${(props) => props.dark && "#00a7ee"};
   }
 
   code {
     margin: 0;
     padding: 0.2em 0.4em;
-    background-color: rgba(27, 31, 35, 0.05);
+    background-color: ${(props) => (props.dark ? "#242526" : "#f0f4f8")};
     border-radius: 6px;
     font-size: 13px;
     font-family: "Noto Sans KR", sans-serif;
+    color: ${(props) => props.dark && "#f5f6f7"};
   }
-
   pre {
     margin-bottom: 16px;
     padding: 16px;
     overflow: auto;
     line-height: 1.45;
-    background-color: #f0f4f8;
+    background-color: ${(props) => (props.dark ? "#242526" : "#f0f4f8")};
     border-radius: 6px;
     font-size: 13px;
-
+    /* color: ${(props) => props.dark && "red"}; */
     tt,
     code {
-      background-color: #f0f4f8;
+      background-color: ${(props) => (props.dark ? "#242526" : "#f0f4f8")};
       line-height: 1.6;
     }
   }
-
   h1,
   h2,
   h3,
@@ -161,20 +153,18 @@ const MarkdownBody = styled.div`
   h6 {
     margin: 24px 0 16px;
     line-height: 1.25;
+    color: ${(props) => props.dark && "#f5f6f7"};
   }
-
   h1,
   h2 {
     padding-bottom: 0.3em;
     border-bottom: 1px solid #eaecef;
     font-weight: 600;
   }
-
   h2 {
     font-size: 1.5em;
     font-weight: 500;
   }
-
   h3,
   h4,
   h5,
@@ -182,32 +172,28 @@ const MarkdownBody = styled.div`
     font-size: 1.25em;
     font-weight: 400;
   }
-
   p {
     margin-bottom: 16px;
     font-size: 15px;
+    color: ${(props) => props.dark && "#f5f6f7"};
   }
-
   blockquote {
     padding: 0 1em;
     border-left: 0.25em solid #dfe2e5;
     color: #6a737d;
   }
-
   ul {
     margin-bottom: 16px;
     padding-left: 2em;
     list-style-type: disc;
-
     li {
       line-height: 2;
+      color: ${(props) => props.dark && "#f5f6f7"};
     }
   }
-
   img {
     max-width: 100%;
   }
-
   hr {
     height: 0.25em;
     padding: 0;
@@ -216,16 +202,13 @@ const MarkdownBody = styled.div`
     border: 0;
   }
 `;
-
 const Loading = styled.div`
   text-align: center;
   font-size: 13px;
   margin-top: 20px;
-
   .spinner {
     animation: spin 2s linear infinite;
   }
-
   @keyframes spin {
     from {
       transform: rotate(0);

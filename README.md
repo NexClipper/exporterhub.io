@@ -7,7 +7,6 @@
 <!--lint disable awesome-heading-->
  > ### A Curated List of Prometheus Exporters
  > #### Powered by <a href="https://nexclipper.io"><img src="https://raw.githubusercontent.com/NexClipper/exporterhub.io/master/assets/NexCloud_en.png" width= 120></a>
- > Come and join us!: https://app.slack.com/client/TC3DP3HPG/C01RTA59G66
  
 
 
@@ -95,7 +94,7 @@ To help and ease you with best-practice Prometheus, ExporterHub.io discovers and
 * ___1) Click developer settings tab of organization. While you create OAuth Apps, please take note of redirect url of authentication.___
 
 ![](https://images.velog.io/images/dvkim202550/post/a81cec66-cfba-424e-bc07-c54052deb22b/image.png)
-![](https://images.velog.io/images/dvkim202550/post/c49ff46d-39de-4ed5-8d66-9a8b6aeb5544/image.png)
+![](https://images.velog.io/images/dvkim202550/post/78f82b31-7fdc-4e7d-8de1-c50dece48d8d/image.png)
 
 * ___2) Client ID, Client Secrets, and callback url(Service URL) are required for authentication.___
 
@@ -105,7 +104,7 @@ To help and ease you with best-practice Prometheus, ExporterHub.io discovers and
 
 
 ### 4. Write docker-compose.yml accordingly.
-* ___"NEED_TO_SET_UP" parts are to be revised in   ```./.env```file: ___
+* ___"NEED_TO_SET_UP" parts are to be revised in   ```./.env```file, with the reference ```.env.SAMPLE``` file at ```/exporterhub.io```:___
 ```yml
 REACT_APP_API_URL="NEED_TO_SET_UP"
 REACT_APP_API_STATUS="y"
@@ -116,7 +115,7 @@ SECRET_KEY="NEED_TO_SET_UP"
 ALGORITHM="NEED_TO_SET_UP"
 ORGANIZATION="NEED_TO_SET_UP"
 ```
-* ___"NEED_TO_SET_UP" parts are to be linked to docker-compose.yml as below: ___
+* ___"NEED_TO_SET_UP" parts are to be linked to docker-compose.yml as below:___
 <img src="https://images.velog.io/images/dvkim202550/post/1033e78b-1800-4a01-9614-e24cc569b64f/image.png" width="300">
 
 
@@ -183,7 +182,8 @@ services:
 ## Contribute
 Contributions are welcome!
 If you have Specific exporter to contribute to [ExporterHub.io](https://exporterhub.io/), 
-feel free to [send issues](https://github.com/NexClipper/exporterhub.io/issues) or [pull requests](https://github.com/NexClipper/exporterhub.io/pulls).  
+feel free to [send issues](https://github.com/NexClipper/exporterhub.io/issues) or [pull requests](https://github.com/NexClipper/exporterhub.io/pulls).
+<br> Please join us!: https://app.slack.com/client/TC3DP3HPG/C01RTA59G66
 
 ## Service Map
 ![servicemap](https://raw.githubusercontent.com/NexClipper/exporterhub.io/master/assets/exporterhub_v3.png)

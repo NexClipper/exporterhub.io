@@ -5,6 +5,7 @@ import { RiUserSettingsLine } from "react-icons/ri";
 import { HiOutlineOfficeBuilding, HiOutlineMail } from "react-icons/hi";
 import { AiOutlineUser } from "react-icons/ai";
 import { API_SURVER } from "../../../config";
+import { useSelector } from "react-redux";
 
 const Profile = ({ userProfile }) => {
   const [isEditMode, setEditMode] = useState(false);
@@ -12,6 +13,7 @@ const Profile = ({ userProfile }) => {
   const [company, setCompany] = useState();
   const [email, setEmail] = useState();
   const [alertModal, setAlertModal] = useState(false);
+  const changeTheme = useSelector((store) => store.darkThemeReducer);
 
   const handleProfileEdit = () => {
     setEditMode(!isEditMode);
@@ -62,10 +64,10 @@ const Profile = ({ userProfile }) => {
       <ProfileImage src={userProfile.profileImageUrl} />
       <div>
         <div>
-          <Name>
+          <Name dark={changeTheme}>
             {userProfile.username}
             {userProfile.fullName && (
-              <FullName>({userProfile.fullName})</FullName>
+              <FullName dark={changeTheme}>({userProfile.fullName})</FullName>
             )}
           </Name>
           <Button onClick={handleProfileEdit}>
@@ -92,7 +94,7 @@ const Profile = ({ userProfile }) => {
         )}
       </div>
       {isEditMode && (
-        <ProfileEditor>
+        <ProfileEditor dark={changeTheme}>
           <label>
             <AiOutlineUser />
             <input
@@ -187,7 +189,6 @@ const AlertModal = styled.div`
 const UserInfo = styled.div`
   display: flex;
   align-items: center;
-
   div {
     div {
       display: flex;
@@ -218,15 +219,16 @@ const ProfileImage = styled.img`
 
 const Name = styled.h4`
   margin-right: 30px;
-  color: #000000;
   font-size: 17px;
   user-select: none;
+  color: ${(props) => (props.dark ? "#f5f6f7" : "black")};
 `;
 
 const FullName = styled.span`
   display: inline-block;
   margin-left: 10px;
   font-size: 15px;
+  color: ${(props) => (props.dark ? "#f5f6f7" : "black")};
 `;
 
 const Button = styled.button`
@@ -282,7 +284,7 @@ const ProfileEditor = styled.div`
   justify-content: center;
   width: 350px;
   height: 200px;
-  background-color: white;
+  background-color: ${(props) => (props.dark ? "#18191a" : "white")};
 
   label {
     display: flex;
@@ -302,13 +304,16 @@ const ProfileEditor = styled.div`
       height: 25px;
       margin-left: 10px;
       padding: 0 5px;
-      border: 1px solid #e2e4e8;
-      color: #25292e;
+      border: ${(props) =>
+        props.dark ? "1px solid #6c737c" : "1px solid #e2e4e8"};
+      /* color: #25292e; */
+      color: ${(props) => (props.dark ? "#f5f6f7" : "#25292e")};
       font-weight: 500;
       outline: none;
+      background-color: ${(props) => (props.dark ? "#242526" : "white")};
 
       &::placeholder {
-        color: #6c737c;
+        color: ${(props) => (props.dark ? "#6c737c" : "#25292e")};
       }
     }
   }
