@@ -8,8 +8,9 @@ services:
        SERVICE_PUBLIC: "n"
        # You can add and modify below setup to './.env' file for externel configuration without security issue.
        SERVICE_URL: ${REACT_APP_API_URL}
+       SERVICE_PORT: ${SERVICE_PORT}
        CLIENT_ID: ${CLIENT_ID}
-       CLIENT_SECRETS: ${CLIENT_SECRETS}
+       CLIENT_SECRETS: ${CLIENT_SECRETS}       
     depends_on:
       - api
   maria_db:
