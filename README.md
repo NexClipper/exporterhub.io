@@ -114,14 +114,16 @@ ORGANIZATION="NEED_TO_SET_UP"
 * ___"NEED_TO_SET_UP" parts are to be linked to docker-compose.yml as below: ___
 <img src="https://images.velog.io/images/dvkim202550/post/1033e78b-1800-4a01-9614-e24cc569b64f/image.png" width="300">
 
+### 5. build image before running
 
+```
+make build
+```
 
-
-
-### 5. Run by default(in localhost)
+### 6. Run by default(in localhost)
 * Run the docker-compose as below
 ```
-docker-compose up -d 
+make run
 ```
 
 ### 6. Or, Run for external network
@@ -139,14 +141,17 @@ services:
        CLIENT_ID: ${CLIENT_ID}
        CLIENT_SECRETS: ${CLIENT_SECRETS}
 ```   
-
+* and next, run the docker-compose as below
+```
+make run
+```
       
 ### 7. Initial Check & Set
 <!--lint disable awesome-list-item-->
 * At the begining, input the generated Token to landing page as below. (http://localhost:8080)
-![](https://images.velog.io/images/dvkim202550/post/1cc90c6b-2504-4066-ae2b-24ed97aa9f33/image.png)
-
-
+![](https://images.velog.io/images/dvkim202550/post/b584e1ee-78ad-460f-8380-9e3af9c96b3a/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA%202021-04-06%20%E1%84%8B%E1%85%A9%E1%84%92%E1%85%AE%209.11.58.png)
+* Inintial settings are done if you get landing page with exporter cards as below.
+![](https://images.velog.io/images/dvkim202550/post/36725e5c-19f9-4c17-874c-74fffbb9ac42/image.png)
 ## Maintenance
 ### Easy to Update a list of exporters by Pull Request as below
 * https://github.com/NexClipper/exporterhub.io/blob/main/api/exporter_list.csv
