@@ -85,7 +85,7 @@ ExporterHub.io recommends the best-fit exporter(s) to support Prometheus monitor
    * https://github.com/settings/organizations
 ![](https://images.velog.io/images/dvkim202550/post/6b5b5bfd-b757-4c8e-89af-f06dcfc0df4c/image.png)
 
-### 2. Fork NexClipper/exporterhub.io to organization, not to personal account.
+### 2. `Fork` NexClipper/exporterhub.io to organization, not to personal account.
 ![](https://images.velog.io/images/dvkim202550/post/836ab379-2d34-4669-b884-fd912709d460/image.png)
 
 ### 3. Create and register an OAuth app under your organization.
