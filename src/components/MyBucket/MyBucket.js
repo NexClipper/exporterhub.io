@@ -135,7 +135,6 @@ const Main = styled.main`
 
   @media ${({ theme }) => theme.media.mobile} {
     padding: 90px 15px 50px;
-    border-radius: 50px 50px 0 0;
   }
 `;
 

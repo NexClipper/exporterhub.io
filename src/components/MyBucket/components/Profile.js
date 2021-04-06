@@ -198,6 +198,10 @@ const UserInfo = styled.div`
       }
     }
   }
+
+  @media ${({ theme }) => theme.media.mobile} {
+    padding: 0 20px;
+  }
 `;
 
 const ProfileImage = styled.img`

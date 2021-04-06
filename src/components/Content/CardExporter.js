@@ -104,6 +104,10 @@ const Div = styled.div`
     align-items: flex-start;
     padding: 0 30px;
     margin-right: 0%;
+
+    &:hover {
+      transform: scale(1.02);
+    }
   }
   header {
     width: 100%;
@@ -213,6 +217,21 @@ const Unfork = styled.div`
 
     span {
       margin-left: 5px;
+    }
+  }
+
+  @media ${({ theme }) => theme.media.mobile} {
+    width: 80px;
+    height: 100%;
+    right: 0;
+    top: 0;
+
+    div {
+      top: 50%;
+      transform: translateY(-50%);
+      span {
+        display: none;
+      }
     }
   }
 `;

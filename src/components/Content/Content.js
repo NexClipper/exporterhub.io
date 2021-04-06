@@ -63,9 +63,12 @@ const Contetnt = () => {
 };
 const Section = styled.section`
   width: ${({ theme }) => theme.width.content}px;
+
   @media ${({ theme }) => theme.media.mobile} {
-    width: ${({ theme }) => theme.width.contentOnM}%;
+    /* width: ${({ theme }) => theme.width.contentOnM}%; */
+    width: 100%;
     margin: 0 auto;
+    padding: 0 20px;
   }
 `;
 

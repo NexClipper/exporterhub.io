@@ -86,7 +86,11 @@ const Div = styled.div`
   align-items: center;
   font-weight: 700;
   @media ${({ theme }) => theme.media.mobile} {
-    display: none;
+    position: absolute;
+    top: 20px;
+    right: 10px;
+    width: fit-content;
+    /* background-color: red; */
   }
   img {
     width: 38px;
