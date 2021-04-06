@@ -198,6 +198,10 @@ const UserInfo = styled.div`
       }
     }
   }
+
+  @media ${({ theme }) => theme.media.mobile} {
+    padding: 0 20px;
+  }
 `;
 
 const ProfileImage = styled.img`
@@ -241,7 +245,7 @@ const Button = styled.button`
 
     &:first-child {
       position: relative;
-      top: 1px;
+      right: -2px;
       margin-right: 5px;
       font-size: 13px;
     }

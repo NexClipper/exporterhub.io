@@ -6,9 +6,9 @@ services:
       - "8080:3000"
     environment:
        SERVICE_PUBLIC: "n"
-       SERVICE_URL: "http://172.28.128.3"
-       CLIENT_ID: "c6123cae7942f1588f62"
-       CLIENT_SECRETS: "f0f2490d70f074c765378d44070f12f8f05ba1a8"
+       SERVICE_URL: ${SERVICE_URL}
+       CLIENT_ID: ${CLIENT_ID}
+       CLIENT_SECRETS: ${CLIENT_SECRETS}
        #SERVICE_URL: "http://localhost"
     depends_on:
       - api
