@@ -131,7 +131,6 @@ const Main = styled.main`
   background-color: ${(props) => (props.dark ? "#18191a" : "#f7f9fc")};
   @media ${({ theme }) => theme.media.mobile} {
     padding: 90px 15px 50px;
-    border-radius: 50px 50px 0 0;
   }
 `;
 const Container = styled.div`

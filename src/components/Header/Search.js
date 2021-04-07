@@ -24,9 +24,9 @@ const Div = styled.div`
   margin-right: auto;
   @media ${({ theme }) => theme.media.mobile} {
     position: relative;
-    /* display: block; */
+    display: block;
     margin: 15px 0 0;
-    display: none;
+    /* display: none; */
   }
   .search_icon {
     color: ${(props) => (props.dark ? "#ffffff" : "black")};
