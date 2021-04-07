@@ -1,7 +1,7 @@
 version: "3.1"
 services:
   expoterhub:
-    image: nexclipper/exporterhub:release-fe0.3.6
+    image: nexclipper/exporterhub:release-fe0.3.7
     ports:
       - "${SERVICE_PORT}:3000"
     environment:
@@ -26,7 +26,7 @@ services:
       - ./db_data:/var/lib/mysql/
       - ./db_config:/etc/mysql/conf.d
   scheduler:
-    image: nexclipper/exporterhub-api:release-api0.3.1
+    image: nexclipper/exporterhub-api:release-api0.3.2
     restart: always
     env_file:
       - ./.env
@@ -44,7 +44,7 @@ services:
       - maria_db
       - api
   api:
-    image: nexclipper/exporterhub-api:release-api0.3.1
+    image: nexclipper/exporterhub-api:release-api0.3.2
     restart: always
     ports:
       - "8000:8000"
