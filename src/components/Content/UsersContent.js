@@ -1,5 +1,7 @@
 import React from "react";
+import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
+import { adminAdd, adminTypeAdd } from "../../store/actions/exporterActions";
 import AdminAddModal from "../Modal/AdminAddModal";
 
 const UsersContent = ({
@@ -10,10 +12,24 @@ const UsersContent = ({
   setIsAdminAddModalActive,
   setSearchUser,
 }) => {
+  const dispatch = useDispatch();
+  const handleAdminAdd = (e) => {
+    // if (e.target.offsetParent.name === "admin" || "admin pending") {
+    //   setIsAdminAddModalActive(false);
+    // } else {
+    const payload1 = e.target.offsetParent.id;
+    const payload2 = e.target.offsetParent.name;
+    setIsAdminAddModalActive(!isAdminAddModalActive);
+    dispatch(adminAdd(payload1));
+    dispatch(adminTypeAdd(payload2));
+    // }
+  };
   return (
     <>
       <UserCard
-        onClick={() => setIsAdminAddModalActive(!isAdminAddModalActive)}
+        id={user.username}
+        name={user.usertype}
+        onClick={(e) => handleAdminAdd(e)}
         type={user.usertype === "user"}
       >
         {user.usertype !== "user" && <Disabled />}
@@ -37,7 +53,7 @@ const UsersContent = ({
 
 export default UsersContent;
 
-const UserCard = styled.div`
+const UserCard = styled.button`
   display: flex;
   position: relative;
   justify-content: flex-start;

@@ -1,3 +1,6 @@
+const ADD_ADMIN_STATE = "ADD_ADMIN_STATE";
+const ADD_ADMIN_TYPE_STATE = "ADD_ADMIN_TYPE_STATE";
+const DELETE_ADMIN_STATE = "DELETE_ADMIN_STATE";
 const CHANGE_BUCKET_PAGE = "CHANGE_BUCKET_PAGE";
 const FILTER_BY_USER = "FILTER_BY_USER";
 const ALL_DATA = "ALL_DATA";
@@ -11,6 +14,21 @@ const GET_LOGIN_STATE = "GET_LOGIN_STATE";
 const TARGET_UNFORK_REPO = "TARGET_UNFORK_REPO";
 const GET_ADMIN_STATE = "GET_ADMIN_STATE";
 const GET_DARK_THEME = "GET_DARK_THEME";
+export const adminTypeAdd = (payload) => ({
+  type: ADD_ADMIN_TYPE_STATE,
+  payload,
+});
+
+export const adminAdd = (payload) => ({
+  type: ADD_ADMIN_STATE,
+  payload,
+});
+
+export const adminDelete = (payload) => ({
+  type: DELETE_ADMIN_STATE,
+  payload,
+});
+
 export const changeDarkTheme = (payload) => ({
   type: GET_DARK_THEME,
   payload,
