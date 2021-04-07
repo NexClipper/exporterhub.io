@@ -5,17 +5,17 @@ import Search from "./Search";
 import HeaderMenu from "./HeaderMenu";
 import AdminMenu from "./AdminMenu";
 import styled from "styled-components";
+import { useSelector } from "react-redux";
 import { PUBLIC_SERVICE } from "../../config";
 import { GithubOutlined } from "@ant-design/icons";
-
 const Header = () => {
+  const changeTheme = useSelector((store) => store.darkThemeReducer);
   const {
     // push,
     location: { pathname },
   } = useHistory();
-
   return (
-    <HeaderBox>
+    <HeaderBox dark={changeTheme}>
       <Div>
         <div className="logoInfo">
           <Logo />
@@ -33,7 +33,6 @@ const Header = () => {
           )}
         </div>
         <Search />
-
         {/* {pathname === "/" && <HeaderMenu />} */}
         {(PUBLIC_SERVICE === "n") & (pathname === "/admin") ? (
           <AdminMenu />
@@ -49,6 +48,7 @@ const HeaderBox = styled.header`
   height: 70px;
   display: flex;
   align-items: center;
+  background-color: ${(props) => (props.dark ? "#242526" : "#ffffff")};
   @media ${({ theme }) => theme.media.mobile} {
     display: block;
     height: auto;
@@ -72,20 +72,17 @@ const Div = styled.div`
     justify-content: space-between;
   }
 `;
-
 const Admin = styled.button`
   display: none;
   margin-left: 30px;
   font-weight: 600;
   color: tomato;
-
   img {
     width: 40px;
   }
-
   @media ${({ theme }) => theme.media.mobile} {
     /* display: block; */
+    display: none;
   }
 `;
-
 export default Header;

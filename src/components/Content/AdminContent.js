@@ -1,12 +1,14 @@
 import React from "react";
 import styled from "styled-components";
+import { useSelector } from "react-redux";
 
 const AdminContent = ({ admin, deleteAdmin }) => {
+  const changeTheme = useSelector((store) => store.darkThemeReducer);
   return (
-    <AdminCard>
+    <AdminCard dark={changeTheme}>
       <AdminInfo>
         <ProfileImg src={admin.profileImageUrl} />
-        <Info>
+        <Info dark={changeTheme}>
           <h4>{admin.username}</h4>
           <span>{admin.usertype}</span>
         </Info>
@@ -28,7 +30,7 @@ const AdminCard = styled.div`
   height: 100px;
   margin-bottom: 40px;
   padding: 0px 20px 0px 30px;
-  background-color: #ffffff;
+  background-color: ${(props) => (props.dark ? "#242526" : "#ffffff")};
 `;
 
 const AdminInfo = styled.div`
@@ -54,7 +56,7 @@ const Info = styled.div`
   }
 
   span {
-    color: #596068;
+    color: ${(props) => (props.dark ? "#999999" : "#596068")};
   }
 `;
 

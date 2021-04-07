@@ -7,20 +7,17 @@
 <!--lint disable awesome-heading-->
  > ### A Curated List of Prometheus Exporters
  > #### Powered by <a href="https://nexclipper.io"><img src="https://raw.githubusercontent.com/NexClipper/exporterhub.io/master/assets/NexCloud_en.png" width= 120></a>
- > Come and join us!: https://app.slack.com/client/TC3DP3HPG/C01RTA59G66
  
 
 
 
-![exporterhub](https://raw.githubusercontent.com/NexClipper/exporterhub.io/master/assets/ExporterHub_Logo_H.png)
 <!--lint disable awesome-github-->
 <!--lint disable awesome-toc-->
 ## Contents
 * [Definition of ExporterHub.io](https://github.com/NexClipper/exporterhub.io#Definition-of-exporterhubio)
-* [Roadmap](https://github.com/NexClipper/exporterhub.io#roadmap)
-* [See Demo](https://github.com/NexClipper/exporterhub.io#Demo)
+* [Demo Video](https://github.com/NexClipper/exporterhub.io#Demo)
 * [Diagram Overview](https://github.com/NexClipper/exporterhub.io#diagram-overview)
-* [Kickstart](https://github.com/NexClipper/exporterhub.io#kickstart)
+* [Kick-start](https://github.com/NexClipper/exporterhub.io#kickstart)
 * [Contribute](https://github.com/NexClipper/exporterhub.io#contribute)
 * [References](https://github.com/NexClipper/exporterhub.io#references)
 * [License](https://github.com/NexClipper/exporterhub.io#license)
@@ -28,7 +25,7 @@
 
 
 ## Definition of [ExporterHub.io](https://exporterhub.io/)
-![](https://images.velog.io/images/dvkim202550/post/795be79c-80c6-4b62-96ff-17247885b00c/image.png)
+
 
 ### ExporterHub.io is an application for the Prometheus Exporters community.
 ExporterHub.io is not just a curated list, but also provides exporter installation guide, alert rule configuration, and dashboard configuration.
@@ -38,31 +35,39 @@ Each exporter's page contains the followings:
 * Alert-rule (Recommended)
 * Dashboard (Grafana)
 * Star (linked to Github Origin Repository)
-* Bucket (able to manage personal Github Repository as well)
+* Fork to bucket (linked to personal Github Repository)
 * Edit Dashboard and Alert-rule by Admin
 
-## See Demo
-* Image click to Youtube for the full examples and guides:  
-  [![Demo](https://raw.githubusercontent.com/NexClipper/exporterhub.io/master/assets/demo_01.png)](https://youtu.be/wa4dknZk7Kk)
-
-## Roadmap
-To help and ease you with best-practice Prometheus, ExporterHub.io discovers and recommends the best-fit exporter(s) available to expose metrics data from your specific systems and services being monitored.
-
-Using the best-fit exporter(s) helps standardizing metrics data exposition practices, maximizing monitoring experience with minimal manual inputs.
-
 ExporterHub.io recommends the best-fit exporter(s) to support Prometheus monitoring needs in enterprise environments with complex and closed network security settings.
+
+To help and ease you with best-practice Prometheus, ExporterHub.io discovers and recommends the best-fit exporter(s) available to expose metrics data from your specific systems and services being monitored.
+### The features that distinguish Exporterhub.io from other applications are:
+
+
 
 <!--lint disable no-undefined-references-->
 * [x] Installation Guide, Metric Collection Flags, Recommended Alert-rule
 * [x] Card Style GitHub Page
-* [x] Admin Authorizaion
-* [x] Register exporters, edit Dashboard and Alert by Admin
+* [x] Admin Authorizaion(linked to organization of Github)
+* [x] Register exporters, edit Dashboard and Alert by Admin(linked to Github organization Repository)
 * [x] Easy search of Exporters
-* [x] Personalization (Add, Delete)
+* [x] Personalization(fork/delete the exporter linked to Github personal Repository)
 * [ ] NexClipper Cloud Integration (coming soon)
   * [ ] Install exporters automatically
   * [ ] Generate Alert Rules
   * [ ] Recommend best-fit exporter(s)
+* [ ] Dev's Choice(coming soon)
+  * [ ] Share my bucket
+  * [ ] Search bar
+
+## Demo Video
+* Image click to Youtube for the full examples and guides:  
+  [![Demo](https://raw.githubusercontent.com/NexClipper/exporterhub.io/master/assets/demo_01.png)](https://youtu.be/wa4dknZk7Kk)
+
+
+
+
+
   
 
 ## Diagram Overview
@@ -70,8 +75,8 @@ ExporterHub.io recommends the best-fit exporter(s) to support Prometheus monitor
 * Image click to Youtube:
   * [![Diagram Overview](https://img.youtube.com/vi/pPZfNi6qms4/0.jpg)](https://youtu.be/pPZfNi6qms4)
 
-## Kickstart
-### Ready: Token is required for GitHub infomation crawling
+## Kick-start
+### 0. Ready: Token is required for GitHub information crawling
 <!--lint disable awesome-list-item-->
 * ___Create Token before the App runs as below.___
    * https://github.com/settings/tokens/new
@@ -89,12 +94,13 @@ ExporterHub.io recommends the best-fit exporter(s) to support Prometheus monitor
 ![](https://images.velog.io/images/dvkim202550/post/836ab379-2d34-4669-b884-fd912709d460/image.png)
 
 ### 3. Create and register an OAuth app under your organization.
-* ___1) Click developer settings tab of organization. While you create OAuth Apps, please take note of redirect url of authentication.___
+* ___1) Click developer settings tab of organization. While you create OAuth Apps, please take note of `redirect url` of authentication.___
 
 ![](https://images.velog.io/images/dvkim202550/post/a81cec66-cfba-424e-bc07-c54052deb22b/image.png)
-![](https://images.velog.io/images/dvkim202550/post/c49ff46d-39de-4ed5-8d66-9a8b6aeb5544/image.png)
+![image](https://user-images.githubusercontent.com/65844723/113794594-80a5fc80-977d-11eb-9f70-9030ad2c193b.png)
 
-* ___2) Client ID, Client Secrets, and callback url(Service URL) are required for authentication.___
+
+* ___2) `Client ID`, `Client Secrets`, and `callback url`(Service URL) are required for authentication.___
 
 
 
@@ -102,7 +108,7 @@ ExporterHub.io recommends the best-fit exporter(s) to support Prometheus monitor
 
 
 ### 4. Write docker-compose.yml accordingly.
-* ___"NEED_TO_SET_UP" parts are to be revised in   ```./.env```file: ___
+* ___"NEED_TO_SET_UP" parts are to be revised in   ```./.env```file, with the reference ```.env.SAMPLE``` file at ```/exporterhub.io```:___
 ```yml
 REACT_APP_API_URL="NEED_TO_SET_UP"
 REACT_APP_API_STATUS="y"
@@ -113,38 +119,44 @@ SECRET_KEY="NEED_TO_SET_UP"
 ALGORITHM="NEED_TO_SET_UP"
 ORGANIZATION="NEED_TO_SET_UP"
 ```
-* ___"NEED_TO_SET_UP" parts are to be linked to docker-compose.yml as below: ___
+* ___"NEED_TO_SET_UP" parts are to be linked to docker-compose.yml as below:___
 <img src="https://images.velog.io/images/dvkim202550/post/1033e78b-1800-4a01-9614-e24cc569b64f/image.png" width="300">
 
 
+### 5. build image before running
+*  run the command `make build` at `/exporterhub.io` 
 
 
+### 6. Run by default(in localhost)
 
-### Run by default(in localhost)
-* Run the docker-compose as below
-```
-docker-compose up -d 
-```
+*  run the command `make run` at `/exporterhub.io` 
 
-### Or, Run for external network
-* If youn want to run the server in extenal server or instance. Please make sure the `SERVICE_URL` for API server IP or URL as below
-```
+### 7. Or, Run for external network
+* If you want to run the server in extenal server or instance, please make sure the `SERVICE_URL` ~~for API server IP or URL~~ as below
+```      
 services:
   expoterhub:
-    image: nexclipper/exporterhub:latest
+    image: nexclipper/exporterhub:release-fe0.3.4
     ports:
-      - "8080:3000"
+      - "${SERVICE_PORT}:3000"
     environment:
-#      SERVICE_URL: "http://localhost"
-       SERVICE_URL: "http://192.168.10.11"
+       SERVICE_PUBLIC: "n"
+       # You can add and modify below setup to './.env' file for externel configuration without security issue.
+       SERVICE_URL: ${REACT_APP_API_URL}
+       CLIENT_ID: ${CLIENT_ID}
+       CLIENT_SECRETS: ${CLIENT_SECRETS}
 ```   
-
+* then, run the command `make run` at `/exporterhub.io` 
       
-### Check & Set
+### 8. Initial Check & Set
 <!--lint disable awesome-list-item-->
-* And Input the generated Token to landing page as below. (http://localhost:8080)
-   * ![Token input](https://raw.githubusercontent.com/NexClipper/exporterhub.io/master/assets/token.png)
+* At the begining, input the generated Token to landing page as below. (http://localhost:8080)
 
+![](https://images.velog.io/images/dvkim202550/post/b584e1ee-78ad-460f-8380-9e3af9c96b3a/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA%202021-04-06%20%E1%84%8B%E1%85%A9%E1%84%92%E1%85%AE%209.11.58.png)
+
+* Inintial settings are done if you get landing page with exporter cards as below.
+
+![](https://images.velog.io/images/dvkim202550/post/36725e5c-19f9-4c17-874c-74fffbb9ac42/image.png)
 
 ## Maintenance
 ### Easy to Update a list of exporters by Pull Request as below
@@ -174,7 +186,8 @@ services:
 ## Contribute
 Contributions are welcome!
 If you have Specific exporter to contribute to [ExporterHub.io](https://exporterhub.io/), 
-feel free to [send issues](https://github.com/NexClipper/exporterhub.io/issues) or [pull requests](https://github.com/NexClipper/exporterhub.io/pulls).  
+feel free to [send issues](https://github.com/NexClipper/exporterhub.io/issues) or [pull requests](https://github.com/NexClipper/exporterhub.io/pulls).
+<br> Please join us!: https://app.slack.com/client/TC3DP3HPG/C01RTA59G66
 
 ## Service Map
 ![servicemap](https://raw.githubusercontent.com/NexClipper/exporterhub.io/master/assets/exporterhub_v3.png)

@@ -24,6 +24,7 @@
 		"react-router-dom": "^5.2.0",
 		"react-scripts": "4.0.0",
 		"react-simple-code-editor": "^0.11.0",
+		"react-toggle": "^4.1.2",
 		"react-use-localstorage": "^3.5.3",
 		"redux": "^4.0.5",
 		"rehype-stringify": "^8.0.0",

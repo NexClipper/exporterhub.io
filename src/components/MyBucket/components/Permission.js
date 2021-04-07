@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import AdminContent from "../../Content/AdminContent";
 import { SearchOutlined } from "@ant-design/icons";
 import axios from "axios";
@@ -14,6 +14,7 @@ const Permission = () => {
   const [userArr, setUserArr] = useState();
   const [alertModal, setAlertModal] = useState(false);
   const token = sessionStorage.getItem("access_token");
+  const changeTheme = useSelector((store) => store.darkThemeReducer);
   const dispatch = useDispatch();
 
   const inputHandler = (e) => {
@@ -98,12 +99,12 @@ const Permission = () => {
   };
 
   return (
-    <Container>
+    <Container dark={changeTheme}>
       <PermissionHeader>
-        <PermissionTitle>Set Admin</PermissionTitle>
+        <PermissionTitle dark={changeTheme}>Set Admin</PermissionTitle>
         <Div>
-          <SearchOutlined className="search_icon" />
-          <UserSearch>
+          <SearchOutlined dark={changeTheme} className="search_icon" />
+          <UserSearch dark={changeTheme}>
             <input
               onChange={(e) => inputHandler(e)}
               type="text"
@@ -127,7 +128,7 @@ const Permission = () => {
           </UserSearch>
         </Div>
       </PermissionHeader>
-      <AdminContainer>
+      <AdminContainer dark={changeTheme}>
         {adminArr.map((admin, index) => {
           return (
             <AdminContent admin={admin} key={index} deleteAdmin={deleteAdmin} />
@@ -153,6 +154,7 @@ const Container = styled.div`
     position: relative;
     left: 30px;
     z-index: 1;
+    color: ${(props) => props.dark && "#f5f6f7"};
   }
 `;
 
@@ -160,12 +162,24 @@ const PermissionHeader = styled.div`
   display: flex;
   align-items: center;
   margin-bottom: 45px;
+
+  @media ${({ theme }) => theme.media.mobile} {
+    flex-direction: column;
+    align-items: flex-start;
+    padding-left: 5px;
+  }
 `;
 
 const PermissionTitle = styled.h4`
   font-size: 30px;
   font-weight: 500;
   letter-spacing: 0.08rem;
+  color: ${(props) => props.dark && "#f5f6f7"};
+
+  @media ${({ theme }) => theme.media.mobile} {
+    font-size: 20px;
+    margin-bottom: 20px;
+  }
 `;
 
 const Div = styled.div`
@@ -173,11 +187,12 @@ const Div = styled.div`
   align-items: center;
   margin-left: 30px;
   margin-right: auto;
-  /* @media ${({ theme }) => theme.media.mobile} {
-      position: relative;
-      display: block;
-      margin: 15px 0 0;
-    } */
+
+  @media ${({ theme }) => theme.media.mobile} {
+    position: relative;
+    left: -17px;
+    margin: 0;
+  }
 `;
 
 const UserSearch = styled.div`
@@ -186,16 +201,18 @@ const UserSearch = styled.div`
   height: 100%;
 
   input {
-    /* @media ${({ theme }) => theme.media.mobile} {
-      width: 100%;
-      margin: 0;
-    } */
-
     width: 300px;
     height: 40px;
-    border: 1px solid rgba(0, 0, 0, 0.2);
+    color: ${(props) => props.dark && "#f5f6f7"};
+    border: ${(props) =>
+      props.dark ? "1px solid #6c737c" : "1px solid rgba(0, 0, 0, 0.2)"};
     border-radius: 4px;
     padding-left: 35px;
+    background-color: ${(props) => props.dark && "#18191a"};
+
+    @media ${({ theme }) => theme.media.mobile} {
+      width: 100%;
+    }
   }
 `;
 

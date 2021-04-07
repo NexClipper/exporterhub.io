@@ -10,6 +10,7 @@ import { HiOutlineSave } from "react-icons/hi";
 import remarkMarkdown from "../remarkMarkdown";
 import { API_SURVER } from "../../../config";
 import { useParams } from "react-router";
+import { useSelector } from "react-redux";
 
 const CodeEditor = ({
   githubContent,
@@ -23,6 +24,7 @@ const CodeEditor = ({
   const { id } = useParams();
   const [preview, setPreview] = useState();
   const [edittingData, setEdittingData] = useState();
+  const changeTheme = useSelector((store) => store.darkThemeReducer);
 
   // const [decode, setDecode] = useState();
 
@@ -122,7 +124,7 @@ const CodeEditor = ({
           height="800px"
         />
         <Preview className="code">
-          <MarkdownBody>
+          <MarkdownBody dark={changeTheme}>
             <Content
               dangerouslySetInnerHTML={{ __html: markDownContent }}
             ></Content>
@@ -198,6 +200,12 @@ const Button = styled.button`
       margin-right: 5px;
       font-size: 13px;
     }
+  }
+
+  @media ${({ theme }) => theme.media.mobile} {
+    top: -110px;
+    right: 0px;
+    width: 80px;
   }
 `;
 

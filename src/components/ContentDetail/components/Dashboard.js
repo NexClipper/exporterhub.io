@@ -4,31 +4,27 @@ import axios from "axios";
 import Dataviewer from "./Dataviewer";
 import remarkMarkdown from "../remarkMarkdown";
 import { useParams } from "react-router";
+import { useSelector } from "react-redux";
 import { API_SURVER } from "../../../config";
-
 const Dashboard = ({ title }) => {
   const { id } = useParams();
   const [githubContent, setGithubContent] = useState();
   const [mdSha, setMdSha] = useState();
   const [codeSha, setCodeSha] = useState();
   const [isEditMode, setIsEditMode] = useState(false);
-
+  const changeTheme = useSelector((store) => store.darkThemeReducer);
   const handleMode = () => {
     setIsEditMode(!isEditMode);
   };
-
   useEffect(() => {
     getData();
   }, []);
-
   useEffect(() => {
     getData();
   }, [isEditMode]);
-
   const getData = () => {
     const TOKEN = sessionStorage.getItem("access_token");
     const HEADER = TOKEN && { Authorization: TOKEN };
-
     axios({
       method: "GET",
       url: `${API_SURVER}/exporter/${id}/tab?type=dashboard`,
@@ -45,11 +41,9 @@ const Dashboard = ({ title }) => {
         console.log(err);
       });
   };
-
   const markDownContent = remarkMarkdown(githubContent);
-
   return (
-    <Container>
+    <Container dark={changeTheme}>
       <Dataviewer
         githubContent={githubContent}
         markDownContent={markDownContent}
