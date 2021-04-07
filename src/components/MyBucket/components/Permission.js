@@ -51,7 +51,6 @@ const Permission = () => {
     if (type === "admin" || type === "admin pending") {
       return;
     } else {
-      console.log("username >>>", user);
       setSearchUser("");
       axios({
         method: "POST",
@@ -64,7 +63,6 @@ const Permission = () => {
         },
       })
         .then((res) => {
-          console.log("addAdmin success!! >>>", res);
           showAlertModal();
         })
         .catch((err) => console.log(err));

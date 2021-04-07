@@ -37,7 +37,6 @@ const OpenSourceInfo = ({
         },
       })
         .then(() => {
-          console.log("SUCCESS : fork");
           setForkState(true);
           setAlertMsg("This Exporter has been forked with Github");
         })
@@ -45,7 +44,6 @@ const OpenSourceInfo = ({
           showAlertModal();
         })
         .catch((err) => {
-          console.log("ERROR : fork");
           console.log(err);
         });
     }
@@ -68,14 +66,8 @@ const OpenSourceInfo = ({
       data: {
         exporter_id: exporterInfo["exporter_id"],
       },
-    })
-      .then(() => {
-        console.log("SUCCESS : STAR");
-      })
-      .catch((err) => {
-        console.log("ERROR : STAR");
-        console.log(err);
-      });
+    });
+
     setStarState(!starState);
   };
   const showAlertModal = () => {

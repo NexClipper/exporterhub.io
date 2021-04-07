@@ -33,9 +33,6 @@ const CodeEditor = ({
     setPreview(githubContent);
   }, [githubContent]);
 
-  // console.log("preview 는 무슨타입? >>", typeof preview);
-  // console.log("edittingData 는 무슨타입? >>", typeof edittingData);
-
   const onChange = (value) => {
     setEdittingData(value);
     setPreview(value);
@@ -79,12 +76,9 @@ const CodeEditor = ({
       },
     })
       .then(() => {
-        console.log("SUCCESS : PUT");
         handleMode();
       })
       .catch((err) => {
-        console.log("ERROR : PUT");
-        console.log(err);
         handleMode();
       });
   };

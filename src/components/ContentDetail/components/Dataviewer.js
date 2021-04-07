@@ -17,8 +17,7 @@ const Dataviewer = ({
 }) => {
   const isAdmin = useSelector((store) => store.adminReducer);
   const changeTheme = useSelector((store) => store.darkThemeReducer);
-  console.log("hi");
-  !markDownContent && console.log("YES");
+
   const editBtnText = mdSha ? "Edit" : "Create";
   return (
     <>

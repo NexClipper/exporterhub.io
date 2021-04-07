@@ -27,7 +27,6 @@ const CardExporter = ({
   const unforkRepo = (e, id) => {
     e.stopPropagation();
     setIsForkModalActive(true);
-    console.log("unforkRepo", id);
     dispatch(targetUnforkRepo(id));
   };
   return (

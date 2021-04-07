@@ -18,7 +18,7 @@ const MyBucket = () => {
   const history = useHistory();
   const [isForkModalActive, setIsForkModalActive] = useState(false);
   const [userProfile, setUserProfile] = useState();
-  console.log("여기 버켓이야 버켓 !!! ", history.location.pathname);
+
   const ACTIVECONTENT_OBJ = {
     0: (
       <Fork

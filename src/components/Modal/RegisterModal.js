@@ -30,11 +30,9 @@ const RegisterModal = ({ cancleModal }) => {
       },
     })
       .then(() => {
-        console.log("regist success");
         window.location.reload();
       })
       .catch((error) => {
-        console.log(error);
         setFailMessage(error.response?.data.message);
       });
   };

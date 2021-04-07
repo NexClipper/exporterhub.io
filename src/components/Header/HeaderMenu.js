@@ -1,8 +1,7 @@
 import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 import styled from "styled-components";
-// import { PUBLIC_SERVICE, API_SURVER } from "../../config";
-import { API_SURVER, CLIENT_ID } from "../../config";
+import { API_SURVER, CLIENT_ID, CALLBACK_URL } from "../../config";
 import { GithubOutlined } from "@ant-design/icons";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -26,8 +25,7 @@ const HeaderMenu = () => {
   const isAdmin = useSelector((store) => store.adminReducer);
   const dispatch = useDispatch();
   const clientID = CLIENT_ID;
-  const url = `https://github.com/login/oauth/authorize?client_id=${clientID}&redirect_uri=${API_SURVER}/callback&scope=user,repo,delete_repo,admin:org`;
-
+  const url = `https://github.com/login/oauth/authorize?client_id=${clientID}&redirect_uri=${CALLBACK_URL}&scope=user,repo,delete_repo,admin:org`;
   const {
     push,
     // location: { pathname },
@@ -41,6 +39,8 @@ const HeaderMenu = () => {
     push("/");
     window.location.reload();
   };
+
+  console.log("callback url", CALLBACK_URL);
 
   const handleBucketPage = (e) => {
     const page = e.target.innerHTML;

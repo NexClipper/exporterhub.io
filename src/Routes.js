@@ -28,18 +28,6 @@ function Routes() {
     handleLocalStorage();
   }, []);
 
-  // const fetchData = () => {
-  //   axios({
-  //     method: "GET",
-  //     url: `${EXPORTERS_API}`,
-  //   })
-  //     .then((res) => {
-  //       dispatch(allData(res.data.exporters));
-  //       console.log("Routes exporter data", res.data.exporters);
-  //     })
-  //     .catch((err) => console.log("에러임", err));
-  // };
-
   const getToken = () => {
     axios(TOKEN_API)
       .then((res) => {
@@ -58,7 +46,7 @@ function Routes() {
       .then((res) => {
         dispatch(loadCategoriesData(res.data.categories));
       })
-      .catch((err) => console.log("에러임", err));
+      .catch((err) => console.log(err));
   };
 
   const userAdminState = () => {
