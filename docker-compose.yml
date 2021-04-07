@@ -3,12 +3,11 @@ services:
   expoterhub:
     image: nexclipper/exporterhub:release-fe0.3.3
     ports:
-      - "8080:3000"
+      - "${SERVICE_PORT}:3000"
     environment:
        SERVICE_PUBLIC: "n"
        # You can add and modify below setup to './.env' file for externel configuration without security issue.
        SERVICE_URL: ${REACT_APP_API_URL}
-#       SERVICE_PORT: ${SERVICE_PORT}
        CLIENT_ID: ${CLIENT_ID}
        CLIENT_SECRETS: ${CLIENT_SECRETS}
     depends_on:
@@ -16,9 +15,9 @@ services:
   maria_db:
     image: mariadb:10.4.17
     command: --default-authentication-plugin=mysql_native_password
-    command: --max-allowed-packet=1024*1024*1024
-    command: --wait_timeout=28800
-    command: --character-set-server=utf8mb4 --collation-server=utf8mb4_general_ci --skip-character-set-client-handshake
+    #    command: --max-allowed-packet=1024*1024*1024
+    #    command: --wait_timeout=28800
+    #    command: --character-set-server=utf8mb4 --collation-server=utf8mb4_general_ci --skip-character-set-client-handshake
     restart: always
     environment:
       MYSQL_ROOT_PASSWORD: secret
@@ -27,6 +26,7 @@ services:
       MYSQL_PASSWORD: secret
     volumes:
       - ./db_data:/var/lib/mysql/
+      - ./db_config:/etc/mysql/conf.d
   scheduler:
     image: nexclipper/exporterhub-api:release-api0.2.9
     restart: always
