@@ -231,19 +231,14 @@ class ExporterView(View):
 
 
 class ExporterDetailView(View):
-    def check_starred(self, user, exporter, headers):
-        repo_info = exporter.repository_url.replace('https://github.com/', '')
+    def check_starred(self, user, exporter, headers, repo_info):
         result    = requests.get(f'https://api.github.com/user/starred/{repo_info}', headers=headers)
         
         if result.status_code == 204 and not Star.objects.filter(user=user, exporter=exporter).exists():
             Star.objects.create(user=user, exporter=exporter)
-            exporter.stars += 1
-            exporter.save()
         
         elif result.status_code == 404 and Star.objects.filter(user=user, exporter=exporter).exists():
             Star.objects.filter(user=user, exporter=exporter).delete()
-            exporter.stars -= 1
-            exporter.save()
 
         elif result.status_code != 204 and result.status_code != 404:
             return 'ERROR'
@@ -251,8 +246,9 @@ class ExporterDetailView(View):
     @login_check
     def get(self, request, exporter_id):
         try:
-            user     = request.user
-            exporter = Exporter.objects.select_related('category', 'official').prefetch_related('release_set').get(id=exporter_id)
+            user      = request.user
+            exporter  = Exporter.objects.select_related('category', 'official').prefetch_related('release_set').get(id=exporter_id)
+            repo_info = exporter.repository_url.replace('https://github.com/', '')
 
             exporter.view_count += 1
             exporter.save()
@@ -262,9 +258,17 @@ class ExporterDetailView(View):
             
             # check starred by user at github
             if user:
-                if self.check_starred(user=user, exporter=exporter, headers=headers) == 'ERROR':
+                if self.check_starred(user=user, exporter=exporter, headers=headers, repo_info=repo_info) == 'ERROR':
                     return JsonResponse({'message': 'GITHUB_API_FAIL_AT_CHECK_STARRED'}, status=400)
  
+            get_star_counts = requests.get(f'https://api.github.com/repos/{repo_info}', headers=headers)
+
+            if get_star_counts.status_code != 200:
+                return JsonResponse({'message': 'GITHUB_GET_STAR_COUNT_API_FAIL'}, status=400)
+
+            exporter.stars = get_star_counts.json()['stargazers_count']
+            exporter.save()
+
             if user and user.added_exporters.filter(id=exporter.id).exists():
                 forked_repository_url = Bucket.objects.get(user_id=user.id, exporter_id=exporter.id).forked_repository_url
             else:
