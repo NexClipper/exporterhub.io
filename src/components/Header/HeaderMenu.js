@@ -26,7 +26,7 @@ const HeaderMenu = () => {
   const isAdmin = useSelector((store) => store.adminReducer);
   const dispatch = useDispatch();
   const clientID = CLIENT_ID;
-  const url = `https://github.com/login/oauth/authorize?client_id=${clientID}&redirect_uri=http://172.28.128.3:80/callback&scope=user,repo,delete_repo,admin:org`;
+  const url = `https://github.com/login/oauth/authorize?client_id=${clientID}&redirect_uri=${API_SURVER}/callback&scope=user,repo,delete_repo,admin:org`;
   const {
     push,
     // location: { pathname },
