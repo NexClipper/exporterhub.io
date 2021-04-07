@@ -11,7 +11,6 @@ import { GithubOutlined } from "@ant-design/icons";
 const Header = () => {
   const changeTheme = useSelector((store) => store.darkThemeReducer);
   const {
-    // push,
     location: { pathname },
   } = useHistory();
   return (

@@ -1,11 +1,19 @@
 import React from "react";
 import styled from "styled-components";
+import AdminAddModal from "../Modal/AdminAddModal";
 
-const UsersContent = ({ user, addAdmin }) => {
+const UsersContent = ({
+  user,
+  addAdmin,
+  isAdminAddModalActive,
+  cancleAdminAddModal,
+  setIsAdminAddModalActive,
+  setSearchUser,
+}) => {
   return (
     <>
       <UserCard
-        onClick={() => addAdmin(user.username, user.usertype)}
+        onClick={() => setIsAdminAddModalActive(!isAdminAddModalActive)}
         type={user.usertype === "user"}
       >
         {user.usertype !== "user" && <Disabled />}
@@ -14,6 +22,14 @@ const UsersContent = ({ user, addAdmin }) => {
           <h4>{user.username}</h4>
           <span>{user.usertype}</span>
         </Info>
+        {isAdminAddModalActive && (
+          <AdminAddModal
+            user={user}
+            addAdmin={addAdmin}
+            cancleAdminAddModal={cancleAdminAddModal}
+            setSearchUser={setSearchUser}
+          />
+        )}
       </UserCard>
     </>
   );
