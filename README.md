@@ -48,14 +48,17 @@ To help and ease you with best-practice Prometheus, ExporterHub.io discovers and
 <!--lint disable no-undefined-references-->
 * [x] Installation Guide, Metric Collection Flags, Recommended Alert-rule
 * [x] Card Style GitHub Page
-* [x] Admin Authorizaion
-* [x] Register exporters, edit Dashboard and Alert by Admin
+* [x] Admin Authorizaion(linked to organization of Github)
+* [x] Register exporters, edit Dashboard and Alert by Admin(linked to Github organization Repository)
 * [x] Easy search of Exporters
-* [x] Personalization 
+* [x] Personalization(fork/delete the exporter linked to Github personal Repository)
 * [ ] NexClipper Cloud Integration (coming soon)
   * [ ] Install exporters automatically
   * [ ] Generate Alert Rules
   * [ ] Recommend best-fit exporter(s)
+* [ ] Dev's Choice(coming soon)
+  * [ ] Share my bucket
+  * [ ] Search bar
 
 ## See Demo
 * Image click to Youtube for the full examples and guides:  
