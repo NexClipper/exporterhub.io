@@ -1,5 +1,7 @@
-import React from "react";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
+import { adminAdd, adminTypeAdd } from "../../store/actions/exporterActions";
 import AdminAddModal from "../Modal/AdminAddModal";
 
 const UsersContent = ({
@@ -10,10 +12,26 @@ const UsersContent = ({
   setIsAdminAddModalActive,
   setSearchUser,
 }) => {
+  const [userName, setUserName] = useState();
+  const [userType, setUserType] = useState();
+
+  const handleAdminAdd = (e) => {
+    if (e.target.name === "admin" || e.target.name === "admin pending") {
+      setIsAdminAddModalActive(false);
+    } else if (e.target.name === "user") {
+      setUserName(e.target.id);
+      setUserType(e.target.name);
+      setIsAdminAddModalActive(true);
+    }
+    console.log(e.target.id);
+    console.log(e.target.name);
+  };
   return (
     <>
       <UserCard
-        onClick={() => setIsAdminAddModalActive(!isAdminAddModalActive)}
+        id={user.username}
+        name={user.usertype}
+        onClick={(e) => handleAdminAdd(e)}
         type={user.usertype === "user"}
       >
         {user.usertype !== "user" && <Disabled />}
@@ -24,7 +42,9 @@ const UsersContent = ({
         </Info>
         {isAdminAddModalActive && (
           <AdminAddModal
-            user={user}
+            userName={userName}
+            userType={userType}
+            // user={user}
             addAdmin={addAdmin}
             cancleAdminAddModal={cancleAdminAddModal}
             setSearchUser={setSearchUser}
@@ -37,7 +57,7 @@ const UsersContent = ({
 
 export default UsersContent;
 
-const UserCard = styled.div`
+const UserCard = styled.button`
   display: flex;
   position: relative;
   justify-content: flex-start;

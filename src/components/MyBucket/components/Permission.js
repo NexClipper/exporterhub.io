@@ -159,6 +159,13 @@ const Permission = () => {
       <AlertModal isActive={alertModal}>
         <p>Invitation has been sent to the user's email!!</p>
       </AlertModal>
+      {/* {isAdminDeleteModalActive && (
+        <AdminDeleteModal
+          adminName={admin.username}
+          deleteAdmin={deleteAdmin}
+          cancleAdminDeleteModal={cancleAdminDeleteModal}
+        />
+      )} */}
     </Container>
   );
 };

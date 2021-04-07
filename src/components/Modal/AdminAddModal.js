@@ -1,7 +1,10 @@
 import React from "react";
 import styled from "styled-components";
+import { useSelector } from "react-redux";
 const AdminAddModal = ({
   user,
+  userName,
+  userType,
   addAdmin,
   cancleAdminAddModal,
   setSearchUser,
@@ -10,14 +13,14 @@ const AdminAddModal = ({
     cancleAdminAddModal();
     setSearchUser("");
   };
+  console.log("a", userName);
+  console.log("b", userType);
   return (
     <ModalContainer>
       <Div>
         <h4>Are you sure to invite "this user" as an admin ?</h4>
         <Container>
-          <button onClick={() => addAdmin(user.username, user.type)}>
-            Yes
-          </button>
+          <button onClick={() => addAdmin(userName, userType)}>Yes</button>
           <button onClick={handleModal}>Cancle</button>
         </Container>
       </Div>
