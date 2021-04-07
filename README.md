@@ -132,7 +132,7 @@ ORGANIZATION="NEED_TO_SET_UP"
 *  run the command `make run` at `/exporterhub.io` 
 
 ### 7. Or, Run for external network
-* If you want to run the server in extenal server or instance, please make sure the `SERVICE_URL` for API server IP or URL as below
+* If you want to run the server in extenal server or instance, please make sure the `SERVICE_URL` ~~for API server IP or URL~~ as below
 ```
 services:
   expoterhub:
