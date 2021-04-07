@@ -40,8 +40,6 @@ const HeaderMenu = () => {
     window.location.reload();
   };
 
-  console.log("callback url", CALLBACK_URL);
-
   const handleBucketPage = (e) => {
     const page = e.target.innerHTML;
     if (page === "ADMIN") {
@@ -64,7 +62,6 @@ const HeaderMenu = () => {
 
   const handleMenu = () => {
     setIsMenu(!isMenu);
-    console.log(isMenu);
   };
 
   return (
