@@ -1,9 +1,12 @@
 import React from "react";
+import { useSelector } from "react-redux";
 import styled from "styled-components";
 
 const NoData = ({ mdSha }) => {
+  const changeTheme = useSelector((store) => store.darkThemeReducer);
+
   return (
-    <NoDataContainer active={!mdSha}>
+    <NoDataContainer active={!mdSha} dark={changeTheme}>
       <Notice>
         The page has not been ready to show up for about this configuration.
         Please contributing to open-source for our future via below URL.
@@ -23,7 +26,8 @@ export default NoData;
 
 const NoDataContainer = styled.div`
   display: ${(props) => (props.active ? "block" : "none")};
-  background-color: #f0f4f8;
+  background-color: ${(props) => (props.dark ? "#242526" : "#f0f4f8")};
+  color: ${(props) => props.dark && "#f5f6f7"};
   border-radius: 6px;
   padding: 10px 16px 16px 16px;
   width: 100%;
