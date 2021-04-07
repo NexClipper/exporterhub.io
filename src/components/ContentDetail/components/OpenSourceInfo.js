@@ -179,6 +179,7 @@ const AlertModal = styled.div`
   }
 `;
 const Info = styled.div`
+  position: relative;
   display: flex;
   align-items: center;
   user-select: none;
@@ -186,8 +187,26 @@ const Info = styled.div`
     div {
       display: flex;
       align-items: center;
+
+      @media ${({ theme }) => theme.media.mobile} {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
       &:first-child {
         margin-bottom: 20px;
+
+        @media ${({ theme }) => theme.media.mobile} {
+          margin-bottom: 3px;
+        }
+      }
+
+      &:nth-child(2) {
+        @media ${({ theme }) => theme.media.mobile} {
+          position: absolute;
+          top: 41px;
+          flex-direction: row;
+        }
       }
     }
   }
@@ -200,14 +219,21 @@ const HeaderLogo = styled.div`
   height: 150px;
   margin-right: 70px;
   @media ${({ theme }) => theme.media.mobile} {
-    width: 150px;
-    height: 150px;
+    width: 120px;
+    height: 120px;
+    margin-right: 15px;
+    margin-left: 15px;
   }
 `;
 const Name = styled.h4`
   margin-right: 30px;
   color: ${(props) => (props.dark ? "#f5f6f7" : "#000000")};
   font-size: 17px;
+
+  @media ${({ theme }) => theme.media.mobile} {
+    margin-bottom: 50px;
+    font-size: 15px;
+  }
 `;
 const Button = styled.button`
   /* width: 60px; */
@@ -222,6 +248,13 @@ const Button = styled.button`
   font-size: 12px;
   font-weight: 600;
   color: ${(props) => (props.forkState ? "#8D8D8D" : "black")};
+
+  @media ${({ theme }) => theme.media.mobile} {
+    position: relative;
+    top: 2px;
+    z-index: 10;
+  }
+
   span {
     font-size: 12px;
     &:first-child {
@@ -250,6 +283,12 @@ const Category = styled.p`
   border-radius: 5px;
   background-color: ${(props) => !props.dark && "#f1f4f8"};
   min-height: 30px;
+
+  @media ${({ theme }) => theme.media.mobile} {
+    margin-bottom: 50px;
+    font-size: 13px;
+    padding: 7px 10px 6px 10px;
+  }
 `;
 const StarIcon = styled.span`
   font-size: 18px;
@@ -258,5 +297,11 @@ const StarIcon = styled.span`
   cursor: pointer;
   svg {
     vertical-align: middle;
+  }
+
+  @media ${({ theme }) => theme.media.mobile} {
+    position: relative;
+    top: 5px;
+    font-size: 14px;
   }
 `;

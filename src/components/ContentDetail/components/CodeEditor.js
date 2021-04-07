@@ -201,6 +201,12 @@ const Button = styled.button`
       font-size: 13px;
     }
   }
+
+  @media ${({ theme }) => theme.media.mobile} {
+    top: -110px;
+    right: 0px;
+    width: 80px;
+  }
 `;
 
 const MarkdownBody = styled.div`

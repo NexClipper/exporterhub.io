@@ -81,7 +81,8 @@ const Admin = styled.button`
     width: 40px;
   }
   @media ${({ theme }) => theme.media.mobile} {
-    display: block;
+    /* display: block; */
+    display: none;
   }
 `;
 export default Header;

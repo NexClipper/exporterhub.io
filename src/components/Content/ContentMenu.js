@@ -125,5 +125,10 @@ const Sort = styled.div`
       color: black;
     }
   }
+
+  @media ${({ theme }) => theme.media.mobile} {
+    position: relative;
+    top: 3px;
+  }
 `;
 export default ContentMenu;
