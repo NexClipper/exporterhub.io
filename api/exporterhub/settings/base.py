@@ -16,7 +16,7 @@ ALGORITHM = os.environ.get('ALGORITHM')
 ORGANIZATION = os.environ.get('ORGANIZATION')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['*']
 
