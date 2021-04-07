@@ -94,7 +94,7 @@ To help and ease you with best-practice Prometheus, ExporterHub.io discovers and
 * ___1) Click developer settings tab of organization. While you create OAuth Apps, please take note of redirect url of authentication.___
 
 ![](https://images.velog.io/images/dvkim202550/post/a81cec66-cfba-424e-bc07-c54052deb22b/image.png)
-![image](https://user-images.githubusercontent.com/65844723/113794264-b991a180-977c-11eb-8637-83e2362b7e2c.png)
+![image](https://user-images.githubusercontent.com/65844723/113794594-80a5fc80-977d-11eb-9f70-9030ad2c193b.png)
 
 
 * ___2) Client ID, Client Secrets, and callback url(Service URL) are required for authentication.___
