@@ -112,12 +112,14 @@ To help and ease you with best-practice Prometheus, ExporterHub.io discovers and
 ```yml
 REACT_APP_API_URL="NEED_TO_SET_UP"
 REACT_APP_API_STATUS="y"
+SERVICE_PORT="NEED_TO_SET_UP"
 
 CLIENT_ID="NEED_TO_SET_UP"
 CLIENT_SECRETS="NEED_TO_SET_UP"
 SECRET_KEY="NEED_TO_SET_UP"
 ALGORITHM="NEED_TO_SET_UP"
 ORGANIZATION="NEED_TO_SET_UP"
+CALLBACK_URL="NEED_TO_SET_UP"
 ```
 * ___"NEED_TO_SET_UP" parts are to be linked to docker-compose.yml as below:___
 <img src="https://images.velog.io/images/dvkim202550/post/1033e78b-1800-4a01-9614-e24cc569b64f/image.png" width="300">
@@ -132,7 +134,7 @@ ORGANIZATION="NEED_TO_SET_UP"
 *  run the command `make run` at `/exporterhub.io` 
 
 ### 7. Or, Run for external network
-* If you want to run the server in extenal server or instance, please make sure the `SERVICE_URL` ~~for API server IP or URL~~ as below
+* If you want to run the server in extenal server or instance, please make sure to input `SERVICE_URL` and `CALLBACK_URL` as same as below
 ```      
 services:
   expoterhub:
@@ -145,6 +147,7 @@ services:
        SERVICE_URL: ${REACT_APP_API_URL}
        CLIENT_ID: ${CLIENT_ID}
        CLIENT_SECRETS: ${CLIENT_SECRETS}
+       CALLBACK_URL: ${CALLBACK_URL}
 ```   
 * then, run the command `make run` at `/exporterhub.io` 
       

@@ -12,7 +12,7 @@ class TokenView(View):
     def get(self, request):
 
         if not Token.objects.filter().exists():
-            return JsonResponse({'token_state':False, 'token':''}, status=400)
+            return JsonResponse({'token_state':False}, status=400)
         
         token_info  = Token.objects.last()
         headers     = {'Authorization': 'token ' + token_info.token}
@@ -22,7 +22,7 @@ class TokenView(View):
             token_info.is_valid = False
             token_info.save()
 
-        return JsonResponse({'TOKEN_VALID': token_info.is_valid, 'TOKEN': token_info.token}, status=200)
+        return JsonResponse({'TOKEN_VALID': token_info.is_valid}, status=200)
         
     def post(self, request):
         try:

@@ -102,25 +102,30 @@ class StarView(View):
                 result = requests.delete(f'https://api.github.com/user/starred/{repo_info}', headers=headers)
 
                 if result.status_code != 204:
-                    return JsonResponse({'message': 'GITHUB_API_FAIL'}, status=400)
+                    return JsonResponse({'message': 'GITHUB_UNSTARRED_API_FAIL'}, status=400)
 
                 user.starred_exporters.remove(exporter)
-                exporter.stars -= 1
-                exporter.save()
-
-                return JsonResponse({'message': 'SUCCESS', 'isStar': False}, status=200)
+                isStar = False
             
             # star
-            result = requests.put(f'https://api.github.com/user/starred/{repo_info}', headers=headers)
+            else:
+                result = requests.put(f'https://api.github.com/user/starred/{repo_info}', headers=headers)
 
-            if result.status_code != 204:
-                return JsonResponse({'message': 'GITHUB_API_FAIL'}, status=400)
+                if result.status_code != 204:
+                    return JsonResponse({'message': 'GITHUB_STARRED_API_FAIL'}, status=400)
 
-            user.starred_exporters.add(exporter)
-            exporter.stars += 1
+                user.starred_exporters.add(exporter)
+                isStar = True
+
+            get_star_counts = requests.get(f'https://api.github.com/repos/{repo_info}', headers=headers)
+            
+            if get_star_counts.status_code != 200:
+                return JsonResponse({'message': 'GITHUB_GET_STAR_COUNT_API_FAIL'}, status=400)
+
+            exporter.stars = get_star_counts.json()['stargazers_count']
             exporter.save()
 
-            return JsonResponse({'message': 'SUCCESS', 'isStar': True}, status=200)
+            return JsonResponse({'message': 'SUCCESS', 'isStar': isStar}, status=200)
 
         except KeyError:
             return JsonResponse({'message': 'KEY_ERROR'}, status=400)
