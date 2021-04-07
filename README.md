@@ -133,12 +133,12 @@ ORGANIZATION="NEED_TO_SET_UP"
 
 ### 7. Or, Run for external network
 * If you want to run the server in extenal server or instance, please make sure the `SERVICE_URL` ~~for API server IP or URL~~ as below
-```
+```      
 services:
   expoterhub:
-    image: nexclipper/exporterhub:latest
+    image: nexclipper/exporterhub:release-fe0.3.4
     ports:
-      - "8080:3000"
+      - "${SERVICE_PORT}:3000"
     environment:
        SERVICE_PUBLIC: "n"
        # You can add and modify below setup to './.env' file for externel configuration without security issue.
