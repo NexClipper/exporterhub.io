@@ -5,6 +5,9 @@ import styled from "styled-components";
 import { API_SURVER, CLIENT_ID } from "../../config";
 import { GithubOutlined } from "@ant-design/icons";
 import { useDispatch, useSelector } from "react-redux";
+
+import { GiHamburgerMenu } from "react-icons/gi";
+
 import {
   getLoginState,
   changeBucketPage,
@@ -18,6 +21,7 @@ require("dotenv").config();
 const HeaderMenu = () => {
   const changeTheme = useSelector((store) => store.darkThemeReducer);
   const [theme, setTheme] = useState(false);
+  const [isMenu, setIsMenu] = useState(false);
   const isLogin = useSelector((store) => store.loginReducer);
   const isAdmin = useSelector((store) => store.adminReducer);
   const dispatch = useDispatch();
@@ -28,7 +32,7 @@ const HeaderMenu = () => {
     // location: { pathname },
   } = useHistory();
   // console.log(PUBLIC_SERVICE);
-  console.log("ㅋㅋ >> ", changeTheme);
+
   const handleSignOut = () => {
     dispatch(getLoginState(false));
     dispatch(filterByUser(""));
@@ -36,6 +40,7 @@ const HeaderMenu = () => {
     push("/");
     window.location.reload();
   };
+
   const handleBucketPage = (e) => {
     const page = e.target.innerHTML;
     if (page === "ADMIN") {
@@ -55,9 +60,15 @@ const HeaderMenu = () => {
       dispatch(changeDarkTheme(true));
     }
   };
+
+  const handleMenu = () => {
+    setIsMenu(!isMenu);
+    console.log(isMenu);
+  };
+
   return (
     <Div>
-      <label>
+      <ModeChanger>
         <Toggle
           defaultChecked={changeTheme}
           // icons={{
@@ -71,26 +82,31 @@ const HeaderMenu = () => {
           onChange={() => handleDarkTheme()}
           checked={changeTheme}
         />
-      </label>
-      {isLogin ? (
-        <>
-          {isAdmin && (
-            <Button onClick={(e) => handleBucketPage(e)}>ADMIN</Button>
-          )}
-          <Button onClick={(e) => handleBucketPage(e)}>MY BUCKET</Button>
-          <Button onClick={() => handleSignOut()}>SIGN OUT</Button>
-        </>
-      ) : (
-        <Button>
-          <a href={url}>SIGN IN</a>
-        </Button>
-      )}
-      <GitHubLink
-        href="https://github.com/NexClipper/exporterhub.io"
-        target="_blank"
-      >
-        <GithubOutlined />
-      </GitHubLink>
+      </ModeChanger>
+      <MobileMenu onClick={() => handleMenu()} active={isMenu}>
+        <GiHamburgerMenu />
+      </MobileMenu>
+      <MenuWrapper active={isMenu} dark={changeTheme}>
+        {isLogin ? (
+          <>
+            {isAdmin && (
+              <Button onClick={(e) => handleBucketPage(e)}>ADMIN</Button>
+            )}
+            <Button onClick={(e) => handleBucketPage(e)}>MY BUCKET</Button>
+            <Button onClick={() => handleSignOut()}>SIGN OUT</Button>
+          </>
+        ) : (
+          <Button>
+            <a href={url}>SIGN IN</a>
+          </Button>
+        )}
+        <GitHubLink
+          href="https://github.com/NexClipper/exporterhub.io"
+          target="_blank"
+        >
+          <GithubOutlined />
+        </GitHubLink>
+      </MenuWrapper>
       {/* {PUBLIC_SERVICE === "n" && (
         <span
           onClick={() => {
@@ -104,12 +120,56 @@ const HeaderMenu = () => {
     </Div>
   );
 };
+
+const MenuWrapper = styled.div`
+  display: flex;
+  align-items: center;
+
+  @media ${({ theme }) => theme.media.mobile} {
+    display: ${(props) => (props.active ? "flex" : "none")};
+    align-items: center;
+    justify-content: flex-end;
+    position: absolute;
+    width: 100%;
+    height: 50px;
+    right: 0;
+    top: 80px;
+    background-color: ${(props) => (props.dark ? "#242526" : "#ffffff")};
+    margin-right: 10px;
+  }
+`;
+
+const ModeChanger = styled.label`
+  @media ${({ theme }) => theme.media.mobile} {
+    position: absolute;
+    top: 27px;
+    right: 70px;
+  }
+`;
+
+const MobileMenu = styled.div`
+  display: none;
+
+  @media ${({ theme }) => theme.media.mobile} {
+    display: block;
+    color: #73c7aa;
+    font-size: 30px;
+    position: absolute;
+    top: 25px;
+    right: 25px;
+    cursor: pointer;
+    z-index: 999;
+    transition: all 0.3s ease-in-out;
+    transform: ${(props) => props.active && "rotate(90deg)"};
+  }
+`;
+
 const Div = styled.div`
   display: flex;
   align-items: center;
   font-weight: 700;
   @media ${({ theme }) => theme.media.mobile} {
-    display: none;
+    /* display: none; */
   }
   img {
     width: 38px;
@@ -128,9 +188,18 @@ const Button = styled.button`
   a {
     color: inherit;
   }
+
+  @media ${({ theme }) => theme.media.mobile} {
+    margin: 0 15px;
+  }
 `;
 const GitHubLink = styled.a`
   font-size: 35px;
   color: #cccccc;
+
+  @media ${({ theme }) => theme.media.mobile} {
+    position: relative;
+    right: 15px;
+  }
 `;
 export default HeaderMenu;

@@ -131,6 +131,10 @@ const Tab = styled.li`
   box-sizing: border-box;
   cursor: pointer;
   user-select: none;
+
+  @media ${({ theme }) => theme.media.mobile} {
+    width: 50%;
+  }
 `;
 
 const Main = styled.main`
@@ -140,7 +144,7 @@ const Main = styled.main`
   background: ${(props) => (props.dark ? "#18191a" : "#f7f9fc")};
 
   @media ${({ theme }) => theme.media.mobile} {
-    padding: 90px 15px 50px;
+    padding: 30px 15px 50px;
   }
 `;
 

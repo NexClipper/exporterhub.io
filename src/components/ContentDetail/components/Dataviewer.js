@@ -75,6 +75,14 @@ const ContentTitle = styled.h4`
   font-size: 30px;
   font-weight: 500;
   letter-spacing: 0.08rem;
+
+  @media ${({ theme }) => theme.media.mobile} {
+    font-size: 18px;
+    padding-right: 3px;
+    padding-left: 10px;
+    width: min-content;
+    line-height: 1.2;
+  }
   color: ${(props) => props.dark && "#f5f6f7"}; ;
 `;
 const ContentBody = styled.div``;
@@ -85,7 +93,6 @@ const Data = styled.pre`
   color: black;
   padding: 30px;
   border-radius: 5px;
-  /* background-color: #f1f4f8; */
 `;
 const Button = styled.button`
   display: flex;
@@ -106,6 +113,10 @@ const Button = styled.button`
       margin-right: 5px;
       font-size: 13px;
     }
+  }
+
+  @media ${({ theme }) => theme.media.mobile} {
+    padding: 0 2px;
   }
 `;
 const Content = styled.div`

@@ -212,5 +212,19 @@ const Unfork = styled.div`
       margin-left: 5px;
     }
   }
+
+  @media ${({ theme }) => theme.media.mobile} {
+    width: 80px;
+    height: 100%;
+    right: 0;
+    top: 0;
+    div {
+      top: 50%;
+      transform: translateY(-50%);
+      span {
+        display: none;
+      }
+    }
+  }
 `;
 export default withRouter(CardExporter);

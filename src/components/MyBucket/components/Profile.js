@@ -202,6 +202,8 @@ const UserInfo = styled.div`
 
   @media ${({ theme }) => theme.media.mobile} {
     padding: 0 20px;
+    flex-direction: column;
+    align-items: flex-start;
   }
 `;
 
@@ -211,10 +213,11 @@ const ProfileImage = styled.img`
   margin-right: 70px;
   border-radius: 50%;
 
-  /* @media ${({ theme }) => theme.media.mobile} {
-    width: 150px;
-    height: 150px;
-  } */
+  @media ${({ theme }) => theme.media.mobile} {
+    width: 80px;
+    height: 80px;
+    margin-bottom: 20px;
+  }
 `;
 
 const Name = styled.h4`
@@ -251,6 +254,12 @@ const Button = styled.button`
       margin-right: 5px;
       font-size: 13px;
     }
+  }
+
+  @media ${({ theme }) => theme.media.mobile} {
+    position: relative;
+    right: 10px;
+    top: 3px;
   }
 `;
 
@@ -316,6 +325,11 @@ const ProfileEditor = styled.div`
         color: ${(props) => (props.dark ? "#6c737c" : "#25292e")};
       }
     }
+  }
+
+  @media ${({ theme }) => theme.media.mobile} {
+    top: 80px;
+    left: 20px;
   }
 `;
 

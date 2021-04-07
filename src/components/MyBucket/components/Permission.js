@@ -162,6 +162,12 @@ const PermissionHeader = styled.div`
   display: flex;
   align-items: center;
   margin-bottom: 45px;
+
+  @media ${({ theme }) => theme.media.mobile} {
+    flex-direction: column;
+    align-items: flex-start;
+    padding-left: 5px;
+  }
 `;
 
 const PermissionTitle = styled.h4`
@@ -169,6 +175,11 @@ const PermissionTitle = styled.h4`
   font-weight: 500;
   letter-spacing: 0.08rem;
   color: ${(props) => props.dark && "#f5f6f7"};
+
+  @media ${({ theme }) => theme.media.mobile} {
+    font-size: 20px;
+    margin-bottom: 20px;
+  }
 `;
 
 const Div = styled.div`
@@ -176,11 +187,12 @@ const Div = styled.div`
   align-items: center;
   margin-left: 30px;
   margin-right: auto;
-  /* @media ${({ theme }) => theme.media.mobile} {
-      position: relative;
-      display: block;
-      margin: 15px 0 0;
-    } */
+
+  @media ${({ theme }) => theme.media.mobile} {
+    position: relative;
+    left: -17px;
+    margin: 0;
+  }
 `;
 
 const UserSearch = styled.div`
@@ -189,11 +201,6 @@ const UserSearch = styled.div`
   height: 100%;
 
   input {
-    /* @media ${({ theme }) => theme.media.mobile} {
-      width: 100%;
-      margin: 0;
-    } */
-
     width: 300px;
     height: 40px;
     color: ${(props) => props.dark && "#f5f6f7"};
@@ -202,6 +209,10 @@ const UserSearch = styled.div`
     border-radius: 4px;
     padding-left: 35px;
     background-color: ${(props) => props.dark && "#18191a"};
+
+    @media ${({ theme }) => theme.media.mobile} {
+      width: 100%;
+    }
   }
 `;
 

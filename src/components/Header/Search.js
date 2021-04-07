@@ -26,6 +26,7 @@ const Div = styled.div`
     position: relative;
     display: block;
     margin: 15px 0 0;
+    /* display: none; */
   }
   .search_icon {
     color: ${(props) => (props.dark ? "#ffffff" : "black")};
