@@ -15,7 +15,7 @@
 <!--lint disable awesome-toc-->
 ## Contents
 * [Definition of ExporterHub.io](https://github.com/NexClipper/exporterhub.io#Definition-of-exporterhubio)
-* [See Demo](https://github.com/NexClipper/exporterhub.io#Demo)
+* [Demo Video](https://github.com/NexClipper/exporterhub.io#Demo)
 * [Diagram Overview](https://github.com/NexClipper/exporterhub.io#diagram-overview)
 * [Kick-start](https://github.com/NexClipper/exporterhub.io#kickstart)
 * [Contribute](https://github.com/NexClipper/exporterhub.io#contribute)
@@ -60,7 +60,7 @@ To help and ease you with best-practice Prometheus, ExporterHub.io discovers and
   * [ ] Share my bucket
   * [ ] Search bar
 
-## See Demo
+## Demo Video
 * Image click to Youtube for the full examples and guides:  
   [![Demo](https://raw.githubusercontent.com/NexClipper/exporterhub.io/master/assets/demo_01.png)](https://youtu.be/wa4dknZk7Kk)
 
