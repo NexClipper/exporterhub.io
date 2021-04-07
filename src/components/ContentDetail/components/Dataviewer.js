@@ -20,9 +20,6 @@ const Dataviewer = ({
   const changeTheme = useSelector((store) => store.darkThemeReducer);
   const editBtnText = mdSha ? "Edit" : "Create";
 
-  console.log(markDownContent);
-  console.log(githubContent);
-
   return (
     <>
       <Header>
