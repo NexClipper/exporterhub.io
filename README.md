@@ -35,7 +35,7 @@ Each exporter's page contains the followings:
 * Alert-rule (Recommended)
 * Dashboard (Grafana)
 * Star (linked to Github Origin Repository)
-* Bucket (able to manage personal Github Repository as well)
+* Fork to bucket (linked to personal Github Repository)
 * Edit Dashboard and Alert-rule by Admin
 
 ExporterHub.io recommends the best-fit exporter(s) to support Prometheus monitoring needs in enterprise environments with complex and closed network security settings.
