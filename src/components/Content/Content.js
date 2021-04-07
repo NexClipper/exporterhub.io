@@ -35,7 +35,7 @@ const Contetnt = () => {
         });
         dispatch(allData(resultExporters));
       })
-      .catch((err) => console.log("navFilter error", err));
+      .catch((err) => console.log(err));
   };
 
   return (

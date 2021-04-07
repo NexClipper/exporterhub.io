@@ -68,7 +68,6 @@ const MyBucket = () => {
       },
     })
       .then((res) => {
-        console.log(res.data.data);
         setUserProfile(res.data.data);
       })
       .catch((err) => {

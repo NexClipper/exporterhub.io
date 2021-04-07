@@ -31,6 +31,7 @@ const Dashboard = ({ title }) => {
       headers: HEADER,
     })
       .then((res) => {
+        console.log(res);
         setGithubContent(
           res.data.md_content === null ? "N/A" : res.data.md_content
         );

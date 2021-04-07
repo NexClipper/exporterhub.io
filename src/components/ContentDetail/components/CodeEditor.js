@@ -29,8 +29,8 @@ const CodeEditor = ({
   // const [decode, setDecode] = useState();
 
   useEffect(() => {
-    setEdittingData(githubContent);
-    setPreview(githubContent);
+    setEdittingData(githubContent === "N/A" ? "" : githubContent);
+    setPreview(githubContent === "N/A" ? "" : githubContent);
   }, [githubContent]);
 
   const onChange = (value) => {
