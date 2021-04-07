@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 import styled from "styled-components";
-// import { PUBLIC_SERVICE, API_SURVER } from "../../config";
+import { PUBLIC_SERVICE, SERVICE_URL } from "../../config";
 import { API_SURVER, CLIENT_ID } from "../../config";
 import { GithubOutlined } from "@ant-design/icons";
 import { useDispatch, useSelector } from "react-redux";
