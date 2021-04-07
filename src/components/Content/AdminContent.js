@@ -1,8 +1,15 @@
 import React from "react";
 import styled from "styled-components";
 import { useSelector } from "react-redux";
+import AdminDeleteModal from "../Modal/AdminDeleteModal";
 
-const AdminContent = ({ admin, deleteAdmin }) => {
+const AdminContent = ({
+  admin,
+  deleteAdmin,
+  cancleAdminDeleteModal,
+  isAdminDeleteModalActive,
+  setIsAdminDeleteModalActive,
+}) => {
   const changeTheme = useSelector((store) => store.darkThemeReducer);
   return (
     <AdminCard dark={changeTheme}>
@@ -13,9 +20,19 @@ const AdminContent = ({ admin, deleteAdmin }) => {
           <span>{admin.usertype}</span>
         </Info>
       </AdminInfo>
-      <AdminResign onClick={() => deleteAdmin(admin.username)}>
+      <AdminResign
+        adminName={admin.username}
+        onClick={() => setIsAdminDeleteModalActive(!isAdminDeleteModalActive)}
+      >
         Resign
       </AdminResign>
+      {isAdminDeleteModalActive && (
+        <AdminDeleteModal
+          adminName={admin.username}
+          deleteAdmin={deleteAdmin}
+          cancleAdminDeleteModal={cancleAdminDeleteModal}
+        />
+      )}
     </AdminCard>
   );
 };

@@ -13,9 +13,21 @@ const Permission = () => {
   const [adminArr, setAdminArr] = useState([]);
   const [userArr, setUserArr] = useState();
   const [alertModal, setAlertModal] = useState(false);
+  const [isAdminAddModalActive, setIsAdminAddModalActive] = useState(false);
+  const [isAdminDeleteModalActive, setIsAdminDeleteModalActive] = useState(
+    false
+  );
   const token = sessionStorage.getItem("access_token");
   const changeTheme = useSelector((store) => store.darkThemeReducer);
   const dispatch = useDispatch();
+
+  const cancleAdminAddModal = () => {
+    setIsAdminAddModalActive(false);
+  };
+
+  const cancleAdminDeleteModal = () => {
+    setIsAdminDeleteModalActive(false);
+  };
 
   const inputHandler = (e) => {
     setSearchUser(e.target.value.toLowerCase());
@@ -118,6 +130,10 @@ const Permission = () => {
                         user={user}
                         key={user.id}
                         addAdmin={addAdmin}
+                        isAdminAddModalActive={isAdminAddModalActive}
+                        setIsAdminAddModalActive={setIsAdminAddModalActive}
+                        cancleAdminAddModal={cancleAdminAddModal}
+                        setSearchUser={setSearchUser}
                       />
                     );
                   })}
@@ -129,7 +145,14 @@ const Permission = () => {
       <AdminContainer dark={changeTheme}>
         {adminArr.map((admin, index) => {
           return (
-            <AdminContent admin={admin} key={index} deleteAdmin={deleteAdmin} />
+            <AdminContent
+              admin={admin}
+              key={index}
+              deleteAdmin={deleteAdmin}
+              cancleAdminDeleteModal={cancleAdminDeleteModal}
+              isAdminDeleteModalActive={isAdminDeleteModalActive}
+              setIsAdminDeleteModalActive={setIsAdminDeleteModalActive}
+            />
           );
         })}
       </AdminContainer>
@@ -240,7 +263,7 @@ const AlertModal = styled.div`
   top: -83px;
   width: 100%;
   position: absolute;
-  animation: move 2s ease-in-out;
+  animation: move 3s ease-in-out;
   opacity: 0%;
 
   p {

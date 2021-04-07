@@ -15,7 +15,10 @@ const Login = ({ history }) => {
   const callBackUrl = window.location.href;
   const code = callBackUrl.substring(callBackUrl.indexOf("=") + 1);
   const dispatch = useDispatch();
-
+  console.log("code ?? >>", code);
+  console.log("id ?? >> ", clientID);
+  console.log("secret ?? >> ", clientSecret);
+  console.log("url ?? >>", callBackUrl);
   const getAccessToken = () => {
     axios({
       method: "POST",
@@ -31,6 +34,7 @@ const Login = ({ history }) => {
       },
     })
       .then((res) => {
+        console.log("성공1 res >> ", res);
         setAccessToken(res.data["access_token"]);
       })
       .catch((err) => console.log(err));
@@ -44,6 +48,7 @@ const Login = ({ history }) => {
       },
     })
       .then((res) => {
+        console.log("성공2 res >> ", res);
         sessionStorage.setItem("access_token", res.data.access_token);
         sessionStorage.setItem("user_type", res.data.type);
         dispatch(getLoginState(true));

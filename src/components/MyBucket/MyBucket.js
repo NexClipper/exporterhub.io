@@ -8,6 +8,8 @@ import { useHistory } from "react-router";
 import { useDispatch, useSelector } from "react-redux";
 import { changeBucketPage } from "../../store/actions/exporterActions";
 import UnforkModal from "../Modal/UnforkModal";
+import AdminAddModal from "../Modal/AdminAddModal";
+import AdminDeleteModal from "../Modal/AdminDeleteModal";
 import { API_SURVER } from "../../config";
 
 const MyBucket = () => {
@@ -17,6 +19,10 @@ const MyBucket = () => {
   const dispatch = useDispatch();
   const history = useHistory();
   const [isForkModalActive, setIsForkModalActive] = useState(false);
+  const [isAdminAddModalActive, setIsAdminAddModalActive] = useState(false);
+  // const [isAdminDeleteModalActive, setIsAdminDeleteModalActive] = useState(
+  //   false
+  // );
   const [userProfile, setUserProfile] = useState();
 
   const ACTIVECONTENT_OBJ = {
@@ -26,9 +32,17 @@ const MyBucket = () => {
         isForkModalActive={isForkModalActive}
       />
     ),
-    1: <Permission />,
+    1: (
+      <Permission
+        isAdminAddModalActive={isAdminAddModalActive}
+        setIsAdminAddModalActive={setIsAdminAddModalActive}
+        // isAdminDeleteModalActive={isAdminDeleteModalActive}
+        // setIsAdminDeleteModalActive={setIsAdminDeleteModalActive}
+        // cancleAdminDeleteModal={cancleAdminDeleteModal}
+      />
+    ),
   };
-
+  // console.log("삭제모달켜짐?", isAdminDeleteModalActive);
   // const TABMENU = [
   //   { id: 0, tabName: "Fork" },
   //   { id: 1, tabName: "Set Admin" },
@@ -97,6 +111,10 @@ const MyBucket = () => {
       </Nav>
       <Main dark={changeTheme}>{ACTIVECONTENT_OBJ[changeBucket]}</Main>
       {isForkModalActive && <UnforkModal cancleModal={cancleModal} />}
+      {isAdminAddModalActive && <AdminAddModal />}
+      {/* {isAdminDeleteModalActive && (
+        <AdminDeleteModal cancleAdminDeleteModal={cancleAdminDeleteModal} />
+      )} */}
     </>
   );
 };
