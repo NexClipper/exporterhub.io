@@ -4,6 +4,7 @@ import { FiEdit } from "react-icons/fi";
 import { BiUndo } from "react-icons/bi";
 import CodeEditor from "./CodeEditor";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
+import NoData from "./NoData";
 const Dataviewer = ({
   githubContent,
   isEditMode,
@@ -17,8 +18,11 @@ const Dataviewer = ({
 }) => {
   const isAdmin = useSelector((store) => store.adminReducer);
   const changeTheme = useSelector((store) => store.darkThemeReducer);
-
   const editBtnText = mdSha ? "Edit" : "Create";
+
+  console.log(markDownContent);
+  console.log(githubContent);
+
   return (
     <>
       <Header>
@@ -37,11 +41,14 @@ const Dataviewer = ({
       <ContentBody>
         {!isEditMode ? (
           <Data>
-            <MarkdownBody dark={changeTheme}>
-              <Content
-                dangerouslySetInnerHTML={{ __html: markDownContent }}
-              ></Content>
-            </MarkdownBody>
+            {markDownContent && <NoData mdSha={mdSha} />}
+            {mdSha && (
+              <MarkdownBody dark={changeTheme}>
+                <Content
+                  dangerouslySetInnerHTML={{ __html: markDownContent }}
+                ></Content>
+              </MarkdownBody>
+            )}
             {!markDownContent && (
               <Loading>
                 <AiOutlineLoading3Quarters className="spinner" />
