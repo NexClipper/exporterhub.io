@@ -1,6 +1,5 @@
 const ADD_ADMIN_STATE = "ADD_ADMIN_STATE";
 const ADD_ADMIN_TYPE_STATE = "ADD_ADMIN_TYPE_STATE";
-const DELETE_ADMIN_STATE = "DELETE_ADMIN_STATE";
 const CHANGE_BUCKET_PAGE = "CHANGE_BUCKET_PAGE";
 const FILTER_BY_USER = "FILTER_BY_USER";
 const ALL_DATA = "ALL_DATA";
@@ -21,11 +20,6 @@ export const adminTypeAdd = (payload) => ({
 
 export const adminAdd = (payload) => ({
   type: ADD_ADMIN_STATE,
-  payload,
-});
-
-export const adminDelete = (payload) => ({
-  type: DELETE_ADMIN_STATE,
   payload,
 });
 

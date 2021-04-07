@@ -1,15 +1,17 @@
 import React from "react";
 import styled from "styled-components";
-import { useSelector } from "react-redux";
 
-const AdminDeleteModal = ({ cancleAdminDeleteModal, deleteAdmin }) => {
-  const selectAdmin = useSelector((store) => store.adminDeleteReducer);
+const AdminDeleteModal = ({
+  cancleAdminDeleteModal,
+  deleteAdmin,
+  adminName,
+}) => {
   return (
     <ModalContainer>
       <Div>
         <h4>Are you sure to resign this admin ?</h4>
         <Container>
-          <button onClick={() => deleteAdmin(selectAdmin)}>Yes</button>
+          <button onClick={() => deleteAdmin(adminName)}>Yes</button>
           <button onClick={cancleAdminDeleteModal}>Cancle</button>
         </Container>
       </Div>

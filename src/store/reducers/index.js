@@ -13,7 +13,6 @@ import navFilterReducer from "./navFilterReducer";
 import cateFilterReducer from "./cateFilterReducer";
 import sortFilterReducer from "./sortFilterReducer";
 import darkThemeReducer from "./darkThemeReducer";
-import adminDeleteReducer from "./adminDeleteReducer";
 import adminAddReducer from "./adminAddReducer";
 import adminAddTypeReducer from "./adminAddTypeReducer";
 export default combineReducers({
@@ -31,7 +30,6 @@ export default combineReducers({
   sortFilterReducer,
   searchFilterReducer,
   darkThemeReducer,
-  adminDeleteReducer,
   adminAddReducer,
   adminAddTypeReducer,
 });

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import { useSelector, useDispatch } from "react-redux";
 import AdminDeleteModal from "../Modal/AdminDeleteModal";
@@ -6,18 +6,16 @@ import { adminDelete } from "../../store/actions/exporterActions";
 
 const AdminContent = ({
   admin,
-  deleteAdmin,
-  cancleAdminDeleteModal,
   isAdminDeleteModalActive,
   setIsAdminDeleteModalActive,
+  setSelectedAdmiin,
 }) => {
-  const dispatch = useDispatch();
   const changeTheme = useSelector((store) => store.darkThemeReducer);
   const handleAdminDelete = (e) => {
-    const payload = e.target.name;
     setIsAdminDeleteModalActive(!isAdminDeleteModalActive);
-    dispatch(adminDelete(payload));
+    setSelectedAdmiin(e.target.name);
   };
+
   return (
     <AdminCard dark={changeTheme}>
       <AdminInfo>
@@ -34,13 +32,6 @@ const AdminContent = ({
       >
         Resign
       </AdminResign>
-      {isAdminDeleteModalActive && (
-        <AdminDeleteModal
-          adminName={admin.username}
-          deleteAdmin={deleteAdmin}
-          cancleAdminDeleteModal={cancleAdminDeleteModal}
-        />
-      )}
     </AdminCard>
   );
 };

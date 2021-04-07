@@ -7,6 +7,7 @@ import axios from "axios";
 import { changeBucketPage } from "../../../store/actions/exporterActions";
 import { ADMIN_API, API_SURVER } from "../../../config";
 import UsersContent from "../../Content/UsersContent";
+import AdminDeleteModal from "../../Modal/AdminDeleteModal";
 
 const Permission = () => {
   const [searchUser, setSearchUser] = useState();
@@ -17,6 +18,7 @@ const Permission = () => {
   const [isAdminDeleteModalActive, setIsAdminDeleteModalActive] = useState(
     false
   );
+  const [selectedAdmin, setSelectedAdmiin] = useState();
   const token = sessionStorage.getItem("access_token");
   const changeTheme = useSelector((store) => store.darkThemeReducer);
   const dispatch = useDispatch();
@@ -152,6 +154,7 @@ const Permission = () => {
               cancleAdminDeleteModal={cancleAdminDeleteModal}
               isAdminDeleteModalActive={isAdminDeleteModalActive}
               setIsAdminDeleteModalActive={setIsAdminDeleteModalActive}
+              setSelectedAdmiin={setSelectedAdmiin}
             />
           );
         })}
@@ -159,13 +162,13 @@ const Permission = () => {
       <AlertModal isActive={alertModal}>
         <p>Invitation has been sent to the user's email!!</p>
       </AlertModal>
-      {/* {isAdminDeleteModalActive && (
+      {isAdminDeleteModalActive && (
         <AdminDeleteModal
-          adminName={admin.username}
+          adminName={selectedAdmin}
           deleteAdmin={deleteAdmin}
           cancleAdminDeleteModal={cancleAdminDeleteModal}
         />
-      )} */}
+      )}
     </Container>
   );
 };

@@ -36,17 +36,9 @@ const MyBucket = () => {
       <Permission
         isAdminAddModalActive={isAdminAddModalActive}
         setIsAdminAddModalActive={setIsAdminAddModalActive}
-        // isAdminDeleteModalActive={isAdminDeleteModalActive}
-        // setIsAdminDeleteModalActive={setIsAdminDeleteModalActive}
-        // cancleAdminDeleteModal={cancleAdminDeleteModal}
       />
     ),
   };
-  // console.log("삭제모달켜짐?", isAdminDeleteModalActive);
-  // const TABMENU = [
-  //   { id: 0, tabName: "Fork" },
-  //   { id: 1, tabName: "Set Admin" },
-  // ];
 
   const TABMENU = isAdmin
     ? [

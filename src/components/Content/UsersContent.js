@@ -23,8 +23,6 @@ const UsersContent = ({
       setUserType(e.target.name);
       setIsAdminAddModalActive(true);
     }
-    console.log(e.target.id);
-    console.log(e.target.name);
   };
   return (
     <>
