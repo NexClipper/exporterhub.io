@@ -134,7 +134,7 @@ CALLBACK_URL="NEED_TO_SET_UP"
 *  run the command `make run` at `/exporterhub.io` 
 
 ### 7. Or, Run for external network
-* If you want to run the server in extenal server or instance, please make sure the `SERVICE_URL` ~~for API server IP or URL~~ as below
+* If you want to run the server in extenal server or instance, please make sure to input `SERVICE_URL` and `CALLBACK_URL` same as below
 ```      
 services:
   expoterhub:
@@ -147,6 +147,7 @@ services:
        SERVICE_URL: ${REACT_APP_API_URL}
        CLIENT_ID: ${CLIENT_ID}
        CLIENT_SECRETS: ${CLIENT_SECRETS}
+       CALLBACK_URL: ${CALLBACK_URL}
 ```   
 * then, run the command `make run` at `/exporterhub.io` 
       
