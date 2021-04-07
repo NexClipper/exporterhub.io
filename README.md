@@ -76,7 +76,7 @@ To help and ease you with best-practice Prometheus, ExporterHub.io discovers and
   * [![Diagram Overview](https://img.youtube.com/vi/pPZfNi6qms4/0.jpg)](https://youtu.be/pPZfNi6qms4)
 
 ## Kick-start
-### Ready: Token is required for GitHub information crawling
+### 0. Ready: Token is required for GitHub information crawling
 <!--lint disable awesome-list-item-->
 * ___Create Token before the App runs as below.___
    * https://github.com/settings/tokens/new
