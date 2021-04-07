@@ -17,7 +17,7 @@
 * [Definition of ExporterHub.io](https://github.com/NexClipper/exporterhub.io#Definition-of-exporterhubio)
 * [See Demo](https://github.com/NexClipper/exporterhub.io#Demo)
 * [Diagram Overview](https://github.com/NexClipper/exporterhub.io#diagram-overview)
-* [Kickstart](https://github.com/NexClipper/exporterhub.io#kickstart)
+* [Kick-start](https://github.com/NexClipper/exporterhub.io#kickstart)
 * [Contribute](https://github.com/NexClipper/exporterhub.io#contribute)
 * [References](https://github.com/NexClipper/exporterhub.io#references)
 * [License](https://github.com/NexClipper/exporterhub.io#license)
@@ -75,7 +75,7 @@ To help and ease you with best-practice Prometheus, ExporterHub.io discovers and
 * Image click to Youtube:
   * [![Diagram Overview](https://img.youtube.com/vi/pPZfNi6qms4/0.jpg)](https://youtu.be/pPZfNi6qms4)
 
-## Kickstart
+## Kick-start
 ### Ready: Token is required for GitHub information crawling
 <!--lint disable awesome-list-item-->
 * ___Create Token before the App runs as below.___
