@@ -12,7 +12,7 @@ import searchFilterReducer from "./searchFilterReducer";
 import navFilterReducer from "./navFilterReducer";
 import cateFilterReducer from "./cateFilterReducer";
 import sortFilterReducer from "./sortFilterReducer";
-
+import darkThemeReducer from "./darkThemeReducer";
 export default combineReducers({
   categoryReducer,
   tokenReducer,
@@ -27,4 +27,5 @@ export default combineReducers({
   cateFilterReducer,
   sortFilterReducer,
   searchFilterReducer,
+  darkThemeReducer,
 });

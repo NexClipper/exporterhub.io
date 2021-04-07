@@ -31,7 +31,7 @@ const Alert = ({ title }) => {
 
     axios({
       method: "GET",
-      url: `${API_SURVER}:8000/exporter/${id}/tab?type=alert`,
+      url: `${API_SURVER}/exporter/${id}/tab?type=alert`,
       headers: HEADER,
     })
       .then((res) => {

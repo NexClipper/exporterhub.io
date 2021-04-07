@@ -10,6 +10,7 @@ import { HiOutlineSave } from "react-icons/hi";
 import remarkMarkdown from "../remarkMarkdown";
 import { API_SURVER } from "../../../config";
 import { useParams } from "react-router";
+import { useSelector } from "react-redux";
 
 const CodeEditor = ({
   githubContent,
@@ -23,6 +24,7 @@ const CodeEditor = ({
   const { id } = useParams();
   const [preview, setPreview] = useState();
   const [edittingData, setEdittingData] = useState();
+  const changeTheme = useSelector((store) => store.darkThemeReducer);
 
   // const [decode, setDecode] = useState();
 
@@ -61,7 +63,7 @@ const CodeEditor = ({
 
     axios({
       method: "POST",
-      url: `${API_SURVER}:8000/exporter/${id}/tab`,
+      url: `${API_SURVER}/exporter/${id}/tab`,
       headers: {
         Authorization: sessionStorage.getItem("access_token"),
       },
@@ -122,7 +124,7 @@ const CodeEditor = ({
           height="800px"
         />
         <Preview className="code">
-          <MarkdownBody>
+          <MarkdownBody dark={changeTheme}>
             <Content
               dangerouslySetInnerHTML={{ __html: markDownContent }}
             ></Content>

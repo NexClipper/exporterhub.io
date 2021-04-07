@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import AdminContent from "../../Content/AdminContent";
 import { SearchOutlined } from "@ant-design/icons";
 import axios from "axios";
@@ -14,6 +14,7 @@ const Permission = () => {
   const [userArr, setUserArr] = useState();
   const [alertModal, setAlertModal] = useState(false);
   const token = sessionStorage.getItem("access_token");
+  const changeTheme = useSelector((store) => store.darkThemeReducer);
   const dispatch = useDispatch();
 
   const inputHandler = (e) => {
@@ -23,7 +24,7 @@ const Permission = () => {
   useEffect(() => {
     axios({
       method: "GET",
-      url: `${API_SURVER}:8000/user/search?q=${searchUser}`,
+      url: `${API_SURVER}/user/search?q=${searchUser}`,
       headers: {
         Authorization: token,
       },
@@ -98,12 +99,12 @@ const Permission = () => {
   };
 
   return (
-    <Container>
+    <Container dark={changeTheme}>
       <PermissionHeader>
-        <PermissionTitle>Set Admin</PermissionTitle>
+        <PermissionTitle dark={changeTheme}>Set Admin</PermissionTitle>
         <Div>
-          <SearchOutlined className="search_icon" />
-          <UserSearch>
+          <SearchOutlined dark={changeTheme} className="search_icon" />
+          <UserSearch dark={changeTheme}>
             <input
               onChange={(e) => inputHandler(e)}
               type="text"
@@ -127,7 +128,7 @@ const Permission = () => {
           </UserSearch>
         </Div>
       </PermissionHeader>
-      <AdminContainer>
+      <AdminContainer dark={changeTheme}>
         {adminArr.map((admin, index) => {
           return (
             <AdminContent admin={admin} key={index} deleteAdmin={deleteAdmin} />
@@ -153,6 +154,7 @@ const Container = styled.div`
     position: relative;
     left: 30px;
     z-index: 1;
+    color: ${(props) => props.dark && "#f5f6f7"};
   }
 `;
 
@@ -166,6 +168,7 @@ const PermissionTitle = styled.h4`
   font-size: 30px;
   font-weight: 500;
   letter-spacing: 0.08rem;
+  color: ${(props) => props.dark && "#f5f6f7"};
 `;
 
 const Div = styled.div`
@@ -193,9 +196,12 @@ const UserSearch = styled.div`
 
     width: 300px;
     height: 40px;
-    border: 1px solid rgba(0, 0, 0, 0.2);
+    color: ${(props) => props.dark && "#f5f6f7"};
+    border: ${(props) =>
+      props.dark ? "1px solid #6c737c" : "1px solid rgba(0, 0, 0, 0.2)"};
     border-radius: 4px;
     padding-left: 35px;
+    background-color: ${(props) => props.dark && "#18191a"};
   }
 `;
 

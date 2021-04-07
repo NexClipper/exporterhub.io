@@ -1,13 +1,12 @@
 import React from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { filterByNav } from "../../store/actions/exporterActions";
 import { useState } from "react";
 import styled from "styled-components";
-
 const Nav = () => {
+  const changeTheme = useSelector((store) => store.darkThemeReducer);
   const [isOfficial, setIsOfficial] = useState(0);
   const dispatch = useDispatch();
-
   const callDispatch = (e) => {
     if (e.target.innerText === "All") {
       const payload = "";
@@ -17,12 +16,12 @@ const Nav = () => {
       dispatch(filterByNav(payload));
     }
   };
-
   return (
     <Navigation>
       <Container>
         <Div>
           <Type
+            dark={changeTheme}
             onClick={(e) => {
               setIsOfficial(0);
               callDispatch(e);
@@ -32,6 +31,7 @@ const Nav = () => {
             All
           </Type>
           <Type
+            dark={changeTheme}
             onClick={(e) => {
               setIsOfficial(1);
               callDispatch(e);
@@ -41,6 +41,7 @@ const Nav = () => {
             Official
           </Type>
           <Type
+            dark={changeTheme}
             onClick={(e) => {
               setIsOfficial(2);
               callDispatch(e);
@@ -54,7 +55,6 @@ const Nav = () => {
     </Navigation>
   );
 };
-
 const Navigation = styled.nav`
   border-bottom: 1px solid gray;
   margin-bottom: 20px;
@@ -79,7 +79,8 @@ const Type = styled.button`
   width: 50%;
   height: 100%;
   ${({ theme }) => theme.flexCenter};
-  color: ${(props) => (props.isOfficial ? "#32b489" : "black")};
+  color: ${(props) => (props.dark ? "#f5f6f7" : "black")};
+  color: ${(props) => props.isOfficial && "#32b489"};
   border-bottom: ${(props) =>
     props.isOfficial ? `2px solid #32b489` : "none"};
   cursor: pointer;

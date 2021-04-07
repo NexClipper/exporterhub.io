@@ -11,14 +11,12 @@ import RegisterModal from "../Modal/RegisterModal";
 const ContentMenu = ({ totaCount }) => {
   const [isModalActive, setIsModalActive] = useState(false);
   const isAdmin = useSelector((store) => store.adminReducer);
-
+  const changeTheme = useSelector((store) => store.darkThemeReducer);
   const cancleModal = () => {
     setIsModalActive(false);
   };
-
   const [categories, setCategories] = useState([]);
   const dispatch = useDispatch();
-
   const optionSelector = (e) => {
     if (e.target.value === "Most popular") {
       const payload = "popular";
@@ -28,7 +26,6 @@ const ContentMenu = ({ totaCount }) => {
       dispatch(filterBySort(payload.toLowerCase()));
     }
   };
-
   const callDispatch = (e) => {
     if (e.target.value === "All") {
       const payload = "";
@@ -47,7 +44,7 @@ const ContentMenu = ({ totaCount }) => {
     <Div>
       {/* <span>{totalCount} items</span> */}
       <SelectBox>
-        <Select onChange={callDispatch}>
+        <Select dark={changeTheme} onChange={callDispatch}>
           <option>All</option>
           {categories &&
             categories.map((category) => (
@@ -56,14 +53,16 @@ const ContentMenu = ({ totaCount }) => {
               </option>
             ))}
         </Select>
-        <select onChange={optionSelector}>
-          <option>Most popular</option>
-          <option>Recent</option>
-          <option>Trending</option>
-        </select>
+        <Sort dark={changeTheme}>
+          <select onChange={optionSelector}>
+            <option>Most popular</option>
+            <option>Recent</option>
+            <option>Trending</option>
+          </select>
+        </Sort>
       </SelectBox>
       {isAdmin && (
-        <Button onClick={() => setIsModalActive(true)}>
+        <Button dark={changeTheme} onClick={() => setIsModalActive(true)}>
           <span>RESISTER</span>
         </Button>
       )}
@@ -102,18 +101,29 @@ const Select = styled.select`
     display: block;
     width: 80px;
     font-size: 13px;
+    color: ${(props) => (props.dark ? "#ffffff" : "black")};
   }
+  /* option {
+    color: ${(props) => (props.dark ? "#ffffff" : "black")};
+  } */
 `;
-
 const Button = styled.button`
   display: flex;
   align-items: center;
   padding: 7px 10px;
-  background: #ffffff;
+  background: ${(props) => (props.dark ? "#eeeeee" : "#ffffff")};
   box-shadow: 1px 1px 6px 1px rgba(0, 0, 0, 0.1);
   border-radius: 5px;
   font-size: 12px;
   font-weight: 600;
 `;
-
+const Sort = styled.div`
+  select {
+    color: ${(props) => (props.dark ? "#ffffff" : "black")};
+    option {
+      background-color: #ffffff;
+      color: black;
+    }
+  }
+`;
 export default ContentMenu;

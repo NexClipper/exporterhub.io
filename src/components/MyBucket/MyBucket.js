@@ -13,6 +13,7 @@ import { API_SURVER } from "../../config";
 const MyBucket = () => {
   const isAdmin = useSelector((store) => store.adminReducer);
   const changeBucket = useSelector((store) => store.headerReducer);
+  const changeTheme = useSelector((store) => store.darkThemeReducer);
   const dispatch = useDispatch();
   const history = useHistory();
   const [isForkModalActive, setIsForkModalActive] = useState(false);
@@ -47,7 +48,7 @@ const MyBucket = () => {
   useEffect(() => {
     axios({
       method: "GET",
-      url: `${API_SURVER}:8000/user/profile`,
+      url: `${API_SURVER}/user/profile`,
       headers: {
         Authorization: sessionStorage.getItem("access_token"),
       },
@@ -72,17 +73,18 @@ const MyBucket = () => {
 
   return (
     <>
-      <Header>
+      <Header dark={changeTheme}>
         <Container>
           {userProfile && <Profile userProfile={userProfile} />}
         </Container>
       </Header>
-      <Nav>
+      <Nav dark={changeTheme}>
         <Container>
           <TabList>
             {TABMENU.map((tab) => {
               return (
                 <Tab
+                  dark={changeTheme}
                   key={tab.id}
                   active={changeBucket === tab.id}
                   onClick={() => dispatch(changeBucketPage(tab.id))}
@@ -94,7 +96,7 @@ const MyBucket = () => {
           </TabList>
         </Container>
       </Nav>
-      <Main>{ACTIVECONTENT_OBJ[changeBucket]}</Main>
+      <Main dark={changeTheme}>{ACTIVECONTENT_OBJ[changeBucket]}</Main>
       {isForkModalActive && <UnforkModal cancleModal={cancleModal} />}
     </>
   );
@@ -102,11 +104,14 @@ const MyBucket = () => {
 
 const Header = styled.header`
   padding: 80px 0;
+  background-color: ${(props) => props.dark && "#18191a"};
 `;
 
 const Nav = styled.nav`
   width: 100%;
-  border-bottom: 1px solid #eaecef;
+  border-bottom: ${(props) =>
+    props.dark ? "1px solid #242526" : "1px solid #eaecef"};
+  background-color: ${(props) => props.dark && "#18191a"};
 `;
 
 const TabList = styled.ul`
@@ -119,7 +124,8 @@ const Tab = styled.li`
   padding: 17px 0;
   border-bottom: ${(props) =>
     props.active ? "5px solid #6AC4A5" : "5px solid #00000000"};
-  color: ${(props) => (props.active ? "#6AC4A5" : "#808080")};
+  color: ${(props) => (props.dark ? "#f5f6f7" : "#808080")};
+  color: ${(props) => props.active && "#6AC4A5"};
   font-size: 17px;
   text-align: center;
   box-sizing: border-box;
@@ -131,7 +137,7 @@ const Main = styled.main`
   min-height: calc(100vh - 436px);
   max-height: fit-content;
   padding: 90px 0 50px;
-  background: #f7f9fc;
+  background: ${(props) => (props.dark ? "#18191a" : "#f7f9fc")};
 
   @media ${({ theme }) => theme.media.mobile} {
     padding: 90px 15px 50px;

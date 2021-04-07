@@ -3,9 +3,8 @@ import { withRouter } from "react-router-dom";
 import styled from "styled-components";
 import { AiFillStar } from "react-icons/ai";
 import { RiDeleteBinLine } from "react-icons/ri";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { targetUnforkRepo } from "../../store/actions/exporterActions";
-
 const CardExporter = ({
   exporter,
   cardClick,
@@ -23,20 +22,23 @@ const CardExporter = ({
     category,
     is_new,
   } = exporter;
-
   const dispatch = useDispatch();
-
+  const changeTheme = useSelector((store) => store.darkThemeReducer);
   const unforkRepo = (e, id) => {
     e.stopPropagation();
     setIsForkModalActive(true);
     console.log("unforkRepo", id);
     dispatch(targetUnforkRepo(id));
   };
-
   return (
-    <Div onClick={() => cardClick(exporter_id)} fork={fork} mybucket={mybucket}>
+    <Div
+      dark={changeTheme}
+      onClick={() => cardClick(exporter_id)}
+      fork={fork}
+      mybucket={mybucket}
+    >
       <header>
-        {is_new && <New>NEW</New>}
+        {is_new && <New dark={changeTheme}>NEW</New>}
         <span>
           <Icon>
             <AiFillStar />
@@ -49,7 +51,7 @@ const CardExporter = ({
         <div>
           <img src={logo_url} alt={name} />
         </div>
-        <Section>
+        <Section dark={changeTheme}>
           <span>{name}</span>
           <div>
             <span>{official}</span>
@@ -69,13 +71,12 @@ const CardExporter = ({
     </Div>
   );
 };
-
 const Div = styled.div`
   position: relative;
   width: ${({ theme }) => theme.width.card}px;
   height: 320px;
   transition: 0.1s ease-in-out;
-  background-color: #ffffff;
+  background-color: ${(props) => (props.dark ? "#242526" : "#ffffff")};
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -93,41 +94,36 @@ const Div = styled.div`
   &:hover {
     transform: scale(1.05);
   }
-
   &:hover .unfork {
     display: block;
   }
-
   @media ${({ theme }) => theme.media.mobile} {
     height: 120px;
     width: 100%;
     align-items: flex-start;
     padding: 0 30px;
     margin-right: 0%;
-
-    &:hover {
-      transform: scale(1.02);
-    }
   }
   header {
     width: 100%;
     font-size: 12px;
     text-align: end;
     padding: 20px 0;
+    span {
+      color: ${(props) => (props.dark ? "#f5f6f7" : "#000000")};
+    }
     @media ${({ theme }) => theme.media.mobile} {
       padding: 15px 0;
     }
   }
 `;
-
 const New = styled.p`
   float: left;
   padding: 2px 5px;
   background-color: #6ac4a5;
   border-radius: 4px;
-  color: white;
+  color: ${(props) => (props.dark ? "#242526" : "white")};
 `;
-
 const Article = styled.article`
   @media ${({ theme }) => theme.media.mobile} {
     display: flex;
@@ -146,7 +142,6 @@ const Article = styled.article`
     }
   }
 `;
-
 const Section = styled.section`
   display: flex;
   flex-direction: column;
@@ -160,6 +155,7 @@ const Section = styled.section`
     font-weight: bold;
     margin-bottom: 10px;
     text-align: center;
+    color: ${(props) => (props.dark ? "#f5f6f7" : "#000000")};
   }
   div {
     color: gray;
@@ -181,6 +177,7 @@ const Section = styled.section`
     height: 2.4em;
     word-wrap: break-word;
     overflow: hidden;
+    color: ${(props) => (props.dark ? "#f5f6f7" : "#000000")};
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
     @media ${({ theme }) => theme.media.mobile} {
@@ -188,11 +185,9 @@ const Section = styled.section`
     }
   }
 `;
-
 const Icon = styled.span`
   vertical-align: middle;
 `;
-
 const Unfork = styled.div`
   position: absolute;
   bottom: 0;
@@ -207,33 +202,15 @@ const Unfork = styled.div`
   display: none;
   font-weight: 500;
   border-radius: 0 0 5px 5px;
-
   div {
     display: flex;
     align-items: center;
     justify-content: center;
     position: relative;
     top: -2px;
-
     span {
       margin-left: 5px;
     }
   }
-
-  @media ${({ theme }) => theme.media.mobile} {
-    width: 80px;
-    height: 100%;
-    right: 0;
-    top: 0;
-
-    div {
-      top: 50%;
-      transform: translateY(-50%);
-      span {
-        display: none;
-      }
-    }
-  }
 `;
-
 export default withRouter(CardExporter);
