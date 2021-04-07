@@ -1,6 +1,6 @@
 const ADD_ADMIN_STATE = "ADD_ADMIN_STATE";
 
-const initialState = "";
+const initialState = null;
 
 const adminAddReducer = (state = initialState, action) => {
   switch (action.type) {

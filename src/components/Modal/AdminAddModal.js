@@ -3,24 +3,24 @@ import styled from "styled-components";
 import { useSelector } from "react-redux";
 const AdminAddModal = ({
   user,
+  userName,
+  userType,
   addAdmin,
   cancleAdminAddModal,
   setSearchUser,
 }) => {
-  const selectUser = useSelector((store) => store.adminAddReducer);
-  const selectType = useSelector((store) => store.adminAddTypeReducer);
   const handleModal = () => {
     cancleAdminAddModal();
     setSearchUser("");
   };
-  console.log("a", selectUser);
-  console.log("b", selectType);
+  console.log("a", userName);
+  console.log("b", userType);
   return (
     <ModalContainer>
       <Div>
         <h4>Are you sure to invite "this user" as an admin ?</h4>
         <Container>
-          <button onClick={() => addAdmin(selectUser, selectType)}>Yes</button>
+          <button onClick={() => addAdmin(userName, userType)}>Yes</button>
           <button onClick={handleModal}>Cancle</button>
         </Container>
       </Div>

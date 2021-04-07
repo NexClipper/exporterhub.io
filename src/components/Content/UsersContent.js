@@ -1,4 +1,4 @@
-import React from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import { adminAdd, adminTypeAdd } from "../../store/actions/exporterActions";
@@ -12,17 +12,19 @@ const UsersContent = ({
   setIsAdminAddModalActive,
   setSearchUser,
 }) => {
-  const dispatch = useDispatch();
+  const [userName, setUserName] = useState();
+  const [userType, setUserType] = useState();
+
   const handleAdminAdd = (e) => {
-    // if (e.target.offsetParent.name === "admin" || "admin pending") {
-    //   setIsAdminAddModalActive(false);
-    // } else {
-    const payload1 = e.target.offsetParent.id;
-    const payload2 = e.target.offsetParent.name;
-    setIsAdminAddModalActive(!isAdminAddModalActive);
-    dispatch(adminAdd(payload1));
-    dispatch(adminTypeAdd(payload2));
-    // }
+    if (e.target.name === "admin" || e.target.name === "admin pending") {
+      setIsAdminAddModalActive(false);
+    } else if (e.target.name === "user") {
+      setUserName(e.target.id);
+      setUserType(e.target.name);
+      setIsAdminAddModalActive(true);
+    }
+    console.log(e.target.id);
+    console.log(e.target.name);
   };
   return (
     <>
@@ -40,7 +42,9 @@ const UsersContent = ({
         </Info>
         {isAdminAddModalActive && (
           <AdminAddModal
-            user={user}
+            userName={userName}
+            userType={userType}
+            // user={user}
             addAdmin={addAdmin}
             cancleAdminAddModal={cancleAdminAddModal}
             setSearchUser={setSearchUser}
