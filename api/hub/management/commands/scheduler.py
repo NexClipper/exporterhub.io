@@ -169,11 +169,13 @@ def listener(event):
 
                 scheduler.add_job(
                     create_or_update_exporters,
-                    trigger          = CronTrigger(hour='*/4'),
-                    id               = 'create_or_update_exporters',
-                    max_instances    = 1,
-                    replace_existing = True,
-                    next_run_time    = datetime.now()
+                    trigger            = CronTrigger(hour='*/4'),
+                    id                 = 'create_or_update_exporters',
+                    max_instances      = 3,
+                    replace_existing   = True,
+                    coalesce           = True,
+                    misfire_grace_time = 900,
+                    next_run_time      = datetime.now()
                 )
                 logger.info("Added job 'create_or_update_exporters'.")
                 
@@ -189,16 +191,18 @@ class Command(BaseCommand):
             id               = 'check_token',
             max_instances    = 1,
             replace_existing = True,
-            next_run_time    = datetime.now(),
+            next_run_time    = datetime.now()
         )
         logger.info("Added job 'check_token'")
         
         scheduler.add_job(
             delete_old_job_executions,
-            trigger          = CronTrigger(day_of_week="mon", hour="00", minute="00"),
-            id               = 'delete_old_job_executions',
-            max_instances    = 1,
-            replace_existing = True,
+            trigger            = CronTrigger(day_of_week="mon", hour="00", minute="00"),
+            id                 = 'delete_old_job_executions',
+            max_instances      = 1,
+            replace_existing   = True,
+            coalesce           = True,
+            misfire_grace_time = 3600
         )
         logger.info("Added weekly job 'delete_old_job_executions'.")
 
