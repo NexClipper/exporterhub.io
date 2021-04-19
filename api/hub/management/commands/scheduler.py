@@ -3,20 +3,23 @@ import base64
 import logging
 import re
 import csv
-from datetime                          import datetime, date
+from functools                        import wraps
+from datetime                         import datetime, date
 
 # apscheduler
-from apscheduler.schedulers.blocking   import BlockingScheduler
-from apscheduler.triggers.cron         import CronTrigger
-from apscheduler.events                import EVENT_JOB_ERROR, EVENT_JOB_EXECUTED
-from django_apscheduler.jobstores      import DjangoJobStore
-from django_apscheduler.models         import DjangoJobExecution
+from sqlalchemy                       import create_engine
+from apscheduler.schedulers.blocking  import BlockingScheduler
+from apscheduler.triggers.cron        import CronTrigger
+from apscheduler.events               import EVENT_JOB_ERROR, EVENT_JOB_EXECUTED
+from apscheduler.jobstores.sqlalchemy import SQLAlchemyJobStore
+#from django_apscheduler.jobstores     import DjangoJobStore
+from django_apscheduler.models        import DjangoJobExecution
+from django.conf                      import settings
+from django.core.management.base      import BaseCommand
+from django.db                        import connection
 
-from django.conf                       import settings
-from django.core.management.base       import BaseCommand
-
-from exporter.models                   import Exporter, Release, Category, Official
-from headtoken.models                  import Token
+from exporter.models                  import Exporter, Release, Category, Official
+from headtoken.models                 import Token
 
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.INFO)
@@ -27,10 +30,34 @@ stream_handler = logging.StreamHandler()
 logger.addHandler(file_handler)
 logger.addHandler(stream_handler)
 
+mysql_url = 'mysql+mysqldb://' + settings.DATABASES['default']['USER'] + ':' + \
+                                 settings.DATABASES['default']['PASSWORD'] + '@' + \
+                                 settings.DATABASES['default']['HOST'] + '/' + \
+                                 settings.DATABASES['default']['NAME']
+#jobstores = {'default': SQLAlchemyJobStore(url=mysql_url)}
+__configure = {
+    'apscheduler.standalone': True,
+    'apscheduler.jobstores.sqlalchemy_store.class': SQLAlchemyJobStore,
+    'apscheduler.jobstores.sqlalchemy_store.engine': create_engine(mysql_url, pool_pre_ping=True)
+}
+#scheduler = BlockingScheduler(timezone=settings.TIME_ZONE, jobstores=jobstores)
 scheduler = BlockingScheduler(timezone=settings.TIME_ZONE)
+scheduler.configure(__configure)
 
 api_url   = 'https://api.github.com/repos/'
 PATTERN   = r"!\[(\w*|\s|\w+( \w+)*)\]\(([^,:!]*|\/[^,:!]*\.\w+|\w*.\w*)\)"
+
+
+def db_auto_reconnect(func):
+    """Auto reconnect db when mysql has gone away."""
+    @wraps(func)
+    def wrapper(*args, **kwagrs):
+        try:
+            connection.connection.ping()
+        except Exception:
+            connection.close()
+        return func(*args, **kwagrs)
+    return wrapper
 
 def check_token():
     if Token.objects.filter(is_valid=True).exists():
@@ -39,7 +66,7 @@ def check_token():
 
     logger.info('No token. Input valid token first.')
 
-            
+@db_auto_reconnect
 def create_or_update_exporters():
     if Token.objects.filter(is_valid=True).exists():
         TOKEN = Token.objects.last().token
@@ -171,7 +198,7 @@ def listener(event):
                     create_or_update_exporters,
                     trigger            = CronTrigger(hour='*/4'),
                     id                 = 'create_or_update_exporters',
-                    max_instances      = 3,
+                    max_instances      = 1,
                     replace_existing   = True,
                     coalesce           = True,
                     misfire_grace_time = 900,
@@ -182,7 +209,7 @@ def listener(event):
 
 class Command(BaseCommand):
     def handle(self,*args, **options):
-        scheduler.add_jobstore(DjangoJobStore(),'default')
+        #scheduler.add_jobstore(DjangoJobStore(),'default')
         scheduler.add_listener(listener, EVENT_JOB_EXECUTED | EVENT_JOB_ERROR)
 
         scheduler.add_job(
@@ -199,7 +226,7 @@ class Command(BaseCommand):
             delete_old_job_executions,
             trigger            = CronTrigger(day_of_week="mon", hour="00", minute="00"),
             id                 = 'delete_old_job_executions',
-            max_instances      = 1,
+            max_instances      = 2,
             replace_existing   = True,
             coalesce           = True,
             misfire_grace_time = 3600
