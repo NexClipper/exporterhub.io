@@ -12,7 +12,6 @@ from apscheduler.schedulers.blocking  import BlockingScheduler
 from apscheduler.triggers.cron        import CronTrigger
 from apscheduler.events               import EVENT_JOB_ERROR, EVENT_JOB_EXECUTED
 from apscheduler.jobstores.sqlalchemy import SQLAlchemyJobStore
-#from django_apscheduler.jobstores     import DjangoJobStore
 from django_apscheduler.models        import DjangoJobExecution
 from django.conf                      import settings
 from django.core.management.base      import BaseCommand
@@ -34,13 +33,11 @@ mysql_url = 'mysql+mysqldb://' + settings.DATABASES['default']['USER'] + ':' + \
                                  settings.DATABASES['default']['PASSWORD'] + '@' + \
                                  settings.DATABASES['default']['HOST'] + '/' + \
                                  settings.DATABASES['default']['NAME']
-#jobstores = {'default': SQLAlchemyJobStore(url=mysql_url)}
 __configure = {
     'apscheduler.standalone': True,
     'apscheduler.jobstores.sqlalchemy_store.class': SQLAlchemyJobStore,
     'apscheduler.jobstores.sqlalchemy_store.engine': create_engine(mysql_url, pool_pre_ping=True)
 }
-#scheduler = BlockingScheduler(timezone=settings.TIME_ZONE, jobstores=jobstores)
 scheduler = BlockingScheduler(timezone=settings.TIME_ZONE)
 scheduler.configure(__configure)
 
@@ -209,7 +206,6 @@ def listener(event):
 
 class Command(BaseCommand):
     def handle(self,*args, **options):
-        #scheduler.add_jobstore(DjangoJobStore(),'default')
         scheduler.add_listener(listener, EVENT_JOB_EXECUTED | EVENT_JOB_ERROR)
 
         scheduler.add_job(
