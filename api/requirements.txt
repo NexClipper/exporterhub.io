@@ -2,7 +2,7 @@ APScheduler==3.6.3
 asgiref==3.3.1
 certifi==2020.6.20
 chardet==3.0.4
-Django==3.1.8
+Django==3.1.9
 django-apscheduler==0.5.1
 django-cors-headers==3.5.0
 idna==2.10
