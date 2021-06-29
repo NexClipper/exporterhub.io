@@ -1,3 +1,7 @@
+## Configuration for NGINX of Grafana dashboard
+
+You can use just copy & paste to grafana
+
 ```
 {
   "__inputs": [
