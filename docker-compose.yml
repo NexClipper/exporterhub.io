@@ -1,7 +1,7 @@
 version: "3.1"
 services:
   expoterhub:
-    image: nexclipper/exporterhub:release-fe0.3.7
+    image: nexclipper/exporterhub:release-fe0.3.8
     ports:
       - "${SERVICE_PORT}:3000"
     environment:
@@ -30,7 +30,7 @@ services:
     volumes:
       - ./db_data:/var/lib/mysql/
   scheduler:
-    image: nexclipper/exporterhub-api:release-api0.3.2
+    image: nexclipper/exporterhub-api:release-api0.3.3
     restart: always
     env_file:
       - ./.env
