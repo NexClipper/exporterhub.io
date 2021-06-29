@@ -335,7 +335,7 @@ class ExporterTabView(View):
             content_type = request.GET['type']
             file_type    = {
                 'dashboard' : 'json',
-                'helm'      : 'json',
+                'helm'      : 'yaml',
                 'alert'     : 'yaml'
             }
 
