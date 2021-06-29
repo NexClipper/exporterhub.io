@@ -48,7 +48,7 @@ services:
       - maria_db
       - api
   api:
-    image: nexclipper/exporterhub-api:release-api0.3.2
+    image: nexclipper/exporterhub-api:release-api0.3.3
     restart: always
     ports:
       - "8000:8000"
