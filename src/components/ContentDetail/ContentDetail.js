@@ -6,13 +6,15 @@ import styled from "styled-components";
 import Exporter from "./components/Exporter";
 import Dashboard from "./components/Dashboard";
 import Alert from "./components/Alert";
+import Helm from "./components/Helm";
 import { EXPORTER_API } from "../../config";
 import OpenSourceInfo from "./components/OpenSourceInfo";
 import { useSelector } from "react-redux";
 const TABMENU = [
   { id: 0, tabName: "Exporter" },
   { id: 1, tabName: "Dashboard" },
-  { id: 2, tabName: "Alert" },
+  { id: 2, tabName: "Alert-rule" },
+  { id: 3, tabName: "Helm chart" },
 ];
 const ContentDetail = () => {
   const { id } = useParams();
@@ -26,6 +28,7 @@ const ContentDetail = () => {
     0: <Exporter readmeContent={exporterInfo.readme} />,
     1: <Dashboard title={exporterInfo.title} />,
     2: <Alert title={exporterInfo.title} />,
+    3: <Helm title={exporterInfo.title} />,
   };
   const TOKEN = sessionStorage.getItem("access_token");
   useEffect(() => {
