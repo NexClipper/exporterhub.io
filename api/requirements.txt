@@ -2,7 +2,7 @@ APScheduler==3.6.3
 asgiref==3.3.1
 certifi==2020.6.20
 chardet==3.0.4
-Django==3.1.8
+Django==3.1.12
 django-apscheduler==0.5.1
 django-cors-headers==3.5.0
 idna==2.10
@@ -12,5 +12,6 @@ requests==2.25.0
 six==1.15.0
 sqlparse==0.4.1
 tzlocal==2.1
-urllib3==1.26.4
+urllib3==1.26.5
 PyJWT==2.0.1
+SQLAlchemy==1.4.8

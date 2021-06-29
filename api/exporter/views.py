@@ -31,7 +31,6 @@ class CategoryView(View):
         }
         return JsonResponse(data, status=200)
 
-
 class ExporterView(View):
     def get_repo(self, github_token, repo_url):
         headers     = {'Authorization' : 'token ' + github_token} 
@@ -335,8 +334,9 @@ class ExporterTabView(View):
 
             content_type = request.GET['type']
             file_type    = {
-                'dashboard': 'json',
-                'alert'    : 'yaml'
+                'dashboard' : 'json',
+                'helm'      : 'json',
+                'alert'     : 'yaml'
             }
 
             code_file_info = self.get_contents(app_name=exporter.app_name, content_type=content_type, file_type=file_type[content_type], headers=headers)
