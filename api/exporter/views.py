@@ -31,6 +31,51 @@ class CategoryView(View):
         }
         return JsonResponse(data, status=200)
 
+class ExporterListView(View):
+    def get(self, request):
+        try:
+            category      = request.GET.get('category')
+            official_type = request.GET.get('type')
+            sort          = request.GET.get('sort', 'popular')
+            sort_dict     = {
+                'popular' : '-stars', 
+                'recent'  : 'date', 
+                'trending': '-view_count'
+            }
+            
+            q = Q()
+            if category:
+                q.add(Q(category__name__icontains=category), Q.AND)
+
+            if official_type:
+                q.add(Q(official__name__istartswith=official_type), Q.AND)
+
+            if sort == 'recent':    
+                exporters = Exporter.objects.select_related('category', 'official').prefetch_related('release_set')\
+                            .filter(q).annotate(recent=Max('release__date')).order_by('-recent')
+            else:
+                exporters = Exporter.objects.select_related('category', 'official').filter(q).order_by(sort_dict[sort])
+
+            data = {
+                "exporters": [{
+                    "exporter_id"    : exporter.id,
+                    "name"           : exporter.name,
+                    "logo_url"       : exporter.logo_url,
+                    "category"       : exporter.category.name,
+                    "official"       : exporter.official.name,
+                    "stars"          : exporter.stars,
+                    "is_new"         : (timezone.now() - exporter.created_at).days <= 7,
+                    "repository_url" : exporter.repository_url,
+                    "description"    : exporter.description,   
+                }for exporter in exporters]
+            }
+            return JsonResponse(data, status=200)
+
+        except KeyError:
+            return JsonResponse({'message': 'KEY_ERROR'}, status=400)
+
+        except Exception as e:
+            return JsonResponse({'message':f"{e}"}, status=400)        
 
 class ExporterView(View):
     def get_repo(self, github_token, repo_url):
@@ -335,8 +380,9 @@ class ExporterTabView(View):
 
             content_type = request.GET['type']
             file_type    = {
-                'dashboard': 'json',
-                'alert'    : 'yaml'
+                'dashboard' : 'json',
+                'helm'      : 'json',
+                'alert'     : 'yaml'
             }
 
             code_file_info = self.get_contents(app_name=exporter.app_name, content_type=content_type, file_type=file_type[content_type], headers=headers)
