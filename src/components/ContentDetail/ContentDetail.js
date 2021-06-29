@@ -13,7 +13,7 @@ import { useSelector } from "react-redux";
 const TABMENU = [
   { id: 0, tabName: "Exporter" },
   { id: 1, tabName: "Dashboard" },
-  { id: 2, tabName: "Alert-rule" },
+  { id: 2, tabName: "Alerting rule" },
   { id: 3, tabName: "Helm chart" },
 ];
 const ContentDetail = () => {
