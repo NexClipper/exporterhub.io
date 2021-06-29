@@ -1,3 +1,5 @@
+
+{
   "__inputs": [
     {
       "name": "DS_PROMETHEUS",
@@ -563,3 +565,4 @@
   "title": "NGINX exporter",
   "uid": "MsjffzSZz",
   "version": 1
+}
