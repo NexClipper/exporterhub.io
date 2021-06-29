@@ -15,7 +15,9 @@ const Permission = () => {
   const [userArr, setUserArr] = useState();
   const [alertModal, setAlertModal] = useState(false);
   const [isAdminAddModalActive, setIsAdminAddModalActive] = useState(false);
-  const [isAdminDeleteModalActive, setIsAdminDeleteModalActive] = useState(false);
+  const [isAdminDeleteModalActive, setIsAdminDeleteModalActive] = useState(
+    false
+  );
   const [selectedAdmin, setSelectedAdmiin] = useState();
   const token = sessionStorage.getItem("access_token");
   const changeTheme = useSelector((store) => store.darkThemeReducer);
