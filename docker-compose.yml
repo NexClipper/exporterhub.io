@@ -1,7 +1,7 @@
 version: "3.1"
 services:
   expoterhub:
-    image: nexclipper/exporterhub:release-fe0.3.10
+    image: nexclipper/exporterhub:release-fe0.3.11
     ports:
       - "${SERVICE_PORT}:3000"
     environment:
