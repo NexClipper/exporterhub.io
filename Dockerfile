@@ -2,7 +2,7 @@
 FROM node:12.18.3
 
 ## It is just Label when it has build automation.
-LABEL version=release-fe0.3.2
+LABEL version=release-fe0.3.11
 
 ## OS command for create a directory
 RUN mkdir /data
