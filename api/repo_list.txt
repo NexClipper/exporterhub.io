@@ -35,3 +35,4 @@
 "https://github.com/prometheus/client_ruby",
 "https://github.com/prometheus/pushgateway",
 "https://github.com/kubecost/cost-model",
+"https://github.com/go-gywn/query-exporter",
