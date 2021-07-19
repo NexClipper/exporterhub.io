@@ -1,3 +1,12 @@
+---
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: {{ include "openstack-exporter.fullname" . }}
+  namespace: {{ .Release.Namespace }}
+  labels:
+{{ include "openstack-exporter.labels" . | indent 4 }}
+spec:
   groups:
   - name: cinder
     rules:

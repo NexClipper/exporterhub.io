@@ -1,0 +1,40 @@
+---
+# Choose endpoint type (this will override the value of clouds.yaml)
+endpoint_type: internal
+cloud: default
+
+image:
+  repository: quay.io/niedbalski/openstack-exporter-linux-amd64
+  tag: v1.2.0
+  pullPolicy: Always
+
+# For PrometheusRule
+serviceMonitor:
+  interval: 1m
+  scrapeTimeout: 30s
+
+# Add extra args to the exporter.
+# Doc: https://github.com/openstack-exporter/openstack-exporter#command-line-options
+#extraArgs:
+#  - --disable-service.baremetal
+#  - --disable-service.container-infra
+#  - --disable-service.object-store
+
+# Add extra labels
+#commonLabels:
+#  prometheus.io/monitor: "true"
+
+# Generate a secret for clouds.yaml
+# Doc: https://github.com/openstack-exporter/openstack-exporter#openstack-configuration
+clouds_yaml_config: |
+  clouds.yaml: |
+      clouds:
+        default:
+          region_name: your-region-here
+          auth:
+            username: your-user-here
+            password: your-password-here
+            project_name: your-project-here
+            project_domain_name: 'Default'
+            user_domain_name: 'Default'
+            auth_url: 'http://your-url-here:5000/v3'
