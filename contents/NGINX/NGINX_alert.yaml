@@ -1,5 +1,5 @@
 groups:
-- name: Nginx
+- name: Nginx ExporterHub
   rules:
   - alert: NginxInstanceDown
     expr: nginx_up{instance=~".*:9113"}

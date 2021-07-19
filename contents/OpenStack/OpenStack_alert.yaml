@@ -1,5 +1,5 @@
 groups:
-- name: OpenStackCinder
+- name: OpenStack Cinder ExporterHub
   rules:
   - alert: CinderAgentDown
     expr: |
@@ -51,7 +51,7 @@ groups:
         be cleaned up or removed in order to provide a consistent customer experience.
 
 
-- name: OpenStackNeutron
+- name: OpenStack Neutron ExporterHub
   rules:
   - alert: NeutronAgentDown
     expr: |
@@ -114,7 +114,7 @@ groups:
         impact the provisioning of new ports.
 
 
-- name: OpenStackNova
+- name: OpenStack Nova ExporterHub
   rules:
   - alert: NovaAgentDown
     expr: |

@@ -1,5 +1,5 @@
 groups:
-- name: MySQL
+- name: MySQL ExporterHub
   rules:
   - alert: MysqlDown
     expr: mysql_up == 0
