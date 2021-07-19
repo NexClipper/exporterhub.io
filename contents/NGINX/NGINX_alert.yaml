@@ -1,4 +1,5 @@
-groups:
+## For a single rule, you need to add "groups:" field.
+# groups: 
 - name: Nginx ExporterHub
   rules:
   - alert: NginxInstanceDown
