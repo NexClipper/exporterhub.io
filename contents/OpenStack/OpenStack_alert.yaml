@@ -1,5 +1,5 @@
   groups:
-  - name: cinder
+  - name: OpenStackCinder
     rules:
     - alert: CinderAgentDown
       expr: |
@@ -51,7 +51,7 @@
           be cleaned up or removed in order to provide a consistent customer experience.
 
 
-  - name: neutron
+  - name: OpenStackNeutron
     rules:
     - alert: NeutronAgentDown
       expr: |
@@ -114,7 +114,7 @@
           impact the provisioning of new ports.
 
 
-  - name: nova
+  - name: OpenStackNova
     rules:
     - alert: NovaAgentDown
       expr: |
