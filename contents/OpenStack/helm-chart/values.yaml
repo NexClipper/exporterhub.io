@@ -33,8 +33,8 @@ clouds_yaml_config: |
           auth:
             auth_url: http://192.168.5.31/identity
             username: "admin"
-            password: "secret"
-            project_id: 59f3b0c57bb34091bc35658320f447ae
+            password: "PASSWORD"
+            project_id: PROJECT_ID
             user_domain_name: "Default"
           region_name: "RegionOne"
           interface: "public"
