@@ -1,7 +1,7 @@
 ---
 # Choose endpoint type (this will override the value of clouds.yaml)
-endpoint_type: internal
-cloud: default
+endpoint_type: public
+cloud: openstack
 
 image:
   repository: quay.io/niedbalski/openstack-exporter-linux-amd64
@@ -15,7 +15,7 @@ serviceMonitor:
 
 # Add extra args to the exporter.
 # Doc: https://github.com/openstack-exporter/openstack-exporter#command-line-options
-#extraArgs:
+extraArgs:
 #  - --disable-service.baremetal
 #  - --disable-service.container-infra
 #  - --disable-service.object-store
@@ -29,12 +29,13 @@ serviceMonitor:
 clouds_yaml_config: |
   clouds.yaml: |
       clouds:
-        default:
-          region_name: your-region-here
+        openstack:
           auth:
-            username: your-user-here
-            password: your-password-here
-            project_name: your-project-here
-            project_domain_name: 'Default'
-            user_domain_name: 'Default'
-            auth_url: 'http://your-url-here:5000/v3'
+            auth_url: http://192.168.5.31/identity
+            username: "admin"
+            password: "secret"
+            project_id: 59f3b0c57bb34091bc35658320f447ae
+            user_domain_name: "Default"
+          region_name: "RegionOne"
+          interface: "public"
+          identity_api_version: 3
