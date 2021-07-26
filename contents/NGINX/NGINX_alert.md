@@ -1,7 +1,7 @@
 ## NginxInstanceDown
 ```
   - alert: NginxInstanceDown
-    expr: nginx_up{instance=~".*:9113"}
+    expr: nginx_up{instance=~".*:9113"} == 0
     for: 1m
     labels:
       severity: critical
