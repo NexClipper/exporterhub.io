@@ -36,3 +36,4 @@
 "https://github.com/prometheus/pushgateway",
 "https://github.com/kubecost/cost-model",
 "https://github.com/go-gywn/query-exporter",
+"https://github.com/ralfyang/Zinst",
