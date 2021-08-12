@@ -63,7 +63,7 @@ const ContentMenu = ({ totaCount }) => {
       </SelectBox>
       {isAdmin && (
         <Button dark={changeTheme} onClick={() => setIsModalActive(true)}>
-          <span>RESISTER</span>
+          <span>REGISTER</span>
         </Button>
       )}
       {isModalActive && <RegisterModal cancleModal={cancleModal} />}
