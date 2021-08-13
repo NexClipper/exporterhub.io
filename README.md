@@ -82,7 +82,7 @@ Prometheus를 지원하고 용이하게 하기 위해, ExporterHub.io는 모니�
 <br> Please join us!: https://app.slack.com/client/TC3DP3HPG/C01RTA59G66
 
 ## Service Map
-![servicemap](https://raw.githubusercontent.com/NexClipper/exporterhub.io/master/assets/exporterhub_v3.png)
+![servicemap](https://raw.githubusercontent.com/NexClipper/exporterhub.io/master/assets/exporterhub_v4.png)
 
 
 
