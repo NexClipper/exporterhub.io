@@ -26,9 +26,9 @@
 ## Definition of [ExporterHub.io](https://exporterhub.io/)
 
 
-### ExporterHub.io는 Prometheus Exporters 커뮤니티를 위한 응용 프로그램입니다.
-ExporterHub.io는 단순히 선별된 목록이 아니라 내보내기 설치 가이드, 경고 규칙 구성 및 대시보드 구성을 제공합니다. 
-각 Exporter의 페이지에는 다음이 포함됩니다.:
+### ExporterHub.io is an application for the Prometheus Exporters community.
+ExporterHub.io is not just a curated list, but also provides exporter installation guide, alert rule configuration, and dashboard configuration.
+Each exporter's page contains the followings:
 * Official GitHub (Origin Repository)
 * Resource (Install, Exported Metrics)
 * Alert-rule (Recommended)
@@ -37,33 +37,33 @@ ExporterHub.io는 단순히 선별된 목록이 아니라 내보내기 설치 �
 * Fork to bucket (linked to personal Github Repository)
 * Edit Dashboard and Alert-rule by Admin
 
-ExporterHub.io는 복잡하고 폐쇄적인 네트워크 보안 설정이 있는 엔터프라이즈 환경에서 Prometheus 모니터링 요구 사항을 지원하는 데 가장 적합한 exporter(s)를 권장합니다.
+ExporterHub.io recommends the best-fit exporter(s) to support Prometheus monitoring needs in enterprise environments with complex and closed network security settings.
 
-Prometheus를 지원하고 용이하게 하기 위해, ExporterHub.io는 모니터링 중인 특정 시스템 및 서비스의 메트릭 데이터를 노출하는 데 사용할 수 있는 가장 적합한 exporter(s)를 검색하고 권장합니다.
-### 다른 애플리케이션에 비해 차별화된 Exporterhub.io 의 특징:
+To help and ease you with best-practice Prometheus, ExporterHub.io discovers and recommends the best-fit exporter(s) available to expose metrics data from your specific systems and services being monitored.
+### The features that distinguish Exporterhub.io from other applications are:
 
 
 
 <!--lint disable no-undefined-references-->
-* [x] 설치 안내서, 메트릭 수집 플래그, 권장 경고 규칙
-* [x] 카드 스타일 GitHub 페이지
-* [x] 관리자 권한(Github의 조직에 연결)
-* [x] exporters 등록, 대시보드 편집 및 관리자에 의한 알림(Github organization 저장소에 연결)
-* [x] 간단한 exporters 검색
-* [x] 개인화(Github 개인 저장소에 연결된 exporter fork/delete)
-* [ ] NexClipper 클라우드 통합(coming soon)
-  * [ ] 자동으로 exporters 설치
-  * [ ] 경고 규칙 생성 
-  * [ ] 최적의 exporters 추천
+* [x] Installation Guide, Metric Collection Flags, Recommended Alert-rule
+* [x] Card Style GitHub Page
+* [x] Admin Authorizaion(linked to organization of Github)
+* [x] Register exporters, edit Dashboard and Alert by Admin(linked to Github organization Repository)
+* [x] Easy search of Exporters
+* [x] Personalization(fork/delete the exporter linked to Github personal Repository)
+* [ ] NexClipper Cloud Integration (coming soon)
+  * [ ] Install exporters automatically
+  * [ ] Generate Alert Rules
+  * [ ] Recommend best-fit exporter(s)
 * [ ] Dev's Choice(coming soon)
-  * [ ] 내 버킷 공유
-  * [ ] 검색 창
+  * [ ] Share my bucket
+  * [ ] Search bar
 
 ## Demo Video
-* 전체 예제 및 가이드를 보려면 이미지를 클릭하세요.:  
+* Image click to Youtube for the full examples and guides:  
   [![Demo](https://raw.githubusercontent.com/NexClipper/exporterhub.io/master/assets/demo_01.png)](https://youtu.be/wa4dknZk7Kk)
 
-## 개인 환경용 Exporterhub 설치 방법
+## How to install the Exporterhub for private environment
 * [Install guide](./install_guide.md)
 
 ## References
@@ -75,10 +75,9 @@ Prometheus를 지원하고 용이하게 하기 위해, ExporterHub.io는 모니�
 * [Github Documentation](https://docs.github.com/en)
 
 ## Contribute
-기여를 환영합니다!
-[ExporterHub.io](https://exporterhub.io/) 에 기여할 특정 exporter가 있는 경우,
-자유롭게 [send issues](https://github.com/NexClipper/exporterhub.io/issues)를 보내거나
-[pull requests](https://github.com/NexClipper/exporterhub.io/pulls)를 보내주세요. 
+Contributions are welcome!
+If you have Specific exporter to contribute to [ExporterHub.io](https://exporterhub.io/), 
+feel free to [send issues](https://github.com/NexClipper/exporterhub.io/issues) or [pull requests](https://github.com/NexClipper/exporterhub.io/pulls).
 <br> Please join us!: https://app.slack.com/client/TC3DP3HPG/C01RTA59G66
 
 ## Service Map
