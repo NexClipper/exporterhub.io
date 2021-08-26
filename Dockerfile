@@ -1,42 +1,29 @@
-## Base image gets
-FROM node:12.18.3
+FROM node:lts-alpine as builder
 
-## It is just Label when it has build automation.
-LABEL version=release-fe0.3.11
+LABEL version=release-fe0.3.12
 
-## OS command for create a directory
-RUN mkdir /data
-
-## Define a base directory when it runs.
 WORKDIR /data
 
-## File & Directory copy to WORKDIR
-COPY ./package.json  /data
-COPY ./src  /data/src
-COPY ./public /data/public
-COPY ./entrypoint.sh  /data
-COPY ./dotenv  /data/.env
-COPY ./.eslintrc.json /data
-COPY ./.prettierrc.json /data
+ARG NODE_ENV
+ENV NODE_ENV=${NODE_ENV}
+ENV TSC_COMPILE_ON_ERROR true
+
+COPY ./ /data
+
+RUN yarn set version berry
+RUN yarn install
+RUN yarn build
 
 
-## Build of node runs
-RUN npm i -s dotenv
-RUN npm install
+FROM nginx:alpine
 
-## For test run
-##ENTRYPOINT ["tail","-f","/data/package.json"]
+WORKDIR /usr/share/nginx/html
+RUN rm -rf /etc/nginx/conf.d
 
-## You can define the environment variable if you have some configurations.
-## For example, if you have seperated database server, you can make a configuration as below.
-#ENV MYSQL_SERVER "mysql.test.com"
+COPY --from=builder /data/build /usr/share/nginx/html
+COPY ./nginx.conf /etc/nginx/conf.d/default.conf
+
 ENV SERVICE_PUBLIC "n"
-## Make sure the port number for service expose
-EXPOSE  3000
 
-## ENTRYPOINT will be runs at the end of container attached
-ENTRYPOINT /data/entrypoint.sh
-
-
-
-
+EXPOSE 3000
+ENTRYPOINT ["nginx", "-g", "daemon off;"]

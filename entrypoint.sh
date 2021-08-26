@@ -1,2 +1,3 @@
 #!/bin/bash
-npm run start-production
+
+nginx -g 'daemon off;'

@@ -28,3 +28,13 @@ db_data
 
 Miniconda3-latest-Linux-x86_64.sh
 my_settings.py
+
+package-lock.json
+# not using zero-install
+.yarn/*
+!.yarn/patches
+!.yarn/releases
+!.yarn/plugins
+!.yarn/sdks
+!.yarn/versions
+.pnp.*

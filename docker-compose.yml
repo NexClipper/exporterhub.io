@@ -1,7 +1,7 @@
 version: "3.1"
 services:
   expoterhub:
-    image: nexclipper/exporterhub:release-fe0.3.11
+    image: nexclipper/exporterhub:release-fe0.3.12
     ports:
       - "${SERVICE_PORT}:3000"
     environment:
@@ -11,14 +11,15 @@ services:
       CLIENT_ID: ${CLIENT_ID}
       CLIENT_SECRETS: ${CLIENT_SECRETS}
       CALLBACK_URL: ${CALLBACK_URL}
+      NODE_ENV: "production"
     depends_on:
       - api
   maria_db:
     image: mariadb:10.4.17
-    command: 
+    command:
       - --default-authentication-plugin=mysql_native_password
       - --max-allowed-packet=268435456
-      - --character-set-server=utf8mb4 
+      - --character-set-server=utf8mb4
       - --collation-server=utf8mb4_general_ci
       - --skip-character-set-client-handshake
     restart: always
