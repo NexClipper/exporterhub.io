@@ -5,13 +5,12 @@ services:
     ports:
       - "${SERVICE_PORT}:3000"
     environment:
-      SERVICE_PUBLIC: "n"
       # You can add and modify below setup to './.env' file for externel configuration without security issue.
-      SERVICE_URL: ${REACT_APP_API_URL}
+      SERVICE_URL: ${SERVICE_URL}
+      API_SERVER: ${API_SERVER}
+      SERVICE_PUBLIC: "n"
       CLIENT_ID: ${CLIENT_ID}
       CLIENT_SECRETS: ${CLIENT_SECRETS}
-      CALLBACK_URL: ${CALLBACK_URL}
-      NODE_ENV: "production"
     depends_on:
       - api
   maria_db:
