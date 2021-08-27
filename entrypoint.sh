@@ -3,6 +3,9 @@
 ## Test stemping
 echo "$SERVICE_URL" > /usr/share/server_addr.txt
 echo "$API_SERVER" >> /usr/share/server_addr.txt
+echo "$SERVICE_PUBLIC" >> /usr/share/server_addr.txt
+echo "$CLIENT_ID" >> /usr/share/server_addr.txt
+echo "$CLIENT_SECRETS" >> /usr/share/server_addr.txt
 
 sed -i "s#%%CHGSVRURL%%#$SERVICE_URL#g" /usr/share/nginx/html/static/js/*.js
 sed -i "s#%%CHGAPISVR%%#$API_SERVER#g" /usr/share/nginx/html/static/js/*.js

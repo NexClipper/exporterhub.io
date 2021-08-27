@@ -1,11 +1,12 @@
 version: "3.1"
 services:
   expoterhub:
-    image: nexclipper/exporterhub:release-fe0.3.12
+    image: nexclipper/exporterhub:release-fe0.3.13
     ports:
       - "${SERVICE_PORT}:3000"
     environment:
-      # You can add and modify below setup to './.env' file for externel configuration without security issue. src/config.js .env.production
+      # You can add and modify below setup to './.env' file for externel configuration without security issue.
+      # and you can check src/config.js .env.production entrypoint.sh
       SERVICE_URL: ${SERVICE_URL}
       API_SERVER: ${API_SERVER}
       SERVICE_PUBLIC: "n"
@@ -61,7 +62,6 @@ services:
       DB_PASSWORD: secret
       DB_HOST: maria_db
       DB_PORT: "3306"
-
       APP_STAT: "server"
       # You can add and modify below setup to './.env' file for externel configuration without security issue.
       ORGANIZATION: ${ORGANIZATION}
