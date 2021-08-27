@@ -10,9 +10,6 @@ ARG NODE_ENV
 ENV NODE_ENV=production
 ENV TSC_COMPILE_ON_ERROR true
 
-ENV CLIENT_ID=
-ENV CLIENT_SECRETS=
-
 COPY ./ /data
 
 RUN yarn set version berry

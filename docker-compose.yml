@@ -5,7 +5,7 @@ services:
     ports:
       - "${SERVICE_PORT}:3000"
     environment:
-      # You can add and modify below setup to './.env' file for externel configuration without security issue.
+      # You can add and modify below setup to './.env' file for externel configuration without security issue. src/config.js .env.production
       SERVICE_URL: ${SERVICE_URL}
       API_SERVER: ${API_SERVER}
       SERVICE_PUBLIC: "n"
