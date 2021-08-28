@@ -6,7 +6,6 @@ import csv
 
 from django.views           import View
 from django.http            import JsonResponse
-from django.core.exceptions import ObjectDoesNotExist
 from django.db.models       import Q, Max
 from django.utils           import timezone
 from django.conf            import settings

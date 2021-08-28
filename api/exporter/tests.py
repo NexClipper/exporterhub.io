@@ -1,5 +1,3 @@
-import json
-
 from django.test import TestCase, Client
 
 from .models import Category, Official, Exporter, Release

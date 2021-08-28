@@ -2,13 +2,10 @@ import json
 import jwt
 import requests
 import re
-import base64
 
 from django.views            import View
 from django.http             import JsonResponse
-from django.db.models        import Q
 from django.conf             import settings
-from django.core.exceptions  import ObjectDoesNotExist
 
 from .models                 import User, UserType, Bucket 
 from exporter.models         import Exporter

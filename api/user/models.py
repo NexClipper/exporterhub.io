@@ -1,5 +1,4 @@
 from django.db       import models
-from exporter.models import Exporter
 
 class UserType(models.Model):
     id   = models.IntegerField(primary_key=True)

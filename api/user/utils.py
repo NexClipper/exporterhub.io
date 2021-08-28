@@ -1,5 +1,4 @@
 import jwt
-import json
 
 from django.http import JsonResponse
 from django.conf import settings
