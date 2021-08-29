@@ -31,6 +31,7 @@ class CategoryView(View):
         }
         return JsonResponse(data, status=200)
 
+
 class ExporterView(View):
     def get_repo(self, github_token, repo_url):
         headers     = {'Authorization' : 'token ' + github_token} 
@@ -65,6 +66,30 @@ class ExporterView(View):
 
             elif repo.status_code == 401:
                 return 'INVALID_TOKEN'
+    
+    def get_exp_contents(self, user):
+        github_token = user.github_token if user else Token.objects.last().token
+        headers      = {'Authorization' : 'token ' + github_token}
+        repo         = f"{settings.ORGANIZATION}/exporterhub.io"
+        exp_lst      = requests.get(f"https://api.github.com/repos/{repo}/contents/contents/", headers=headers)
+        git_exp_list = exp_lst.json()
+
+        content_type = { 'helm' : 'I', 'alert' : 'A', 'dashboard' : 'G' }
+        exporter_content = {}
+        
+        for exp in git_exp_list:
+            app_name = exp['name']
+            if app_name != 'README.md':
+                exporter_content[app_name] = {'E' : True, 'I' : False, 'A' : False, 'G' : False}
+                response = requests.get(exp["git_url"], headers=headers)
+                exp_data = response.json()
+                
+                for exp in exp_data['tree'][::2]:
+                    content = exp['path'].split("_")[-1].split(".")[0].strip()
+                    if content in content_type:
+                        exporter_content[app_name][content] = True
+        
+        return exporter_content
 
     @login_check
     def get(self, request):
@@ -78,7 +103,8 @@ class ExporterView(View):
                 'recent'  : 'date', 
                 'trending': '-view_count'
             }
-            
+            exporter_content = self.get_exp_contents(user=user)
+
             q = Q()
             if category:
                 q.add(Q(category__name__icontains=category), Q.AND)
@@ -96,6 +122,8 @@ class ExporterView(View):
                 "exporters": [{
                     "exporter_id"    : exporter.id,
                     "name"           : exporter.name,
+                    "contents"       : exporter_content[exporter.app_name] \
+                        if exporter.app_name in exporter_content else {'E' : True, 'I' : False, 'A' : False, 'G' : False},
                     "logo_url"       : exporter.logo_url,
                     "category"       : exporter.category.name,
                     "official"       : exporter.official.name,
@@ -106,7 +134,8 @@ class ExporterView(View):
                     "repository_url" : exporter.repository_url,
                     "description"    : exporter.description,   
                 }for exporter in exporters]
-            }
+            }      
+
             return JsonResponse(data, status=200)
 
         except KeyError:
@@ -333,6 +362,7 @@ class ExporterTabView(View):
             headers      = {'Authorization' : 'token ' + github_token}
 
             content_type = request.GET['type']
+            
             file_type    = {
                 'dashboard' : 'json',
                 'helm'      : 'yaml',
@@ -348,7 +378,6 @@ class ExporterTabView(View):
             code_file_sha   = code_file_info['sha']
             md_file_sha     = md_file_info['sha']
             md_file_content = base64.b64decode(md_file_info['content']).decode('utf-8') if md_file_info['content'] else None
-
             data = {
                 'code_sha'   : code_file_sha,
                 'md_sha'     : md_file_sha,
@@ -418,4 +447,3 @@ class ExporterTabView(View):
 
         except KeyError:
             return JsonResponse({'message': 'KEY_ERROR'}, status=400)
-            
