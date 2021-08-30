@@ -1,10 +1,14 @@
 import React from "react";
 import { withRouter } from "react-router-dom";
+import Status from "./Status";
+
 import styled from "styled-components";
 import { AiFillStar } from "react-icons/ai";
 import { RiDeleteBinLine } from "react-icons/ri";
+
 import { useDispatch, useSelector } from "react-redux";
 import { targetUnforkRepo } from "../../store/actions/exporterActions";
+
 const CardExporter = ({
   exporter,
   cardClick,
@@ -15,6 +19,7 @@ const CardExporter = ({
   const {
     exporter_id,
     name,
+    contents,
     description,
     stars,
     logo_url,
@@ -29,6 +34,7 @@ const CardExporter = ({
     setIsForkModalActive(true);
     dispatch(targetUnforkRepo(id));
   };
+
   return (
     <Div
       dark={changeTheme}
@@ -37,19 +43,20 @@ const CardExporter = ({
       mybucket={mybucket}
     >
       <header>
-        {is_new && <New dark={changeTheme}>NEW</New>}
+        {/* {is_new && <New dark={changeTheme}>NEW</New>} */}
+        <Status contents={contents} dark={changeTheme} />
         <span>
           <Icon>
             <AiFillStar />
           </Icon>
           {stars}
         </span>
-        {/* <span>★{stars}</span> */}
       </header>
       <Article>
         <div>
           <img src={logo_url} alt={name} />
         </div>
+
         <Section dark={changeTheme}>
           <span>{name}</span>
           <div>
@@ -116,13 +123,14 @@ const Div = styled.div`
     }
   }
 `;
-const New = styled.p`
-  float: left;
-  padding: 2px 5px;
-  background-color: #6ac4a5;
-  border-radius: 4px;
-  color: ${(props) => (props.dark ? "#242526" : "white")};
-`;
+// const New = styled.p`
+//   float: left;
+//   padding: 2px 5px;
+//   background-color: #6ac4a5;
+//   border-radius: 4px;
+//   color: ${(props) => (props.dark ? "#242526" : "white")};
+// `;
+
 const Article = styled.article`
   @media ${({ theme }) => theme.media.mobile} {
     display: flex;
