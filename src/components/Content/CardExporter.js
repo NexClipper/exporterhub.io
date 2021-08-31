@@ -43,8 +43,7 @@ const CardExporter = ({
       mybucket={mybucket}
     >
       <header>
-        {/* {is_new && <New dark={changeTheme}>NEW</New>} */}
-        <Status contents={contents} dark={changeTheme} />
+        {is_new && <New dark={changeTheme}>NEW</New>}
         <span>
           <Icon>
             <AiFillStar />
@@ -58,11 +57,14 @@ const CardExporter = ({
         </div>
 
         <Section dark={changeTheme}>
-          <span>{name}</span>
-          <div>
+          <Title dark={changeTheme}>
+            <h4>{name}</h4>
+            <Status contents={contents} dark={changeTheme} />
+          </Title>
+          <Type>
             <span>{official}</span>
             <span>{category}</span>
-          </div>
+          </Type>
           <p>{description}</p>
         </Section>
       </Article>
@@ -92,7 +94,7 @@ const Div = styled.div`
   &:nth-child(4n) {
     margin-right: ${(props) => props.mybucket && "0"};
   }
-  margin-bottom: 20px;
+  margin-bottom: 12px;
   border-radius: 5px;
   box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
   cursor: pointer;
@@ -116,6 +118,7 @@ const Div = styled.div`
     text-align: end;
     padding: 20px 0;
     span {
+      line-height: 1.3em;
       color: ${(props) => (props.dark ? "#f5f6f7" : "#000000")};
     }
     @media ${({ theme }) => theme.media.mobile} {
@@ -123,13 +126,13 @@ const Div = styled.div`
     }
   }
 `;
-// const New = styled.p`
-//   float: left;
-//   padding: 2px 5px;
-//   background-color: #6ac4a5;
-//   border-radius: 4px;
-//   color: ${(props) => (props.dark ? "#242526" : "white")};
-// `;
+const New = styled.p`
+  float: left;
+  padding: 2px 5px;
+  background-color: #6ac4a5;
+  border-radius: 4px;
+  color: ${(props) => (props.dark ? "#242526" : "white")};
+`;
 
 const Article = styled.article`
   @media ${({ theme }) => theme.media.mobile} {
@@ -139,9 +142,9 @@ const Article = styled.article`
   div {
     text-align: center;
     img {
-      width: 100px;
-      height: 100px;
-      margin-bottom: 35px;
+      width: 90px;
+      height: 90px;
+      margin-bottom: 30px;
       @media ${({ theme }) => theme.media.mobile} {
         width: 50px;
         height: 50px;
@@ -160,13 +163,12 @@ const Section = styled.section`
   span {
     font-size: 16px;
     font-weight: bold;
-    margin-bottom: 10px;
     text-align: center;
     color: ${(props) => (props.dark ? "#f5f6f7" : "#000000")};
   }
   div {
     color: gray;
-    margin-bottom: 20px;
+    margin-bottom: 15px;
     span {
       &:first-child {
         margin-right: 20px;
@@ -178,19 +180,36 @@ const Section = styled.section`
   p {
     display: -webkit-box;
     text-align: center;
-    font-size: 14px;
+    font-size: 12px;
     white-space: normal;
     line-height: 1.2;
-    height: 2.4em;
+    height: 2.35em;
     word-wrap: break-word;
     overflow: hidden;
-    color: ${(props) => (props.dark ? "#f5f6f7" : "#000000")};
+    color: ${(props) => (props.dark ? "#e0e0e0" : "#696969")};
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
     @media ${({ theme }) => theme.media.mobile} {
       display: none;
     }
   }
+`;
+
+const Title = styled.div`
+  margin-top: auto;
+  margin-bottom: auto;
+  text-align: center;
+
+  h4 {
+    display: block;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    color: ${(props) => (props.dark ? "#f5f6f7" : "#000000")};
+  }
+`;
+
+const Type = styled.div`
+  margin: auto;
 `;
 const Icon = styled.span`
   vertical-align: middle;

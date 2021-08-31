@@ -3,13 +3,15 @@ import React from "react";
 import styled from "styled-components";
 
 const StatusExporter = ({ dark, contents }) => {
-  const { E, I, helm, A, alert, G, dashboard } = contents;
+  const { I, helm, A, alert, G, dashboard } = contents;
   return (
     <Wrapper dark={dark}>
-      <Status title="Exporter(Hands on)" name="E" isActive={E}>
-        E
-      </Status>
-      <Status title="Exporter(IaC)" name="I" isActive={I || helm}>
+      <Status
+        title="IaC(Infra as Code)"
+        name="I"
+        dark={dark}
+        isActive={I || helm}
+      >
         I
       </Status>
       <Status title="Alert rule" name="A" isActive={A || alert}>
@@ -23,16 +25,17 @@ const StatusExporter = ({ dark, contents }) => {
 };
 
 const palette = {
-  E: "#FA26A0",
-  I: "#0000FF",
-  A: "#F51720",
-  G: "#F8D210",
+  I: ["#00ffff", "#3300ff"],
+  A: ["#F51720", "#F51720"],
+  G: ["#daa520", "#ffc107"],
 };
 
 const Wrapper = styled.ul`
-  float: left;
   display: flex;
   width: 50px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 15px;
   color: ${(props) => (props.dark ? "#9a9a9a" : "#c0c0c0")};
   font-size: 14.5px;
   justify-content: space-around;
@@ -40,8 +43,10 @@ const Wrapper = styled.ul`
 const Status = styled.li`
   width: 14px;
   text-align: center;
-  color: ${(props) => props.isActive && palette[props.name]};
-  font-weight: ${(props) => props.isActive && "bold"};
+  font-weight: ${(props) => props.isActive && "bolder"};
+  color: ${(props) =>
+    props.isActive &&
+    (props.dark ? palette[props.name][0] : palette[props.name][1])};
 `;
 
 export default StatusExporter;
