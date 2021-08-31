@@ -19,14 +19,14 @@ const OpenSourceInfo = ({
   const [alertModal, setAlertModal] = useState(false);
   const [alertMsg, setAlertMsg] = useState();
   const changeTheme = useSelector((store) => store.darkThemeReducer);
-  const addToFork = (exporterInfo) => {
+  const addToFork = async (exporterInfo) => {
     if (!TOKEN) {
       setAlertMsg("You need to Sign in");
       showAlertModal();
       return;
     }
     if (!forkState) {
-      axios({
+    await axios({
         method: "POST",
         url: `${BUCKET_API}`,
         headers: {
