@@ -13,6 +13,11 @@
    * https://github.com/settings/tokens/new
 ![Token Generator](https://raw.githubusercontent.com/NexClipper/exporterhub.io/master/assets/create_a_token_first_N.png)
 
+```
+# setup the .env file 1st before docker-compose up
+docker-compose up
+```
+
 ### ※ Github env settings below must be done under   _<u>organization account settings</u>_, not in personal.
 
 ### 1. Create organization
