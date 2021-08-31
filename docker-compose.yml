@@ -1,24 +1,25 @@
 version: "3.1"
 services:
   expoterhub:
-    image: nexclipper/exporterhub:release-fe0.3.11
+    image: nexclipper/exporterhub:release-fe0.3.13
     ports:
       - "${SERVICE_PORT}:3000"
     environment:
-      SERVICE_PUBLIC: "n"
       # You can add and modify below setup to './.env' file for externel configuration without security issue.
-      SERVICE_URL: ${REACT_APP_API_URL}
+      # and you can check src/config.js .env.production entrypoint.sh
+      SERVICE_URL: ${SERVICE_URL}
+      API_SERVER: ${API_SERVER}
+      SERVICE_PUBLIC: "n"
       CLIENT_ID: ${CLIENT_ID}
       CLIENT_SECRETS: ${CLIENT_SECRETS}
-      CALLBACK_URL: ${CALLBACK_URL}
     depends_on:
       - api
   maria_db:
     image: mariadb:10.4.17
-    command: 
+    command:
       - --default-authentication-plugin=mysql_native_password
       - --max-allowed-packet=268435456
-      - --character-set-server=utf8mb4 
+      - --character-set-server=utf8mb4
       - --collation-server=utf8mb4_general_ci
       - --skip-character-set-client-handshake
     restart: always
@@ -61,7 +62,6 @@ services:
       DB_PASSWORD: secret
       DB_HOST: maria_db
       DB_PORT: "3306"
-
       APP_STAT: "server"
       # You can add and modify below setup to './.env' file for externel configuration without security issue.
       ORGANIZATION: ${ORGANIZATION}
