@@ -47,7 +47,7 @@ To help and ease you with best-practice Prometheus, ExporterHub.io discovers and
 <!--lint disable no-undefined-references-->
 * [x] Installation Guide, Metric Collection Flags, Recommended Alert-rule
 * [x] Card Style GitHub Page
-* [x] Admin Authorizaion(linked to organization of Github)
+* [x] Admin Authorization(linked to organization of Github)
 * [x] Register exporters, edit Dashboard and Alert by Admin(linked to Github organization Repository)
 * [x] Easy search of Exporters
 * [x] Personalization(fork/delete the exporter linked to Github personal Repository)
