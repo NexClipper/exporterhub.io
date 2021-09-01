@@ -73,20 +73,22 @@ api_tag="release-api0.3.4"
 
 
 ### 7. Or, Run for external network
-* If you want to run the server in external server or instance, please make sure to input `SERVICE_URL` and `CALLBACK_URL` as same as below
+* If you want to run the server in external server or instance, please make sure to input `SERVICE_URL` as same as below
 ```      
+version: "3.1"
 services:
   expoterhub:
-    image: nexclipper/exporterhub:release-fe0.3.4
+    image: nexclipper/exporterhub:${front_tag}
     ports:
       - "${SERVICE_PORT}:3000"
     environment:
-       SERVICE_PUBLIC: "n"
-       # You can add and modify below setup to './.env' file for external configuration without security issue.
-       SERVICE_URL: ${REACT_APP_API_URL}
-       CLIENT_ID: ${CLIENT_ID}
-       CLIENT_SECRETS: ${CLIENT_SECRETS}
-       CALLBACK_URL: ${CALLBACK_URL}
+      # You can add and modify below setup to './.env' file for externel configuration without security issue.
+      # and you can check src/config.js .env.production entrypoint.sh
+      SERVICE_URL: ${SERVICE_URL}
+      API_SERVER: ${API_SERVER}
+      SERVICE_PUBLIC: "n"
+      CLIENT_ID: ${CLIENT_ID}
+      CLIENT_SECRETS: ${CLIENT_SECRETS}
 ```   
 * then, run the command `make run` at `./exporterhub.io` 
       
