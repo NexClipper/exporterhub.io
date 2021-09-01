@@ -64,11 +64,11 @@ api_tag="release-api0.3.4"
 
 
 ### 5. build image before running
-*  run the command `make build` at `/exporterhub.io` 
+*  run the command `make build` at `./exporterhub.io` 
 
 
 ### 6. Run by default(in localhost)
-*  run the command `make run` at `/exporterhub.io` 
+*  run the command `make run` at `./exporterhub.io` 
 ```
 
 
@@ -88,7 +88,7 @@ services:
        CLIENT_SECRETS: ${CLIENT_SECRETS}
        CALLBACK_URL: ${CALLBACK_URL}
 ```   
-* then, run the command `make run` at `/exporterhub.io` 
+* then, run the command `make run` at `./exporterhub.io` 
       
 ### 8. Initial Check & Set
 <!--lint disable awesome-list-item-->
