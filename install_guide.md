@@ -1,6 +1,3 @@
-
-  
-
 ## Diagram Overview
 <!--lint disable awesome-list-item-->
 * Image click to Youtube:
@@ -12,13 +9,6 @@
 * ___Create Token before the App runs as below.___
    * https://github.com/settings/tokens/new
 ![Token Generator](https://raw.githubusercontent.com/NexClipper/exporterhub.io/master/assets/create_a_token_first_N.png)
-
-```
-# setup the .env file 1st before docker-compose up
-git clone https://github.com/NexClipper/exporterhub.io.git
-cd exporterhub.io
-docker-compose up
-```
 
 ### ※ Github env settings below must be done under   _<u>organization account settings</u>_, not in personal.
 
@@ -68,8 +58,9 @@ CALLBACK_URL="NEED_TO_SET_UP"
 
 
 ### 6. Run by default(in localhost)
-
 *  run the command `make run` at `/exporterhub.io` 
+```
+
 
 ### 7. Or, Run for external network
 * If you want to run the server in external server or instance, please make sure to input `SERVICE_URL` and `CALLBACK_URL` as same as below
