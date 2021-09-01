@@ -38,16 +38,26 @@
 ### 4. Write docker-compose.yml accordingly.
 * ___"NEED_TO_SET_UP" parts are to be revised in   ```./.env```file, with the reference ```.env.SAMPLE``` file at ```/exporterhub.io```:___
 ```yml
-REACT_APP_API_URL="NEED_TO_SET_UP"
-REACT_APP_API_STATUS="y"
-SERVICE_PORT="NEED_TO_SET_UP"
+## Variables for Frontend(ReactJS) server
+SERVICE_URL="http://[YOUR SERVICE URL HERE WITH PORT NUMBER, IF YOU HAVE THE SPECIPIC PORT]"
 
-CLIENT_ID="NEED_TO_SET_UP"
-CLIENT_SECRETS="NEED_TO_SET_UP"
-SECRET_KEY="NEED_TO_SET_UP"
-ALGORITHM="NEED_TO_SET_UP"
-ORGANIZATION="NEED_TO_SET_UP"
-CALLBACK_URL="NEED_TO_SET_UP"
+### Port number check by docker-compose
+SERVICE_PORT="80"
+API_SERVER="http://[YOUR API SERVER URL HERE]:8000"
+CLIENT_ID="[NEED_TO_SET_UP]"
+CLIENT_SECRETS="[NEED_TO_SET_UP]"
+
+
+## Variables for API(Python) Server
+ORGANIZATION="Exporterhubv3"
+SECRET_KEY="[NEED_TO_SET_UP]"
+ALGORITHM="HS256"
+
+## Docker image name tag(It would be replaced automatically by Makefile)
+front_tag="release-fe0.3.14"
+api_tag="release-api0.3.4"
+
+
 ```
 * ___"NEED_TO_SET_UP" parts are to be linked to docker-compose.yml as below:___
 <img src="https://images.velog.io/images/dvkim202550/post/1033e78b-1800-4a01-9614-e24cc569b64f/image.png" width="300">
