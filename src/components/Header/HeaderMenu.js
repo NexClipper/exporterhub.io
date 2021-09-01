@@ -11,24 +11,26 @@ import {
   getLoginState,
   changeBucketPage,
   filterByUser,
+  changeDarkTheme,
 } from "../../store/actions/exporterActions";
+import Toggle from "react-toggle";
+import "./toggle.css";
 
 require("dotenv").config();
 const HeaderMenu = () => {
+  const changeTheme = useSelector((store) => store.darkThemeReducer);
+  const [theme, setTheme] = useState(false);
   const [isMenu, setIsMenu] = useState(false);
-
   const isLogin = useSelector((store) => store.loginReducer);
   const isAdmin = useSelector((store) => store.adminReducer);
-  const changeTheme = useSelector((store) => store.darkThemeReducer);
-
   const dispatch = useDispatch();
-
   const clientID = CLIENT_ID;
   const url = `https://github.com/login/oauth/authorize?client_id=${clientID}&redirect_uri=${CALLBACK_URL}&scope=user,repo,delete_repo,admin:org`;
   const {
     push,
     // location: { pathname },
   } = useHistory();
+  // console.log(PUBLIC_SERVICE);
 
   const handleSignOut = () => {
     dispatch(getLoginState(false));
@@ -48,6 +50,15 @@ const HeaderMenu = () => {
       push("/mybucket");
     }
   };
+  const handleDarkTheme = () => {
+    if (changeTheme) {
+      localStorage.setItem("theme", "light");
+      dispatch(changeDarkTheme(false));
+    } else {
+      localStorage.setItem("theme", "dark");
+      dispatch(changeDarkTheme(true));
+    }
+  };
 
   const handleMenu = () => {
     setIsMenu(!isMenu);
@@ -55,6 +66,21 @@ const HeaderMenu = () => {
 
   return (
     <Div>
+      <ModeChanger>
+        <Toggle
+          defaultChecked={changeTheme}
+          // icons={{
+          //   checked: "🌜",
+          //   unchecked: "🌞",
+          // }}
+          icons={{
+            checked: "",
+            unchecked: "",
+          }}
+          onChange={() => handleDarkTheme()}
+          checked={changeTheme}
+        />
+      </ModeChanger>
       <MobileMenu onClick={() => handleMenu()} active={isMenu}>
         <GiHamburgerMenu />
       </MobileMenu>
@@ -108,6 +134,14 @@ const MenuWrapper = styled.div`
     top: 80px;
     background-color: ${(props) => (props.dark ? "#242526" : "#ffffff")};
     margin-right: 10px;
+  }
+`;
+
+const ModeChanger = styled.label`
+  @media ${({ theme }) => theme.media.mobile} {
+    position: absolute;
+    top: 27px;
+    right: 70px;
   }
 `;
 
