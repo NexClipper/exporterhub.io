@@ -1,0 +1,59 @@
+version: "3.1"
+services:
+  maria_db:
+    image: mariadb:10.4.17
+    command:
+      - --default-authentication-plugin=mysql_native_password
+      - --max-allowed-packet=268435456
+      - --character-set-server=utf8mb4
+      - --collation-server=utf8mb4_general_ci
+      - --skip-character-set-client-handshake
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: secret
+      MYSQL_DATABASE: exporterhub
+      MYSQL_USER: root
+      MYSQL_PASSWORD: secret
+    volumes:
+      - ./db_data:/var/lib/mysql/
+  scheduler:
+    image: nexclipper/exporterhub-api:${api_tag}
+    restart: always
+    env_file:
+      - ./.env
+    environment:
+      APP_DB_ENGINE: django.db.backends.mysql
+      DB_NAME: exporterhub
+      DB_USER: root
+      DB_PASSWORD: secret
+      DB_HOST: maria_db
+      DB_PORT: "3306"
+      APP_STAT: "scheduler"
+      # You can add and modify below setup to './.env' file for externel configuration without security issue.
+      SECRET_KEY: ${SECRET_KEY}
+    depends_on:
+      - maria_db
+      - api
+  api:
+    image: nexclipper/exporterhub-api:${api_tag}
+    restart: always
+    ports:
+      - "8000:8000"
+    env_file:
+      - ./.env
+    environment:
+      APP_DB_ENGINE: django.db.backends.mysql
+      DB_NAME: exporterhub
+      DB_USER: root
+      DB_PASSWORD: secret
+      DB_HOST: maria_db
+      DB_PORT: "3306"
+      APP_STAT: "server"
+      # You can add and modify below setup to './.env' file for externel configuration without security issue.
+      ORGANIZATION: ${ORGANIZATION}
+      SECRET_KEY: ${SECRET_KEY}
+      ALGORITHM: ${ALGORITHM}
+    depends_on:
+      - maria_db
+    volumes:
+      - ./api:/data
