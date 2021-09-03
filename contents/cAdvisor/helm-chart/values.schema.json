@@ -1,0 +1,152 @@
+{
+    "$schema": "http://json-schema.org/schema#",
+    "required": [
+        "image",
+        "service",
+        "ingress"
+    ],
+    "title": "template Chart JSON Schema",
+    "type": "object",
+    "properties": {
+        "image": {
+            "$id": "#/properties/image",
+            "type": "object",
+            "title": "Chart image object",
+            "description": "An explanation about the purpose of this instance.",
+            "required": [
+                "repository",
+                "pullPolicy",
+                "tag"
+            ],
+            "properties": {
+                "repository": {
+                    "$id": "#/properties/image/properties/repository",
+                    "default": "ghcr.io/linuxserver/template",
+                    "description": "An explanation about the purpose of this instance.",
+                    "title": "Image repository",
+                    "type": "string"
+                },
+                "pullPolicy": {
+                    "$id": "#/properties/image/properties/pullPolicy",
+                    "default": "IfNotPresent",
+                    "description": "An explanation about the purpose of this instance.",
+                    "title": "Image pull policy",
+                    "type": "string"
+                },
+                "tag": {
+                    "$id": "#/properties/image/properties/tag",
+                    "default": "",
+                    "description": "An explanation about the purpose of this instance.",
+                    "title": "Image tag",
+                    "type": "string"
+                }
+            }
+        },
+        "secret": {
+            "$id": "#/properties/secret",
+            "default": {},
+            "description": "An explanation about the purpose of this instance.",
+            "required": [],
+            "title": "Chart secret",
+            "type": "object"
+        },
+        "env": {
+            "$id": "#/properties/env",
+            "default": {},
+            "description": "An explanation about the purpose of this instance.",
+            "required": [],
+            "title": "Environmental variables",
+            "type": "object"
+        },
+        "service": {
+            "$id": "#/properties/service",
+            "description": "An explanation about the purpose of this instance.",
+            "required": [
+                "port"
+            ],
+            "title": "Service object",
+            "type": "object",
+            "properties": {
+                "port": {
+                    "$id": "#/properties/service/properties/port",
+                    "description": "An explanation about the purpose of this instance.",
+                    "required": [
+                        "port"
+                    ],
+                    "title": "Service port object",
+                    "type": "object",
+                    "properties": {
+                        "port": {
+                            "$id": "#/properties/service/properties/port/properties/port",
+                            "default": 8081,
+                            "description": "An explanation about the purpose of this instance.",
+                            "title": "Service port number",
+                            "type": "integer"
+                        }
+                    }
+                }
+            }
+        },
+        "ingress": {
+            "$id": "#/properties/ingress",
+            "description": "An explanation about the purpose of this instance.",
+            "required": [
+                "enabled"
+            ],
+            "title": "Ingress object",
+            "type": "object",
+            "properties": {
+                "enabled": {
+                    "$id": "#/properties/ingress/properties/enabled",
+                    "default": false,
+                    "description": "An explanation about the purpose of this instance.",
+                    "title": "Enable ingress",
+                    "type": "boolean"
+                }
+            }
+        },
+        "persistence": {
+            "$id": "#/properties/persistence",
+            "description": "An explanation about the purpose of this instance.",
+            "required": [],
+            "title": "Persistence object",
+            "type": "object",
+            "properties": {
+                "config": {
+                    "$id": "#/properties/persistence/properties/config",
+                    "type": "object",
+                    "title": "config PVC",
+                    "description": "An explanation about the purpose of this instance.",
+                    "required": [
+                        "enabled",
+                        "emptyDir",
+                        "mountPath"
+                    ],
+                    "properties": {
+                        "enabled": {
+                            "$id": "#/properties/persistence/properties/config/properties/enabled",
+                            "type": "boolean",
+                            "title": "Enable config PVC",
+                            "description": "An explanation about the purpose of this instance.",
+                            "default": false
+                        },
+                        "emptyDir": {
+                            "$id": "#/properties/persistence/properties/config/properties/emptyDir",
+                            "type": "boolean",
+                            "title": "config emptyDir",
+                            "description": "An explanation about the purpose of this instance.",
+                            "default": false
+                        },
+                        "mountPath": {
+                            "$id": "#/properties/persistence/properties/config/properties/mountPath",
+                            "default": "/config",
+                            "description": "An explanation about the purpose of this instance.",
+                            "title": "config mount path",
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
