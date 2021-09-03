@@ -1,19 +1,5 @@
 version: "3.1"
 services:
-  expoterhub:
-    image: nexclipper/exporterhub:${front_tag}
-    ports:
-      - "${SERVICE_PORT}:3000"
-    environment:
-      # You can add and modify below setup to './.env' file for externel configuration without security issue.
-      # and you can check src/config.js .env.production entrypoint.sh
-      SERVICE_URL: ${SERVICE_URL}
-      API_SERVER: ${API_SERVER}
-      SERVICE_PUBLIC: "n"
-      CLIENT_ID: ${CLIENT_ID}
-      CLIENT_SECRETS: ${CLIENT_SECRETS}
-    depends_on:
-      - api
   maria_db:
     image: mariadb:10.4.17
     command:
@@ -69,3 +55,5 @@ services:
       ALGORITHM: ${ALGORITHM}
     depends_on:
       - maria_db
+    volumes:
+      - ./api:/data
