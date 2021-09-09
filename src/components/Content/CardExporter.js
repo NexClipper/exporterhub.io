@@ -34,7 +34,6 @@ const CardExporter = ({
     setIsForkModalActive(true);
     dispatch(targetUnforkRepo(id));
   };
-  console.log(logo_url);
 
   return (
     <Div
@@ -71,7 +70,7 @@ const CardExporter = ({
           </SubTitle>
         </Section>
       </Article>
-      {!fork && (
+      {fork && (
         <Unfork onClick={(e) => unforkRepo(e, exporter_id)} className="unfork">
           <div>
             <RiDeleteBinLine />
@@ -85,7 +84,7 @@ const CardExporter = ({
 const Div = styled.div`
   position: relative;
   width: ${({ theme }) => theme.width.card}px;
-  height: 320px;
+  height: 330px;
   transition: 0.1s ease-in-out;
   background-color: ${(props) => (props.dark ? "#242526" : "#ffffff")};
   display: flex;
@@ -109,7 +108,7 @@ const Div = styled.div`
     display: block;
   }
   @media ${({ theme }) => theme.media.mobile} {
-    height: 130px;
+    height: 135px;
     width: 100%;
     align-items: flex-start;
     padding: 0 30px;
@@ -159,7 +158,7 @@ const Article = styled.article`
   }
 `;
 const Section = styled.section`
-  margin-top: -5px;
+  margin-top: -6px;
   display: block;
   align-items: center;
   @media ${({ theme }) => theme.media.mobile} {
@@ -207,14 +206,27 @@ const Title = styled.div`
   margin-bottom: auto;
   text-align: center;
   width: 100%;
+  line-height: normal;
   h4 {
     display: block;
     margin-bottom: 7px;
     white-space: nowrap;
     text-overflow: ellipsis;
     color: ${(props) => (props.dark ? "#f5f6f7" : "#000000")};
-    @media (min-width: 280px) and (max-width: 767px) {
-      float: left;
+    @media (min-width: 280px) and (max-width: 768px) {
+      margin-bottom: 10px;
+      text-align: left;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      width: 170px;
+    }
+    @media (max-width: 280px) {
+      text-align: left;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      width: 100px;
     }
   }
 `;
@@ -224,14 +236,22 @@ const SubTitle = styled.div`
     display: flex;
     flex-direction: column-reverse;
     width: 100%;
+    margin-top: -8px;
   }
 `;
 
 const Type = styled.div`
   margin: auto;
   @media ${({ theme }) => theme.media.mobile} {
-    margin-top: 3px;
+    text-align: left;
     margin-left: 0;
+  }
+  @media (max-width: 350px) {
+    text-align: left;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    width: 120px;
   }
 `;
 const Icon = styled.span`
