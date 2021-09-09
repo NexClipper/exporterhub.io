@@ -1,0 +1,96 @@
+#
+# IMPORTANT NOTE
+#
+# This chart inherits from our common library chart. You can check the default values/options here:
+# https://github.com/krakazyabra/microservices/tree/main/charts/common/values.yaml
+#
+controllerType: daemonset
+
+image:
+  repository: gcr.io/cadvisor/cadvisor
+  pullPolicy: IfNotPresent
+  tag: "v0.40.0"
+
+  ## Reference to one or more secrets to be used when pulling images
+  ## ref: https://kubernetes.io/docs/tasks/configure-pod-container/pull-image-private-registry/
+  ##
+  pullSecrets: []
+
+secret: {}
+# See more environment variables in the template documentation
+# https://template.org/docs
+
+env: {}
+# TZ: ""
+
+service:
+  port:
+    port: 8080
+ingress:
+  enabled: false
+  hosts:
+    - host: cadvisor.192.168.1.203.nip.io
+
+persistence:
+  config:
+    enabled: false
+    emptyDir: false
+    mountPath: /config
+
+args:
+  - --housekeeping_interval=10s                       # kubernetes default args
+  - --max_housekeeping_interval=15s
+  - --event_storage_event_limit=default=0
+  - --event_storage_age_limit=default=0
+  - --disable_metrics=percpu,process,sched,tcp,udp    # enable only diskIO, cpu, memory, network, disk
+  - --docker_only
+
+additional:
+  volumeMounts:
+    - name: rootfs
+      path: "/"
+      mount: "/rootfs"
+    - name: varrun
+      path: "/var/run"
+    - name: sys
+      path: "/sys"
+    - name: docker
+      path: "/var/lib/docker"
+    - name: disk
+      path: "/dev/disk"
+
+resources: {}
+  # We usually recommend not to specify default resources and to leave this as a conscious
+  # choice for the user. This also increases chances charts run on environments with little
+  # resources, such as Minikube. If you do want to specify resources, uncomment the following
+  # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
+  # limits:
+  #   cpu: 100m
+  #   memory: 128Mi
+  # requests:
+  #   cpu: 100m
+
+podAnnotations: {}
+
+hostNetwork: false
+
+serviceAccount:
+  # Specifies whether a service account should be created
+  create: true
+  # The name of the service account to use.
+  # If not set and create is true, a name is generated using the fullname template
+  name: cadvisor-sa
+
+nodeSelector: {}
+
+tolerations: []
+
+affinity: {}
+
+rbac:
+  rules:
+    - apiGroups: ['policy']
+      resources: ['podsecuritypolicies']
+      verbs:     ['use']
+      resourceNames:
+      - cadvisor
