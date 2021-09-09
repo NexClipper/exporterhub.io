@@ -36,9 +36,14 @@ const Wrapper = styled.ul`
   margin-left: auto;
   margin-right: auto;
   margin-top: 15px;
+  margin-bottom: 15px;
   color: ${(props) => (props.dark ? "#9a9a9a" : "#c0c0c0")};
   font-size: 14.5px;
   justify-content: space-around;
+  @media ${({ theme }) => theme.media.mobile} {
+    margin: -2.5px 0 0 -5px;
+    font-size: 13px;
+  }
 `;
 const Status = styled.li`
   width: 14px;

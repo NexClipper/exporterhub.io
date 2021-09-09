@@ -34,6 +34,7 @@ const CardExporter = ({
     setIsForkModalActive(true);
     dispatch(targetUnforkRepo(id));
   };
+  console.log(logo_url);
 
   return (
     <Div
@@ -59,16 +60,18 @@ const CardExporter = ({
         <Section dark={changeTheme}>
           <Title dark={changeTheme}>
             <h4>{name}</h4>
-            <Status contents={contents} dark={changeTheme} />
           </Title>
-          <Type>
-            <span>{official}</span>
-            <span>{category}</span>
-          </Type>
-          <p>{description}</p>
+          <SubTitle>
+            <Status contents={contents} dark={changeTheme} />
+            <Type>
+              <span>{official}</span>
+              <span>{category}</span>
+            </Type>
+            <p>{description}</p>
+          </SubTitle>
         </Section>
       </Article>
-      {fork && (
+      {!fork && (
         <Unfork onClick={(e) => unforkRepo(e, exporter_id)} className="unfork">
           <div>
             <RiDeleteBinLine />
@@ -106,7 +109,7 @@ const Div = styled.div`
     display: block;
   }
   @media ${({ theme }) => theme.media.mobile} {
-    height: 120px;
+    height: 130px;
     width: 100%;
     align-items: flex-start;
     padding: 0 30px;
@@ -122,7 +125,7 @@ const Div = styled.div`
       color: ${(props) => (props.dark ? "#f5f6f7" : "#000000")};
     }
     @media ${({ theme }) => theme.media.mobile} {
-      padding: 15px 0;
+      padding: 13px 0;
     }
   }
 `;
@@ -138,6 +141,7 @@ const Article = styled.article`
   @media ${({ theme }) => theme.media.mobile} {
     display: flex;
     flex-direction: row;
+    width: 100%;
   }
   div {
     text-align: center;
@@ -146,18 +150,21 @@ const Article = styled.article`
       height: 90px;
       margin-bottom: 30px;
       @media ${({ theme }) => theme.media.mobile} {
-        width: 50px;
-        height: 50px;
+        width: 60px;
+        height: 60px;
+        margin-left: -5px;
+        margin-top: 5px;
       }
     }
   }
 `;
 const Section = styled.section`
-  display: flex;
-  flex-direction: column;
+  margin-top: -5px;
+  display: block;
   align-items: center;
   @media ${({ theme }) => theme.media.mobile} {
-    margin-left: 20px;
+    width: 100%;
+    margin-left: 25px;
     align-items: flex-start;
   }
   span {
@@ -199,17 +206,33 @@ const Title = styled.div`
   margin-top: auto;
   margin-bottom: auto;
   text-align: center;
-
+  width: 100%;
   h4 {
     display: block;
+    margin-bottom: 7px;
     white-space: nowrap;
     text-overflow: ellipsis;
     color: ${(props) => (props.dark ? "#f5f6f7" : "#000000")};
+    @media (min-width: 280px) and (max-width: 767px) {
+      float: left;
+    }
+  }
+`;
+const SubTitle = styled.div`
+  display: block;
+  @media ${({ theme }) => theme.media.mobile} {
+    display: flex;
+    flex-direction: column-reverse;
+    width: 100%;
   }
 `;
 
 const Type = styled.div`
   margin: auto;
+  @media ${({ theme }) => theme.media.mobile} {
+    margin-top: 3px;
+    margin-left: 0;
+  }
 `;
 const Icon = styled.span`
   vertical-align: middle;
