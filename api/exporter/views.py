@@ -7,6 +7,7 @@ import csv
 from django.views           import View
 from django.http            import JsonResponse
 from django.core.exceptions import ObjectDoesNotExist
+from django.core.cache      import cache
 from django.db.models       import Q, Max
 from django.utils           import timezone
 from django.conf            import settings
@@ -66,31 +67,6 @@ class ExporterView(View):
             elif repo.status_code == 401:
                 return 'INVALID_TOKEN'
 
-    # Query the existence of contents of each exporter in Github API
-    def get_exp_contents(self, user):
-        github_token = user.github_token if user else Token.objects.last().token
-        headers      = {'Authorization' : 'token ' + github_token}
-        repo         = f"{settings.ORGANIZATION}/exporterhub.io"
-        exp_lst      = requests.get(f"https://api.github.com/repos/{repo}/contents/contents/", headers=headers)
-        git_exp_list = exp_lst.json()
-
-        content_type = { 'helm' : 'I', 'alert' : 'A', 'dashboard' : 'G' }
-        exporter_content = {}
-        
-        for exp in git_exp_list:
-            app_name = exp['name']
-            if app_name != 'README.md':
-                exporter_content[app_name] = {'I' : False, 'A' : False, 'G' : False}
-                response = requests.get(exp["git_url"], headers=headers)
-                exp_data = response.json()
-                
-                for exp in exp_data['tree'][::2]:
-                    content = exp['path'].split("_")[-1].split(".")[0].strip()
-                    if content in content_type:
-                        exporter_content[app_name][content_type[content]] = True
-
-        return exporter_content
-
     @login_check
     def get(self, request):
         try:
@@ -103,8 +79,8 @@ class ExporterView(View):
                 'recent'  : 'date', 
                 'trending': '-view_count'
             }
-            exporter_content = self.get_exp_contents(user=user)
-            
+            exporter_content = cache.get('exporter_content')
+
             q = Q()
             if category:
                 q.add(Q(category__name__icontains=category), Q.AND)
