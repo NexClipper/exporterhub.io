@@ -66,6 +66,11 @@ To help and ease you with best-practice Prometheus, ExporterHub.io discovers and
 ## How to install the Exporterhub for private environment
 * [Install guide](./install_guide.md)
 
+## How to contribute the project
+### Easy to Update a list of exporters by Pull Request as below
+* https://github.com/NexClipper/exporterhub.io/blob/main/api/exporter_list.csv
+
+
 ## References
 * [Official Exporters AND Integrations](https://prometheus.io/docs/instrumenting/exporters/)
 * [Awesome Prometheus alerts](https://awesome-prometheus-alerts.grep.to/)
