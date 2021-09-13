@@ -22,6 +22,7 @@ from exporter.models                  import Exporter, Release, Category, Offici
 from headtoken.models                 import Token
 
 
+
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.INFO)
 
@@ -183,29 +184,30 @@ def delete_old_job_executions(max_age=604_800):
     """This job deletes all apscheduler job executions older than `max_age` from the database."""
     DjangoJobExecution.objects.delete_old_job_executions(max_age)
 
-# Check the existence of the content of the exporters.
+@db_auto_reconnect
 def get_exporter_contents():
-        github_token = Token.objects.last().token
-        headers      = {'Authorization' : 'token ' + github_token}
-        repo         = f"{settings.ORGANIZATION}/exporterhub.io"
-        exp_lst      = requests.get(f"https://api.github.com/repos/{repo}/contents/contents/", headers=headers)
-        git_exp_list = exp_lst.json()
-        content_type = { 'helm' : 'I', 'alert' : 'A', 'dashboard' : 'G' }
-        exporter_content = {}
-        
-        for exp in git_exp_list:
-            app_name = exp['name']
-            if app_name != 'README.md':
-                exporter_content[app_name] = {'I' : False, 'A' : False, 'G' : False}
-                response = requests.get(exp["git_url"], headers=headers)
-                exp_data = response.json()
-                
-                for exp in exp_data['tree'][::2]:
-                    content = exp['path'].split("_")[-1].split(".")[0].strip()
-                    if content in content_type:
-                        exporter_content[app_name][content_type[content]] = True
-        
-        cache.set('exporter_content', exporter_content)
+    """# Check the existence of the content of the exporters."""
+    github_token = Token.objects.last().token
+    headers      = {'Authorization' : 'token ' + github_token}
+    repo         = f"{settings.ORGANIZATION}/exporterhub.io"
+    exp_lst      = requests.get(f"https://api.github.com/repos/{repo}/contents/contents/", headers=headers)
+    git_exp_list = exp_lst.json()
+    content_type = { 'helm' : 'I', 'alert' : 'A', 'dashboard' : 'G' }
+    exporter_content = {}
+    
+    for exp in git_exp_list:
+        app_name = exp['name']
+        if app_name != 'README.md':
+            exporter_content[app_name] = {'I' : False, 'A' : False, 'G' : False}
+            response = requests.get(exp["git_url"], headers=headers)
+            exp_data = response.json()
+            
+            for exp in exp_data['tree'][::2]:
+                content = exp['path'].split("_")[-1].split(".")[0].strip()
+                if content in content_type:
+                    exporter_content[app_name][content_type[content]] = True
+    
+    cache.set('exporter_content', exporter_content, 60 * 61)
 
 def listener(event):
     if not event.exception:
@@ -257,7 +259,7 @@ class Command(BaseCommand):
         # Periodically caching data of the contents of the exporters.
         scheduler.add_job(
             get_exporter_contents,
-            trigger          = CronTrigger(minute='*/5'),
+            trigger          = CronTrigger(hour='*/1'),
             id               = 'get_exporter_contents',
             max_instances    = 1,
             replace_existing = True,

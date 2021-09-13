@@ -8,6 +8,7 @@ from django.views           import View
 from django.http            import JsonResponse
 from django.core.exceptions import ObjectDoesNotExist
 from django.core.cache      import cache
+
 from django.db.models       import Q, Max
 from django.utils           import timezone
 from django.conf            import settings
@@ -16,6 +17,7 @@ from .models                import Category, Exporter, Release, Official
 from headtoken.models       import Token
 from user.models            import Bucket, Star
 from user.utils             import login_check, admin_decorator
+
 
 api_url = 'https://api.github.com/repos/'
 PATTERN = r"!\[(\w*|\s|\w+( \w+)*)\]\(([^,:!]*|\/[^,:!]*\.\w+|\w*.\w*)\)"
@@ -31,6 +33,7 @@ class CategoryView(View):
             } for category in categories]
         }
         return JsonResponse(data, status=200)
+
 
 class ExporterView(View):
     def get_repo(self, github_token, repo_url):
@@ -93,7 +96,7 @@ class ExporterView(View):
                             .filter(q).annotate(recent=Max('release__date')).order_by('-recent')
             else:
                 exporters = Exporter.objects.select_related('category', 'official').filter(q).order_by(sort_dict[sort])
-            
+
             data = {
                 "exporters": [{
                     "exporter_id"    : exporter.id,
@@ -110,7 +113,8 @@ class ExporterView(View):
                     "repository_url" : exporter.repository_url,
                     "description"    : exporter.description,   
                 }for exporter in exporters]
-            }
+            }      
+
             return JsonResponse(data, status=200)
 
         except KeyError:
@@ -337,6 +341,7 @@ class ExporterTabView(View):
             headers      = {'Authorization' : 'token ' + github_token}
 
             content_type = request.GET['type']
+            
             file_type    = {
                 'dashboard' : 'json',
                 'helm'      : 'yaml',
@@ -352,7 +357,6 @@ class ExporterTabView(View):
             code_file_sha   = code_file_info['sha']
             md_file_sha     = md_file_info['sha']
             md_file_content = base64.b64decode(md_file_info['content']).decode('utf-8') if md_file_info['content'] else None
-
             data = {
                 'code_sha'   : code_file_sha,
                 'md_sha'     : md_file_sha,
@@ -417,6 +421,15 @@ class ExporterTabView(View):
             
             if code_result == 'GITHUB_REPO_API_ERROR' or md_result == 'GITHUB_REPO_API_ERROR':
                 return JsonResponse({'message': 'GITHUB_REPO_API_ERROR'}, status=404)
+            
+            # Update the cached Exporter contents data.
+            else:
+                content_type = { 'helm' : 'I', 'alert' : 'A', 'dashboard' : 'G' }.get(
+                    code_file_name.split("_")[-1].split(".")[0].strip()
+                )
+                exporter_content = cache.get('exporter_content')
+                exporter_content[app_name][content_type] = True
+                cache.set('exporter_content', exporter_content, 60 * 61)
             
             return JsonResponse({'message': 'SUCCESS'}, status=200)
 
