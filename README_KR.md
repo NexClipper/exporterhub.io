@@ -74,12 +74,16 @@ Prometheus를 지원하고 용이하게 하기 위해, ExporterHub.io는 모니�
 * [Promcat](https://promcat.io/)
 * [Github Documentation](https://docs.github.com/en)
 
-## Contribute
-기여를 환영합니다!
+## 오픈소스에 기여하는 방법!
+### 기여를 환영합니다!
 [ExporterHub.io](https://exporterhub.io/) 에 기여할 특정 exporter가 있는 경우,
 자유롭게 [send issues](https://github.com/NexClipper/exporterhub.io/issues)를 보내거나
 [pull requests](https://github.com/NexClipper/exporterhub.io/pulls)를 보내주세요. 
 <br> Please join us!: https://app.slack.com/client/TC3DP3HPG/C01RTA59G66
+
+### Easy to Update a list of exporters by Pull Request as below
+* https://github.com/NexClipper/exporterhub.io/blob/main/api/exporter_list.csv
+
 
 ## Service Map
 ![servicemap](https://raw.githubusercontent.com/NexClipper/exporterhub.io/master/assets/exporterhub_v4.png)

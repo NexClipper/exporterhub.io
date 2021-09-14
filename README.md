@@ -66,6 +66,7 @@ To help and ease you with best-practice Prometheus, ExporterHub.io discovers and
 ## How to install the Exporterhub for private environment
 * [Install guide](./install_guide.md)
 
+
 ## References
 * [Official Exporters AND Integrations](https://prometheus.io/docs/instrumenting/exporters/)
 * [Awesome Prometheus alerts](https://awesome-prometheus-alerts.grep.to/)
@@ -74,11 +75,14 @@ To help and ease you with best-practice Prometheus, ExporterHub.io discovers and
 * [Promcat](https://promcat.io/)
 * [Github Documentation](https://docs.github.com/en)
 
-## Contribute
-Contributions are welcome!
+## How to contribute the project
+### Contributions are welcome!
 If you have Specific exporter to contribute to [ExporterHub.io](https://exporterhub.io/), 
 feel free to [send issues](https://github.com/NexClipper/exporterhub.io/issues) or [pull requests](https://github.com/NexClipper/exporterhub.io/pulls).
 <br> Please join us!: https://app.slack.com/client/TC3DP3HPG/C01RTA59G66
+
+### Easy to Update a list of exporters by Pull Request as below
+* https://github.com/NexClipper/exporterhub.io/blob/main/api/exporter_list.csv
 
 ## Service Map
 ![servicemap](https://raw.githubusercontent.com/NexClipper/exporterhub.io/master/assets/exporterhub_v4.png)

@@ -1,11 +1,9 @@
-apiVersion: v1
-appVersion: 1.0.1
-# The prometheus-node-exporter chart is deprecated and no longer maintained. For details deprecation,
-# including how to un-deprecate a chart see the PROCESSES.md file.
-deprecated: true
-description: DEPRECATED A Helm chart for prometheus node-exporter
+apiVersion: v2
+appVersion: 1.2.2
+description: A Helm chart for prometheus node-exporter
 name: prometheus-node-exporter
-version: 1.11.2
+version: 2.0.4
+type: application
 home: https://github.com/prometheus/node_exporter/
 sources:
 - https://github.com/prometheus/node_exporter/
@@ -13,3 +11,8 @@ keywords:
 - node-exporter
 - prometheus
 - exporter
+maintainers:
+- email: gianrubio@gmail.com
+  name: gianrubio
+- name: vsliouniaev
+- name: bismarck
