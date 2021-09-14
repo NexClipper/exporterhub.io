@@ -22,7 +22,6 @@ from exporter.models                  import Exporter, Release, Category, Offici
 from headtoken.models                 import Token
 
 
-
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.INFO)
 
@@ -263,6 +262,7 @@ class Command(BaseCommand):
             id               = 'get_exporter_contents',
             max_instances    = 1,
             replace_existing = True,
+            misfire_grace_time = 120,
             next_run_time    = datetime.now()
         )
         logger.info("Added job 'get_exporter_contents'")
