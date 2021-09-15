@@ -1,4 +1,3 @@
-
 "https://github.com/cloudflare/ebpf_exporter",
 "https://github.com/digitalocean/ceph_exporter",
 "https://github.com/fstab/grok_exporter",
@@ -36,3 +35,4 @@
 "https://github.com/prometheus/pushgateway",
 "https://github.com/kubecost/cost-model",
 "https://github.com/go-gywn/query-exporter",
+"https://github.com/ralfyang/Zinst",
