@@ -35,6 +35,8 @@ services:
     restart: always
     env_file:
       - ./.env
+    volumes:
+      - ./api/exporter/django_cache:/data/exporter/django_cache
     environment:
       APP_DB_ENGINE: django.db.backends.mysql
       DB_NAME: exporterhub
@@ -53,6 +55,8 @@ services:
     restart: always
     ports:
       - "8000:8000"
+    volumes:
+      - ./api/exporter/django_cache:/data/exporter/django_cache
     env_file:
       - ./.env
     environment:
