@@ -3,6 +3,7 @@ from .views import CategoryView, ExporterView, ExporterDetailView, ExporterTabVi
 
 urlpatterns = [
     path('/categories', CategoryView.as_view()),
+    path('/cateogries/<int:category_id', CategoryView.as_view()),
     path('', ExporterView.as_view()),
     path('/<int:exporter_id>', ExporterDetailView.as_view()),
     path('/<int:exporter_id>/tab', ExporterTabView.as_view()),
