@@ -1,10 +1,14 @@
-import React from "react";
+import React, { useState } from "react";
 import { withRouter } from "react-router-dom";
+import axios from "axios";
 import styled from "styled-components";
 import { AiFillStar } from "react-icons/ai";
-import { RiDeleteBinLine } from "react-icons/ri";
+import { RiDeleteBinLine, RiDeleteBin6Line } from "react-icons/ri";
 import { useDispatch, useSelector } from "react-redux";
 import { targetUnforkRepo } from "../../store/actions/exporterActions";
+import DeleteModal from "../Modal/DeleteModal";
+import { EXPORTER_API } from "../../config";
+
 const CardExporter = ({
   exporter,
   cardClick,
@@ -24,18 +28,48 @@ const CardExporter = ({
   } = exporter;
   const dispatch = useDispatch();
   const changeTheme = useSelector((store) => store.darkThemeReducer);
+  const admin = useSelector((store) => store.adminReducer);
+  const [deleteModal, setDeleteModal] = useState(false);
+
   const unforkRepo = (e, id) => {
     e.stopPropagation();
     setIsForkModalActive(true);
     dispatch(targetUnforkRepo(id));
   };
+
+  const deleteExporter = (answer) => {
+    if (answer === "Yes") {
+      axios({
+        method: "delete",
+        url: `${EXPORTER_API}?exporter_id=${exporter_id}`,
+        headers: {
+          Authorization: sessionStorage.getItem("access_token"),
+        },
+      })
+        .then((res) => {
+          window.location.reload();
+          setDeleteModal(false);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    } else {
+      setDeleteModal(false);
+    }
+  };
   return (
     <Div
       dark={changeTheme}
-      onClick={() => cardClick(exporter_id)}
       fork={fork}
       mybucket={mybucket}
+      deleteModal={deleteModal}
     >
+      {deleteModal && (
+        <DeleteModal
+          handleDelete={deleteExporter}
+          content="expoerter delete?"
+        />
+      )}
       <header>
         {is_new && <New dark={changeTheme}>NEW</New>}
         <span>
@@ -43,10 +77,16 @@ const CardExporter = ({
             <AiFillStar />
           </Icon>
           {stars}
+          {admin && (
+            <RiDeleteBin6Line
+              className="deleteIcon"
+              onClick={() => setDeleteModal(true)}
+            />
+          )}
         </span>
         {/* <span>★{stars}</span> */}
       </header>
-      <Article>
+      <Article onClick={() => cardClick(exporter_id)}>
         <div>
           <img src={logo_url} alt={name} />
         </div>
@@ -74,7 +114,7 @@ const Div = styled.div`
   position: relative;
   width: ${({ theme }) => theme.width.card}px;
   height: 320px;
-  transition: 0.1s ease-in-out;
+  transition: ${(props) => (props.deleteModal ? "" : "0.1s ease-in-out")};
   background-color: ${(props) => (props.dark ? "#242526" : "#ffffff")};
   display: flex;
   flex-direction: column;
@@ -91,10 +131,10 @@ const Div = styled.div`
   cursor: pointer;
   padding: 0 20px;
   &:hover {
-    transform: scale(1.05);
+    transform: ${(props) => (props.deleteModal ? "" : " scale(1.05)")};
   }
   &:hover .unfork {
-    display: block;
+    display: ${(props) => (props.deleteModal ? "" : " block")};
   }
   @media ${({ theme }) => theme.media.mobile} {
     height: 120px;
@@ -104,13 +144,27 @@ const Div = styled.div`
     margin-right: 0%;
   }
   header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     width: 100%;
     font-size: 12px;
     text-align: end;
     padding: 20px 0;
     span {
+      display: flex;
+      align-items: center;
       color: ${(props) => (props.dark ? "#f5f6f7" : "#000000")};
     }
+    .deleteIcon {
+      margin: 5px;
+      cursor: pointer;
+      font-size: 15px;
+      &:hover {
+        color: #6ac4a5;
+      }
+    }
+
     @media ${({ theme }) => theme.media.mobile} {
       padding: 15px 0;
     }
