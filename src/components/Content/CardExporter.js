@@ -52,15 +52,18 @@ const CardExporter = ({
         })
         .catch((error) => {
           console.log(error);
-          // setFailMessage(error.response?.data.message);
         });
     } else {
       setDeleteModal(false);
     }
   };
-
   return (
-    <Div dark={changeTheme} fork={fork} mybucket={mybucket}>
+    <Div
+      dark={changeTheme}
+      fork={fork}
+      mybucket={mybucket}
+      deleteModal={deleteModal}
+    >
       {deleteModal && (
         <DeleteModal
           handleDelete={deleteExporter}
