@@ -66,6 +66,39 @@ class ExporterView(View):
             elif repo.status_code == 401:
                 return 'INVALID_TOKEN'
 
+    def get_csv(self, token):
+        repo   = f"{settings.ORGANIZATION}/exporterhub.io"
+        url    = f"https://api.github.com/repos/{repo}/contents/api/exporter_list.csv"
+        result = requests.get(url, headers={'Content-Type':'application/json','Authorization': 'token ' + token})
+        data   = result.json()
+
+        if result.status_code == 200:
+            contents = {
+                'content' : base64.b64decode(data['content']).decode('utf-8'),
+                'sha'     : data['sha']
+            }
+        elif result.status_code == 404:
+            contents = {
+                'content' : None,   
+                'sha'     : None
+            }
+        else:
+            contents = "GITHUB_GET_REPO_ERROR"
+        
+        return contents
+
+    def push_to_github(self, token, message, content, sha):
+        repo = f"{settings.ORGANIZATION}/exporterhub.io"
+        url  = f"https://api.github.com/repos/{repo}/contents/api/exporter_list.csv"
+        
+        contents = json.dumps({
+                        "message" : message,
+                        "content" : content,
+                        "sha"     : sha
+                    })
+        
+        requests.put(url, data=contents, headers={'Content-Type':'application/json','Authorization': 'token ' + token})     
+
     @login_check
     def get(self, request):
         try:
@@ -189,15 +222,30 @@ class ExporterView(View):
      
     @admin_decorator
     def delete(self, request):
-        try:
-            exporter_id = request.GET['exporter-id']
-            exporter    = Exporter.objects.get(id=exporter_id)
-            release     = Release.objects.filter(exporter_id=exporter_id)
+        try: 
+            github_token   = request.user.github_token
+            exporter_ids   = request.GET.getlist('exporter_id', None)
+            exporters      = Exporter.objects.filter(id__in = exporter_ids)
+            exporters_name = [exporter.name for exporter in exporters]
+            message        = f'{exporters_name} delete'
+                        
+            dataframe            = pd.read_csv('exporter_list.csv', sep=',')
+            dataframe            = dataframe[~dataframe.project_name.isin(exporters_name)]
+            dataframe['offcial'] = dataframe['offcial'].astype('str')
+            dataframe.to_csv('exporter_list.csv', index=False)
+            exporters.delete()
+            
+            columns     = dataframe.columns.values.tolist()
+            values      = dataframe.values.tolist()
+            lists       = [columns] + values
+            all_content = ''
+           
+            for ls in lists:
+                all_content += ','.join(ls) + '\n'
 
-            if release.exists():
-                release.delete()    
-
-            exporter.delete()
+            content = base64.b64encode(all_content.encode('utf-8')).decode('utf-8')
+            get_csv = self.get_csv(github_token)
+            result  = self.push_to_github(token=github_token, message=message, content=content, sha=get_csv['sha'])
             
             return JsonResponse({'message':'SUCCESS'}, status=200)
         
@@ -206,7 +254,7 @@ class ExporterView(View):
         
         except KeyError:
             return JsonResponse({'message':'KEY_ERROR'}, status=400)
-
+            
     @admin_decorator
     def patch(self, request):
         try:
