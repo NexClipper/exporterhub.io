@@ -8,7 +8,7 @@ import styled from "styled-components";
 import { AiFillSetting } from "react-icons/ai";
 import { FiPlus } from "react-icons/fi";
 import { RiDeleteBinLine } from "react-icons/ri";
-// import { CATEGORIES_API } from "../../config";
+import { CATEGORIES_API } from "../../config";
 import axios from "axios";
 import CategoryDeleteModal from "../Modal/CategoryDeleteModal";
 import { Fragment } from "react";
@@ -29,14 +29,14 @@ const Sider = () => {
   };
 
   const getCategory = () => {
-    // axios({
-    //   method: "GET",
-    //   url: `${CATEGORIES_API}`,
-    // })
-    //   .then((res) => {
-    //     dispatch(loadCategoriesData(res.data.categories));
-    //   })
-    //   .catch((err) => console.log(err));
+    axios({
+      method: "GET",
+      url: `${CATEGORIES_API}`,
+    })
+      .then((res) => {
+        dispatch(loadCategoriesData(res.data.categories));
+      })
+      .catch((err) => console.log(err));
   };
 
   const addCategory = (editType) => {
@@ -48,23 +48,23 @@ const Sider = () => {
           category.category_name.toLowerCase() === addCategoryName.toLowerCase()
       );
       if (isSame.length === 0) {
-        // axios({
-        //   method: "post",
-        //   url: `${CATEGORIES_API}`,
-        //   data: {
-        //     category: addCategoryName,
-        //   },
-        //   headers: {
-        //     Authorization: sessionStorage.getItem("access_token"),
-        //   },
-        // })
-        //   .then(() => {
-        //     // window.location.reload();
-        //     getCategory();
-        //     setEdit(false);
-        //     setAddCategoryName("");
-        //   })
-        //   .catch((error) => {});
+        axios({
+          method: "post",
+          url: `${CATEGORIES_API}`,
+          data: {
+            category: addCategoryName,
+          },
+          headers: {
+            Authorization: sessionStorage.getItem("access_token"),
+          },
+        })
+          .then(() => {
+            // window.location.reload();
+            getCategory();
+            setEdit(false);
+            setAddCategoryName("");
+          })
+          .catch((error) => {});
       } else {
         setAlert(2);
       }
