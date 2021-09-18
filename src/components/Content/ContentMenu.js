@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import styled from "styled-components";
@@ -14,7 +14,7 @@ import Search from "../Header/Search";
 import RegisterModal from "../Modal/RegisterModal";
 import CategoryDeleteModal from "../Modal/CategoryDeleteModal";
 
-const ContentMenu = ({ totaCount }) => {
+const ContentMenu = () => {
   const dispatch = useDispatch();
   const [isModalActive, setIsModalActive] = useState(false);
   const [editCategoryModal, setEditCategoryModal] = useState(false);
@@ -349,6 +349,7 @@ const SearchMoileBox = styled.div`
 
 const SearchBox = styled.div`
   display: block;
+  padding-right: 83px;
   @media ${({ theme }) => theme.media.mobile} {
     display: none;
   }
