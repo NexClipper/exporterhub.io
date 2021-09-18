@@ -77,8 +77,11 @@ const Permission = () => {
       })
         .then((res) => {
           showAlertModal();
+          setIsAdminAddModalActive(false);
         })
-        .catch((err) => console.log(err));
+        .catch((err) => {
+          console.log(err);
+        });
     }
   };
 
