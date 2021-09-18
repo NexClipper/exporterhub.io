@@ -13,7 +13,7 @@ services:
       CLIENT_ID: ${CLIENT_ID}
       CLIENT_SECRETS: ${CLIENT_SECRETS}
     depends_on:
-       - api
+      - api
   maria_db:
     image: mariadb:10.4.17
     command:
