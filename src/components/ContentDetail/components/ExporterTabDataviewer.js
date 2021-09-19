@@ -15,6 +15,7 @@ const ExporterTabDataviewer = ({
   isEditMode,
   exporterCsv,
   select,
+  setModify,
 }) => {
   const isAdmin = useSelector((store) => store.adminReducer);
   const changeTheme = useSelector((store) => store.darkThemeReducer);
@@ -54,7 +55,12 @@ const ExporterTabDataviewer = ({
 
         {isAdmin && (
           <div>
-            <Button onClick={() => setIsEditMode((prev) => !prev)}>
+            <Button
+              onClick={() => {
+                setIsEditMode((prev) => !prev);
+                setModify(false);
+              }}
+            >
               <span>{!isEditMode ? <FiEdit /> : <BiUndo />}</span>
               <span>{!isEditMode ? "edit" : "Back"}</span>
             </Button>

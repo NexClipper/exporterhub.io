@@ -94,6 +94,7 @@ const ExporterTab = ({ title, type }) => {
           </MobileTabListbox>
         </div>
         <ExporterTabDataviewer
+          setModify={setModify}
           select={select}
           isEditMode={isEditMode}
           setIsEditMode={setIsEditMode}
@@ -177,7 +178,7 @@ const data = {
                   description: "Node memory is filling up (< 10% left)\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}
              "`,
       file_url:
-        "https://github.com/NexClipper/exporterhub.io/tree/main/contents/Node-Exporter/HostOutOfMemory.yaml",
+        "https://github.com/NexClipper/exporterhub.io/tree/main/contents/Node-Exporter/HostOutOfMemory_alert.yaml",
       file_sha: "5335d5f2a06b228a8ec89b52f5e7981d8eb3d3f2",
       csv_sha: "c3f35177c14478c99dcc005dba8ae4900ac04991",
       file_id: "03",
