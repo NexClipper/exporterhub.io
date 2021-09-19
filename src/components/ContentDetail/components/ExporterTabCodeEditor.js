@@ -30,10 +30,10 @@ const ExporterTabCodeEditor = ({
   const { id } = useParams();
   const dispatch = useDispatch();
   const changeTheme = useSelector((store) => store.darkThemeReducer);
-  const edittingAlert = useSelector(
+  const edittingExporterFile = useSelector(
     (store) => store.exporterTabEdittingReducer
   );
-  console.log(edittingAlert);
+  console.log(edittingExporterFile);
   useEffect(() => {
     dispatch(
       beforeEdittingExporterTab(
@@ -79,11 +79,11 @@ const ExporterTabCodeEditor = ({
     // const fileType = type.slice(1, type.lastIndexOf("."));
     console.log({
       file_id: fileId,
-      file_content: edittingAlert.content,
-      file_name: edittingAlert.fileName,
+      file_content: edittingExporterFile.content,
+      file_name: edittingExporterFile.fileName,
       file_sha: fileSha,
       csv_sha: csvSha,
-      csv_desc: edittingAlert.description,
+      csv_desc: edittingExporterFile.description,
     });
     // axios({
     //   method: "POST",
@@ -93,11 +93,11 @@ const ExporterTabCodeEditor = ({
     //   },
     //   data: {
     //     file_id: fileId,
-    //     file_content: edittingAlert.content,
-    //     file_name: edittingAlert.fileName,
+    //     file_content: edittingExporterFile.content,
+    //     file_name: edittingExporterFile.fileName,
     //     file_sha: fileSha,
     //     csv_sha: csvSha,
-    //     csv_desc: edittingAlert.description,
+    //     csv_desc: edittingExporterFile.description,
     //   },
     // })
     //   .then(() => {
@@ -115,7 +115,7 @@ const ExporterTabCodeEditor = ({
           <FileName dark={changeTheme}>
             <Input
               id="fileName"
-              value={edittingAlert.fileName}
+              value={edittingExporterFile.fileName}
               type="text"
               placeholder="FileName"
               dark={changeTheme}
@@ -128,7 +128,7 @@ const ExporterTabCodeEditor = ({
             as="textarea"
             name="content"
             placeholder="Description"
-            value={edittingAlert.description}
+            value={edittingExporterFile.description}
             cols="150"
             rows="3"
             dark={changeTheme}
@@ -149,7 +149,7 @@ const ExporterTabCodeEditor = ({
           showPrintMargin={true}
           showGutter={false}
           highlightActiveLine={true}
-          value={edittingAlert.content}
+          value={edittingExporterFile.content}
           setOptions={{
             enableBasicAutocompletion: true,
             enableLiveAutocompletion: true,
