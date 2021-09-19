@@ -33,7 +33,10 @@ const ExporterTabCodeEditor = ({
   const edittingExporterFile = useSelector(
     (store) => store.exporterTabEdittingReducer
   );
-  console.log(edittingExporterFile);
+  const beforeEditFile = useSelector(
+    (store) => store.exporterTabBeforeEditReducer
+  );
+
   useEffect(() => {
     dispatch(
       beforeEdittingExporterTab(
@@ -109,11 +112,15 @@ const ExporterTabCodeEditor = ({
   };
 
   return (
-    <Container dark={changeTheme}>
+    <Container
+      dark={changeTheme}
+      IsEdit={beforeEditFile.content !== edittingExporterFile.content}
+    >
       <EditorContainer>
         <Inputbox className="prevent">
           <FileName dark={changeTheme}>
             <Input
+              IsEdit={beforeEditFile.fileName !== edittingExporterFile.fileName}
               id="fileName"
               value={edittingExporterFile.fileName}
               type="text"
@@ -124,6 +131,9 @@ const ExporterTabCodeEditor = ({
             <p> {type}</p>
           </FileName>
           <Input
+            IsEdit={
+              beforeEditFile.description !== edittingExporterFile.description
+            }
             id="description"
             as="textarea"
             name="content"
@@ -136,11 +146,13 @@ const ExporterTabCodeEditor = ({
           />
         </Inputbox>
         <AceEditor
+          className="editer"
           id="codeEider"
           width="100%"
           height="100%"
           placeholder="Enter code"
           mode="javascript"
+          dark={changeTheme}
           theme={!changeTheme ? "github" : "twilight"}
           name="blah2"
           // onLoad={this.onLoad}
@@ -186,7 +198,17 @@ const Container = styled.div`
     font-weight: 400 !important;
     letter-spacing: 0 !important;
     line-height: 1.3 !important;
+
     /* background-color: red; */
+  }
+  .ace_editor {
+    border: ${(props) =>
+      props.dark
+        ? "1px solid #ffffff"
+        : props.IsEdit
+        ? "1px solid #69c4a6"
+        : "1px solid rgba(0, 0, 0, 0.2)"};
+    border-radius: 4px;
   }
 `;
 
@@ -262,11 +284,16 @@ const Input = styled.input`
   margin: ${(props) =>
     props.placeholder === "fileName" ? "" : "20px 0px 20px"};
   border: ${(props) =>
-    props.dark ? "1px solid #ffffff" : "1px solid rgba(0, 0, 0, 0.2)"};
+    props.dark
+      ? "1px solid #ffffff"
+      : props.IsEdit
+      ? "1px solid #69c4a6"
+      : "1px solid rgba(0, 0, 0, 0.2)"};
   border-radius: 4px;
   padding-left: 15px;
   background-color: ${(props) => (props.dark ? "#18191a" : "#ffffff")};
   color: ${(props) => (props.dark ? "#ffffff" : "#black")};
   font-size: ${(props) => (props.placeholder === "fileName" ? "20px" : "15px")};
   letter-spacing: 0.08rem;
+  outline: none;
 `;
