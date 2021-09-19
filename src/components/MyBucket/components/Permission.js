@@ -33,7 +33,6 @@ const Permission = () => {
   const inputHandler = (e) => {
     setSearchUser(e.target.value.toLowerCase());
   };
-
   useEffect(() => {
     axios({
       method: "GET",
@@ -77,8 +76,11 @@ const Permission = () => {
       })
         .then((res) => {
           showAlertModal();
+          setIsAdminAddModalActive(false);
         })
-        .catch((err) => console.log(err));
+        .catch((err) => {
+          console.log(err);
+        });
     }
   };
 
