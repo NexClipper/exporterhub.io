@@ -39,28 +39,28 @@ const ExporterTab = ({ title, type }) => {
     const fileType = type.slice(1, type.lastIndexOf("."));
     // if(res.data.message==)
 
-    // axios({
-    //   method: "GET",
-    //   url: `${API_SURVER}/exporter/${id}/tab?type=${fileType}`,
-    //   headers: HEADER,
-    // })
-    //   .then((res) => {
-    //     console.log(res);
-    //     setExporterCsv(
-    //       res.data.message === "No_Content" ? [] : res.data.message
-    //     );
-    //     res.data.message !== "No_Content"
-    //       ? setSelect(data.message[0].file_id)
-    //       : setSelect(0);
-    //   })
-    //   .catch((err) => {
-    //     console.log(err);
-    //   });
+    axios({
+      method: "GET",
+      url: `${API_SURVER}/exporter/${id}/tab?type=${fileType}`,
+      headers: HEADER,
+    })
+      .then((res) => {
+        console.log(res);
+        setExporterCsv(
+          res.data.message === "No_Content" ? [] : res.data.message
+        );
+        res.data.message !== "No_Content"
+          ? setSelect(data.message[0].file_id)
+          : setSelect(0);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
 
-    setExporterCsv(data.message === [] ? [] : data.message);
-    data.message.length !== 0
-      ? setSelect(data.message[0].file_id)
-      : setSelect(0);
+    // setExporterCsv(data.message === [] ? [] : data.message);
+    // data.message.length !== 0
+    //   ? setSelect(data.message[0].file_id)
+    //   : setSelect(0);
   };
 
   return (
