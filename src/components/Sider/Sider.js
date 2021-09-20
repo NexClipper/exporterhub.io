@@ -23,6 +23,35 @@ const Sider = () => {
   const [deletecategory, setDeletecategory] = useState(false);
   const [categoryAct, setCategoryAct] = useState(0);
   const [alert, setAlert] = useState(false);
+  let createDate = "2021. 9. 18.";
+
+  const New = (createDate) => {
+    let today = new Date();
+    let todayDate = today.toLocaleDateString();
+    let isNew =
+      todayDate.slice(0, todayDate.indexOf(".")) -
+        createDate.slice(0, createDate.indexOf(".")) ===
+        0 &&
+      todayDate.slice(
+        todayDate.indexOf(".") + 1,
+        todayDate.indexOf(".", todayDate.indexOf(".") + 1)
+      ) -
+        createDate.slice(
+          createDate.indexOf(".") + 1,
+          createDate.indexOf(".", createDate.indexOf(".") + 1)
+        ) ===
+        0 &&
+      todayDate.slice(
+        todayDate.indexOf(".", todayDate.indexOf(".") + 1) + 1,
+        todayDate.lastIndexOf(".")
+      ) -
+        createDate.slice(
+          createDate.indexOf(".", createDate.indexOf(".") + 1) + 1,
+          createDate.lastIndexOf(".")
+        ) <=
+        3;
+    return isNew;
+  };
 
   const handleClickCategoryAct = (id) => {
     setCategoryAct(id);
@@ -48,11 +77,14 @@ const Sider = () => {
           category.category_name.toLowerCase() === addCategoryName.toLowerCase()
       );
       if (isSame.length === 0) {
+        let today = new Date();
+        let todayDate = today.toLocaleDateString();
         axios({
           method: "post",
           url: `${CATEGORIES_API}`,
           data: {
             category: addCategoryName,
+            date: todayDate,
           },
           headers: {
             Authorization: sessionStorage.getItem("access_token"),
@@ -73,12 +105,12 @@ const Sider = () => {
     }
   };
 
-  const callDispatch = (e) => {
-    if (e.target.innerText === "All") {
+  const callDispatch = (category) => {
+    if (category === "All") {
       const payload = "";
       dispatch(filterByCate(payload));
     } else {
-      const payload = e.target.innerText;
+      const payload = category;
       dispatch(filterByCate(payload));
     }
   };
@@ -135,40 +167,49 @@ const Sider = () => {
           active={0 === categoryAct}
           onClick={(e) => {
             handleClickCategoryAct(0);
-            callDispatch(e);
+            callDispatch("All");
             alert !== false && setAlert(false);
           }}
         >
           All
         </Category>
         {categories &&
-          categories.map((category) => (
-            <Category
-              key={category.category_id}
-              edit={edit}
-              dark={changeTheme}
-              active={category.category_id === categoryAct}
-            >
-              <Div
-                title={category.category_name}
-                onClick={(e) => {
-                  handleClickCategoryAct(category.category_id);
-                  callDispatch(e);
-                  alert !== false && setAlert(false);
-                }}
+          categories.map((category) => {
+            {
+              /* const isNew = New(category.date); */
+            }
+            const isNew = New(createDate);
+
+            return (
+              <Category
+                key={category.category_id}
+                edit={edit}
+                dark={changeTheme}
+                active={category.category_id === categoryAct}
               >
-                {category.category_name}
-              </Div>
-              {edit && categoryAct === category.category_id && (
-                <DeleteButton
-                  className="deleteIcon"
-                  onClick={() => addCategory(category)}
+                <Div
+                  title={category.category_name}
+                  onClick={(e) => {
+                    handleClickCategoryAct(category.category_id);
+                    callDispatch(category.category_name);
+                    alert !== false && setAlert(false);
+                  }}
                 >
-                  <RiDeleteBinLine size="17px" />
-                </DeleteButton>
-              )}
-            </Category>
-          ))}
+                  <span className="categoryName">{category.category_name}</span>
+                  {isNew && <span className="new">New</span>}
+                </Div>
+
+                {edit && categoryAct === category.category_id && (
+                  <DeleteButton
+                    className="deleteIcon"
+                    onClick={() => addCategory(category)}
+                  >
+                    <RiDeleteBinLine size="17px" />
+                  </DeleteButton>
+                )}
+              </Category>
+            );
+          })}
       </CategoryList>
     </div>
   );
@@ -203,17 +244,27 @@ const Title = styled.li`
 `;
 
 const Div = styled.div`
+  display: flex;
+  align-items: center;
   padding-left: 10px;
-  padding-right: 20px;
   width: 100%;
-  flex: 8;
-  text-overflow: ellipsis;
-  overflow: hidden;
+  min-width: 160px;
+
+  .new {
+    font-size: 13px;
+    color: #44c8a3;
+    padding-left: 7px;
+  }
+
+  .categoryName {
+    text-overflow: ellipsis;
+    overflow: hidden;
+  }
 `;
 
 const DeleteButton = styled.div`
   padding: 0px 10px;
-  flex: 2;
+  width: 40px;
 `;
 
 const Category = styled.li`
@@ -221,7 +272,7 @@ const Category = styled.li`
   align-items: ${({ edit }) => edit && "center"};
   justify-content: ${({ edit }) => edit && "space-between"};
   position: relative;
-  padding: ${(props) => (props.default === "All" ? "3px 10px" : "3px")};
+  padding: ${(props) => (props.default === "All" ? "0px 13px" : "3px")};
   background: ${({ active }) => active && "#eee"};
   cursor: pointer;
   color: ${(props) => (props.dark ? "#f5f6f7" : "black")};
