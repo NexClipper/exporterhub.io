@@ -11,6 +11,7 @@ from django.views           import View
 from django.http            import JsonResponse
 from django.core.exceptions import ObjectDoesNotExist
 from django.db.models       import Q, Max
+from django.db              import transaction
 from django.utils           import timezone
 from django.conf            import settings
 
@@ -24,15 +25,164 @@ PATTERN = r"!\[(\w*|\s|\w+( \w+)*)\]\(([^,:!]*|\/[^,:!]*\.\w+|\w*.\w*)\)"
 
 
 class CategoryView(View):
+    def get_contents(self, headers):
+        repo   = f"{settings.ORGANIZATION}/exporterhub.io"        
+        url    = f"https://api.github.com/repos/{repo}/contents/api/exporter_list.csv"
+        result = requests.get(url, headers=headers)
+        data   = result.json()
+
+        if result.status_code == 200:
+            contents = {
+                'sha'     : data['sha']
+            }
+        elif result.status_code == 404:
+            contents = {
+                'sha'     : None
+            }
+        else:
+            contents = "GITHUB_GET_REPO_ERROR"
+        
+        return contents
+
     def get(self, request):
         categories = Category.objects.all().order_by('name')
         data = {
             "categories": [{   
                 "category_id"  : category.id,
-                "category_name": category.name
+                "category_name": category.name,
+                "create_at"    : category.create_at
             } for category in categories]
         }
         return JsonResponse(data, status=200)
+
+    @admin_decorator
+    def post(self, request):
+        data   = json.loads(request.body)
+
+        category, is_create = Category.objects.get_or_create(
+            name = data['category'],
+            create_at = data['date']
+        )
+
+        if not is_create:
+            return JsonResponse({'message':'EXISTING_CATEGORY'}, status=400)
+
+        return JsonResponse({'message':'SUCCESS'}, status=201)
+
+    
+    @admin_decorator
+    @transaction.atomic
+    def patch(self, request):
+        data                = json.loads(request.body)
+        category_id         = data['category_id']
+        feature_category_id = data['feature_category_id']
+        user                = request.user
+        token               = user.github_token
+        repo                = f"{settings.ORGANIZATION}/exporterhub.io"
+        url                 = f"https://api.github.com/repos/{repo}/contents/api/exporter_list.csv"
+        responses           = []
+        response            = ''
+
+        if not Category.objects.filter(id=category_id).exists:
+            return JsonResponse({'message':'EXISTING_CATEGORY'}, status=400)
+        if not Category.objects.filter(id=feature_category_id).exists:
+            return JsonResponse({'message':'EXISTING_CATEGORY'}, status=400)
+
+        category = Category.objects.get(id=category_id)
+        feature_category = Category.objects.get(id=feature_category_id)
+
+        file   = open('exporter_list.csv', 'r')
+        reader = [row for row in csv.reader(file)]
+        file.close()
+
+        file = open('exporter_list.csv', 'w', newline='')
+        writer = csv.writer(file)
+        for i, row in enumerate(reader):         
+            if reader[i][4] == category.name:
+                reader[i][4] = feature_category.name
+                responses.append([reader[i][0],  reader[i][1],  reader[i][2],  reader[i][3],  reader[i][4],'\n'])
+                writer.writerow(row)
+            else:
+                writer.writerow(row)
+                responses.append([reader[i][0],  reader[i][1],  reader[i][2],  reader[i][3],  reader[i][4],'\n'])
+        file.close()
+
+        csv_info = self.get_contents(headers={'Authorization' : 'token ' + token})
+
+        if csv_info == 'GITHUB_GET_REPO_ERROR':
+            return JsonResponse({'message': 'GITHUB_API_FAIL'}, status=400)
+        
+        for detail in responses:
+            response += ' '.join(detail)
+
+        contents = json.dumps({
+            'sha'     : csv_info['sha'],
+            'message' : 'wip',
+            'content' : base64.b64encode(response.encode('utf-8')).decode('utf-8')
+            })
+
+        result = requests.put(url, data=contents, headers={'Authorization': 'token ' + token, 'Content-Type':'application/vnd.github.v3+json'})
+
+        if result.status_code == 200:
+            Exporter.objects.filter(category_id = category_id).update(category_id=feature_category_id)
+            Category.objects.filter(id=category_id).delete()
+
+            return JsonResponse({'message':'SUCCESS'}, status=200)
+
+        else:
+           return JsonResponse({'message': 'GITHUB_REPO_API_ERROR'}, status=404)
+
+    @admin_decorator
+    @transaction.atomic
+    def delete(self, request, category_id):
+        user     = request.user
+        token    = user.github_token
+        repo     = f"{settings.ORGANIZATION}/exporterhub.io" 
+        url      = f"https://api.github.com/repos/{repo}/contents/api/exporter_list.csv"
+        category = Category.objects.get(id=category_id)
+        content  = []
+        response = ''
+
+        if not Category.objects.filter(id=category_id).exists:
+            return JsonResponse({'message':'EXISTING_CATEGORY'}, status=400)
+
+        file   = open('exporter_list.csv', 'r')
+        reader = [row for row in csv.reader(file)]
+        file.close()
+
+        file = open('exporter_list.csv', 'w', newline='')
+        writer = csv.writer(file)
+        for i, row in enumerate(reader):
+            if reader[i][4] == category.name: 
+                continue
+            else:
+                writer.writerow(row)
+                content.append([reader[i][0], reader[i][1], reader[i][2], reader[i][3], reader[i][4], '\n'])
+        file.close()
+
+        csv_info = self.get_contents(headers={'Authorization' : 'token ' + token})
+
+        if csv_info == 'GITHUB_GET_REPO_ERROR':
+            return JsonResponse({'message': 'GITHUB_API_FAIL'}, status=400)
+
+        for detail in content:
+            response += ' '.join(detail)
+
+        contents = json.dumps({
+            'sha' : csv_info['sha'],
+            'message' : 'wip',
+            'content' : base64.b64encode(response.encode('utf-8')).decode('utf-8')
+            })
+
+        result = requests.put(url, data=contents, headers={'Authorization': 'token ' + token, 'Content-Type':'application/vnd.github.v3+json'})
+
+        if result.status_code == 200:
+            Exporter.objects.filter(category_id=category_id).delete()
+            Category.objects.filter(id=category_id).delete()
+            return JsonResponse({'message':'SUCCESS'}, status=200)
+
+        else:
+            return JsonResponse({'message': 'GITHUB_REPO_API_ERROR'}, status=404)
 
 class ExporterView(View):
     def get_repo(self, github_token, repo_url):
@@ -223,40 +373,40 @@ class ExporterView(View):
         except Official.DoesNotExist:
             return JsonResponse({'message':'OFFICIAL_OBJECT_DOES_NOT_EXIST'}, status=410)
             
-    @admin_decorator
-    def delete(self, request):
-        try: 
-            github_token   = request.user.github_token
-            exporter_ids   = request.GET.getlist('exporter_id', None)
-            exporters      = Exporter.objects.filter(id__in = exporter_ids)
-            exporters_name = [exporter.name for exporter in exporters]
-            message        = f'{exporters_name} delete'
+    # @admin_decorator
+    # def delete(self, request):
+    #     try: 
+    #         github_token   = request.user.github_token
+    #         exporter_ids   = request.GET.getlist('exporter_id', None)
+    #         exporters      = Exporter.objects.filter(id__in = exporter_ids)
+    #         exporters_name = [exporter.name for exporter in exporters]
+    #         message        = f'{exporters_name} delete'
                         
-            dataframe            = pd.read_csv('exporter_list.csv', sep=',')
-            dataframe            = dataframe[~dataframe.project_name.isin(exporters_name)]
-            dataframe['offcial'] = dataframe['offcial'].astype('str')
-            dataframe.to_csv('exporter_list.csv', index=False)
-            exporters.delete()
+    #         dataframe            = pd.read_csv('exporter_list.csv', sep=',')
+    #         dataframe            = dataframe[~dataframe.project_name.isin(exporters_name)]
+    #         dataframe['offcial'] = dataframe['offcial'].astype('str')
+    #         dataframe.to_csv('exporter_list.csv', index=False)
+    #         exporters.delete()
             
-            columns     = dataframe.columns.values.tolist()
-            values      = dataframe.values.tolist()
-            lists       = [columns] + values
-            all_content = ''
+    #         columns     = dataframe.columns.values.tolist()
+    #         values      = dataframe.values.tolist()
+    #         lists       = [columns] + values
+    #         all_content = ''
            
-            for ls in lists:
-                all_content += ','.join(ls) + '\n'
+    #         for ls in lists:
+    #             all_content += ','.join(ls) + '\n'
 
-            content = base64.b64encode(all_content.encode('utf-8')).decode('utf-8')
-            get_csv = self.get_csv(github_token)
-            result  = self.push_to_github(token=github_token, message=message, content=content, sha=get_csv['sha'])
+    #         content = base64.b64encode(all_content.encode('utf-8')).decode('utf-8')
+    #         get_csv = self.get_csv(github_token)
+    #         result  = self.push_to_github(token=github_token, message=message, content=content, sha=get_csv['sha'])
             
-            return JsonResponse({'message':'SUCCESS'}, status=200)
+    #         return JsonResponse({'message':'SUCCESS'}, status=200)
         
-        except Exporter.DoesNotExist:
-            return JsonResponse({'message':'NO_EXPORTER'}, status=400)
+    #     except Exporter.DoesNotExist:
+    #         return JsonResponse({'message':'NO_EXPORTER'}, status=400)
         
-        except KeyError:
-            return JsonResponse({'message':'KEY_ERROR'}, status=400)
+    #     except KeyError:
+    #         return JsonResponse({'message':'KEY_ERROR'}, status=400)
             
     @admin_decorator
     def patch(self, request):
