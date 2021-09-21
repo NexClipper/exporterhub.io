@@ -1,0 +1,73 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ template "prometheus-zookeeper-exporter.fullname" . }}
+  labels:
+    app: {{ template "prometheus-zookeeper-exporter.name" . }}
+    chart: {{ template "prometheus-zookeeper-exporter.chart" . }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app: {{ template "prometheus-zookeeper-exporter.name" . }}
+      release: {{ .Release.Name }}
+  template:
+    metadata:
+      annotations:
+{{ toYaml .Values.annotations | indent 8 }}
+      labels:
+        app: {{ template "prometheus-zookeeper-exporter.name" . }}
+        release: {{ .Release.Name }}
+    spec:
+      containers:
+        - args:
+          {{- if .Values.args }}
+          {{- range .Values.args  }}
+            - {{ . }}
+          {{- end }}
+          {{- end }}
+          env:
+{{- toYaml .Values.env | trim | nindent 12 }}
+          name: {{ .Chart.Name }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          ports:
+            - name: exporter-port
+              containerPort: 8080
+              protocol: TCP
+{{- if .Values.liveness.enabled }}
+          livenessProbe:
+{{- toYaml .Values.liveness.probe | trim | nindent 12 }}
+{{- end }}
+{{- if .Values.readiness.enabled }}
+          readinessProbe:
+{{- toYaml .Values.readiness.probe | trim | nindent 12 }}
+{{- end }}
+          resources:
+{{ toYaml .Values.resources | indent 12 }}
+          {{- if .Values.tls.enabled }}
+          volumeMounts:
+          - mountPath: {{ .Values.tls.mountPath }}
+            name: zookeeper-certs
+            readOnly: true
+          {{- end }}
+    {{- with .Values.nodeSelector }}
+      nodeSelector:
+{{ toYaml . | indent 8 }}
+    {{- end }}
+    {{- with .Values.affinity }}
+      affinity:
+{{ toYaml . | indent 8 }}
+    {{- end }}
+    {{- with .Values.tolerations }}
+      tolerations:
+{{ toYaml . | indent 8 }}
+    {{- end }}
+      {{- if .Values.tls.enabled }}
+      volumes:
+      - name: zookeeper-certs
+        secret:
+          secretName: {{ .Values.tls.secretName }}
+    {{- end }}
