@@ -28,7 +28,9 @@
 
 ### Prometheus Exporters 커뮤니티를 위한 애플리케이션
 ExporterHub.io는 Prometheus Exporters 커뮤니티를 위한 응용 프로그램입니다.
+
 ExporterHub.io는 단순히 선별된 exporter의 나열하고 모아두는데 그치지 않습니다.
+
 ExporterHub.io의 각 Exporter의 페이지에서 아래와 같은 내용을 제공합니다.
 * Official GitHub (Origin Repository)
 * Resource (Install, Exported Metrics)
@@ -39,7 +41,9 @@ ExporterHub.io의 각 Exporter의 페이지에서 아래와 같은 내용을 제
 * Edit Dashboard and Alert-rule by Admin
 
 복잡하고 폐쇄적인 네트워크 보안 설정이 갖춰진 엔터프라이즈 환경에서 Prometheus 모니터링 요구 사항을 지원하거나
+
 사용자의 Prometheus 모범사례 적용을 용이하게 하기 위해서
+
 ExporterHub.io는 모니터링 중인 특정 시스템으로부터 메트릭 데이터를 노출하는 데 사용할 수 있는 가장 적합한 exporter를 탐색하고 추천합니다.
 
 <br>
@@ -64,7 +68,7 @@ ExporterHub.io는 모니터링 중인 특정 시스템으로부터 메트릭 데
 <br>
 
 ## 데모 영상
-* 전체 예제 및 가이드를 보려면 이미지를 클릭하세요.:  
+* 전체 예제 및 가이드를 보려면 이미지를 클릭하세요.
   [![Demo](https://raw.githubusercontent.com/NexClipper/exporterhub.io/master/assets/demo_01.png)](https://youtu.be/wa4dknZk7Kk)
 
 <br>
