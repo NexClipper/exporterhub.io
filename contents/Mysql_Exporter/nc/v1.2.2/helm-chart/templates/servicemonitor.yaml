@@ -2,16 +2,16 @@
 apiVersion: monitoring.coreos.com/v1
 kind: ServiceMonitor
 metadata:
-  name: {{ template "mysql-exporter.fullname" . }}
+  name: {{ template "prometheus-mysql-exporter.fullname" . }}
   labels:
-    {{- include "mysql-exporter.labels" . | nindent 4 }}
+    {{- include "prometheus-mysql-exporter.labels" . | nindent 4 }}
   {{- if .Values.serviceMonitor.additionalLabels }}
 {{ toYaml .Values.serviceMonitor.additionalLabels | indent 4 }}
   {{- end }}
 spec:
   selector:
     matchLabels:
-      {{- include "mysql-exporter.selectorLabels" . | nindent 6 }}
+      {{- include "prometheus-mysql-exporter.selectorLabels" . | nindent 6 }}
   {{- with .Values.serviceMonitor.jobLabel }}
   jobLabel: {{ . | quote}}
   {{- end }}
