@@ -26,8 +26,10 @@
 ## [ExporterHub.io](https://exporterhub.io/)란 무엇입니까?
 
 
-### Prometheus Exporters 커뮤니티를 위한 응용 프로그램
-ExporterHub.io는 Prometheus Exporters 커뮤니티를 위한 응용 프로그램입니다. ExporterHub.io는 단순히 선별된 exporter의 나열하고 모아두는데 그치지 않고, 각 Exporter의 페이지에서 아래와 같은 내용을 제공합니다.
+### Prometheus Exporters 커뮤니티를 위한 애플리케이션
+ExporterHub.io는 Prometheus Exporters 커뮤니티를 위한 응용 프로그램입니다.
+ExporterHub.io는 단순히 선별된 exporter의 나열하고 모아두는데 그치지 않습니다.
+ExporterHub.io의 각 Exporter의 페이지에서 아래와 같은 내용을 제공합니다.
 * Official GitHub (Origin Repository)
 * Resource (Install, Exported Metrics)
 * Alert-rule (Recommended)
@@ -36,13 +38,13 @@ ExporterHub.io는 Prometheus Exporters 커뮤니티를 위한 응용 프로그�
 * Fork to bucket (linked to personal Github Repository)
 * Edit Dashboard and Alert-rule by Admin
 
-ExporterHub.io는 복잡하고 폐쇄적인 네트워크 보안 설정이 갖춰진 엔터프라이즈 환경에서 Prometheus 모니터링 요구 사항을 지원하기 위해서,
-또는 사용자의 Prometheus 모범사례 적용을 돕기 위해서,
+복잡하고 폐쇄적인 네트워크 보안 설정이 갖춰진 엔터프라이즈 환경에서 Prometheus 모니터링 요구 사항을 지원하거나
+사용자의 Prometheus 모범사례 적용을 용이하게 하기 위해서
 ExporterHub.io는 모니터링 중인 특정 시스템으로부터 메트릭 데이터를 노출하는 데 사용할 수 있는 가장 적합한 exporter를 탐색하고 추천합니다.
 
 
 
-### 다른 애플리케이션에 비해 차별화된 Exporterhub.io 의 특징:
+### 다른 애플리케이션과 차별화된 Exporterhub.io:
 
 <!--lint disable no-undefined-references-->
 * [x] 설치 안내서, 메트릭 수집 플래그, 권장 경고 규칙
@@ -78,13 +80,11 @@ ExporterHub.io는 모니터링 중인 특정 시스템으로부터 메트릭 데
 ### 기여를 환영합니다!
 [ExporterHub.io](https://exporterhub.io/) 에 기여할 특정 exporter가 있다면 자유롭게 [send issues](https://github.com/NexClipper/exporterhub.io/issues)를 보내거나
 [pull requests](https://github.com/NexClipper/exporterhub.io/pulls)를 보내주세요. 
+### 슬랙 채널에서 함께하세요!
+[Slack](https://app.slack.com/client/TC3DP3HPG/C01RTA59G66)
 
-<br>
-<br>
-슬랙 채널에서 함께하세요!: [Slack](https://app.slack.com/client/TC3DP3HPG/C01RTA59G66)
-
-### Easy to Update a list of exporters by Pull Request as below
-* https://github.com/NexClipper/exporterhub.io/blob/main/api/exporter_list.csv
+### 아래 Pull Request를 통해 exporter의 리스트를 업데이트하세요.
+* [exporter list](https://github.com/NexClipper/exporterhub.io/blob/main/api/exporter_list.csv)
 
 
 ## Service Map
