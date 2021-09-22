@@ -44,7 +44,7 @@ ExporterHub.io의 각 Exporter의 페이지에서 아래와 같은 내용을 제
 
 사용자의 Prometheus 모범사례 적용을 용이하게 하기 위해서
 
-ExporterHub.io는 모니터링 중인 특정 시스템으로부터 메트릭 데이터를 노출하는 데 사용할 수 있는 가장 적합한 exporter를 탐색하고 추천합니다.
+ExporterHub.io는 모니터링 중인 시스템으로부터 메트릭 데이터를 노출하는 데 사용할 수 있는 가장 적합한 exporter를 탐색 및 추천합니다.
 
 <br>
 
@@ -92,17 +92,14 @@ ExporterHub.io는 모니터링 중인 특정 시스템으로부터 메트릭 데
 ### 기여를 환영합니다!
 [ExporterHub.io](https://exporterhub.io/) 에 기여할 특정 exporter가 있다면 자유롭게 [send issues](https://github.com/NexClipper/exporterhub.io/issues)를 보내거나
 [pull requests](https://github.com/NexClipper/exporterhub.io/pulls)를 보내주세요. 
-
 <br>
 
 ### 슬랙 채널에서 함께하세요!
 [Slack](https://app.slack.com/client/TC3DP3HPG/C01RTA59G66)
-
 <br>
 
 ### 아래 Pull Request를 통해 exporter의 리스트를 업데이트하세요.
 * [Exporter list](https://github.com/NexClipper/exporterhub.io/blob/main/api/exporter_list.csv)
-
 <br>
 
 ## Service Map
