@@ -561,7 +561,6 @@ class ExporterTabView(View):
         repo     = f"{settings.ORGANIZATION}/exporterhub.io"       
         yaml_url = yaml_url.strip()
         url      = f"https://api.github.com/repos/{repo}/contents/{yaml_url}"
-
         data = requests.get(url, headers={'Content-Type': 'application/json', 'Authorization': 'token ' + token})
 
         if data.status_code == 404:
@@ -575,17 +574,18 @@ class ExporterTabView(View):
                         "sha" : data['sha'],
                         'message' : 'delete_file'
                     })
+
             code_result = requests.delete(url, data=contents, headers={'Authorization': 'token ' + token})
 
             if code_result.status_code == 404:
                 return "GITHUB_REPO_API_ERROR"
 
             return code_result
+
         else:
             result = 'GITHUB_REPO_API_ERROR' 
             return result
              
-
     def csv_file_delete(self, app_name, content_type, file_type, token, file_id):
         repo = f"{settings.ORGANIZATION}/exporterhub.io"        
         url  = f"https://api.github.com/repos/{repo}/contents/contents/{app_name}/{app_name}_{content_type}/{app_name}_{content_type}.{file_type}"
@@ -627,7 +627,6 @@ class ExporterTabView(View):
             return {'result' : result, 'yaml_url' : yaml_url}
 
         return "GITHUB_REPO_API_ERROR"
-
     @admin_decorator
     def delete(self, request, exporter_id):
         try:
@@ -653,8 +652,8 @@ class ExporterTabView(View):
 
             if code_result == 'GITHUB_REPO_API_ERROR' or csv_result == 'GITHUB_REPO_API_ERROR':
                return JsonResponse({'message': 'GITHUB_REPO_API_ERROR'}, status=404)
-
+               
             return JsonResponse({'message': 'SUCCESS'}, status=200)
             
         except KeyError:
-            return JsonResponse({'message': 'KEY_ERROR'}, status=400) 
+            return JsonResponse({'message': 'KEY_ERROR'}, status=400)
