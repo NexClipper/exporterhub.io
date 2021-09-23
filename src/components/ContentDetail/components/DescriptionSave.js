@@ -28,33 +28,54 @@ const DescriiptionSave = ({
 }) => {
   const { id } = useParams();
   const changeTheme = useSelector((store) => store.darkThemeReducer);
-
-  // const [decode, setDecode] = useState();
-  const handleInput = (e) => {
-    e.target.name === "description" && setDesState(e.target.value);
-  };
+  const [editState, setEditState] = useState("");
 
   useEffect(() => {
-    setDesState(desState === null ? "" : desState);
-  }, [desState]);
+    setEditState(desState);
+  }, []);
+
+  const handleInput = (e) => {
+    e.target.name === "description" && setEditState(e.target.value);
+  };
 
   const handleSave = () => {
-    axios({
-      method: "POST",
-      url: `${EXPORTER_API}/${id}`,
-      headers: {
-        Authorization: sessionStorage.getItem("access_token"),
-      },
-      data: {
-        descripton: desState,
-      },
-    })
-      .then((res) => {
-        handleEdit();
+    if (desState === "") {
+      axios({
+        method: "POST",
+        url: `${EXPORTER_API}/${id}`,
+        headers: {
+          Authorization: sessionStorage.getItem("access_token"),
+        },
+        data: {
+          description: editState,
+        },
       })
-      .catch((err) => {
-        console.log(err);
-      });
+        .then((res) => {
+          setDesState(res.data.description);
+          handleEdit();
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    } else {
+      axios({
+        method: "PATCH",
+        url: `${EXPORTER_API}/${id}`,
+        headers: {
+          Authorization: sessionStorage.getItem("access_token"),
+        },
+        data: {
+          description: editState,
+        },
+      })
+        .then((res) => {
+          setDesState(res.data.description);
+          handleEdit();
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
   };
 
   return (
@@ -76,7 +97,7 @@ const DescriiptionSave = ({
               type={type}
               file={file}
               name="description"
-              value={desState}
+              value={editState}
               onChange={(e) => handleInput(e)}
             ></textarea>
           </label>

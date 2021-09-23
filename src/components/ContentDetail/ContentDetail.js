@@ -22,8 +22,7 @@ const ContentDetail = () => {
   const [starState, setStarState] = useState();
   const [starNumber, setStarNumber] = useState();
   const [isEditMode, setEditMode] = useState(false);
-  const [desState, setDesState] = useState();
-  const [modify, setModify] = useState(false);
+  const [desState, setDesState] = useState("");
   const changeTheme = useSelector((store) => store.darkThemeReducer);
   const ACTIVECONTENT_OBJ = {
     0: <Exporter readmeContent={exporterInfo.readme} />,
@@ -52,7 +51,9 @@ const ContentDetail = () => {
         setForkState(res.data.data.is_bucket);
         setStarState(res.data.data.is_star);
         setStarNumber(res.data.data.stars);
+        console.log(res.data.data.detail_description);
         setDesState(res.data.data.detail_description);
+        // setDesState("들어온다 이 새기야");
       })
       .catch((err) => {
         console.log(err);
