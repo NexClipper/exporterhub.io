@@ -1,24 +1,42 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import axios from "axios";
+import DescriiptionSave from "./DescriptionSave";
+import NoData from "./NoData";
 import { AiFillStar } from "react-icons/ai";
+import { FiEdit } from "react-icons/fi";
+import { BiUndo } from "react-icons/bi";
 import { RiShoppingBasketLine } from "react-icons/ri";
+import { AiOutlineLoading3Quarters } from "react-icons/ai";
 import { ImLink } from "react-icons/im";
-import { BUCKET_API, STAR_API } from "../../../config";
+import { BUCKET_API, STAR_API, API_SURVER } from "../../../config";
 import { useSelector } from "react-redux";
+import { Fragment } from "react";
 const OpenSourceInfo = ({
+  EXPORTER_API,
+  desState,
+  setDesState,
   exporterInfo,
+  isEditMode,
+  setEditMode,
+  githubContent,
   forkState,
   starState,
   setStarState,
   setForkState,
   starNumber,
   setStarNumber,
+  type,
+  file,
 }) => {
+  const isAdmin = useSelector((store) => store.adminReducer);
   const TOKEN = sessionStorage.getItem("access_token");
   const [alertModal, setAlertModal] = useState(false);
   const [alertMsg, setAlertMsg] = useState();
+  const editBtnText = desState ? "Edit" : "Create";
+
   const changeTheme = useSelector((store) => store.darkThemeReducer);
+
   const addToFork = async (exporterInfo) => {
     if (!TOKEN) {
       setAlertMsg("You need to Sign in");
@@ -26,7 +44,7 @@ const OpenSourceInfo = ({
       return;
     }
     if (!forkState) {
-    await axios({
+      await axios({
         method: "POST",
         url: `${BUCKET_API}`,
         headers: {
@@ -70,69 +88,117 @@ const OpenSourceInfo = ({
 
     setStarState(!starState);
   };
+
+  const handleEdit = () => {
+    setEditMode(!isEditMode);
+  };
+
+  const onSubmitButton = (e) => {
+    const submitButton = { description: desState };
+    console.log(submitButton);
+  };
+
   const showAlertModal = () => {
     setAlertModal(true);
     setTimeout(() => {
       setAlertModal(false);
     }, 3000);
   };
+
   return (
     <Info>
       <a href={exporterInfo.repository_url} target="_blank" rel="noreferrer">
         <HeaderLogo src={exporterInfo.logo_url} />
       </a>
-      <div>
-        <div>
-          <a
-            href={exporterInfo.repository_url}
-            target="_blank"
-            rel="noreferrer"
-          >
-            <Name dark={changeTheme}>{exporterInfo.name}</Name>
-          </a>
-          <Button
-            dark={changeTheme}
-            onClick={() => addToFork(exporterInfo)}
-            forkState={forkState}
-          >
-            <span>{!forkState && <RiShoppingBasketLine />}</span>
-            {forkState ? (
-              <a
-                href={exporterInfo.forked_repository_url}
-                target="_blank"
-                rel="noreferrer"
-              >
-                <ImLink className="link" />
-                Link to forked Exporter
-              </a>
-            ) : (
-              <span>Fork</span>
+      <InfoWrap>
+        <HeaderInfo>
+          <div>
+            <a
+              href={exporterInfo.repository_url}
+              target="_blank"
+              rel="noreferrer"
+            >
+              <Name dark={changeTheme}>{exporterInfo.name}</Name>
+            </a>
+            <Category dark={changeTheme}>{exporterInfo.category}</Category>
+            <Button
+              dark={changeTheme}
+              onClick={() => addToFork(exporterInfo)}
+              forkState={forkState}
+            >
+              <span>{!forkState && <RiShoppingBasketLine />}</span>
+              {forkState ? (
+                <a
+                  href={exporterInfo.forked_repository_url}
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  <ImLink className="link" />
+                  Link to forked Exporter
+                </a>
+              ) : (
+                <span>Fork</span>
+              )}
+            </Button>
+
+            <StarIcon
+              dark={changeTheme}
+              onClick={handleStar}
+              starState={starState}
+            >
+              <AiFillStar dark={changeTheme} /> {starNumber && starNumber}
+            </StarIcon>
+          </div>
+          <div>
+            {isAdmin && (
+              <Fragment>
+                <Button onClick={handleEdit}>
+                  <span>{!isEditMode ? <FiEdit /> : <BiUndo />}</span>
+                  <span>{!isEditMode ? editBtnText : "Back"}</span>
+                </Button>
+              </Fragment>
             )}
-          </Button>
-        </div>
-        <div>
-          <Category dark={changeTheme}>{exporterInfo.category}</Category>
-          <StarIcon
-            dark={changeTheme}
-            onClick={handleStar}
-            starState={starState}
-          >
-            <AiFillStar dark={changeTheme} /> {starNumber && starNumber}
-          </StarIcon>
-        </div>
-      </div>
+          </div>
+        </HeaderInfo>
+        {!isEditMode ? (
+          <Data>
+            {desState && (
+              <InputBox dark={changeTheme}>
+                <Content>
+                  <p>{desState}</p>
+                </Content>
+              </InputBox>
+            )}
+          </Data>
+        ) : (
+          <DescriiptionSave
+            EXPORTER_API={EXPORTER_API}
+            exporterInfo={exporterInfo}
+            githubContent={githubContent}
+            isEditMode={isEditMode}
+            desState={desState}
+            setDesState={setDesState}
+            handleEdit={handleEdit}
+            showAlertModal={showAlertModal}
+            type={type}
+            file={file}
+          />
+        )}
+      </InfoWrap>
+
       <AlertModal isActive={alertModal}>
         <p>{alertMsg}</p>
       </AlertModal>
     </Info>
   );
 };
+
 export default OpenSourceInfo;
+
 const AlertModal = styled.div`
   display: ${(props) => (props.isActive ? "flex" : "none")};
   justify-content: center;
   top: -70px;
-  width: 100%;
   position: absolute;
   animation: move 2s ease-in-out;
   opacity: 0%;
@@ -173,21 +239,20 @@ const AlertModal = styled.div`
 const Info = styled.div`
   position: relative;
   display: flex;
-  align-items: center;
   user-select: none;
+  /* border: 2px solid red; */
   div {
     div {
       display: flex;
       align-items: center;
 
       @media ${({ theme }) => theme.media.mobile} {
-        flex-direction: column;
-        align-items: flex-start;
+        display: flex;
+        align-items: center;
+        flex-direction: row;
       }
 
       &:first-child {
-        margin-bottom: 20px;
-
         @media ${({ theme }) => theme.media.mobile} {
           margin-bottom: 3px;
         }
@@ -203,6 +268,13 @@ const Info = styled.div`
     }
   }
 `;
+
+const InfoWrap = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+`;
+
 const HeaderLogo = styled.div`
   background-image: url(${(props) => props.src});
   background-repeat: no-repeat;
@@ -217,16 +289,28 @@ const HeaderLogo = styled.div`
     margin-left: 15px;
   }
 `;
+
+const HeaderInfo = styled.div`
+  width: 840px;
+  display: flex;
+  justify-content: space-between;
+
+  @media ${({ theme }) => theme.media.mobile} {
+    float: left;
+  }
+`;
+
 const Name = styled.h4`
-  margin-right: 30px;
+  margin-right: 20px;
   color: ${(props) => (props.dark ? "#f5f6f7" : "#000000")};
   font-size: 17px;
 
   @media ${({ theme }) => theme.media.mobile} {
-    margin-bottom: 50px;
+    margin-bottom: 10px;
     font-size: 15px;
   }
 `;
+
 const Button = styled.button`
   /* width: 60px; */
   height: 25px;
@@ -242,6 +326,7 @@ const Button = styled.button`
   color: ${(props) => (props.forkState ? "#8D8D8D" : "black")};
 
   @media ${({ theme }) => theme.media.mobile} {
+    margin-bottom: 10px;
     position: relative;
     top: 2px;
     z-index: 10;
@@ -266,7 +351,7 @@ const Button = styled.button`
   }
 `;
 const Category = styled.p`
-  margin-right: 15px;
+  margin-right: 20px;
   padding: 5px 20px 8px 20px;
   font-size: 17px;
   font-weight: 400;
@@ -277,7 +362,7 @@ const Category = styled.p`
   min-height: 30px;
 
   @media ${({ theme }) => theme.media.mobile} {
-    margin-bottom: 50px;
+    margin-bottom: 10px;
     font-size: 13px;
     padding: 7px 10px 6px 10px;
   }
@@ -285,6 +370,7 @@ const Category = styled.p`
 const StarIcon = styled.span`
   font-size: 18px;
   font-weight: 500;
+  margin-left: 20px;
   color: ${(props) => (props.starState ? "#ffd200" : "#8D8D8D")};
   cursor: pointer;
   svg {
@@ -295,5 +381,32 @@ const StarIcon = styled.span`
     position: relative;
     top: 5px;
     font-size: 14px;
+  }
+`;
+const Data = styled.pre`
+  font-family: "Noto Sans KR", sans-serif;
+  font-size: 14px;
+  line-height: 20px;
+  color: black;
+  border-radius: 5px;
+`;
+
+const Content = styled.div`
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  margin-top: 20px;
+  p {
+    white-space: normal;
+    word-break: break-all;
+  }
+`;
+const InputBox = styled.div`
+  p {
+    line-height: 1.8;
+    margin-bottom: 16px;
+    font-size: 15px;
+    white-space: normal;
+    color: ${(props) => props.dark && "#f5f6f7"};
   }
 `;
