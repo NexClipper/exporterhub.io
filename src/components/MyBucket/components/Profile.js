@@ -49,6 +49,22 @@ const Profile = ({ userProfile }) => {
       });
   };
 
+  const handleDelUser = () => {
+    axios({
+      method: "DELETE",
+      url: `${API_SURVER}/user/profile`,
+      headers: {
+        Authorization: sessionStorage.getItem("access_token"),
+      },
+    })
+      .then((res) => {
+        console.log("삭제 요청 성공");
+      })
+      .catch((err) => {
+        console.log("삭제 요청 실패");
+      });
+  };
+
   const showAlertModal = () => {
     setAlertModal(true);
 
@@ -76,6 +92,9 @@ const Profile = ({ userProfile }) => {
             </span>
             <span>Edit Profile</span>
           </Button>
+          <DelButton onClick={handleDelUser}>
+            <span>Delete User</span>
+          </DelButton>
         </div>
         <Introduce>{userProfile.intro}</Introduce>
         {userProfile.organization && (
@@ -238,6 +257,36 @@ const Button = styled.button`
   display: flex;
   align-items: center;
   padding: 5px 10px;
+  background: #ffffff;
+  box-shadow: 1px 1px 6px 1px rgba(0, 0, 0, 0.1);
+  border-radius: 5px;
+  font-size: 12px;
+  font-weight: 600;
+  user-select: none;
+
+  span {
+    font-size: 12px;
+
+    &:first-child {
+      position: relative;
+      right: -2px;
+      margin-right: 5px;
+      font-size: 13px;
+    }
+  }
+
+  @media ${({ theme }) => theme.media.mobile} {
+    position: relative;
+    right: 10px;
+    top: 3px;
+  }
+`;
+
+const DelButton = styled.button`
+  display: flex;
+  align-items: center;
+  padding: 5px 10px;
+  margin-left: 10px;
   background: #ffffff;
   box-shadow: 1px 1px 6px 1px rgba(0, 0, 0, 0.1);
   border-radius: 5px;
