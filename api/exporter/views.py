@@ -557,9 +557,10 @@ class ExporterTabView(View):
         except KeyError:
             return JsonResponse({'message': 'KEY_ERROR'}, status=400) 
 
-    def code_file_delete(self, app_name, file_name, content_type, file_type, token):
-        repo = f"{settings.ORGANIZATION}/exporterhub.io"       
-        url  = f"https://api.github.com/repos/{repo}/contents/contents/{app_name}/{app_name}_{content_type}/{file_name}_{content_type}.{file_type}"
+    def code_file_delete(self, app_name, content_type, file_type, token, yaml_url):
+        repo     = f"{settings.ORGANIZATION}/exporterhub.io"       
+        yaml_url = yaml_url.strip()
+        url      = f"https://api.github.com/repos/{repo}/contents/{yaml_url}"
 
         data = requests.get(url, headers={'Content-Type': 'application/json', 'Authorization': 'token ' + token})
 
@@ -585,12 +586,13 @@ class ExporterTabView(View):
             return result
              
 
-    def csv_file_delete(self, app_name, file_name, content_type, file_type, token, file_id):
+    def csv_file_delete(self, app_name, content_type, file_type, token, file_id):
         repo = f"{settings.ORGANIZATION}/exporterhub.io"        
         url  = f"https://api.github.com/repos/{repo}/contents/contents/{app_name}/{app_name}_{content_type}/{app_name}_{content_type}.{file_type}"
         content_list = []
         results = []
         response = ''
+        yaml_url = ''
         
         data = requests.get(url, headers={'Content-Type': 'application/json', 'Authorization': 'token ' + token})
 
@@ -609,7 +611,7 @@ class ExporterTabView(View):
 
             for i, detail in enumerate(content_list):
                 if detail[0] == file_id:
-                    pass
+                    yaml_url = detail[2]
                 else:
                     results.append([detail[0], detail[1], detail[2], '\n'])
             
@@ -622,7 +624,7 @@ class ExporterTabView(View):
                         "content" : base64.b64encode(response.encode('utf-8')).decode('utf-8')
                     })
             result  = requests.put(url, data=contents, headers={'Authorization': 'token ' + token})
-            return result
+            return {'result' : result, 'yaml_url' : yaml_url}
 
         return "GITHUB_REPO_API_ERROR"
 
@@ -644,11 +646,10 @@ class ExporterTabView(View):
                     'helm'      : 'yaml',
                 }
 
-            file_name = request.GET['file_name']
             file_id   = request.GET['file_id']
 
-            code_result = self.code_file_delete(app_name = app_name, file_name=file_name, content_type = content_type, file_type = type[content_type], token = token)
-            csv_result  = self.csv_file_delete(app_name = app_name, file_name=file_name, content_type = content_type, file_type = 'csv', token = token, file_id=file_id)
+            csv_result  = self.csv_file_delete(app_name = app_name, content_type = content_type, file_type = 'csv', token = token, file_id=file_id)
+            code_result = self.code_file_delete(app_name = app_name, content_type = content_type, file_type = type[content_type], token = token, yaml_url = csv_result['yaml_url'])
 
             if code_result == 'GITHUB_REPO_API_ERROR' or csv_result == 'GITHUB_REPO_API_ERROR':
                return JsonResponse({'message': 'GITHUB_REPO_API_ERROR'}, status=404)
