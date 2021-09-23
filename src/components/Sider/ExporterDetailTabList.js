@@ -7,10 +7,13 @@ import { FiPlus } from "react-icons/fi";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
 import DeleteModal from "../Modal/DeleteModal";
+import { API_SURVER } from "../../config";
 import { set } from "js-cookie";
 
 const ExporterDetailTabList = ({
   modify,
+  id,
+  type,
   exporterCsv,
   setSelect,
   select,
@@ -74,6 +77,22 @@ const ExporterDetailTabList = ({
   const handleDelete = (answer) => {
     if (answer === "Yes") {
       console.log(select, "을 삭제해");
+      const fileType = type.slice(1, type.lastIndexOf("."));
+      axios({
+        method: "DELETE",
+        url: `${API_SURVER}/exporter/${id}/tab?type=${fileType}&file_id=${select}`,
+        headers: {
+          Authorization: sessionStorage.getItem("access_token"),
+        },
+      })
+        .then(() => {
+          handleMode();
+        })
+        .catch((err) => {
+          handleMode();
+          console.log(err);
+        });
+
       //response 오면 실행
       handleMode();
       exporterCsv.length !== 0
@@ -197,7 +216,7 @@ const ExporterDetailTabList = ({
       {deleteFile && (
         <DeleteModal
           handleDelete={handleDelete}
-          content="삭제할거야 ?"
+          content="Are you sure Delete?"
         ></DeleteModal>
       )}
     </>
