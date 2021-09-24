@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import {
   filterByCate,
@@ -18,11 +18,23 @@ const Sider = () => {
   const categories = useSelector((store) => store.categoryReducer);
   const changeTheme = useSelector((store) => store.darkThemeReducer);
   const isAdmin = useSelector((store) => store.adminReducer);
+  const filterCategory = useSelector((store) => store.cateFilterReducer);
   const [edit, setEdit] = useState(false);
   const [addCategoryName, setAddCategoryName] = useState("");
   const [deletecategory, setDeletecategory] = useState(false);
   const [categoryAct, setCategoryAct] = useState(0);
   const [alert, setAlert] = useState(false);
+
+  useEffect(() => {
+    if (filterCategory !== "") {
+      const cate = categories.filter(
+        (category) => category.category_name === filterCategory
+      );
+      setCategoryAct(cate[0].category_id);
+    } else {
+      setCategoryAct(0);
+    }
+  }, [filterCategory]);
 
   const New = (createDate) => {
     let today = new Date();

@@ -26,6 +26,7 @@ const ContentMenu = () => {
   const isAdmin = useSelector((store) => store.adminReducer);
   const changeTheme = useSelector((store) => store.darkThemeReducer);
   const categories = useSelector((store) => store.categoryReducer);
+  const filterCategory = useSelector((store) => store.cateFilterReducer);
 
   const cancleModal = () => {
     setIsModalActive(false);
@@ -147,7 +148,11 @@ const ContentMenu = () => {
         <SelectBox>
           <Categories dark={changeTheme}>
             <p>Categories :</p>
-            <Select dark={changeTheme} onChange={callDispatch}>
+            <Select
+              dark={changeTheme}
+              onChange={callDispatch}
+              value={filterCategory === "" ? "All" : filterCategory}
+            >
               <option>All</option>
               {categories &&
                 categories.map((category) => {
