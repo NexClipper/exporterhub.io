@@ -1,12 +1,10 @@
 title project_name github_url offcial category 
 eBPF eBPF Exporter https://github.com/cloudflare/ebpf_exporter 0 Miscellaneous 
-Ceph Ceph Exporter https://github.com/digitalocean/ceph_exporter 0 Storage 
 Grok Grok Exporter https://github.com/fstab/grok_exporter 0 Logging 
 RabbitMQ RabbitMQ Exporter https://github.com/kbudde/rabbitmq_exporter 0 Messaging 
 Kong API Gateway Kong Prometheus Plugin https://github.com/Kong/kong-plugin-prometheus 0 Software 
 kube-state-metrics kube-state-metrics https://github.com/kubernetes/kube-state-metrics 0 Miscellaneous 
 System Process Process Exporter https://github.com/ncabatoff/process-exporter 0 Miscellaneous 
-NGINX NGINX Exporter https://github.com/nginxinc/nginx-prometheus-exporter 0 Storage 
 NVIDIA GPU Monitoring Tools NVIDIA GPU Monitoring Tools https://github.com/NVIDIA/gpu-monitoring-tools 0 Hardware 
 Redis Redis Metrics Exporter https://github.com/oliver006/redis_exporter 0 Database 
 OpenStack OpenStack Exporter https://github.com/openstack-exporter/openstack-exporter 0 Miscellaneous 
@@ -18,7 +16,6 @@ CloudWatch CloudWatch Exporter https://github.com/prometheus/cloudwatch_exporter
 Collectd Collectd Exporter https://github.com/prometheus/collectd_exporter 1 Monitoring 
 Consul Consul Exporter https://github.com/prometheus/consul_exporter 1 Database 
 Graphite Graphite Exporter https://github.com/prometheus/graphite_exporter 1 Monitoring 
-HAProxy HAProxy Exporter https://github.com/prometheus/haproxy_exporter 1 Storage 
 InfluxDB InfluxDB Exporter https://github.com/prometheus/influxdb_exporter 1 Database 
 JMX JMX Exporter https://github.com/prometheus/jmx_exporter 1 Monitoring 
 Memcached Memcached Exporter https://github.com/prometheus/memcached_exporter 1 Database 
