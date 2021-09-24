@@ -78,6 +78,14 @@ const ExporterDetailTabList = ({
     if (answer === "Yes") {
       setExporterCsv("default");
       handleDelete();
+      exporterCsv.length !== 0
+        ? setSelect(exporterCsv[0].file_id)
+        : setSelect(0);
+      setDeleteFile(false);
+
+      if (modify) {
+        setModify(false);
+      }
     } else {
       setDeleteFile(false);
     }
@@ -101,9 +109,6 @@ const ExporterDetailTabList = ({
       });
 
     //response 오면 실행
-    handleMode();
-    exporterCsv.length !== 0 ? setSelect(exporterCsv[0].file_id) : setSelect(0);
-    setDeleteFile(false);
   };
 
   const handleChangeFile = (fileId) => {
