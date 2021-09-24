@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import AceEditor from "react-ace";
 import styled from "styled-components";
 import "ace-builds/src-noconflict/ace";
@@ -28,6 +28,7 @@ const ExporterTabCodeEditor = ({
   csvSha,
   fileId,
   setModify,
+  exporterCsv,
 }) => {
   const { id } = useParams();
   const dispatch = useDispatch();
@@ -38,6 +39,7 @@ const ExporterTabCodeEditor = ({
   const beforeEditFile = useSelector(
     (store) => store.exporterTabBeforeEditReducer
   );
+  const [sameFileName, setSameFileName] = useState(false);
 
   useEffect(() => {
     dispatch(
@@ -81,9 +83,29 @@ const ExporterTabCodeEditor = ({
   };
 
   const handleSave = () => {
-    setExporterCsv("default");
-    setModify(false);
-    handlefetchGithub();
+    let isSame = [];
+    if (beforeEditFile.fileName === edittingExporterFile.fileName) {
+      isSame = [];
+    } else {
+      isSame = exporterCsv.filter(
+        (file) =>
+          edittingExporterFile.fileName.toLowerCase() ===
+          file.file_url
+            .slice(
+              file.file_url.lastIndexOf("/") + 1,
+              file.file_url.lastIndexOf("_")
+            )
+            .toLowerCase()
+      );
+    }
+
+    if (isSame.length === 0) {
+      setExporterCsv("default");
+      setModify(false);
+      handlefetchGithub();
+    } else {
+      setSameFileName(true);
+    }
   };
 
   const handlefetchGithub = () => {
@@ -130,8 +152,10 @@ const ExporterTabCodeEditor = ({
               dark={changeTheme}
               onChange={handleFileInfo}
             />
+
             <p> {type}</p>
           </FileName>
+          {sameFileName && <Same>same name</Same>}
           <Input
             IsEdit={
               beforeEditFile.description !== edittingExporterFile.description
@@ -297,4 +321,8 @@ const Input = styled.input`
   font-size: ${(props) => (props.placeholder === "fileName" ? "20px" : "15px")};
   letter-spacing: 0.08rem;
   outline: none;
+`;
+
+const Same = styled.p`
+  color: red;
 `;

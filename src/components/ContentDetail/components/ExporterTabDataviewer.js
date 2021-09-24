@@ -105,6 +105,7 @@ const ExporterTabDataviewer = ({
             fileName={selectFileInfo[0].file_url.slice(
               selectFileInfo[0].file_url.lastIndexOf("/") + 1
             )}
+            exporterCsv={exporterCsv}
             setModify={setModify}
             fileDescription={selectFileInfo[0].csv_desc}
             fileContent={selectFileInfo[0].file_content}
