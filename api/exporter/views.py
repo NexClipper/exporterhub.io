@@ -664,10 +664,10 @@ class ExporterTabView(View):
 
             result   = requests.put(csv_url, data=contents, headers={'Authorization': 'token ' + token, 'Content-Type':'application/vnd.github.v3+json'}) 
 
-        if result.status_code == 404:
-            return "GITHUB_REPO_API_ERROR"
+            if result.status_code == 404:
+                return "GITHUB_REPO_API_ERROR"
 
-        return {'result' :result , 'bf_file_name': bf_file_name}
+            return {'result' :result , 'bf_file_name': bf_file_name}
         
 
     @admin_decorator
