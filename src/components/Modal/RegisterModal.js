@@ -83,11 +83,14 @@ const RegisterModal = ({ cancleModal }) => {
           category.category_name.toLowerCase() === pluscategory.toLowerCase()
       );
       if (isSame.length === 0) {
+        let today = new Date();
+        let todayDate = today.toLocaleDateString();
         axios({
           method: "post",
           url: `${CATEGORIES_API}`,
           data: {
             category: pluscategory,
+            date: todayDate,
           },
           headers: {
             Authorization: sessionStorage.getItem("access_token"),

@@ -53,11 +53,14 @@ const ContentMenu = () => {
             addCategoryName.toLowerCase()
         );
         if (isSame.length === 0) {
+          let today = new Date();
+          let todayDate = today.toLocaleDateString();
           axios({
             method: "post",
             url: `${CATEGORIES_API}`,
             data: {
               category: addCategoryName,
+              date: todayDate,
             },
             headers: {
               Authorization: sessionStorage.getItem("access_token"),
@@ -147,11 +150,13 @@ const ContentMenu = () => {
             <Select dark={changeTheme} onChange={callDispatch}>
               <option>All</option>
               {categories &&
-                categories.map((category) => (
-                  <option key={category.category_id}>
-                    {category.category_name}
-                  </option>
-                ))}
+                categories.map((category) => {
+                  return (
+                    <option key={category.category_id}>
+                      {category.category_name}
+                    </option>
+                  );
+                })}
             </Select>
             {isAdmin && (
               <AiFillSetting
@@ -306,6 +311,7 @@ const Select = styled.select`
   @media ${({ theme }) => theme.media.mobile} {
     display: block;
     font-size: 13px;
+    max-width: 120px;
     color: ${(props) => (props.dark ? "#ffffff" : "black")};
   }
   option {
