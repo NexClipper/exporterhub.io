@@ -23,22 +23,21 @@ const Sider = () => {
   const [deletecategory, setDeletecategory] = useState(false);
   const [categoryAct, setCategoryAct] = useState(0);
   const [alert, setAlert] = useState(false);
-  let createDate = "2021. 9. 18.";
 
   const New = (createDate) => {
     let today = new Date();
     let todayDate = today.toLocaleDateString();
     let isNew =
       todayDate.slice(0, todayDate.indexOf(".")) -
-        createDate.slice(0, createDate.indexOf(".")) ===
+        createDate.slice(0, createDate.indexOf("-")) ===
         0 &&
       todayDate.slice(
         todayDate.indexOf(".") + 1,
         todayDate.indexOf(".", todayDate.indexOf(".") + 1)
       ) -
         createDate.slice(
-          createDate.indexOf(".") + 1,
-          createDate.indexOf(".", createDate.indexOf(".") + 1)
+          createDate.indexOf("-") + 1,
+          createDate.indexOf("-", createDate.indexOf("-") + 1)
         ) ===
         0 &&
       todayDate.slice(
@@ -46,8 +45,7 @@ const Sider = () => {
         todayDate.lastIndexOf(".")
       ) -
         createDate.slice(
-          createDate.indexOf(".", createDate.indexOf(".") + 1) + 1,
-          createDate.lastIndexOf(".")
+          createDate.indexOf("-", createDate.indexOf("-") + 1) + 1
         ) <=
         3;
     return isNew;
@@ -175,11 +173,7 @@ const Sider = () => {
         </Category>
         {categories &&
           categories.map((category) => {
-            {
-              /* const isNew = New(category.date); */
-            }
-            const isNew = New(createDate);
-
+            const isNew = New(category.create_at);
             return (
               <Category
                 key={category.category_id}

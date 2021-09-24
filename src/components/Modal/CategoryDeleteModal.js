@@ -23,7 +23,7 @@ const CategoryDeleteModal = ({
   const [sureDelete, setSureDelete] = useState(false);
   const [selectCategory, setSelectCategory] = useState("Select category");
   const [isSelected, setIsSelected] = useState(true);
-  const cata = categoriesList.filter(
+  const remainCategories = categoriesList.filter(
     (ele) => ele.category_id !== deletecategoryId
   );
 
@@ -127,8 +127,8 @@ const CategoryDeleteModal = ({
               }}
             >
               <option>Select category</option>
-              {cata &&
-                cata.map((category) => {
+              {remainCategories &&
+                remainCategories.map((category) => {
                   return <option>{category.category_name}</option>;
                 })}
             </select>
