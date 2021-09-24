@@ -762,7 +762,19 @@ class ExporterTabView(View):
                     yaml_url = detail[2]
                 else:
                     results.append([detail[0], detail[1], detail[2], '\n'])
-            
+
+            if results == []:
+                contents = json.dumps({
+                        "message" : 'delete_csv',
+                        "sha"     : data['sha']
+                    })
+                csv_delete = requests.delete(url, data=contents,headers={'Authorization': 'token ' + token})
+
+                if csv_delete == 404:
+                    return "GITHUB_REPO_API_ERROR"
+                    
+                return csv_delete
+
             for content in results:
                 response += ','.join(content)
             contents = json.dumps({
@@ -770,8 +782,10 @@ class ExporterTabView(View):
                         "sha"     : data['sha'],
                         "content" : base64.b64encode(response.encode('utf-8')).decode('utf-8')
                     })
+
             result  = requests.put(url, data=contents, headers={'Authorization': 'token ' + token})
             return {'result' : result, 'yaml_url' : yaml_url}
+
         return "GITHUB_REPO_API_ERROR"
     @admin_decorator
     def delete(self, request, exporter_id):
