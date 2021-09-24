@@ -18,7 +18,6 @@ const ExporterTab = ({ title, type }) => {
   const [select, setSelect] = useState(0);
 
   const handleMode = () => {
-    // setIsEditMode(!isEditMode);
     if (isEditMode) {
       setModify(false);
     }
@@ -44,7 +43,6 @@ const ExporterTab = ({ title, type }) => {
       headers: HEADER,
     })
       .then((res) => {
-        console.log(res);
         setExporterCsv(
           res.data.message === "No_Content" ? [] : res.data.message
         );
@@ -97,6 +95,7 @@ const ExporterTab = ({ title, type }) => {
           </MobileTabListbox>
         </div>
         <ExporterTabDataviewer
+          setExporterCsv={setExporterCsv}
           setModify={setModify}
           select={select}
           isEditMode={isEditMode}

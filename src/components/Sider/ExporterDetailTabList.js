@@ -32,7 +32,6 @@ const ExporterDetailTabList = ({
   const [deleteFile, setDeleteFile] = useState(false);
   const dontSaved =
     modify && JSON.stringify(edittingFile) !== JSON.stringify(beforeEditFile);
-
   const handleFileAdd = () => {
     if (exporterCsv.length !== 0) {
       if (select === "New") {
@@ -76,7 +75,6 @@ const ExporterDetailTabList = ({
 
   const handleDelete = (answer) => {
     if (answer === "Yes") {
-      console.log(select, "을 삭제해");
       const fileType = type.slice(1, type.lastIndexOf("."));
       axios({
         method: "DELETE",
@@ -136,7 +134,7 @@ const ExporterDetailTabList = ({
       ) : (
         <CategoryBox>
           <div>
-            {exporterCsv
+            {exporterCsv.length !== 0
               ? exporterCsv.map((file) => {
                   let github = file.file_url.slice(
                     file.file_url.lastIndexOf("/") + 1,

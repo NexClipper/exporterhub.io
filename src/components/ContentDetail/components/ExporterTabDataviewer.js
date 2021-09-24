@@ -16,6 +16,7 @@ const ExporterTabDataviewer = ({
   exporterCsv,
   select,
   setModify,
+  setExporterCsv,
 }) => {
   const isAdmin = useSelector((store) => store.adminReducer);
   const changeTheme = useSelector((store) => store.darkThemeReducer);
@@ -99,10 +100,12 @@ const ExporterTabDataviewer = ({
           </Data>
         ) : (
           <ExporterTabCodeEditor
+            setExporterCsv={setExporterCsv}
             type={type}
             fileName={selectFileInfo[0].file_url.slice(
               selectFileInfo[0].file_url.lastIndexOf("/") + 1
             )}
+            setModify={setModify}
             fileDescription={selectFileInfo[0].csv_desc}
             fileContent={selectFileInfo[0].file_content}
             fileSha={selectFileInfo[0].file_sha}

@@ -18,6 +18,7 @@ import { API_SURVER } from "../../../config";
 import { useParams } from "react-router";
 
 const ExporterTabCodeEditor = ({
+  setExporterCsv,
   fileName,
   fileDescription,
   fileContent,
@@ -26,6 +27,7 @@ const ExporterTabCodeEditor = ({
   fileSha,
   csvSha,
   fileId,
+  setModify,
 }) => {
   const { id } = useParams();
   const dispatch = useDispatch();
@@ -78,6 +80,12 @@ const ExporterTabCodeEditor = ({
     }
   };
 
+  const handleSave = () => {
+    setExporterCsv("default");
+    setModify(false);
+    handlefetchGithub();
+  };
+
   const handlefetchGithub = () => {
     const fileType = type.slice(1, type.lastIndexOf("."));
     axios({
@@ -95,7 +103,8 @@ const ExporterTabCodeEditor = ({
         csv_desc: edittingExporterFile.description,
       },
     })
-      .then(() => {
+      .then((res) => {
+        console.log(res);
         handleMode();
       })
       .catch((err) => {
@@ -165,7 +174,7 @@ const ExporterTabCodeEditor = ({
           }}
         />
       </EditorContainer>
-      <Button onClick={handlefetchGithub}>
+      <Button onClick={handleSave}>
         <span>
           <HiOutlineSave />
         </span>
@@ -215,7 +224,6 @@ const EditorContainer = styled.div`
 `;
 
 const Button = styled.button`
-  border: 1px solid blue;
   display: flex;
   align-items: center;
   justify-content: center;
