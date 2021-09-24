@@ -24,14 +24,12 @@ InfluxDB,InfluxDB Exporter,https://github.com/prometheus/influxdb_exporter,1,Dat
 JMX,JMX Exporter,https://github.com/prometheus/jmx_exporter,1,Monitoring
 Memcached,Memcached Exporter,https://github.com/prometheus/memcached_exporter,1,Database
 MySQL,MySQL Server Exporter,https://github.com/prometheus/mysqld_exporter,1,Database
-Node Exporter,Node Exporter,https://github.com/prometheus/node_exporter,1,Hardware
 SNMP,SNMP Exporter,https://github.com/prometheus/snmp_exporter,1,Monitoring
 Statsd,Statsd Exporter,https://github.com/prometheus/statsd_exporter,1,Monitoring
 Azure,Azure Metrics Exporter,https://github.com/RobustPerception/azure_metrics_exporter,0,Monitoring
 PostgreSQL,PostgreSQL Server Exporter,https://github.com/wrouesnel/postgres_exporter,0,Database
 Go Client,Go Client Library,https://github.com/prometheus/client_golang,1,Library
 Java Client,Java Client Library,https://github.com/prometheus/client_java,1,Library
-Python Client,Python Client Library,https://github.com/prometheus/client_python,1,Library
 Ruby Client,Ruby Client Library,https://github.com/prometheus/client_ruby,1,Library
 Push Gateway,Push Gateway,https://github.com/prometheus/pushgateway,1,Monitoring
 k8s image availability,k8s-image-availability-exporter,https://github.com/flant/k8s-image-availability-exporter,0,Miscellaneous
