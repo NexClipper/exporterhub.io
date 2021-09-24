@@ -50,7 +50,7 @@ class CategoryView(View):
             "categories": [{   
                 "category_id"  : category.id,
                 "category_name": category.name,
-                # "create_at"    : category.create_at
+                "create_at"    : category.create_at
             } for category in categories]
         }
         return JsonResponse(data, status=200)
