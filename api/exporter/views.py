@@ -58,10 +58,12 @@ class CategoryView(View):
     @admin_decorator
     def post(self, request):
         data   = json.loads(request.body)
-
+        date   = data['date'].split('.')
+        create_at = date[0]+'-'+date[1]+'-'+date[2]
+        
         category, is_create = Category.objects.get_or_create(
             name = data['category'],
-            # create_at = data['date']
+            create_at = create_at.replace(' ','')
         )
 
         if not is_create:
