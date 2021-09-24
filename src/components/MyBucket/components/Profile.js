@@ -4,7 +4,7 @@ import axios from "axios";
 import styled from "styled-components";
 import { RiUserSettingsLine, RiUserUnfollowLine } from "react-icons/ri";
 import { HiOutlineOfficeBuilding, HiOutlineMail } from "react-icons/hi";
-import { AiOutlineUser, UserDeleteOutlined } from "react-icons/ai";
+import { AiOutlineUser } from "react-icons/ai";
 import { API_SURVER } from "../../../config";
 import { useSelector } from "react-redux";
 import DeleteModal from "../../Modal/DeleteModal";
@@ -16,6 +16,7 @@ const Profile = ({ userProfile }) => {
   const [email, setEmail] = useState();
   const [alertModal, setAlertModal] = useState(false);
   const [userDelete, setUserDelete] = useState(false);
+  const [deleteDescription, setDeleteDescription] = useState(false);
   const changeTheme = useSelector((store) => store.darkThemeReducer);
   const {
     push,
@@ -58,6 +59,15 @@ const Profile = ({ userProfile }) => {
 
   const handleDelUser = (answer) => {
     if (answer === "Yes") {
+      setDeleteDescription(true);
+      setUserDelete(false);
+    } else {
+      setUserDelete(false);
+    }
+  };
+
+  const handleDelUser2 = (answer) => {
+    if (answer === "확인") {
       axios({
         method: "DELETE",
         url: `${API_SURVER}/user/profile`,
@@ -74,7 +84,7 @@ const Profile = ({ userProfile }) => {
           console.log("삭제 요청 실패");
         });
     } else {
-      setUserDelete(false);
+      setDeleteDescription(false);
     }
   };
 
@@ -118,6 +128,28 @@ const Profile = ({ userProfile }) => {
             handleDelete={handleDelUser}
             content="Delete your account?"
           />
+        )}
+        {deleteDescription && (
+          <DeleteModal
+            handleDelete={handleDelUser2}
+            content="SUCCESS"
+            button2="확인"
+            deletebutton1={false}
+          >
+            <RevokeInfo>
+              If you want to revoke <br />
+              OAuth Authorization on GitHub,
+              <br /> please click below url
+            </RevokeInfo>
+            <RevokeUrl
+              href="https://github.com/settings/applications"
+              target="_blank"
+            >
+              GitHub URL
+            </RevokeUrl>
+
+            <RevokeImg src="/images/revoke.png" />
+          </DeleteModal>
         )}
         <Introduce>{userProfile.intro}</Introduce>
         {userProfile.organization && (
@@ -333,6 +365,26 @@ const DelButton = styled.button`
     right: 10px;
     top: 3px;
   }
+`;
+
+const RevokeInfo = styled.p`
+  margin-top: 10px;
+  font-size: 14px;
+  text-align: center;
+  line-height: 20px;
+`;
+
+const RevokeImg = styled.img`
+  margin-top: 10px;
+  width: 300px;
+`;
+
+const RevokeUrl = styled.a`
+  margin-top: 10px;
+  font-size: 16px;
+  font-weight: 500;
+  text-decoration: none;
+  color: #85dbc3;
 `;
 
 const Introduce = styled.p`
