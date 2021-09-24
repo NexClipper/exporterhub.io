@@ -671,6 +671,7 @@ class ExporterTabView(View):
 
             return {'result' :result , 'bf_file_name': bf_file_name}
 
+
     @admin_decorator
     def post(self, request, exporter_id):
         try:
