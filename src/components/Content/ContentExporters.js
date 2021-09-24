@@ -2,7 +2,6 @@ import React from "react";
 import { useHistory } from "react-router-dom";
 import styled from "styled-components";
 import CardExporter from "./CardExporter";
-// import EditModal from "../Modal/EditModal";
 
 const ContentExporters = ({
   exporters,
@@ -14,19 +13,10 @@ const ContentExporters = ({
     push,
     location: { pathname },
   } = useHistory();
-  // const [isModalActive, setIsModalActive] = useState(false);
-  // const [exporterId, setExporterId] = useState();
 
   const goToDetail = (id) => {
     push(`/detail/${id}`);
   };
-  // const modalClick = (id) => {
-  //   setIsModalActive(true);
-  //   setExporterId(id);
-  // };
-  // const cancleModal = () => {
-  //   setIsModalActive(false);
-  // };
 
   return (
     <ExporterContainer fork={fork} mybucket={mybucket}>
@@ -34,17 +24,12 @@ const ContentExporters = ({
         exporters.map((exporter) => (
           <CardExporter
             key={exporter.exporter_id}
-            exporter={exporter}
-            // cardClick={pathname === "/" ? goToDetail : modalClick}
             cardClick={pathname === "/" ? goToDetail : goToDetail}
             fork={fork}
             mybucket={mybucket}
             setIsForkModalActive={setIsForkModalActive}
           />
         ))}
-      {/* {isModalActive && (
-        <EditModal exporterId={exporterId} cancleModal={cancleModal} />
-      )} */}
     </ExporterContainer>
   );
 };

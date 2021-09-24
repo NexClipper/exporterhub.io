@@ -126,7 +126,6 @@ const ExporterTabCodeEditor = ({
       },
     })
       .then((res) => {
-        console.log(res);
         handleMode();
       })
       .catch((err) => {
@@ -181,7 +180,6 @@ const ExporterTabCodeEditor = ({
           dark={changeTheme}
           theme={!changeTheme ? "github" : "twilight"}
           name="blah2"
-          // onLoad={this.onLoad}
           onChange={onChange}
           fontSize={14}
           showPrintMargin={true}
@@ -224,8 +222,6 @@ const Container = styled.div`
     font-weight: 400 !important;
     letter-spacing: 0 !important;
     line-height: 1.3 !important;
-
-    /* background-color: red; */
   }
   .ace_editor {
     border: ${(props) =>
