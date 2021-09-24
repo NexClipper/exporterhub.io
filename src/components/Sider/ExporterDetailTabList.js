@@ -7,10 +7,14 @@ import { FiPlus } from "react-icons/fi";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
 import DeleteModal from "../Modal/DeleteModal";
+import { API_SURVER } from "../../config";
 import { set } from "js-cookie";
 
 const ExporterDetailTabList = ({
+  setExporterCsv,
   modify,
+  id,
+  type,
   exporterCsv,
   setSelect,
   select,
@@ -29,7 +33,6 @@ const ExporterDetailTabList = ({
   const [deleteFile, setDeleteFile] = useState(false);
   const dontSaved =
     modify && JSON.stringify(edittingFile) !== JSON.stringify(beforeEditFile);
-
   const handleFileAdd = () => {
     if (exporterCsv.length !== 0) {
       if (select === "New") {
@@ -71,18 +74,36 @@ const ExporterDetailTabList = ({
     setSaveEdit(false);
   };
 
-  const handleDelete = (answer) => {
+  const handleDeleteAnswer = (answer) => {
     if (answer === "Yes") {
-      console.log(select, "을 삭제해");
-      //response 오면 실행
-      handleMode();
-      exporterCsv.length !== 0
-        ? setSelect(exporterCsv[0].file_id)
-        : setSelect(0);
-      setDeleteFile(false);
+      setExporterCsv("default");
+      handleDelete();
     } else {
       setDeleteFile(false);
     }
+  };
+
+  const handleDelete = () => {
+    const fileType = type.slice(1, type.lastIndexOf("."));
+    axios({
+      method: "DELETE",
+      url: `${API_SURVER}/exporter/${id}/tab?type=${fileType}&file_id=${select}`,
+      headers: {
+        Authorization: sessionStorage.getItem("access_token"),
+      },
+    })
+      .then(() => {
+        handleMode();
+      })
+      .catch((err) => {
+        handleMode();
+        console.log(err);
+      });
+
+    //response 오면 실행
+    handleMode();
+    exporterCsv.length !== 0 ? setSelect(exporterCsv[0].file_id) : setSelect(0);
+    setDeleteFile(false);
   };
 
   const handleChangeFile = (fileId) => {
@@ -117,7 +138,7 @@ const ExporterDetailTabList = ({
       ) : (
         <CategoryBox>
           <div>
-            {exporterCsv
+            {exporterCsv.length !== 0
               ? exporterCsv.map((file) => {
                   let github = file.file_url.slice(
                     file.file_url.lastIndexOf("/") + 1,
@@ -196,8 +217,8 @@ const ExporterDetailTabList = ({
       )}
       {deleteFile && (
         <DeleteModal
-          handleDelete={handleDelete}
-          content="삭제할거야 ?"
+          handleDelete={handleDeleteAnswer}
+          content="Are you sure Delete?"
         ></DeleteModal>
       )}
     </>
