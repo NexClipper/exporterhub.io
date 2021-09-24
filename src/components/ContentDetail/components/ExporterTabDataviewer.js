@@ -19,7 +19,6 @@ const ExporterTabDataviewer = ({
 }) => {
   const isAdmin = useSelector((store) => store.adminReducer);
   const changeTheme = useSelector((store) => store.darkThemeReducer);
-  console.log(exporterCsv, "adf");
   const emty = exporterCsv !== "default" ? exporterCsv.length === 0 : false;
   const selectFileInfo =
     select !== "New" && exporterCsv !== "default" && exporterCsv.length !== 0

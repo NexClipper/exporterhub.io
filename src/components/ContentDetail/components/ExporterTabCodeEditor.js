@@ -80,14 +80,6 @@ const ExporterTabCodeEditor = ({
 
   const handlefetchGithub = () => {
     const fileType = type.slice(1, type.lastIndexOf("."));
-    console.log({
-      file_id: fileId,
-      file_content: edittingExporterFile.content,
-      file_name: edittingExporterFile.fileName,
-      file_sha: fileSha,
-      csv_sha: csvSha,
-      csv_desc: edittingExporterFile.description,
-    });
     axios({
       method: "POST",
       url: `${API_SURVER}/exporter/${id}/tab?type=${fileType}`,

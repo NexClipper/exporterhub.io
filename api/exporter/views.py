@@ -670,7 +670,6 @@ class ExporterTabView(View):
                 return "GITHUB_REPO_API_ERROR"
 
             return {'result' :result , 'bf_file_name': bf_file_name}
-        
 
     @admin_decorator
     def post(self, request, exporter_id):
@@ -703,7 +702,7 @@ class ExporterTabView(View):
                 code_result  = self.code_to_github(app_name=app_name, file_name=file_name, token=token, content_type=content_type, content = file_content, file_type = type[content_type], sha=file_sha, bf_file_name = csv_result['bf_file_name'])
             else:
                 code_result  = self.code_to_github(app_name=app_name, file_name=file_name, token=token, content_type=content_type, content = file_content, file_type = type[content_type], sha=file_sha, bf_file_name = "")
-            
+                
             if code_result == 'GITHUB_REPO_API_ERROR' or csv_result == 'GITHUB_REPO_API_ERROR':
                 return JsonResponse({'message': 'GITHUB_REPO_API_ERROR'}, status=404)
 

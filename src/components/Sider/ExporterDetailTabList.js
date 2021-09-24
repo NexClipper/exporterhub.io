@@ -216,7 +216,7 @@ const ExporterDetailTabList = ({
       {deleteFile && (
         <DeleteModal
           handleDelete={handleDelete}
-          content="Are you sure"
+          content="Are you sure Delete?"
         ></DeleteModal>
       )}
     </>
