@@ -28,6 +28,7 @@ const ContentExporters = ({
             fork={fork}
             mybucket={mybucket}
             setIsForkModalActive={setIsForkModalActive}
+            exporter={exporter}
           />
         ))}
     </ExporterContainer>

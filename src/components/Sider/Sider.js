@@ -182,6 +182,7 @@ const Sider = () => {
                 active={category.category_id === categoryAct}
               >
                 <Div
+                  select={categoryAct === category.category_id}
                   title={category.category_name}
                   onClick={(e) => {
                     handleClickCategoryAct(category.category_id);
@@ -243,7 +244,7 @@ const Div = styled.div`
   padding-left: 10px;
   width: 100%;
   min-width: 160px;
-
+  width: ${({ select }) => select && "160px"};
   .new {
     font-size: 13px;
     color: #44c8a3;
