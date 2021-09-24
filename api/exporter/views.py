@@ -58,10 +58,12 @@ class CategoryView(View):
     @admin_decorator
     def post(self, request):
         data   = json.loads(request.body)
-
+        date   = data['date'].split('.')
+        create_at = date[0]+'-'+date[1]+'-'+date[2]
+        
         category, is_create = Category.objects.get_or_create(
             name = data['category'],
-            create_at = data['date']
+            create_at = create_at.replace(' ','')
         )
 
         if not is_create:
@@ -667,12 +669,8 @@ class ExporterTabView(View):
             if result.status_code == 404:
                 return "GITHUB_REPO_API_ERROR"
 
-<<<<<<< HEAD
             return {'result' :result , 'bf_file_name': bf_file_name}
-=======
-            return result
->>>>>>> dev
-        
+
 
     @admin_decorator
     def post(self, request, exporter_id):
@@ -705,7 +703,7 @@ class ExporterTabView(View):
                 code_result  = self.code_to_github(app_name=app_name, file_name=file_name, token=token, content_type=content_type, content = file_content, file_type = type[content_type], sha=file_sha, bf_file_name = csv_result['bf_file_name'])
             else:
                 code_result  = self.code_to_github(app_name=app_name, file_name=file_name, token=token, content_type=content_type, content = file_content, file_type = type[content_type], sha=file_sha, bf_file_name = "")
-            
+                
             if code_result == 'GITHUB_REPO_API_ERROR' or csv_result == 'GITHUB_REPO_API_ERROR':
                 return JsonResponse({'message': 'GITHUB_REPO_API_ERROR'}, status=404)
 
@@ -775,10 +773,6 @@ class ExporterTabView(View):
                     })
             result  = requests.put(url, data=contents, headers={'Authorization': 'token ' + token})
             return {'result' : result, 'yaml_url' : yaml_url}
-<<<<<<< HEAD
-=======
-
->>>>>>> dev
         return "GITHUB_REPO_API_ERROR"
     @admin_decorator
     def delete(self, request, exporter_id):
@@ -795,13 +789,6 @@ class ExporterTabView(View):
                     'dashboard' : 'json',
                     'helm'      : 'yaml',
                 }
-<<<<<<< HEAD
-            file_id   = request.GET['file_id']
-            csv_result  = self.csv_file_delete(app_name = app_name, content_type = content_type, file_type = 'csv', token = token, file_id=file_id)
-            code_result = self.code_file_delete(app_name = app_name, content_type = content_type, file_type = type[content_type], token = token, yaml_url = csv_result['yaml_url'])
-            if code_result == 'GITHUB_REPO_API_ERROR' or csv_result == 'GITHUB_REPO_API_ERROR':
-               return JsonResponse({'message': 'GITHUB_REPO_API_ERROR'}, status=404)
-=======
 
             file_id   = request.GET['file_id']
 
@@ -811,7 +798,6 @@ class ExporterTabView(View):
             if code_result == 'GITHUB_REPO_API_ERROR' or csv_result == 'GITHUB_REPO_API_ERROR':
                return JsonResponse({'message': 'GITHUB_REPO_API_ERROR'}, status=404)
                
->>>>>>> dev
             return JsonResponse({'message': 'SUCCESS'}, status=200)
             
         except KeyError:
