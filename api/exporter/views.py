@@ -667,7 +667,8 @@ class ExporterTabView(View):
             if result.status_code == 404:
                 return "GITHUB_REPO_API_ERROR"
 
-            return result
+            return {'result' :result , 'bf_file_name': bf_file_name}
+
         
 
     @admin_decorator
@@ -697,7 +698,10 @@ class ExporterTabView(View):
             file_id        = data.get('file_id')
             
             csv_result   = self.csv_to_github(app_name=app_name, file_name=file_name, token=token, content_type=content_type, content = csv_desc, file_type = 'csv', sha=csv_sha, file_id = file_id)
-            code_result  = self.code_to_github(app_name=app_name, file_name=file_name, token=token, content_type=content_type, content = file_content, file_type = type[content_type], sha=file_sha, bf_file_name=csv_result['bf_file_name'])
+            if csv_result['bf_file_name']:
+                code_result  = self.code_to_github(app_name=app_name, file_name=file_name, token=token, content_type=content_type, content = file_content, file_type = type[content_type], sha=file_sha, bf_file_name = csv_result['bf_file_name'])
+            else:
+                code_result  = self.code_to_github(app_name=app_name, file_name=file_name, token=token, content_type=content_type, content = file_content, file_type = type[content_type], sha=file_sha, bf_file_name = "")
 
             if code_result == 'GITHUB_REPO_API_ERROR' or csv_result == 'GITHUB_REPO_API_ERROR':
                 return JsonResponse({'message': 'GITHUB_REPO_API_ERROR'}, status=404)
