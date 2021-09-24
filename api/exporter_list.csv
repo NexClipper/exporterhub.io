@@ -30,7 +30,6 @@ Azure,Azure Metrics Exporter,https://github.com/RobustPerception/azure_metrics_e
 PostgreSQL,PostgreSQL Server Exporter,https://github.com/wrouesnel/postgres_exporter,0,Database
 Go Client,Go Client Library,https://github.com/prometheus/client_golang,1,Library
 Java Client,Java Client Library,https://github.com/prometheus/client_java,1,Library
-Python Client,Python Client Library,https://github.com/prometheus/client_python,1,Library
 Ruby Client,Ruby Client Library,https://github.com/prometheus/client_ruby,1,Library
 Push Gateway,Push Gateway,https://github.com/prometheus/pushgateway,1,Monitoring
 k8s image availability,k8s-image-availability-exporter,https://github.com/flant/k8s-image-availability-exporter,0,Miscellaneous
