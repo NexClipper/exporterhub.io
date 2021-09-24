@@ -1,0 +1,71 @@
+image:
+  repository: bitnami/zookeeper-exporter
+  tag: 0.1.5
+  pullPolicy: IfNotPresent
+
+replicaCount: 1
+
+
+env: []
+
+# List of additional cli arguments to configure zookeeper-exporter
+# for example: --log.enable-sarama, --log.level=debug, etc.
+# all the possible args can be found here: https://github.com/danielqsj/zookeeper_exporter#flags
+args:
+  - "-zk-host={{ .Release.Name }}-zookeeper"
+
+service:
+  type: ClusterIP
+  port: 8080
+  labels: {}
+  annotations:
+    prometheus.io/scrape: "true"
+    prometheus.io/path: "/metrics"
+
+liveness:
+  enabled: false
+  probe:
+    httpGet:
+      path: /
+      port: exporter-port
+
+readiness:
+  enabled: false
+  probe:
+    httpGet:
+      path: /
+      port: exporter-port
+
+
+
+resources: {}
+  # We usually recommend not to specify default resources and to leave this as a conscious
+  # choice for the user. This also increases chances charts run on environments with little
+  # resources, such as Minikube. If you do want to specify resources, uncomment the following
+  # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
+  # limits:
+  #  cpu: 100m
+  #  memory: 128Mi
+  # requests:
+  #  cpu: 100m
+  #  memory: 128Mi
+
+nodeSelector: {}
+
+annotations: {}
+
+tolerations: []
+
+affinity: {}
+
+# this allows the usage of tls connection to your zookeeper cluster based on a secret in tls format
+# mandatory keys:
+# ca.crt
+# tls.crt
+# tls.key
+tls:
+  enabled: false
+  insecureSkipVerify: false
+  # mountPath: /secret/certs
+  # secretName: <name of an existing secret>
+
