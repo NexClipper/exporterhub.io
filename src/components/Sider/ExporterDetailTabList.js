@@ -11,6 +11,7 @@ import { API_SURVER } from "../../config";
 import { set } from "js-cookie";
 
 const ExporterDetailTabList = ({
+  setExporterCsv,
   modify,
   id,
   type,
@@ -73,33 +74,36 @@ const ExporterDetailTabList = ({
     setSaveEdit(false);
   };
 
-  const handleDelete = (answer) => {
+  const handleDeleteAnswer = (answer) => {
     if (answer === "Yes") {
-      const fileType = type.slice(1, type.lastIndexOf("."));
-      axios({
-        method: "DELETE",
-        url: `${API_SURVER}/exporter/${id}/tab?type=${fileType}&file_id=${select}`,
-        headers: {
-          Authorization: sessionStorage.getItem("access_token"),
-        },
-      })
-        .then(() => {
-          handleMode();
-        })
-        .catch((err) => {
-          handleMode();
-          console.log(err);
-        });
-
-      //response 오면 실행
-      handleMode();
-      exporterCsv.length !== 0
-        ? setSelect(exporterCsv[0].file_id)
-        : setSelect(0);
-      setDeleteFile(false);
+      setExporterCsv("default");
+      handleDelete();
     } else {
       setDeleteFile(false);
     }
+  };
+
+  const handleDelete = () => {
+    const fileType = type.slice(1, type.lastIndexOf("."));
+    axios({
+      method: "DELETE",
+      url: `${API_SURVER}/exporter/${id}/tab?type=${fileType}&file_id=${select}`,
+      headers: {
+        Authorization: sessionStorage.getItem("access_token"),
+      },
+    })
+      .then(() => {
+        handleMode();
+      })
+      .catch((err) => {
+        handleMode();
+        console.log(err);
+      });
+
+    //response 오면 실행
+    handleMode();
+    exporterCsv.length !== 0 ? setSelect(exporterCsv[0].file_id) : setSelect(0);
+    setDeleteFile(false);
   };
 
   const handleChangeFile = (fileId) => {
@@ -213,7 +217,7 @@ const ExporterDetailTabList = ({
       )}
       {deleteFile && (
         <DeleteModal
-          handleDelete={handleDelete}
+          handleDelete={handleDeleteAnswer}
           content="Are you sure Delete?"
         ></DeleteModal>
       )}

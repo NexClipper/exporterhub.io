@@ -74,6 +74,7 @@ const ExporterTab = ({ title, type }) => {
             isEditMode={isEditMode}
             setModify={setModify}
             handleMode={handleMode}
+            setExporterCsv={setExporterCsv}
           />
         </TabListbox>
       </div>
