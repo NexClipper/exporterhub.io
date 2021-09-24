@@ -1,11 +1,13 @@
 import React, { useState } from "react";
+import { useHistory } from "react-router-dom";
 import axios from "axios";
 import styled from "styled-components";
-import { RiUserSettingsLine } from "react-icons/ri";
+import { RiUserSettingsLine, RiUserUnfollowLine } from "react-icons/ri";
 import { HiOutlineOfficeBuilding, HiOutlineMail } from "react-icons/hi";
-import { AiOutlineUser } from "react-icons/ai";
+import { AiOutlineUser, UserDeleteOutlined } from "react-icons/ai";
 import { API_SURVER } from "../../../config";
 import { useSelector } from "react-redux";
+import DeleteModal from "../../Modal/DeleteModal";
 
 const Profile = ({ userProfile }) => {
   const [isEditMode, setEditMode] = useState(false);
@@ -13,7 +15,12 @@ const Profile = ({ userProfile }) => {
   const [company, setCompany] = useState();
   const [email, setEmail] = useState();
   const [alertModal, setAlertModal] = useState(false);
+  const [userDelete, setUserDelete] = useState(false);
   const changeTheme = useSelector((store) => store.darkThemeReducer);
+  const {
+    push,
+    // location: { pathname },
+  } = useHistory();
 
   const handleProfileEdit = () => {
     setEditMode(!isEditMode);
@@ -49,20 +56,26 @@ const Profile = ({ userProfile }) => {
       });
   };
 
-  const handleDelUser = () => {
-    axios({
-      method: "DELETE",
-      url: `${API_SURVER}/user/profile`,
-      headers: {
-        Authorization: sessionStorage.getItem("access_token"),
-      },
-    })
-      .then((res) => {
-        console.log("삭제 요청 성공");
+  const handleDelUser = (answer) => {
+    if (answer === "Yes") {
+      axios({
+        method: "DELETE",
+        url: `${API_SURVER}/user/profile`,
+        headers: {
+          Authorization: sessionStorage.getItem("access_token"),
+        },
       })
-      .catch((err) => {
-        console.log("삭제 요청 실패");
-      });
+        .then((res) => {
+          sessionStorage.removeItem("access_token");
+          push("/");
+          window.location.reload();
+        })
+        .catch((err) => {
+          console.log("삭제 요청 실패");
+        });
+    } else {
+      setUserDelete(false);
+    }
   };
 
   const showAlertModal = () => {
@@ -92,10 +105,20 @@ const Profile = ({ userProfile }) => {
             </span>
             <span>Edit Profile</span>
           </Button>
-          <DelButton onClick={handleDelUser}>
+          <DelButton onClick={() => setUserDelete(true)}>
+            <span>
+              <RiUserUnfollowLine />
+            </span>
+
             <span>Delete User</span>
           </DelButton>
         </div>
+        {userDelete && (
+          <DeleteModal
+            handleDelete={handleDelUser}
+            content="Delete your account?"
+          />
+        )}
         <Introduce>{userProfile.intro}</Introduce>
         {userProfile.organization && (
           <Organization>

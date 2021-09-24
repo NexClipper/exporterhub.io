@@ -93,11 +93,6 @@ const OpenSourceInfo = ({
     setEditMode(!isEditMode);
   };
 
-  const onSubmitButton = (e) => {
-    const submitButton = { description: desState };
-    console.log(submitButton);
-  };
-
   const showAlertModal = () => {
     setAlertModal(true);
     setTimeout(() => {

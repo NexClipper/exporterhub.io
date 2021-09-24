@@ -15,14 +15,10 @@ import { useSelector } from "react-redux";
 
 const DescriiptionSave = ({
   EXPORTER_API,
-  exporterInfo,
-  githubContent,
-  showAlertModal,
   isEditMode,
   desState,
   setDesState,
   handleEdit,
-  title,
   type,
   file,
 }) => {
@@ -158,46 +154,6 @@ const SaveButton = styled.button`
     top: -110px;
     right: 0px;
     width: 80px;
-  }
-`;
-
-const Button = styled.button`
-  /* width: 60px; */
-  height: 25px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 0 10px;
-  background-color: ${(props) => (props.dark ? "#f5f6f7" : "#ffffff")};
-  box-shadow: 1px 1px 6px 1px rgba(0, 0, 0, 0.1);
-  border-radius: 5px;
-  font-size: 12px;
-  font-weight: 600;
-  color: ${(props) => (props.forkState ? "#8D8D8D" : "black")};
-
-  @media ${({ theme }) => theme.media.mobile} {
-    margin-bottom: 10px;
-    position: relative;
-    top: 2px;
-    z-index: 10;
-  }
-
-  span {
-    font-size: 12px;
-    &:first-child {
-      position: relative;
-      top: 1px;
-      margin-right: 5px;
-      font-size: 13px;
-    }
-  }
-  a {
-    color: inherit;
-    .link {
-      position: relative;
-      top: 1px;
-      margin-right: 5px;
-    }
   }
 `;
 
