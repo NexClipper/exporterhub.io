@@ -160,6 +160,29 @@ const Permission = () => {
           );
         })}
       </AdminContainer>
+      {userArr && (
+        <PermissionTitle dark={changeTheme} pending={true}>
+          Pending Admin
+        </PermissionTitle>
+      )}
+      <AdminContainer dark={changeTheme}>
+        {userArr &&
+          userArr
+            .filter((admin) => admin.usertype === "admin pending")
+            .map((admin, index) => {
+              return (
+                <AdminContent
+                  admin={admin}
+                  key={index}
+                  deleteAdmin={deleteAdmin}
+                  cancleAdminDeleteModal={cancleAdminDeleteModal}
+                  isAdminDeleteModalActive={isAdminDeleteModalActive}
+                  setIsAdminDeleteModalActive={setIsAdminDeleteModalActive}
+                  setSelectedAdmiin={setSelectedAdmiin}
+                />
+              );
+            })}
+      </AdminContainer>
       <AlertModal isActive={alertModal}>
         <p>Invitation has been sent to the user's email!!</p>
       </AlertModal>
@@ -203,6 +226,7 @@ const PermissionHeader = styled.div`
 `;
 
 const PermissionTitle = styled.h4`
+  padding-bottom: ${({ pending }) => pending && "30px"};
   font-size: 30px;
   font-weight: 500;
   letter-spacing: 0.08rem;
