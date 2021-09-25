@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import AceEditor from "react-ace";
 import styled from "styled-components";
 import "ace-builds/src-noconflict/ace";
@@ -18,6 +18,7 @@ import { API_SURVER } from "../../../config";
 import { useParams } from "react-router";
 
 const ExporterTabCodeEditor = ({
+  setExporterCsv,
   fileName,
   fileDescription,
   fileContent,
@@ -26,6 +27,8 @@ const ExporterTabCodeEditor = ({
   fileSha,
   csvSha,
   fileId,
+  setModify,
+  exporterCsv,
 }) => {
   const { id } = useParams();
   const dispatch = useDispatch();
@@ -36,6 +39,7 @@ const ExporterTabCodeEditor = ({
   const beforeEditFile = useSelector(
     (store) => store.exporterTabBeforeEditReducer
   );
+  const [sameFileName, setSameFileName] = useState(false);
 
   useEffect(() => {
     dispatch(
@@ -78,16 +82,34 @@ const ExporterTabCodeEditor = ({
     }
   };
 
+  const handleSave = () => {
+    let isSame = [];
+    if (beforeEditFile.fileName === edittingExporterFile.fileName) {
+      isSame = [];
+    } else {
+      isSame = exporterCsv.filter(
+        (file) =>
+          edittingExporterFile.fileName.toLowerCase() ===
+          file.file_url
+            .slice(
+              file.file_url.lastIndexOf("/") + 1,
+              file.file_url.lastIndexOf("_")
+            )
+            .toLowerCase()
+      );
+    }
+
+    if (isSame.length === 0) {
+      setExporterCsv("default");
+      setModify(false);
+      handlefetchGithub();
+    } else {
+      setSameFileName(true);
+    }
+  };
+
   const handlefetchGithub = () => {
     const fileType = type.slice(1, type.lastIndexOf("."));
-    console.log({
-      file_id: fileId,
-      file_content: edittingExporterFile.content,
-      file_name: edittingExporterFile.fileName,
-      file_sha: fileSha,
-      csv_sha: csvSha,
-      csv_desc: edittingExporterFile.description,
-    });
     axios({
       method: "POST",
       url: `${API_SURVER}/exporter/${id}/tab?type=${fileType}`,
@@ -103,7 +125,8 @@ const ExporterTabCodeEditor = ({
         csv_desc: edittingExporterFile.description,
       },
     })
-      .then(() => {
+      .then((res) => {
+        console.log(res);
         handleMode();
       })
       .catch((err) => {
@@ -129,8 +152,10 @@ const ExporterTabCodeEditor = ({
               dark={changeTheme}
               onChange={handleFileInfo}
             />
+
             <p> {type}</p>
           </FileName>
+          {sameFileName && <Same>same name</Same>}
           <Input
             IsEdit={
               beforeEditFile.description !== edittingExporterFile.description
@@ -173,7 +198,7 @@ const ExporterTabCodeEditor = ({
           }}
         />
       </EditorContainer>
-      <Button onClick={handlefetchGithub}>
+      <Button onClick={handleSave}>
         <span>
           <HiOutlineSave />
         </span>
@@ -223,7 +248,6 @@ const EditorContainer = styled.div`
 `;
 
 const Button = styled.button`
-  border: 1px solid blue;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -297,4 +321,8 @@ const Input = styled.input`
   font-size: ${(props) => (props.placeholder === "fileName" ? "20px" : "15px")};
   letter-spacing: 0.08rem;
   outline: none;
+`;
+
+const Same = styled.p`
+  color: red;
 `;

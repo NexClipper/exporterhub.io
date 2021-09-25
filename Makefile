@@ -28,5 +28,5 @@ push: login build
 
 start: set
 	sudo docker-compose down
-	sudo docker-compose -f ../docker-compose.yml up -d
+	sudo docker-compose -f ./docker-compose.yml up -d
 all: build push run

@@ -18,7 +18,6 @@ const ExporterTab = ({ title, type }) => {
   const [select, setSelect] = useState(0);
 
   const handleMode = () => {
-    // setIsEditMode(!isEditMode);
     if (isEditMode) {
       setModify(false);
     }
@@ -37,7 +36,6 @@ const ExporterTab = ({ title, type }) => {
     const TOKEN = sessionStorage.getItem("access_token");
     const HEADER = TOKEN && { Authorization: TOKEN };
     const fileType = type.slice(1, type.lastIndexOf("."));
-    // if(res.data.message==)
 
     axios({
       method: "GET",
@@ -45,7 +43,6 @@ const ExporterTab = ({ title, type }) => {
       headers: HEADER,
     })
       .then((res) => {
-        console.log(res);
         setExporterCsv(
           res.data.message === "No_Content" ? [] : res.data.message
         );
@@ -68,6 +65,8 @@ const ExporterTab = ({ title, type }) => {
       <div>
         <TabListbox dark={changeTheme}>
           <ExporterDetailTabList
+            type={type}
+            id={id}
             modify={modify}
             exporterCsv={exporterCsv}
             setSelect={setSelect}
@@ -75,6 +74,7 @@ const ExporterTab = ({ title, type }) => {
             isEditMode={isEditMode}
             setModify={setModify}
             handleMode={handleMode}
+            setExporterCsv={setExporterCsv}
           />
         </TabListbox>
       </div>
@@ -83,6 +83,8 @@ const ExporterTab = ({ title, type }) => {
           <MobileTabListbox dark={changeTheme}>
             <ExporterDetailTabList
               mobile={true}
+              type={type}
+              id={id}
               modify={modify}
               exporterCsv={exporterCsv}
               setSelect={setSelect}
@@ -94,6 +96,7 @@ const ExporterTab = ({ title, type }) => {
           </MobileTabListbox>
         </div>
         <ExporterTabDataviewer
+          setExporterCsv={setExporterCsv}
           setModify={setModify}
           select={select}
           isEditMode={isEditMode}
