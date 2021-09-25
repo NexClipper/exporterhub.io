@@ -37,7 +37,7 @@ const DeleteContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  z-index: 1;
+  z-index: 3;
 `;
 
 const Div = styled.div`

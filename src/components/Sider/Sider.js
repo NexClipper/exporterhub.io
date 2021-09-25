@@ -7,7 +7,7 @@ import {
 import styled from "styled-components";
 import { AiFillSetting } from "react-icons/ai";
 import { FiPlus } from "react-icons/fi";
-import { RiDeleteBinLine } from "react-icons/ri";
+import { RiDeleteBin6Line } from "react-icons/ri";
 import { CATEGORIES_API } from "../../config";
 import axios from "axios";
 import CategoryDeleteModal from "../Modal/CategoryDeleteModal";
@@ -175,7 +175,7 @@ const Sider = () => {
           dark={changeTheme}
           edit={edit}
           active={0 === categoryAct}
-          onClick={(e) => {
+          onClick={() => {
             handleClickCategoryAct(0);
             callDispatch("All");
             alert !== false && setAlert(false);
@@ -196,7 +196,7 @@ const Sider = () => {
                 <Div
                   select={categoryAct === category.category_id}
                   title={category.category_name}
-                  onClick={(e) => {
+                  onClick={() => {
                     handleClickCategoryAct(category.category_id);
                     callDispatch(category.category_name);
                     alert !== false && setAlert(false);
@@ -207,12 +207,11 @@ const Sider = () => {
                 </Div>
 
                 {edit && categoryAct === category.category_id && (
-                  <DeleteButton
-                    className="deleteIcon"
-                    onClick={() => addCategory(category)}
-                  >
-                    <RiDeleteBinLine size="17px" />
-                  </DeleteButton>
+                  <DeleteIcon
+                    onClick={() => {
+                      addCategory(category);
+                    }}
+                  />
                 )}
               </Category>
             );
@@ -269,11 +268,6 @@ const Div = styled.div`
   }
 `;
 
-const DeleteButton = styled.div`
-  padding: 0px 10px;
-  width: 40px;
-`;
-
 const Category = styled.li`
   display: ${({ edit }) => edit && "flex"};
   align-items: ${({ edit }) => edit && "center"};
@@ -304,4 +298,11 @@ const Category = styled.li`
     background-size: 13px 10px;
   }
 `;
+
+const DeleteIcon = styled(RiDeleteBin6Line)`
+  z-index: 5;
+  margin-right: 10px;
+  font-size: 17px;
+`;
+
 export default Sider;
