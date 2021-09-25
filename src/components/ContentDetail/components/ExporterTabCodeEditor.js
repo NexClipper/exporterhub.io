@@ -76,6 +76,7 @@ const ExporterTabCodeEditor = ({
     if (target.id === "codeEdit") {
       dispatch(edittingExporterTabContent(target.value));
     } else if (target.id === "fileName") {
+      setSameFileName(false);
       dispatch(edittingExporterTabFileName(target.value));
     } else if (target.id === "description") {
       dispatch(edittingExporterTabDescription(target.value));
@@ -98,13 +99,14 @@ const ExporterTabCodeEditor = ({
             .toLowerCase()
       );
     }
-
-    if (isSame.length === 0) {
+    if (edittingExporterFile.fileName === "") {
+      setSameFileName("Enter the file name.");
+    } else if (isSame.length === 0) {
       setExporterCsv("default");
       setModify(false);
       handlefetchGithub();
     } else {
-      setSameFileName(true);
+      setSameFileName("The same file name exists.");
     }
   };
 
@@ -126,7 +128,6 @@ const ExporterTabCodeEditor = ({
       },
     })
       .then((res) => {
-        console.log(res);
         handleMode();
       })
       .catch((err) => {
@@ -152,10 +153,14 @@ const ExporterTabCodeEditor = ({
               dark={changeTheme}
               onChange={handleFileInfo}
             />
-
             <p> {type}</p>
           </FileName>
-          {sameFileName && <Same>same name</Same>}
+          {sameFileName === "The same file name exists." && (
+            <Same>{sameFileName}</Same>
+          )}
+          {sameFileName === "Enter the file name." && (
+            <Same>{sameFileName}</Same>
+          )}
           <Input
             IsEdit={
               beforeEditFile.description !== edittingExporterFile.description
@@ -181,7 +186,6 @@ const ExporterTabCodeEditor = ({
           dark={changeTheme}
           theme={!changeTheme ? "github" : "twilight"}
           name="blah2"
-          // onLoad={this.onLoad}
           onChange={onChange}
           fontSize={14}
           showPrintMargin={true}
@@ -224,8 +228,6 @@ const Container = styled.div`
     font-weight: 400 !important;
     letter-spacing: 0 !important;
     line-height: 1.3 !important;
-
-    /* background-color: red; */
   }
   .ace_editor {
     border: ${(props) =>
@@ -288,6 +290,7 @@ const Inputbox = styled.div`
 const FileName = styled.div`
   display: flex;
   align-items: center;
+  margin: 5px 0px 5px;
   font-size: 20px;
 
   p {
@@ -297,17 +300,15 @@ const FileName = styled.div`
 `;
 
 const Input = styled.input`
-  margin: 5px 0px;
   @media ${({ theme }) => theme.media.mobile} {
     width: 100%;
     margin: 5px 0px;
   }
-  width: ${(props) => (props.placeholder === "fileName" ? "400px" : "100%")};
+  width: ${(props) => (props.placeholder === "FileName" ? "400px" : "100%")};
   height: ${(props) => (props.as ? "" : "30px")};
   resize: ${(props) => (props.as ? "none" : "")};
   word-break: keep-all;
-  margin: ${(props) =>
-    props.placeholder === "fileName" ? "" : "20px 0px 20px"};
+  margin: ${(props) => props.placeholder !== "FileName" && "10px 0px 15px"};
   border: ${(props) =>
     props.dark
       ? "1px solid #ffffff"
@@ -315,14 +316,15 @@ const Input = styled.input`
       ? "1px solid #69c4a6"
       : "1px solid rgba(0, 0, 0, 0.2)"};
   border-radius: 4px;
-  padding-left: 15px;
+  padding-left: 5px;
   background-color: ${(props) => (props.dark ? "#18191a" : "#ffffff")};
   color: ${(props) => (props.dark ? "#ffffff" : "#black")};
-  font-size: ${(props) => (props.placeholder === "fileName" ? "20px" : "15px")};
+  font-size: ${(props) => (props.placeholder === "FileName" ? "20px" : "15px")};
   letter-spacing: 0.08rem;
   outline: none;
 `;
 
 const Same = styled.p`
   color: red;
+  margin: 0px 5px 5px;
 `;

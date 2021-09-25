@@ -84,7 +84,6 @@ const CardExporter = ({
             />
           )}
         </span>
-        {/* <span>★{stars}</span> */}
       </header>
       <Article onClick={() => cardClick(exporter_id)}>
         <div>
