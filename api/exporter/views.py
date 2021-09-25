@@ -563,12 +563,19 @@ class ExporterDetailView(View):
             if not dataframe[condition].empty:
                 return JsonResponse({'message':'EXIST_EXPORTER'}, status = 400)
 
-            request_content = f"{exporter.id},{exporter.name},{description}"
-            all_content     = get_csv['content'] + '\n' + request_content
-            content         = base64.b64encode(all_content.encode('utf-8')).decode('utf-8')
-            result          = self.push_to_github(token=github_token, message=message, content=content, sha=get_csv['sha'])        
+            get_csv   = self.get_csv(github_token)
+            file      = StringIO(get_csv['content'])
+            dataframe = pd.read_csv(file, sep=',')
+            condition = dataframe.exporter_id == exporter.id
+            dataframe.loc[condition, 'description'] = description
 
-            return JsonResponse({'message':'CREATED'}, status = 201)
+            response = {
+                "exporter_id"   : int(dataframe.loc[condition,'exporter_id'].iloc[0]),
+                "exporter_name" : dataframe.loc[condition,'exporter_name'].iloc[0],
+                "description"   : dataframe.loc[condition,'description'].iloc[0]
+            }
+
+            return JsonResponse(response, status = 201)
 
         except KeyError:
             return JsonResponse({'message':'KEY_ERROR'}, status = 400)
