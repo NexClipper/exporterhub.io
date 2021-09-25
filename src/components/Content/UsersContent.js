@@ -94,7 +94,7 @@ const UserInvitationCancel = styled.button`
   border: 1px solid #d9dbdb;
   cursor: pointer;
   user-select: none;
-  z-index: 50;
+  z-index: 0.5;
   opacity: 0.6;
   &:hover {
     opacity: 1;

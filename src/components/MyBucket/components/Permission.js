@@ -113,8 +113,21 @@ const Permission = () => {
 
   const pendingCancel = (answer) => {
     if (answer === "Yes") {
-      console.log(userName, userType, "어드민 신청 취소");
-      setCancelInvitaion(false);
+      axios({
+        method: "DELETE",
+        url: `${ADMIN_API}?username=${userName}`,
+        headers: {
+          Authorization: token,
+        },
+      })
+        .then((res) => {
+          if (res.status === 204) {
+            setSearchUser("");
+            setCancelInvitaion(false);
+            return;
+          }
+        })
+        .catch((err) => console.log(err));
     } else {
       setCancelInvitaion(false);
     }
@@ -210,7 +223,6 @@ const Permission = () => {
         <AdminAddModal
           userName={userName}
           userType={userType}
-          // user={user}
           addAdmin={addAdmin}
           cancleAdminAddModal={cancleAdminAddModal}
           setSearchUser={setSearchUser}
