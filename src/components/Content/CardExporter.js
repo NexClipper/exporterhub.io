@@ -57,12 +57,14 @@ const CardExporter = ({
       setDeleteModal(false);
     }
   };
+
   return (
     <Div
       dark={changeTheme}
       fork={fork}
       mybucket={mybucket}
       deleteModal={deleteModal}
+      isNew={is_new}
     >
       {deleteModal && (
         <DeleteModal
@@ -144,7 +146,7 @@ const Div = styled.div`
   }
   header {
     display: flex;
-    justify-content: space-between;
+    justify-content: ${({ isNew }) => (isNew ? "space-between" : "flex-end")};
     align-items: center;
     width: 100%;
     font-size: 12px;
