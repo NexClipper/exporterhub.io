@@ -186,7 +186,9 @@ const ExporterDetailTabList = ({
                 })
               : select !== "New" && (
                   <Category>
-                    <Div dark={changeTheme}>"준비중"</Div>
+                    <Div dark={changeTheme}>
+                      "The file has not been ready to show up"
+                    </Div>
                   </Category>
                 )}
 

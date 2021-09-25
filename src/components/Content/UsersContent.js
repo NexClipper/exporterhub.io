@@ -1,7 +1,4 @@
-import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
-import { adminAdd, adminTypeAdd } from "../../store/actions/exporterActions";
 
 const UsersContent = ({ user, handleAdminAdd, handlePending }) => {
   return (
