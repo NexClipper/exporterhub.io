@@ -8,16 +8,21 @@ import { changeBucketPage } from "../../../store/actions/exporterActions";
 import { ADMIN_API, API_SURVER } from "../../../config";
 import UsersContent from "../../Content/UsersContent";
 import AdminDeleteModal from "../../Modal/AdminDeleteModal";
+import AdminAddModal from "../../Modal/AdminAddModal";
+import DeleteModal from "../../Modal/DeleteModal";
 
 const Permission = () => {
-  const [searchUser, setSearchUser] = useState();
+  const [searchUser, setSearchUser] = useState("");
   const [adminArr, setAdminArr] = useState([]);
-  const [userArr, setUserArr] = useState();
+  const [userArr, setUserArr] = useState([]);
   const [alertModal, setAlertModal] = useState(false);
   const [isAdminAddModalActive, setIsAdminAddModalActive] = useState(false);
   const [isAdminDeleteModalActive, setIsAdminDeleteModalActive] =
     useState(false);
   const [selectedAdmin, setSelectedAdmiin] = useState();
+  const [userName, setUserName] = useState("");
+  const [userType, setUserType] = useState("");
+  const [cancelInvitation, setCancelInvitaion] = useState(false);
   const token = sessionStorage.getItem("access_token");
   const changeTheme = useSelector((store) => store.darkThemeReducer);
   const dispatch = useDispatch();
@@ -33,16 +38,19 @@ const Permission = () => {
   const inputHandler = (e) => {
     setSearchUser(e.target.value.toLowerCase());
   };
+
   useEffect(() => {
-    axios({
-      method: "GET",
-      url: `${API_SURVER}/user/search?q=${searchUser}`,
-      headers: {
-        Authorization: token,
-      },
-    }).then((res) => {
-      setUserArr(res.data.data);
-    });
+    if (searchUser !== "") {
+      axios({
+        method: "GET",
+        url: `${API_SURVER}/user/search?q=${searchUser}`,
+        headers: {
+          Authorization: token,
+        },
+      }).then((res) => {
+        setUserArr(res.data.data);
+      });
+    }
   }, [searchUser]);
 
   useEffect(() => {
@@ -103,12 +111,51 @@ const Permission = () => {
       .catch((err) => console.log(err));
   };
 
+  const pendingCancel = (answer) => {
+    if (answer === "Yes") {
+      axios({
+        method: "DELETE",
+        url: `${ADMIN_API}?username=${userName}`,
+        headers: {
+          Authorization: token,
+        },
+      })
+        .then((res) => {
+          if (res.status === 204) {
+            setSearchUser("");
+            setCancelInvitaion(false);
+            return;
+          }
+        })
+        .catch((err) => console.log(err));
+    } else {
+      setCancelInvitaion(false);
+    }
+  };
+
   const showAlertModal = () => {
     setAlertModal(true);
 
     setTimeout(() => {
       setAlertModal(false);
     }, 5000);
+  };
+
+  const handleAdminAdd = ({ target }) => {
+    if (target.id === "user") {
+      setUserName(target.name);
+      setUserType(target.id);
+      setIsAdminAddModalActive(true);
+    }
+  };
+
+  const handlePending = (e) => {
+    e.stopPropagation();
+    if (e.target.id === "admin pending") {
+      setUserName(e.target.name);
+      setUserType(e.target.id);
+      setCancelInvitaion(true);
+    }
   };
 
   return (
@@ -127,16 +174,14 @@ const Permission = () => {
             {searchUser && (
               <UserContainer>
                 {userArr &&
-                  userArr.map((user) => {
+                  userArr.map((user, index) => {
                     return (
                       <UsersContent
                         user={user}
-                        key={user.id}
-                        addAdmin={addAdmin}
-                        isAdminAddModalActive={isAdminAddModalActive}
-                        setIsAdminAddModalActive={setIsAdminAddModalActive}
-                        cancleAdminAddModal={cancleAdminAddModal}
-                        setSearchUser={setSearchUser}
+                        key={index}
+                        setCancelInvitaion={setCancelInvitaion}
+                        handleAdminAdd={handleAdminAdd}
+                        handlePending={handlePending}
                       />
                     );
                   })}
@@ -151,8 +196,6 @@ const Permission = () => {
             <AdminContent
               admin={admin}
               key={index}
-              deleteAdmin={deleteAdmin}
-              cancleAdminDeleteModal={cancleAdminDeleteModal}
               isAdminDeleteModalActive={isAdminDeleteModalActive}
               setIsAdminDeleteModalActive={setIsAdminDeleteModalActive}
               setSelectedAdmiin={setSelectedAdmiin}
@@ -168,6 +211,21 @@ const Permission = () => {
           adminName={selectedAdmin}
           deleteAdmin={deleteAdmin}
           cancleAdminDeleteModal={cancleAdminDeleteModal}
+        />
+      )}
+      {cancelInvitation && (
+        <DeleteModal
+          content="Cancel the invitation ?"
+          handleDelete={pendingCancel}
+        />
+      )}
+      {isAdminAddModalActive && (
+        <AdminAddModal
+          userName={userName}
+          userType={userType}
+          addAdmin={addAdmin}
+          cancleAdminAddModal={cancleAdminAddModal}
+          setSearchUser={setSearchUser}
         />
       )}
     </Container>
@@ -203,6 +261,7 @@ const PermissionHeader = styled.div`
 `;
 
 const PermissionTitle = styled.h4`
+  padding-bottom: ${({ pending }) => pending && "30px"};
   font-size: 30px;
   font-weight: 500;
   letter-spacing: 0.08rem;
@@ -241,10 +300,6 @@ const UserSearch = styled.div`
     border-radius: 4px;
     padding-left: 35px;
     background-color: ${(props) => props.dark && "#18191a"};
-
-    @media ${({ theme }) => theme.media.mobile} {
-      width: 100%;
-    }
   }
 `;
 
@@ -312,3 +367,16 @@ const AlertModal = styled.div`
     }
   }
 `;
+
+const pendinguser = [
+  {
+    username: "jeckzin",
+    usertype: "admin pending",
+    profileImageUrl: "https://avatars.githubusercontent.com/u/90562434?v=4",
+  },
+  {
+    username: "byoungjupark",
+    usertype: "admin pending",
+    profileImageUrl: "https://avatars.githubusercontent.com/u/63541271?v=4",
+  },
+];
