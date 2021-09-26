@@ -1,15 +1,11 @@
 import React, { useEffect, useState } from "react";
-import AceEditor from "react-ace";
 import styled from "styled-components";
 // import "./App.css";
 import "ace-builds/src-noconflict/mode-java";
 import "ace-builds/src-noconflict/theme-github";
 import axios from "axios";
 import { HiOutlineSave } from "react-icons/hi";
-import { BiUndo } from "react-icons/bi";
 //md test
-import remarkMarkdown from "../remarkMarkdown";
-import { API_SURVER } from "../../../config";
 import { useParams } from "react-router";
 import { useSelector } from "react-redux";
 
@@ -125,12 +121,11 @@ const Container = styled.div`
 
 const SaveButton = styled.button`
   position: absolute;
-  top: -47px;
+  top: -27px;
   right: 80px;
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-top: 20px;
   width: 70px;
   height: 25px;
   background: #ffffff;
@@ -151,9 +146,9 @@ const SaveButton = styled.button`
   }
 
   @media ${({ theme }) => theme.media.mobile} {
-    top: -110px;
-    right: 0px;
-    width: 80px;
+    top: -33px;
+    right: auto;
+    left: 80px;
   }
 `;
 

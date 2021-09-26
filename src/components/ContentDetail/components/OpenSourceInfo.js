@@ -102,19 +102,23 @@ const OpenSourceInfo = ({
 
   return (
     <Info>
-      <a href={exporterInfo.repository_url} target="_blank" rel="noreferrer">
+      <LogoImg
+        href={exporterInfo.repository_url}
+        target="_blank"
+        rel="noreferrer"
+      >
         <HeaderLogo src={exporterInfo.logo_url} />
-      </a>
+      </LogoImg>
       <InfoWrap>
         <HeaderInfo>
           <div>
-            <a
+            <HeaderTitle
               href={exporterInfo.repository_url}
               target="_blank"
               rel="noreferrer"
             >
               <Name dark={changeTheme}>{exporterInfo.name}</Name>
-            </a>
+            </HeaderTitle>
             <Category dark={changeTheme}>{exporterInfo.category}</Category>
             <Button
               dark={changeTheme}
@@ -236,7 +240,11 @@ const Info = styled.div`
   display: flex;
   user-select: none;
   /* border: 2px solid red; */
-  div {
+  div > div {
+    @media ${({ theme }) => theme.media.mobile} {
+      flex-wrap: wrap;
+    }
+
     div {
       display: flex;
       align-items: center;
@@ -255,8 +263,6 @@ const Info = styled.div`
 
       &:nth-child(2) {
         @media ${({ theme }) => theme.media.mobile} {
-          position: absolute;
-          top: 41px;
           flex-direction: row;
         }
       }
@@ -265,9 +271,14 @@ const Info = styled.div`
 `;
 
 const InfoWrap = styled.div`
+  flex: 1 auto;
+  width: 1%;
   display: flex;
   flex-direction: column;
   justify-content: center;
+  @media ${({ theme }) => theme.media.mobile} {
+    padding-right: 15px;
+  }
 `;
 
 const HeaderLogo = styled.div`
@@ -278,20 +289,35 @@ const HeaderLogo = styled.div`
   height: 150px;
   margin-right: 70px;
   @media ${({ theme }) => theme.media.mobile} {
-    width: 120px;
-    height: 120px;
+    width: 80px;
+    height: 80px;
     margin-right: 15px;
     margin-left: 15px;
   }
 `;
 
 const HeaderInfo = styled.div`
-  width: 840px;
+  max-width: 100%;
   display: flex;
   justify-content: space-between;
 
   @media ${({ theme }) => theme.media.mobile} {
     float: left;
+  }
+`;
+
+const LogoImg = styled.a`
+  flex: 1 1 220px;
+  max-width: 220px;
+  @media ${({ theme }) => theme.media.mobile} {
+    flex: 1 1 30%;
+    max-width: 30%;
+  }
+`;
+
+const HeaderTitle = styled.a`
+  @media ${({ theme }) => theme.media.mobile} {
+    width: 100%;
   }
 `;
 
@@ -374,7 +400,7 @@ const StarIcon = styled.span`
 
   @media ${({ theme }) => theme.media.mobile} {
     position: relative;
-    top: 5px;
+    top: 0;
     font-size: 14px;
   }
 `;

@@ -138,7 +138,7 @@ const ExporterDetailTabList = ({
       ) : (
         <CategoryBox>
           <div>
-            {exporterCsv.length !== 0
+            {/* {exporterCsv.length !== 0
               ? exporterCsv.map((file) => {
                   let github = file.file_url.slice(
                     file.file_url.lastIndexOf("/") + 1,
@@ -184,7 +184,7 @@ const ExporterDetailTabList = ({
                   <Category>
                     <Div dark={changeTheme}>"준비중"</Div>
                   </Category>
-                )}
+                )} */}
 
             {isEditMode && select === "New" && (
               <Category

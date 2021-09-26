@@ -24,32 +24,32 @@ const Sider = () => {
   const [categoryAct, setCategoryAct] = useState(0);
   const [alert, setAlert] = useState(false);
 
-  const New = (createDate) => {
-    let today = new Date();
-    let todayDate = today.toLocaleDateString();
-    let isNew =
-      todayDate.slice(0, todayDate.indexOf(".")) -
-        createDate.slice(0, createDate.indexOf("-")) ===
-        0 &&
-      todayDate.slice(
-        todayDate.indexOf(".") + 1,
-        todayDate.indexOf(".", todayDate.indexOf(".") + 1)
-      ) -
-        createDate.slice(
-          createDate.indexOf("-") + 1,
-          createDate.indexOf("-", createDate.indexOf("-") + 1)
-        ) ===
-        0 &&
-      todayDate.slice(
-        todayDate.indexOf(".", todayDate.indexOf(".") + 1) + 1,
-        todayDate.lastIndexOf(".")
-      ) -
-        createDate.slice(
-          createDate.indexOf("-", createDate.indexOf("-") + 1) + 1
-        ) <=
-        3;
-    return isNew;
-  };
+  // const New = (createDate) => {
+  //   let today = new Date();
+  //   let todayDate = today.toLocaleDateString();
+  //   let isNew =
+  //     todayDate.slice(0, todayDate.indexOf(".")) -
+  //       createDate.slice(0, createDate.indexOf("-")) ===
+  //       0 &&
+  //     todayDate.slice(
+  //       todayDate.indexOf(".") + 1,
+  //       todayDate.indexOf(".", todayDate.indexOf(".") + 1)
+  //     ) -
+  //       createDate.slice(
+  //         createDate.indexOf("-") + 1,
+  //         createDate.indexOf("-", createDate.indexOf("-") + 1)
+  //       ) ===
+  //       0 &&
+  //     todayDate.slice(
+  //       todayDate.indexOf(".", todayDate.indexOf(".") + 1) + 1,
+  //       todayDate.lastIndexOf(".")
+  //     ) -
+  //       createDate.slice(
+  //         createDate.indexOf("-", createDate.indexOf("-") + 1) + 1
+  //       ) <=
+  //       3;
+  //   return isNew;
+  // };
 
   const handleClickCategoryAct = (id) => {
     setCategoryAct(id);
@@ -173,7 +173,7 @@ const Sider = () => {
         </Category>
         {categories &&
           categories.map((category) => {
-            const isNew = New(category.create_at);
+            // const isNew = New(category.create_at);
             return (
               <Category
                 key={category.category_id}
@@ -190,7 +190,7 @@ const Sider = () => {
                   }}
                 >
                   <span className="categoryName">{category.category_name}</span>
-                  {isNew && <span className="new">New</span>}
+                  {/* {isNew && <span className="new">New</span>} */}
                 </Div>
 
                 {edit && categoryAct === category.category_id && (

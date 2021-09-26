@@ -8,8 +8,9 @@ const color = {
 };
 
 const container = css`
-  width: 1060px;
+  max-width: 1060px;
   margin: 0 auto;
+  width: 100%;
 
   @media (max-width: 770px) {
     width: 100%;

@@ -51,9 +51,7 @@ const ContentDetail = () => {
         setForkState(res.data.data.is_bucket);
         setStarState(res.data.data.is_star);
         setStarNumber(res.data.data.stars);
-        console.log(res.data.data.detail_description);
         setDesState(res.data.data.detail_description);
-        // setDesState("들어온다 이 새기야");
       })
       .catch((err) => {
         console.log(err);
