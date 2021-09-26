@@ -40,7 +40,7 @@ ExporterHub.io의 각 Exporter의 페이지에서 아래와 같은 내용을 제
 * Edit Dashboard and Alert-rule by Admin
 
 복잡하고 폐쇄적인 네트워크 보안 설정이 갖춰진 엔터프라이즈 환경에서 Prometheus 모니터링 요구 사항을 충족하거나,  
-사용자의 Prometheus 모범사례 적용을 용이하게 하기 위하여
+사용자의 Prometheus 모범사례 적용을 용이하게 하기 위하여  
 ExporterHub.io는 모니터링 중인 시스템으로부터 메트릭 데이터를 노출하는 데 사용할 수 있는 가장 적합한 exporter를 탐색 및 추천합니다.
 
 <br>
