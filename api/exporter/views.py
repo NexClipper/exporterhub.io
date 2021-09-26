@@ -550,31 +550,36 @@ class ExporterDetailView(View):
             exporter     = Exporter.objects.get(id = exporter_id)
             data         = json.loads(request.body)
             description  = data["description"]
-            message      = f"{exporter.name} create"
+            message      = f"{exporter.name} description create"
 
-            if not (description and message):
+            if not description:
                 return JsonResponse({'message':'FILL_THE_BLANK'}, status = 400)  
 
             get_csv   = self.get_csv(github_token)
             file      = StringIO(get_csv['content'])
             dataframe = pd.read_csv(file, sep=',')
             condition = dataframe.exporter_id == exporter.id
-
+            
             if not dataframe[condition].empty:
                 return JsonResponse({'message':'EXIST_EXPORTER'}, status = 400)
+
+            request_content = f'{exporter.id},{exporter.name},"{description}"'
+            all_content     = get_csv['content'] + '\n' + request_content
+            content         = base64.b64encode(all_content.encode('utf-8')).decode('utf-8')
+            result          = self.push_to_github(token=github_token, message=message, content=content, sha=get_csv['sha'])        
 
             get_csv   = self.get_csv(github_token)
             file      = StringIO(get_csv['content'])
             dataframe = pd.read_csv(file, sep=',')
             condition = dataframe.exporter_id == exporter.id
             dataframe.loc[condition, 'description'] = description
-
+            
             response = {
-                "exporter_id"   : int(dataframe.loc[condition,'exporter_id'].iloc[0]),
-                "exporter_name" : dataframe.loc[condition,'exporter_name'].iloc[0],
+                "exporter_id"   : exporter.id,
+                "exporter_name" : exporter.name,
                 "description"   : dataframe.loc[condition,'description'].iloc[0]
             }
-
+            
             return JsonResponse(response, status = 201)
 
         except KeyError:
@@ -587,23 +592,15 @@ class ExporterDetailView(View):
             exporter     = Exporter.objects.get(id = exporter_id)
             data         = json.loads(request.body)
             description  = data["description"]
-            message      = f"{exporter.name} update"
+            message      = f"{exporter.name} description update"
 
             get_csv   = self.get_csv(github_token)
             file      = StringIO(get_csv['content'])
             dataframe = pd.read_csv(file, sep=',')
             condition = dataframe.exporter_id == exporter.id
-            dataframe.loc[condition, 'description'] = description
-
-            response = {
-                "exporter_id"   : int(dataframe.loc[condition,'exporter_id'].iloc[0]),
-                "exporter_name" : dataframe.loc[condition,'exporter_name'].iloc[0],
-                "description"   : dataframe.loc[condition,'description'].iloc[0]
-            }
-
+            dataframe.loc[condition, 'description'] = description if not description else f'"{description}"'
             dataframe['description'].replace('', np.nan, inplace=True)
             dataframe = dataframe.dropna()
-
             dataframe['exporter_id'] = dataframe['exporter_id'].astype('str') 
             dataframe.to_csv(file, index=False)
 
@@ -617,6 +614,17 @@ class ExporterDetailView(View):
 
             content = base64.b64encode(all_content.encode('utf-8')).decode('utf-8')
             result  = self.push_to_github(token=github_token, message=message, content=content, sha=get_csv['sha'])
+
+            get_csv        = self.get_csv(github_token)
+            file           = StringIO(get_csv['content'])
+            read_dataframe = pd.read_csv(file, sep=',')
+            condition      = read_dataframe.exporter_id == exporter.id
+                
+            response = {
+                "exporter_id"   : exporter.id,
+                "exporter_name" : exporter.name,
+                "description"   : read_dataframe.loc[condition,'description'].iloc[0] if not dataframe[condition].empty else '',
+            }
 
             return JsonResponse(response, status = 200)
 
