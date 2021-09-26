@@ -50,12 +50,18 @@ const Div = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+
+  h4 {
+    text-align: center;
+    line-height: 1.2;
+  }
 `;
 
 const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+
   select {
     background: white;
     ${({ theme }) => theme.ModalButton}

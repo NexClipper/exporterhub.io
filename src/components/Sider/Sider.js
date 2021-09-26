@@ -10,7 +10,7 @@ import { FiPlus } from "react-icons/fi";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import { CATEGORIES_API } from "../../config";
 import axios from "axios";
-import CategoryDeleteModal from "../Modal/CategoryDeleteModal";
+import CategoryDelete from "./CategoryDelete";
 import { Fragment } from "react";
 
 const Sider = () => {
@@ -161,7 +161,7 @@ const Sider = () => {
           </Fragment>
         )}
         {deletecategory && (
-          <CategoryDeleteModal
+          <CategoryDelete
             setCategoryAct={setCategoryAct}
             categoriesList={categories}
             deletecategoryId={deletecategory.category_id}
