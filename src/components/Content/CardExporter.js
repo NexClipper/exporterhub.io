@@ -67,10 +67,9 @@ const CardExporter = ({
       isNew={is_new}
     >
       {deleteModal && (
-        <DeleteModal
-          handleDelete={deleteExporter}
-          content="expoerter delete?"
-        />
+        <DeleteModal handleDelete={deleteExporter}>
+          <h5>Do you want to delete the exporter?</h5>
+        </DeleteModal>
       )}
       <header>
         {is_new && <New dark={changeTheme}>NEW</New>}
@@ -281,4 +280,5 @@ const Unfork = styled.div`
     }
   }
 `;
+
 export default withRouter(CardExporter);

@@ -3,7 +3,7 @@ import styled from "styled-components";
 
 const DeleteModal = ({
   handleDelete,
-  content,
+  content = "",
   button1 = "Yes",
   button2 = "Cancel",
   deletebutton1 = true,
