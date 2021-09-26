@@ -1,7 +1,5 @@
 exporter_id,exporter_name,description
 45,cAdvisor Exporter,new and enw
-I said, 'hello'.
-Bye
-43,Node Exporter,"node
+43,Node Exporter,node
 exporter
-yes,,"
+yes,,
