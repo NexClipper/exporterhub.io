@@ -23,7 +23,6 @@ InfluxDB,InfluxDB Exporter,https://github.com/prometheus/influxdb_exporter,1,Dat
 JMX,JMX Exporter,https://github.com/prometheus/jmx_exporter,1,Monitoring
 Memcached,Memcached Exporter,https://github.com/prometheus/memcached_exporter,1,Database
 MySQL,MySQL Server Exporter,https://github.com/prometheus/mysqld_exporter,1,Database
-Node Exporter,Node Exporter,https://github.com/prometheus/node_exporter,1,Hardware
 SNMP,SNMP Exporter,https://github.com/prometheus/snmp_exporter,1,Monitoring
 Statsd,Statsd Exporter,https://github.com/prometheus/statsd_exporter,1,Monitoring
 Azure,Azure Metrics Exporter,https://github.com/RobustPerception/azure_metrics_exporter,0,Monitoring
