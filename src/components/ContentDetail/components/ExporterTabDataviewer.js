@@ -4,7 +4,6 @@ import { FiEdit } from "react-icons/fi";
 import { BiUndo } from "react-icons/bi";
 import ExporterTabCodeEditor from "./ExporterTabCodeEditor";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
-import { IoEllipseSharp } from "react-icons/io5";
 import NoData from "./NoData";
 import { Fragment } from "react";
 const ExporterTabDataviewer = ({
@@ -87,10 +86,7 @@ const ExporterTabDataviewer = ({
                     </h1>
                     <div>
                       <h3>Description</h3>
-                      <p>
-                        <Symbol />
-                        {selectFileInfo[0].csv_desc}
-                      </p>
+                      <p>{selectFileInfo[0].csv_desc}</p>
                     </div>
                     <Content dark={changeTheme}>
                       {selectFileInfo[0].file_content}
@@ -253,8 +249,4 @@ const Loading = styled.div`
       transform: rotate(360deg);
     }
   }
-`;
-
-const Symbol = styled(IoEllipseSharp)`
-  font-size: 7px;
 `;
