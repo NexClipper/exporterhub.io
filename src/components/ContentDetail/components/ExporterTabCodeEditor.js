@@ -311,7 +311,9 @@ const Input = styled.input`
   margin: ${(props) => props.placeholder !== "FileName" && "10px 0px 15px"};
   border: ${(props) =>
     props.dark
-      ? "1px solid #ffffff"
+      ? props.IsEdit
+        ? "1px solid #69c4a6"
+        : "1px solid #ffffff"
       : props.IsEdit
       ? "1px solid #69c4a6"
       : "1px solid rgba(0, 0, 0, 0.2)"};

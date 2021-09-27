@@ -115,13 +115,15 @@ const Profile = ({ userProfile }) => {
             </span>
             <span>Edit Profile</span>
           </Button>
-          <DelButton onClick={() => setUserDelete(true)}>
-            <span>
-              <RiUserUnfollowLine />
-            </span>
+          {!isEditMode && (
+            <DelButton onClick={() => setUserDelete(true)}>
+              <span>
+                <RiUserUnfollowLine />
+              </span>
 
-            <span>Delete User</span>
-          </DelButton>
+              <span>Delete User</span>
+            </DelButton>
+          )}
         </div>
         {userDelete && (
           <DeleteModal

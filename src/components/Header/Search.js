@@ -51,6 +51,8 @@ const Div = styled.div`
     padding-left: 35px;
     background-color: ${(props) => (props.dark ? "#18191a" : "#ffffff")};
     color: ${(props) => (props.dark ? "#ffffff" : "#black")};
+    border: ${(props) =>
+      props.dark ? "1px solid #ffffff" : "1px solid rgba(0, 0, 0, 0.2)"};
   }
 `;
 export default Search;
