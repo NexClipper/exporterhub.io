@@ -527,7 +527,7 @@ class ExporterTabView(View):
                             'file_content' : base64.b64decode(yaml_data['content']).decode('utf-8'),
                             'file_sha'     : yaml_data['sha'],
                             'file_id'      : csv_detail[0],
-                            'csv_desc'     : csv_detail[1],
+                            'csv_desc'     : csv_detail[1].strip(),
                             'csv_sha'      : data['sha'],
                             'file_url'     : csv_detail[2],
                             }
@@ -630,11 +630,11 @@ class ExporterTabView(View):
             for i, detail in enumerate(content_list):
                 if detail[0] == file_id:
                     bf_file_name       = detail[2].strip()
-                    content_list[i][1] = content
+                    content_list[i][1] = content.strip()
                     content_list[i][2] = f'./contents/{app_name}/{app_name}_{content_type}/{file_name}_{content_type}.{type[content_type]} \n'
                     count += 1
             if count == 0:
-                content_list.append([f'0{yaml_id}, {content}, ./contents/{app_name}/{app_name}_{content_type}/{file_name}_{content_type}.{type[content_type]} \n'])
+                content_list.append([f'0{yaml_id},{content}, ./contents/{app_name}/{app_name}_{content_type}/{file_name}_{content_type}.{type[content_type]} \n'])
                     
             for each_content in content_list:
                 response += ','.join(each_content) + '\n'
@@ -655,7 +655,7 @@ class ExporterTabView(View):
             return {'result' :result , 'bf_file_name': bf_file_name}
 
         elif data.status_code == 404:
-            response = f'01, {content}, ./contents/{app_name}/{app_name}_{content_type}/{file_name}_{content_type}.{type[content_type]} \n'
+            response = f'01,{content}, ./contents/{app_name}/{app_name}_{content_type}/{file_name}_{content_type}.{type[content_type]} \n'
             contents = json.dumps(
                     {
                         "csv_sha" : sha,
