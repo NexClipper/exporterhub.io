@@ -1,9 +1,7 @@
 import React, { useEffect } from "react";
 import styled from "styled-components";
-// import "./App.css";
 import "ace-builds/src-noconflict/mode-java";
 import "ace-builds/src-noconflict/theme-github";
-//md test
 import { useSelector } from "react-redux";
 
 const DescriiptionSave = ({
