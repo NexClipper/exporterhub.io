@@ -2,14 +2,14 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import axios from "axios";
 import DescriiptionSave from "./DescriptionSave";
-import NoData from "./NoData";
+import { HiOutlineSave } from "react-icons/hi";
 import { AiFillStar } from "react-icons/ai";
+import { useParams } from "react-router";
 import { FiEdit } from "react-icons/fi";
 import { BiUndo } from "react-icons/bi";
 import { RiShoppingBasketLine } from "react-icons/ri";
-import { AiOutlineLoading3Quarters } from "react-icons/ai";
 import { ImLink } from "react-icons/im";
-import { BUCKET_API, STAR_API, API_SURVER } from "../../../config";
+import { BUCKET_API, STAR_API } from "../../../config";
 import { useSelector } from "react-redux";
 import { Fragment } from "react";
 const OpenSourceInfo = ({
@@ -34,8 +34,49 @@ const OpenSourceInfo = ({
   const [alertModal, setAlertModal] = useState(false);
   const [alertMsg, setAlertMsg] = useState();
   const editBtnText = desState ? "Edit" : "Create";
-
+  const [editState, setEditState] = useState("");
   const changeTheme = useSelector((store) => store.darkThemeReducer);
+  const { id } = useParams();
+
+  const handleSave = () => {
+    if (desState === "") {
+      axios({
+        method: "POST",
+        url: `${EXPORTER_API}/${id}`,
+        headers: {
+          Authorization: sessionStorage.getItem("access_token"),
+        },
+        data: {
+          description: editState,
+        },
+      })
+        .then((res) => {
+          setDesState(res.data.description);
+          handleEdit();
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    } else {
+      axios({
+        method: "PATCH",
+        url: `${EXPORTER_API}/${id}`,
+        headers: {
+          Authorization: sessionStorage.getItem("access_token"),
+        },
+        data: {
+          description: editState,
+        },
+      })
+        .then((res) => {
+          setDesState(res.data.description);
+          handleEdit();
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
+  };
 
   const addToFork = async (exporterInfo) => {
     if (!TOKEN) {
@@ -111,7 +152,7 @@ const OpenSourceInfo = ({
       </LogoImg>
       <InfoWrap>
         <HeaderInfo>
-          <div>
+          <HeaderBox>
             <HeaderTitle
               href={exporterInfo.repository_url}
               target="_blank"
@@ -124,6 +165,7 @@ const OpenSourceInfo = ({
               dark={changeTheme}
               onClick={() => addToFork(exporterInfo)}
               forkState={forkState}
+              fork="fork"
             >
               <span>{!forkState && <RiShoppingBasketLine />}</span>
               {forkState ? (
@@ -147,8 +189,8 @@ const OpenSourceInfo = ({
             >
               <AiFillStar dark={changeTheme} /> {starNumber && starNumber}
             </StarIcon>
-          </div>
-          <div>
+          </HeaderBox>
+          <HeaderBox>
             {isAdmin && (
               <Fragment>
                 <Button onClick={handleEdit}>
@@ -157,7 +199,16 @@ const OpenSourceInfo = ({
                 </Button>
               </Fragment>
             )}
-          </div>
+
+            {isEditMode && (
+              <Button save="save" onClick={handleSave}>
+                <span>
+                  <HiOutlineSave />
+                </span>
+                <span>Save</span>
+              </Button>
+            )}
+          </HeaderBox>
         </HeaderInfo>
         {!isEditMode ? (
           <Data>
@@ -171,6 +222,7 @@ const OpenSourceInfo = ({
           </Data>
         ) : (
           <DescriiptionSave
+            editState={editState}
             EXPORTER_API={EXPORTER_API}
             exporterInfo={exporterInfo}
             githubContent={githubContent}
@@ -181,6 +233,7 @@ const OpenSourceInfo = ({
             showAlertModal={showAlertModal}
             type={type}
             file={file}
+            setEditState={setEditState}
           />
         )}
       </InfoWrap>
@@ -239,7 +292,8 @@ const Info = styled.div`
   position: relative;
   display: flex;
   user-select: none;
-  /* border: 2px solid red; */
+  min-width: 370px;
+
   div > div {
     @media ${({ theme }) => theme.media.mobile} {
       flex-wrap: wrap;
@@ -276,6 +330,7 @@ const InfoWrap = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
+  min-width: 240px;
   @media ${({ theme }) => theme.media.mobile} {
     padding-right: 15px;
   }
@@ -300,15 +355,14 @@ const HeaderInfo = styled.div`
   max-width: 100%;
   display: flex;
   justify-content: space-between;
-
-  @media ${({ theme }) => theme.media.mobile} {
-    float: left;
-  }
+  align-items: center;
+  margin-bottom: 10px;
 `;
 
 const LogoImg = styled.a`
   flex: 1 1 220px;
   max-width: 220px;
+  min-width: 120px;
   @media ${({ theme }) => theme.media.mobile} {
     flex: 1 1 30%;
     max-width: 30%;
@@ -327,18 +381,18 @@ const Name = styled.h4`
   font-size: 17px;
 
   @media ${({ theme }) => theme.media.mobile} {
-    margin-bottom: 10px;
     font-size: 15px;
   }
 `;
 
 const Button = styled.button`
-  /* width: 60px; */
   height: 25px;
   display: flex;
   justify-content: center;
   align-items: center;
   padding: 0 10px;
+  margin-left: ${(props) =>
+    props.fork === "fork" || props.save === "save" ? "15px" : ""};
   background-color: ${(props) => (props.dark ? "#f5f6f7" : "#ffffff")};
   box-shadow: 1px 1px 6px 1px rgba(0, 0, 0, 0.1);
   border-radius: 5px;
@@ -347,8 +401,9 @@ const Button = styled.button`
   color: ${(props) => (props.forkState ? "#8D8D8D" : "black")};
 
   @media ${({ theme }) => theme.media.mobile} {
-    margin-bottom: 10px;
     position: relative;
+    margin-left: ${(props) =>
+      props.fork === "fork" || props.save === "save" ? "15px" : "3px"};
     top: 2px;
     z-index: 10;
   }
@@ -372,10 +427,10 @@ const Button = styled.button`
   }
 `;
 const Category = styled.p`
-  margin-right: 20px;
-  padding: 5px 20px 8px 20px;
+  padding: 5px 20px;
   font-size: 17px;
   font-weight: 400;
+  margin-top: 5px;
   color: ${(props) => (props.dark ? "#f5f6f7" : "#000000")};
   border: ${(props) => props.dark && "1px solid #f5f6f7"};
   border-radius: 5px;
@@ -383,15 +438,14 @@ const Category = styled.p`
   min-height: 30px;
 
   @media ${({ theme }) => theme.media.mobile} {
-    margin-bottom: 10px;
     font-size: 13px;
-    padding: 7px 10px 6px 10px;
+    padding: 7px 10px;
   }
 `;
 const StarIcon = styled.span`
   font-size: 18px;
   font-weight: 500;
-  margin-left: 20px;
+  margin-left: 15px;
   color: ${(props) => (props.starState ? "#ffd200" : "#8D8D8D")};
   cursor: pointer;
   svg {
@@ -430,4 +484,10 @@ const InputBox = styled.div`
     white-space: normal;
     color: ${(props) => props.dark && "#f5f6f7"};
   }
+`;
+
+const HeaderBox = styled.div`
+  display: flex;
+  align-items: center;
+  margin-top: 5px;
 `;
