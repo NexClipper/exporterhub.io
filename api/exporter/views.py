@@ -378,17 +378,22 @@ class ExporterView(View):
     @admin_decorator
     def delete(self, request):
         try: 
-            github_token   = request.user.github_token
-            exporter_ids   = request.GET.getlist('exporter_id', None)
-            exporters      = Exporter.objects.filter(id__in = exporter_ids)
-            exporters_name = [exporter.name for exporter in exporters]
-            message        = f'{exporters_name} delete'
-                        
-            dataframe            = pd.read_csv('exporter_list.csv', sep=',')
-            dataframe            = dataframe[~dataframe.project_name.isin(exporters_name)]
+            github_token = request.user.github_token
+            exporter_id  = request.GET.get('exporter_id', None)
+            exporter     = Exporter.objects.get(id = exporter_id)
+            message      = f'{exporter.name} delete'
+       
+            dataframe = pd.read_csv('exporter_list.csv', sep=',')
+            condition = dataframe.project_name == exporter.name
+            
+            if dataframe[condition].empty:
+                return JsonResponse({'message':'NO_EXPORTER_IN_CSV'}, status=400)
+            
+            dataframe['project_name'].replace(exporter.name, np.nan, inplace=True) 
+            dataframe            = dataframe.dropna()
             dataframe['offcial'] = dataframe['offcial'].astype('str')
             dataframe.to_csv('exporter_list.csv', index=False)
-            exporters.delete()
+            exporter.delete()
             
             columns     = dataframe.columns.values.tolist()
             values      = dataframe.values.tolist()
