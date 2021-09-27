@@ -143,7 +143,7 @@ const ContentMenu = () => {
 
   return (
     <>
-      <Div>
+      <Div isAdmin={isAdmin}>
         {/* <span>{totalCount} items</span> */}
         <SelectBox>
           <Categories dark={changeTheme}>
@@ -178,7 +178,7 @@ const ContentMenu = () => {
             </select>
           </Sort>
         </SelectBox>
-        <SearchBox>
+        <SearchBox isAdmin={!isAdmin}>
           <Search />
         </SearchBox>
         {isAdmin && (
@@ -264,7 +264,7 @@ const ContentMenu = () => {
 const Div = styled.div`
   width: 100%;
   display: flex;
-  justify-content: space-between;
+  justify-content: ${({ isAdmin }) => isAdmin && "space-between"};
   align-items: center;
   margin-bottom: 20px;
   font-size: 16px;
@@ -284,7 +284,9 @@ const Div = styled.div`
 const SelectBox = styled.div`
   display: flex;
   flex-direction: column;
-  align-items: ${(props) => (props.delete ? "center" : "")};
+  color: ${(props) => (props.dark ? "#ffffff" : "black")};
+
+  align-items: ${(props) => props.delete && "center"};
   font-size: 16px;
   @media ${({ theme }) => theme.media.mobile} {
     font-size: 13px;
@@ -295,6 +297,7 @@ const SelectBox = styled.div`
     color: red;
   }
 `;
+
 const Categories = styled.div`
   display: none;
   margin-right: 10px;
@@ -359,6 +362,7 @@ const SearchMoileBox = styled.div`
 `;
 
 const SearchBox = styled.div`
+  padding-left: ${({ isAdmin }) => isAdmin && "90px"};
   display: block;
   padding-right: 83px;
   @media ${({ theme }) => theme.media.mobile} {
