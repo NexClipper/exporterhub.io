@@ -141,7 +141,7 @@ const ExporterDetailTabList = ({
       ) : (
         <CategoryBox>
           <div>
-            {exporterCsv.length !== 0
+            {/* {exporterCsv.length !== 0
               ? exporterCsv.map((file) => {
                   let github = file.file_url.slice(
                     file.file_url.lastIndexOf("/") + 1,
@@ -190,7 +190,7 @@ const ExporterDetailTabList = ({
                       "The file has not been ready to show up"
                     </Div>
                   </Category>
-                )}
+                )} */}
 
             {isEditMode && select === "New" && (
               <Category

@@ -185,7 +185,7 @@ const Sider = () => {
         </Category>
         {categories &&
           categories.map((category) => {
-            const isNew = New(category.create_at);
+            // const isNew = New(category.create_at);
             return (
               <Category
                 key={category.category_id}
@@ -203,7 +203,7 @@ const Sider = () => {
                   }}
                 >
                   <span className="categoryName">{category.category_name}</span>
-                  {isNew && <span className="new">New</span>}
+                  {/* {isNew && <span className="new">New</span>} */}
                 </Div>
 
                 {edit && categoryAct === category.category_id && (

@@ -21,6 +21,8 @@ const ContentDetail = () => {
   const [forkState, setForkState] = useState();
   const [starState, setStarState] = useState();
   const [starNumber, setStarNumber] = useState();
+  const [isEditMode, setEditMode] = useState(false);
+  const [desState, setDesState] = useState("");
   const changeTheme = useSelector((store) => store.darkThemeReducer);
   const ACTIVECONTENT_OBJ = {
     0: <Exporter readmeContent={exporterInfo.readme} />,
@@ -28,14 +30,11 @@ const ContentDetail = () => {
     2: <ExporterTab title={exporterInfo.title} type="_alert.yaml" />,
     3: <ExporterTab title={exporterInfo.title} type="_dashboard.json" />,
   };
-
   const TOKEN = sessionStorage.getItem("access_token");
-
   useEffect(() => {
     window.scrollTo(0, 0);
     fetchData();
   }, []);
-
   useEffect(() => {
     fetchData();
   }, [forkState]);
@@ -52,6 +51,7 @@ const ContentDetail = () => {
         setForkState(res.data.data.is_bucket);
         setStarState(res.data.data.is_star);
         setStarNumber(res.data.data.stars);
+        setDesState(res.data.data.detail_description);
       })
       .catch((err) => {
         console.log(err);
@@ -72,6 +72,7 @@ const ContentDetail = () => {
         <Container>
           {exporterInfo && (
             <OpenSourceInfo
+              EXPORTER_API={EXPORTER_API}
               exporterInfo={exporterInfo}
               forkState={forkState}
               starState={starState}
@@ -79,6 +80,12 @@ const ContentDetail = () => {
               setForkState={setForkState}
               starNumber={starNumber}
               setStarNumber={setStarNumber}
+              desState={desState}
+              setDesState={setDesState}
+              isEditMode={isEditMode}
+              setEditMode={setEditMode}
+              file=".csv"
+              type="text"
             />
           )}
         </Container>
@@ -154,7 +161,7 @@ const Main = styled.main`
   padding: 90px 0 50px;
   background-color: ${(props) => (props.dark ? "#18191a" : "#f7f9fc")};
   @media ${({ theme }) => theme.media.mobile} {
-    padding: 60px 15px 50px;
+    padding: 90px 15px 50px;
   }
 `;
 const Container = styled.div`
