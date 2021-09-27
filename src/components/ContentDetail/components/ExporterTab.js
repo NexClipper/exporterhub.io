@@ -14,6 +14,9 @@ const ExporterTab = ({ title, type }) => {
   const [isEditMode, setIsEditMode] = useState(false);
   const [modify, setModify] = useState(false);
   const [select, setSelect] = useState(0);
+  const [saveEdit, setSaveEdit] = useState(false);
+  const [moveId, setMoveId] = useState(false);
+  const [deleteFile, setDeleteFile] = useState(false);
 
   const handleMode = () => {
     if (isEditMode) {
@@ -68,6 +71,12 @@ const ExporterTab = ({ title, type }) => {
             setModify={setModify}
             handleMode={handleMode}
             setExporterCsv={setExporterCsv}
+            saveEdit={saveEdit}
+            setSaveEdit={setSaveEdit}
+            moveId={moveId}
+            setMoveId={setMoveId}
+            deleteFile={deleteFile}
+            setDeleteFile={setDeleteFile}
           />
         </TabListbox>
       </div>
@@ -85,6 +94,13 @@ const ExporterTab = ({ title, type }) => {
               isEditMode={isEditMode}
               setModify={setModify}
               handleMode={handleMode}
+              setExporterCsv={setExporterCsv}
+              saveEdit={saveEdit}
+              setSaveEdit={setSaveEdit}
+              moveId={moveId}
+              setMoveId={setMoveId}
+              deleteFile={deleteFile}
+              setDeleteFile={setDeleteFile}
             />
           </MobileTabListbox>
         </div>

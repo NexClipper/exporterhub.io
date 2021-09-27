@@ -21,31 +21,31 @@ const ExporterTabDataviewer = ({
 }) => {
   const isAdmin = useSelector((store) => store.adminReducer);
   const changeTheme = useSelector((store) => store.darkThemeReducer);
-  const emty = exporterCsv !== "default" ? exporterCsv.length === 0 : false;
-  const selectFileInfo =
-    select !== "New" && exporterCsv !== "default" && exporterCsv.length !== 0
-      ? exporterCsv.filter((file) => file.file_id === select)
-      : exporterCsv !== "default" && exporterCsv.length !== 0
-      ? [
-          {
-            file_content: "",
-            file_url: "",
-            file_sha: exporterCsv[0].file_sha,
-            csv_sha: exporterCsv[0].csv_sha,
-            file_id: "",
-            csv_desc: "",
-          },
-        ]
-      : [
-          {
-            file_content: "",
-            file_url: "",
-            file_sha: "",
-            csv_sha: "",
-            file_id: "",
-            csv_desc: "",
-          },
-        ];
+  // const emty = exporterCsv !== "default" ? exporterCsv.length === 0 : false;
+  // const selectFileInfo =
+  //   select !== "New" && exporterCsv !== "default" && exporterCsv.length !== 0
+  //     ? exporterCsv.filter((file) => file.file_id === select)
+  //     : exporterCsv !== "default" && exporterCsv.length !== 0
+  //     ? [
+  //         {
+  //           file_content: "",
+  //           file_url: "",
+  //           file_sha: exporterCsv[0].file_sha,
+  //           csv_sha: exporterCsv[0].csv_sha,
+  //           file_id: "",
+  //           csv_desc: "",
+  //         },
+  //       ]
+  //     : [
+  //         {
+  //           file_content: "",
+  //           file_url: "",
+  //           file_sha: "",
+  //           csv_sha: "",
+  //           file_id: "",
+  //           csv_desc: "",
+  //         },
+  //       ];
   return (
     <>
       <Header>
@@ -69,7 +69,7 @@ const ExporterTabDataviewer = ({
         )}
       </Header>
 
-      <div>
+      {/* <div>
         {!modify ? (
           <Data dark={changeTheme}>
             {exporterCsv === "default" ? (
@@ -119,7 +119,7 @@ const ExporterTabDataviewer = ({
             handleMode={handleMode}
           />
         )}
-      </div>
+      </div> */}
     </>
   );
 };

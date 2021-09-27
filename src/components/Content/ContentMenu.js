@@ -12,7 +12,7 @@ import {
 import { CATEGORIES_API } from "../../config";
 import Search from "../Header/Search";
 import RegisterModal from "../Modal/RegisterModal";
-import CategoryDeleteModal from "../Modal/CategoryDeleteModal";
+import CategoryDelete from "../Sider/CategoryDelete";
 
 const ContentMenu = () => {
   const dispatch = useDispatch();
@@ -244,7 +244,7 @@ const ContentMenu = () => {
           </DeleteModal>
         )}
         {deletecategory && (
-          <CategoryDeleteModal
+          <CategoryDelete
             setCategoryAct={setEditSelectCategory}
             deletecategoryName={editSelectCategory.category_name}
             deletecategoryId={editSelectCategory.category_id}

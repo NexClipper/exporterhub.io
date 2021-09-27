@@ -450,6 +450,39 @@ class ExporterDetailView(View):
         elif result.status_code != 204 and result.status_code != 404:
             return 'ERROR'
 
+    def get_csv(self, token):
+        repo   = f"{settings.ORGANIZATION}/exporterhub.io"
+        url    = f"https://api.github.com/repos/{repo}/contents/contents/exporter_description.csv"
+        result = requests.get(url, headers={'Content-Type':'application/json','Authorization': 'token ' + token})
+        data   = result.json()
+
+        if result.status_code == 200:
+            contents = {
+                'content' : base64.b64decode(data['content']).decode('utf-8'),
+                'sha'     : data['sha']
+            }
+        elif result.status_code == 404:
+            contents = {
+                'content' : None,   
+                'sha'     : None
+            }
+        else:
+            contents = "GITHUB_GET_REPO_ERROR"
+
+        return contents
+
+    def push_to_github(self, token, message, content, sha):
+        repo = f"{settings.ORGANIZATION}/exporterhub.io"
+        url  = f"https://api.github.com/repos/{repo}/contents/contents/exporter_description.csv"
+
+        contents = json.dumps({
+                        "message" : message,
+                        "content" : content,
+                        "sha"     : sha
+                    })
+
+        requests.put(url, data=contents, headers={'Content-Type':'application/json','Authorization': 'token ' + token})  
+
     @login_check
     def get(self, request, exporter_id):
         try:
@@ -481,6 +514,11 @@ class ExporterDetailView(View):
             else:
                 forked_repository_url = None
 
+            get_csv   = self.get_csv(github_token)
+            file      = StringIO(get_csv['content'])
+            dataframe = pd.read_csv(file, sep=',')
+            condition = dataframe.exporter_id == exporter.id
+
             data = {
                     'exporter_id'           : exporter.id,
                     'name'                  : exporter.name,
@@ -495,6 +533,7 @@ class ExporterDetailView(View):
                     'repository_url'        : exporter.repository_url,
                     'forked_repository_url' : forked_repository_url,
                     'description'           : exporter.description,
+                    'detail_description'    : dataframe.loc[condition, 'description'].iloc[0] if not dataframe[condition].empty else '',
                     'readme'                : exporter.readme.decode('utf-8'),
                     'recent_release'        : exporter.release_set.order_by('date').last().date if exporter.release_set.filter().exists() else '1970-01-01',
                     'release'               : [{
@@ -508,6 +547,95 @@ class ExporterDetailView(View):
 
         except Exporter.DoesNotExist:
             return JsonResponse({'message':'NO_EXPORTER'}, status=400)
+
+    @admin_decorator
+    def post(self, request, exporter_id):
+        try:
+            github_token = request.user.github_token
+            exporter     = Exporter.objects.get(id = exporter_id)
+            data         = json.loads(request.body)
+            description  = data["description"]
+            message      = f"{exporter.name} description create"
+
+            if not description:
+                return JsonResponse({'message':'FILL_THE_BLANK'}, status = 400)  
+
+            get_csv   = self.get_csv(github_token)
+            file      = StringIO(get_csv['content'])
+            dataframe = pd.read_csv(file, sep=',')
+            condition = dataframe.exporter_id == exporter.id
+            
+            if not dataframe[condition].empty:
+                return JsonResponse({'message':'EXIST_EXPORTER'}, status = 400)
+
+            request_content = f'{exporter.id},{exporter.name},"{description}"'
+            all_content     = get_csv['content'] + '\n' + request_content
+            content         = base64.b64encode(all_content.encode('utf-8')).decode('utf-8')
+            result          = self.push_to_github(token=github_token, message=message, content=content, sha=get_csv['sha'])        
+
+            get_csv   = self.get_csv(github_token)
+            file      = StringIO(get_csv['content'])
+            dataframe = pd.read_csv(file, sep=',')
+            condition = dataframe.exporter_id == exporter.id
+            dataframe.loc[condition, 'description'] = description
+            
+            response = {
+                "exporter_id"   : exporter.id,
+                "exporter_name" : exporter.name,
+                "description"   : dataframe.loc[condition,'description'].iloc[0]
+            }
+            
+            return JsonResponse(response, status = 201)
+
+        except KeyError:
+            return JsonResponse({'message':'KEY_ERROR'}, status = 400)
+
+    @admin_decorator
+    def patch(self, request, exporter_id):
+        try:
+            github_token = request.user.github_token
+            exporter     = Exporter.objects.get(id = exporter_id)
+            data         = json.loads(request.body)
+            description  = data["description"]
+            message      = f"{exporter.name} description update"
+
+            get_csv   = self.get_csv(github_token)
+            file      = StringIO(get_csv['content'])
+            dataframe = pd.read_csv(file, sep=',')
+            condition = dataframe.exporter_id == exporter.id
+            dataframe.loc[condition, 'description'] = description if not description else f'"{description}"'
+            dataframe['description'].replace('', np.nan, inplace=True)
+            dataframe = dataframe.dropna()
+            dataframe['exporter_id'] = dataframe['exporter_id'].astype('str') 
+            dataframe.to_csv(file, index=False)
+
+            columns     = dataframe.columns.values.tolist()
+            values      = dataframe.values.tolist()
+            lists       = [columns] + values
+            all_content = ''
+
+            for ls in lists:
+                all_content += ','.join(ls) + '\n'
+
+            content = base64.b64encode(all_content.encode('utf-8')).decode('utf-8')
+            result  = self.push_to_github(token=github_token, message=message, content=content, sha=get_csv['sha'])
+
+            get_csv        = self.get_csv(github_token)
+            file           = StringIO(get_csv['content'])
+            read_dataframe = pd.read_csv(file, sep=',')
+            condition      = read_dataframe.exporter_id == exporter.id
+                
+            response = {
+                "exporter_id"   : exporter.id,
+                "exporter_name" : exporter.name,
+                "description"   : read_dataframe.loc[condition,'description'].iloc[0] if not dataframe[condition].empty else '',
+            }
+
+            return JsonResponse(response, status = 200)
+
+        except KeyError:
+            return JsonResponse({'message':'KEY_ERROR'}, status = 400)
+
 
 class ExporterTabView(View):
     def get_csv(self, app_name, content_type, csv_file_type, headers):
@@ -532,7 +660,7 @@ class ExporterTabView(View):
                             'file_content' : base64.b64decode(yaml_data['content']).decode('utf-8'),
                             'file_sha'     : yaml_data['sha'],
                             'file_id'      : csv_detail[0],
-                            'csv_desc'     : csv_detail[1],
+                            'csv_desc'     : csv_detail[1].strip(),
                             'csv_sha'      : data['sha'],
                             'file_url'     : csv_detail[2],
                             }
@@ -635,11 +763,11 @@ class ExporterTabView(View):
             for i, detail in enumerate(content_list):
                 if detail[0] == file_id:
                     bf_file_name       = detail[2].strip()
-                    content_list[i][1] = content
+                    content_list[i][1] = content.strip()
                     content_list[i][2] = f'./contents/{app_name}/{app_name}_{content_type}/{file_name}_{content_type}.{type[content_type]} \n'
                     count += 1
             if count == 0:
-                content_list.append([f'0{yaml_id}, {content}, ./contents/{app_name}/{app_name}_{content_type}/{file_name}_{content_type}.{type[content_type]} \n'])
+                content_list.append([f'0{yaml_id},{content}, ./contents/{app_name}/{app_name}_{content_type}/{file_name}_{content_type}.{type[content_type]} \n'])
                     
             for each_content in content_list:
                 response += ','.join(each_content) + '\n'
@@ -660,7 +788,7 @@ class ExporterTabView(View):
             return {'result' :result , 'bf_file_name': bf_file_name}
 
         elif data.status_code == 404:
-            response = f'01, {content}, ./contents/{app_name}/{app_name}_{content_type}/{file_name}_{content_type}.{type[content_type]} \n'
+            response = f'01,{content}, ./contents/{app_name}/{app_name}_{content_type}/{file_name}_{content_type}.{type[content_type]} \n'
             contents = json.dumps(
                     {
                         "csv_sha" : sha,

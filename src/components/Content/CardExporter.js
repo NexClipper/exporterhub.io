@@ -57,18 +57,19 @@ const CardExporter = ({
       setDeleteModal(false);
     }
   };
+
   return (
     <Div
       dark={changeTheme}
       fork={fork}
       mybucket={mybucket}
       deleteModal={deleteModal}
+      isNew={is_new}
     >
       {deleteModal && (
-        <DeleteModal
-          handleDelete={deleteExporter}
-          content="expoerter delete?"
-        />
+        <DeleteModal handleDelete={deleteExporter}>
+          <h5>Do you want to delete the exporter?</h5>
+        </DeleteModal>
       )}
       <header>
         {is_new && <New dark={changeTheme}>NEW</New>}
@@ -144,7 +145,7 @@ const Div = styled.div`
   }
   header {
     display: flex;
-    justify-content: space-between;
+    justify-content: ${({ isNew }) => (isNew ? "space-between" : "flex-end")};
     align-items: center;
     width: 100%;
     font-size: 12px;
@@ -279,4 +280,5 @@ const Unfork = styled.div`
     }
   }
 `;
+
 export default withRouter(CardExporter);
