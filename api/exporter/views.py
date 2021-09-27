@@ -252,7 +252,7 @@ class ExporterView(View):
                         "sha"     : sha
                     })
         
-        requests.put(url, data=contents, headers={'Content-Type':'application/json','Authorization': 'token ' + token})     
+        return requests.put(url, data=contents, headers={'Content-Type':'application/json','Authorization': 'token ' + token})     
 
     @login_check
     def get(self, request):
@@ -380,37 +380,39 @@ class ExporterView(View):
         try: 
             github_token = request.user.github_token
             exporter_id  = request.GET.get('exporter_id', None)
+
+            if not Exporter.objects.filter(id=exporter_id).exists:
+                return JsonResponse({'message':'NO_EXPORTER'}, status=400)
+
             exporter     = Exporter.objects.get(id = exporter_id)
             message      = f'{exporter.name} delete'
-       
-            dataframe = pd.read_csv('exporter_list.csv', sep=',')
-            condition = dataframe.project_name == exporter.name
-            
-            if dataframe[condition].empty:
-                return JsonResponse({'message':'NO_EXPORTER_IN_CSV'}, status=400)
-            
-            dataframe['project_name'].replace(exporter.name, np.nan, inplace=True) 
-            dataframe            = dataframe.dropna()
-            dataframe['offcial'] = dataframe['offcial'].astype('str')
-            dataframe.to_csv('exporter_list.csv', index=False)
-            exporter.delete()
-            
-            columns     = dataframe.columns.values.tolist()
-            values      = dataframe.values.tolist()
-            lists       = [columns] + values
-            all_content = ''
-           
-            for ls in lists:
-                all_content += ','.join(ls) + '\n'
+            content      = []
+            response     = ''
 
-            content = base64.b64encode(all_content.encode('utf-8')).decode('utf-8')
+            file   = open('exporter_list.csv', 'r')
+            reader = [row for row in csv.reader(file)]
+            file.close()
+
+            file   = open('exporter_list.csv', 'w', newline='')
+            writer = csv.writer(file)
+            for i, row in enumerate(reader):
+                if reader[i][1] == exporter.name: 
+                    continue
+                else:
+                    writer.writerow(row)
+                    content.append([reader[i][0], reader[i][1], reader[i][2], reader[i][3], reader[i][4], '\n'])
+            file.close()
+            
+            for detail in content:
+                response += ','.join(detail)
+            
             get_csv = self.get_csv(github_token)
+            content = base64.b64encode(response.encode('utf-8')).decode('utf-8')
             result  = self.push_to_github(token=github_token, message=message, content=content, sha=get_csv['sha'])
             
-            return JsonResponse({'message':'SUCCESS'}, status=200)
-        
-        except Exporter.DoesNotExist:
-            return JsonResponse({'message':'NO_EXPORTER'}, status=400)
+            if result.status_code == 200:
+                Exporter.objects.filter(id=exporter.id).delete()
+                return JsonResponse({'message':'SUCCESS'}, status=200)
         
         except KeyError:
             return JsonResponse({'message':'KEY_ERROR'}, status=400)
@@ -774,7 +776,6 @@ class ExporterTabView(View):
                     
             for each_content in content_list:
                 response += ','.join(each_content) + '\n'
-
             contents = json.dumps(
                         {
                             "sha" : sha,
