@@ -32,6 +32,8 @@ const DescriiptionSave = ({
               file={file}
               name="description"
               value={editState}
+              cols="150"
+              rows="4"
               onChange={(e) => handleInput(e)}
             ></textarea>
           </label>
@@ -58,6 +60,7 @@ const ProfileEditor = styled.div`
       height: 100px;
       padding: 5px;
       resize: none;
+      word-break: keep-all;
       border: ${(props) =>
         props.dark ? "1px solid #6c737c" : "1px solid #e2e4e8"};
       /* color: #25292e; */
