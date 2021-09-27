@@ -214,9 +214,7 @@ const OpenSourceInfo = ({
           <Data>
             {desState && (
               <InputBox dark={changeTheme}>
-                <Content>
-                  <p>{desState}</p>
-                </Content>
+                <Content>{desState}</Content>
               </InputBox>
             )}
           </Data>
