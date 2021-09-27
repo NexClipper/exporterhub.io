@@ -115,7 +115,7 @@ class CategoryView(View):
             return JsonResponse({'message': 'GITHUB_API_FAIL'}, status=400)
         
         for detail in responses:
-            response += ' '.join(detail)
+            response += ','.join(detail)
 
         contents = json.dumps({
             'sha'     : csv_info['sha'],
@@ -168,7 +168,7 @@ class CategoryView(View):
             return JsonResponse({'message': 'GITHUB_API_FAIL'}, status=400)
 
         for detail in content:
-            response += ' '.join(detail)
+            response += ','.join(detail)
 
         contents = json.dumps({
             'sha' : csv_info['sha'],
