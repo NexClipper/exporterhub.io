@@ -12,7 +12,7 @@ import {
 import { CATEGORIES_API } from "../../config";
 import Search from "../Header/Search";
 import RegisterModal from "../Modal/RegisterModal";
-import CategoryDeleteModal from "../Modal/CategoryDeleteModal";
+import CategoryDelete from "../Sider/CategoryDelete";
 
 const ContentMenu = () => {
   const dispatch = useDispatch();
@@ -26,6 +26,7 @@ const ContentMenu = () => {
   const isAdmin = useSelector((store) => store.adminReducer);
   const changeTheme = useSelector((store) => store.darkThemeReducer);
   const categories = useSelector((store) => store.categoryReducer);
+  const filterCategory = useSelector((store) => store.cateFilterReducer);
 
   const cancleModal = () => {
     setIsModalActive(false);
@@ -53,11 +54,14 @@ const ContentMenu = () => {
             addCategoryName.toLowerCase()
         );
         if (isSame.length === 0) {
+          let today = new Date();
+          let todayDate = today.toLocaleDateString();
           axios({
             method: "post",
             url: `${CATEGORIES_API}`,
             data: {
               category: addCategoryName,
+              date: todayDate,
             },
             headers: {
               Authorization: sessionStorage.getItem("access_token"),
@@ -144,14 +148,20 @@ const ContentMenu = () => {
         <SelectBox>
           <Categories dark={changeTheme}>
             <p>Categories :</p>
-            <Select dark={changeTheme} onChange={callDispatch}>
+            <Select
+              dark={changeTheme}
+              onChange={callDispatch}
+              value={filterCategory === "" ? "All" : filterCategory}
+            >
               <option>All</option>
               {categories &&
-                categories.map((category) => (
-                  <option key={category.category_id}>
-                    {category.category_name}
-                  </option>
-                ))}
+                categories.map((category) => {
+                  return (
+                    <option key={category.category_id}>
+                      {category.category_name}
+                    </option>
+                  );
+                })}
             </Select>
             {isAdmin && (
               <AiFillSetting
@@ -234,7 +244,7 @@ const ContentMenu = () => {
           </DeleteModal>
         )}
         {deletecategory && (
-          <CategoryDeleteModal
+          <CategoryDelete
             setCategoryAct={setEditSelectCategory}
             deletecategoryName={editSelectCategory.category_name}
             deletecategoryId={editSelectCategory.category_id}
@@ -306,6 +316,7 @@ const Select = styled.select`
   @media ${({ theme }) => theme.media.mobile} {
     display: block;
     font-size: 13px;
+    max-width: 120px;
     color: ${(props) => (props.dark ? "#ffffff" : "black")};
   }
   option {

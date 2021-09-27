@@ -4,14 +4,14 @@ import { useState } from "react";
 import axios from "axios";
 import { FiArrowDown } from "react-icons/fi";
 import { CATEGORIES_API, EXPORTERS_API } from "../../config";
-import DeleteModal from "./DeleteModal";
+import DeleteModal from "../Modal/DeleteModal";
 import { useDispatch } from "react-redux";
 import {
   loadCategoriesData,
   allData,
 } from "../../store/actions/exporterActions";
 
-const CategoryDeleteModal = ({
+const CategoryDelete = ({
   setCategoryAct,
   deletecategoryName,
   deletecategoryId,
@@ -55,7 +55,7 @@ const CategoryDeleteModal = ({
       setSureDelete(true);
     } else if (answer === "Cancel") {
       setDeletecategory(false);
-    } else if (answer === "move") {
+    } else if (answer === "move category") {
       if (selectCategory === "Select category") {
         setIsSelected(false);
         return;
@@ -83,7 +83,7 @@ const CategoryDeleteModal = ({
           setDeletecategory(false);
         })
         .catch((error) => console.log(error));
-    } else if (answer === "delete") {
+    } else if (answer === "just delete") {
       axios({
         method: "delete",
         url: `${CATEGORIES_API}/${deletecategoryId}`,
@@ -107,112 +107,60 @@ const CategoryDeleteModal = ({
   return (
     <>
       {!sureDelete && !ismobile ? (
-        <DeleteModal handleDelete={handleDelete} content="Delete?" />
+        <DeleteModal
+          handleDelete={handleDelete}
+          content="Do you want to delete it?"
+        />
       ) : (
-        <DeleteListContainer>
-          <Div>
-            <h4>
-              If you want to move exporters before deleting, select the category
-              you want to move.
-            </h4>
-            <h5>{deletecategoryName + " Category"}</h5>
-            <FiArrowDown color={"#b2b2b2"} />
-            <select
-              className="inputDiv"
-              onChange={({ target }) => {
-                setSelectCategory(target.value);
-                target.value === "Select category"
-                  ? setIsSelected(false)
-                  : setIsSelected(true);
-              }}
-            >
-              <option>Select category</option>
-              {remainCategories &&
-                remainCategories.map((category) => {
-                  return <option>{category.category_name}</option>;
-                })}
-            </select>
-            {!isSelected && <p>선택해주세요</p>}
-            <Container>
-              <button onClick={() => handleDelete("move")}>
-                move category
-              </button>
-              <button onClick={() => handleDelete("delete")}>
-                just delete
-              </button>
-              <button onClick={() => handleDelete("Cancel")}>Cancel</button>
-            </Container>
-          </Div>
-        </DeleteListContainer>
+        <DeleteModal
+          handleDelete={handleDelete}
+          content="If you want to move exporters before deleting, select the category
+              you want to move."
+          button1="just delete"
+        >
+          <SelectCategory>{deletecategoryName + " Category"}</SelectCategory>
+          <FiArrowDown color={"#b2b2b2"} />
+          <SelectOption
+            className="inputDiv"
+            onChange={({ target }) => {
+              setSelectCategory(target.value);
+              target.value === "Select category"
+                ? setIsSelected(false)
+                : setIsSelected(true);
+            }}
+          >
+            <option>Select category</option>
+            {remainCategories &&
+              remainCategories.map((category) => {
+                return <option>{category.category_name}</option>;
+              })}
+          </SelectOption>
+          {!isSelected && <SeleteAlert>Please select</SeleteAlert>}
+          <button onClick={() => handleDelete("move category")}>
+            move category
+          </button>
+        </DeleteModal>
       )}
     </>
   );
 };
 
-export default CategoryDeleteModal;
+export default CategoryDelete;
 
-const DeleteListContainer = styled.div`
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  background: rgba(0, 0, 0, 0.3);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  z-index: 1;
+const SeleteAlert = styled.p`
+  margin-top: 8px;
+  font-size: 13px;
+  color: red;
 `;
 
-const Div = styled.div`
-  width: 310px;
-  height: fit-content;
-  background-color: white;
-  padding: 20px;
-  ${({ theme }) => theme.positionCenter};
+const SelectCategory = styled.h5`
+  margin: 5px;
+  font-size: 13px;
+  color: #b2b2b2;
+  margin-top: 15px;
+`;
+
+const SelectOption = styled.select`
+  ${({ theme }) => theme.ModalButton};
   border: 1px solid rgba(0, 0, 0, 0.3);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-
-  select {
-    ${({ theme }) => theme.ModalButton}
-  }
-  h4 {
-    margin-bottom: 15px;
-    text-align: center;
-  }
-  h5 {
-    margin: 5px;
-    font-size: 13px;
-    color: #b2b2b2;
-  }
-  p {
-    margin-top: 8px;
-    font-size: 13px;
-    color: red;
-  }
-`;
-
-const Container = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-
-  button {
-    width: 230px;
-    height: 35px;
-    margin-top: 15px;
-    border-radius: 20px;
-    background-color: #85dbc3;
-    color: #ffffff;
-    font-size: 13px;
-    font-weight: 400;
-    ${({ theme }) => theme.flexCenter};
-    cursor: pointer;
-
-    &:hover {
-      color: #c6474e;
-    }
-  }
 `;

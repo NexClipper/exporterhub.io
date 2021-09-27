@@ -22,15 +22,19 @@ const ExporterDetailTabList = ({
   setModify,
   handleMode,
   mobile,
+  saveEdit,
+  setSaveEdit,
+  moveId,
+  setMoveId,
+  deleteFile,
+  setDeleteFile,
 }) => {
   const changeTheme = useSelector((store) => store.darkThemeReducer);
   const edittingFile = useSelector((store) => store.exporterTabEdittingReducer);
   const beforeEditFile = useSelector(
     (store) => store.exporterTabBeforeEditReducer
   );
-  const [saveEdit, setSaveEdit] = useState(false);
-  const [moveId, setMoveId] = useState(false);
-  const [deleteFile, setDeleteFile] = useState(false);
+
   const dontSaved =
     modify && JSON.stringify(edittingFile) !== JSON.stringify(beforeEditFile);
   const handleFileAdd = () => {
@@ -77,7 +81,11 @@ const ExporterDetailTabList = ({
   const handleDeleteAnswer = (answer) => {
     if (answer === "Yes") {
       setExporterCsv("default");
+      setDeleteFile(false);
       handleDelete();
+      if (modify) {
+        setModify(false);
+      }
     } else {
       setDeleteFile(false);
     }
@@ -99,11 +107,6 @@ const ExporterDetailTabList = ({
         handleMode();
         console.log(err);
       });
-
-    //response 오면 실행
-    handleMode();
-    exporterCsv.length !== 0 ? setSelect(exporterCsv[0].file_id) : setSelect(0);
-    setDeleteFile(false);
   };
 
   const handleChangeFile = (fileId) => {
@@ -165,11 +168,12 @@ const ExporterDetailTabList = ({
 
                       {isEditMode && file.file_id === select && (
                         <EditBox>
-                          <TiPencil
+                          <EditIcon
+                            as={TiPencil}
                             className="edit"
                             onClick={() => setModify(true)}
                           />
-                          <RiDeleteBin6Line
+                          <EditIcon
                             className="edit"
                             onClick={() => {
                               setDeleteFile(true);
@@ -182,7 +186,9 @@ const ExporterDetailTabList = ({
                 })
               : select !== "New" && (
                   <Category>
-                    <Div dark={changeTheme}>"준비중"</Div>
+                    <Div dark={changeTheme}>
+                      "The file has not been ready to show up"
+                    </Div>
                   </Category>
                 )} */}
 
@@ -218,7 +224,7 @@ const ExporterDetailTabList = ({
       {deleteFile && (
         <DeleteModal
           handleDelete={handleDeleteAnswer}
-          content="Are you sure Delete?"
+          content="Do you want to delete it?"
         ></DeleteModal>
       )}
     </>
@@ -344,4 +350,8 @@ const Loading = styled.div`
       transform: rotate(360deg);
     }
   }
+`;
+
+const EditIcon = styled(RiDeleteBin6Line)`
+  z-index: 3;
 `;

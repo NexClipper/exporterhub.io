@@ -3,9 +3,9 @@ import requests
 import base64
 import re
 import csv
-# import pandas as pd
-# import numpy  as np
-# from   io     import StringIO
+import pandas as pd
+import numpy  as np
+from   io     import StringIO
 
 from django.views           import View
 from django.http            import JsonResponse
@@ -375,40 +375,40 @@ class ExporterView(View):
         except Official.DoesNotExist:
             return JsonResponse({'message':'OFFICIAL_OBJECT_DOES_NOT_EXIST'}, status=410)
             
-    # @admin_decorator
-    # def delete(self, request):
-    #     try: 
-    #         github_token   = request.user.github_token
-    #         exporter_ids   = request.GET.getlist('exporter_id', None)
-    #         exporters      = Exporter.objects.filter(id__in = exporter_ids)
-    #         exporters_name = [exporter.name for exporter in exporters]
-    #         message        = f'{exporters_name} delete'
+    @admin_decorator
+    def delete(self, request):
+        try: 
+            github_token   = request.user.github_token
+            exporter_ids   = request.GET.getlist('exporter_id', None)
+            exporters      = Exporter.objects.filter(id__in = exporter_ids)
+            exporters_name = [exporter.name for exporter in exporters]
+            message        = f'{exporters_name} delete'
                         
-    #         dataframe            = pd.read_csv('exporter_list.csv', sep=',')
-    #         dataframe            = dataframe[~dataframe.project_name.isin(exporters_name)]
-    #         dataframe['offcial'] = dataframe['offcial'].astype('str')
-    #         dataframe.to_csv('exporter_list.csv', index=False)
-    #         exporters.delete()
+            dataframe            = pd.read_csv('exporter_list.csv', sep=',')
+            dataframe            = dataframe[~dataframe.project_name.isin(exporters_name)]
+            dataframe['offcial'] = dataframe['offcial'].astype('str')
+            dataframe.to_csv('exporter_list.csv', index=False)
+            exporters.delete()
             
-    #         columns     = dataframe.columns.values.tolist()
-    #         values      = dataframe.values.tolist()
-    #         lists       = [columns] + values
-    #         all_content = ''
+            columns     = dataframe.columns.values.tolist()
+            values      = dataframe.values.tolist()
+            lists       = [columns] + values
+            all_content = ''
            
-    #         for ls in lists:
-    #             all_content += ','.join(ls) + '\n'
+            for ls in lists:
+                all_content += ','.join(ls) + '\n'
 
-    #         content = base64.b64encode(all_content.encode('utf-8')).decode('utf-8')
-    #         get_csv = self.get_csv(github_token)
-    #         result  = self.push_to_github(token=github_token, message=message, content=content, sha=get_csv['sha'])
+            content = base64.b64encode(all_content.encode('utf-8')).decode('utf-8')
+            get_csv = self.get_csv(github_token)
+            result  = self.push_to_github(token=github_token, message=message, content=content, sha=get_csv['sha'])
             
-    #         return JsonResponse({'message':'SUCCESS'}, status=200)
+            return JsonResponse({'message':'SUCCESS'}, status=200)
         
-    #     except Exporter.DoesNotExist:
-    #         return JsonResponse({'message':'NO_EXPORTER'}, status=400)
+        except Exporter.DoesNotExist:
+            return JsonResponse({'message':'NO_EXPORTER'}, status=400)
         
-    #     except KeyError:
-    #         return JsonResponse({'message':'KEY_ERROR'}, status=400)
+        except KeyError:
+            return JsonResponse({'message':'KEY_ERROR'}, status=400)
             
     @admin_decorator
     def patch(self, request):
@@ -527,7 +527,7 @@ class ExporterTabView(View):
                             'file_content' : base64.b64decode(yaml_data['content']).decode('utf-8'),
                             'file_sha'     : yaml_data['sha'],
                             'file_id'      : csv_detail[0],
-                            'csv_desc'     : csv_detail[1],
+                            'csv_desc'     : csv_detail[1].strip(),
                             'csv_sha'      : data['sha'],
                             'file_url'     : csv_detail[2],
                             }
@@ -630,11 +630,11 @@ class ExporterTabView(View):
             for i, detail in enumerate(content_list):
                 if detail[0] == file_id:
                     bf_file_name       = detail[2].strip()
-                    content_list[i][1] = content
+                    content_list[i][1] = content.strip()
                     content_list[i][2] = f'./contents/{app_name}/{app_name}_{content_type}/{file_name}_{content_type}.{type[content_type]} \n'
                     count += 1
             if count == 0:
-                content_list.append([f'0{yaml_id}, {content}, ./contents/{app_name}/{app_name}_{content_type}/{file_name}_{content_type}.{type[content_type]} \n'])
+                content_list.append([f'0{yaml_id},{content}, ./contents/{app_name}/{app_name}_{content_type}/{file_name}_{content_type}.{type[content_type]} \n'])
                     
             for each_content in content_list:
                 response += ','.join(each_content) + '\n'
@@ -655,7 +655,7 @@ class ExporterTabView(View):
             return {'result' :result , 'bf_file_name': bf_file_name}
 
         elif data.status_code == 404:
-            response = f'01, {content}, ./contents/{app_name}/{app_name}_{content_type}/{file_name}_{content_type}.{type[content_type]} \n'
+            response = f'01,{content}, ./contents/{app_name}/{app_name}_{content_type}/{file_name}_{content_type}.{type[content_type]} \n'
             contents = json.dumps(
                     {
                         "csv_sha" : sha,

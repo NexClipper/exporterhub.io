@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import {
   filterByCate,
@@ -7,10 +7,10 @@ import {
 import styled from "styled-components";
 import { AiFillSetting } from "react-icons/ai";
 import { FiPlus } from "react-icons/fi";
-import { RiDeleteBinLine } from "react-icons/ri";
+import { RiDeleteBin6Line } from "react-icons/ri";
 import { CATEGORIES_API } from "../../config";
 import axios from "axios";
-import CategoryDeleteModal from "../Modal/CategoryDeleteModal";
+import CategoryDelete from "./CategoryDelete";
 import { Fragment } from "react";
 
 const Sider = () => {
@@ -18,38 +18,50 @@ const Sider = () => {
   const categories = useSelector((store) => store.categoryReducer);
   const changeTheme = useSelector((store) => store.darkThemeReducer);
   const isAdmin = useSelector((store) => store.adminReducer);
+  const filterCategory = useSelector((store) => store.cateFilterReducer);
   const [edit, setEdit] = useState(false);
   const [addCategoryName, setAddCategoryName] = useState("");
   const [deletecategory, setDeletecategory] = useState(false);
   const [categoryAct, setCategoryAct] = useState(0);
   const [alert, setAlert] = useState(false);
 
-  // const New = (createDate) => {
-  //   let today = new Date();
-  //   let todayDate = today.toLocaleDateString();
-  //   let isNew =
-  //     todayDate.slice(0, todayDate.indexOf(".")) -
-  //       createDate.slice(0, createDate.indexOf("-")) ===
-  //       0 &&
-  //     todayDate.slice(
-  //       todayDate.indexOf(".") + 1,
-  //       todayDate.indexOf(".", todayDate.indexOf(".") + 1)
-  //     ) -
-  //       createDate.slice(
-  //         createDate.indexOf("-") + 1,
-  //         createDate.indexOf("-", createDate.indexOf("-") + 1)
-  //       ) ===
-  //       0 &&
-  //     todayDate.slice(
-  //       todayDate.indexOf(".", todayDate.indexOf(".") + 1) + 1,
-  //       todayDate.lastIndexOf(".")
-  //     ) -
-  //       createDate.slice(
-  //         createDate.indexOf("-", createDate.indexOf("-") + 1) + 1
-  //       ) <=
-  //       3;
-  //   return isNew;
-  // };
+  useEffect(() => {
+    if (filterCategory !== "") {
+      const cate = categories.filter(
+        (category) => category.category_name === filterCategory
+      );
+      setCategoryAct(cate[0].category_id);
+    } else {
+      setCategoryAct(0);
+    }
+  }, [filterCategory]);
+
+  const New = (createDate) => {
+    let today = new Date();
+    let todayDate = today.toLocaleDateString();
+    let isNew =
+      todayDate.slice(0, todayDate.indexOf(".")) -
+        createDate.slice(0, createDate.indexOf("-")) ===
+        0 &&
+      todayDate.slice(
+        todayDate.indexOf(".") + 1,
+        todayDate.indexOf(".", todayDate.indexOf(".") + 1)
+      ) -
+        createDate.slice(
+          createDate.indexOf("-") + 1,
+          createDate.indexOf("-", createDate.indexOf("-") + 1)
+        ) ===
+        0 &&
+      todayDate.slice(
+        todayDate.indexOf(".", todayDate.indexOf(".") + 1) + 1,
+        todayDate.lastIndexOf(".")
+      ) -
+        createDate.slice(
+          createDate.indexOf("-", createDate.indexOf("-") + 1) + 1
+        ) <=
+        3;
+    return isNew;
+  };
 
   const handleClickCategoryAct = (id) => {
     setCategoryAct(id);
@@ -149,7 +161,7 @@ const Sider = () => {
           </Fragment>
         )}
         {deletecategory && (
-          <CategoryDeleteModal
+          <CategoryDelete
             setCategoryAct={setCategoryAct}
             categoriesList={categories}
             deletecategoryId={deletecategory.category_id}
@@ -163,7 +175,7 @@ const Sider = () => {
           dark={changeTheme}
           edit={edit}
           active={0 === categoryAct}
-          onClick={(e) => {
+          onClick={() => {
             handleClickCategoryAct(0);
             callDispatch("All");
             alert !== false && setAlert(false);
@@ -182,8 +194,9 @@ const Sider = () => {
                 active={category.category_id === categoryAct}
               >
                 <Div
+                  select={categoryAct === category.category_id}
                   title={category.category_name}
-                  onClick={(e) => {
+                  onClick={() => {
                     handleClickCategoryAct(category.category_id);
                     callDispatch(category.category_name);
                     alert !== false && setAlert(false);
@@ -194,12 +207,11 @@ const Sider = () => {
                 </Div>
 
                 {edit && categoryAct === category.category_id && (
-                  <DeleteButton
-                    className="deleteIcon"
-                    onClick={() => addCategory(category)}
-                  >
-                    <RiDeleteBinLine size="17px" />
-                  </DeleteButton>
+                  <DeleteIcon
+                    onClick={() => {
+                      addCategory(category);
+                    }}
+                  />
                 )}
               </Category>
             );
@@ -243,7 +255,7 @@ const Div = styled.div`
   padding-left: 10px;
   width: 100%;
   min-width: 160px;
-
+  width: ${({ select }) => select && "160px"};
   .new {
     font-size: 13px;
     color: #44c8a3;
@@ -254,11 +266,6 @@ const Div = styled.div`
     text-overflow: ellipsis;
     overflow: hidden;
   }
-`;
-
-const DeleteButton = styled.div`
-  padding: 0px 10px;
-  width: 40px;
 `;
 
 const Category = styled.li`
@@ -291,4 +298,11 @@ const Category = styled.li`
     background-size: 13px 10px;
   }
 `;
+
+const DeleteIcon = styled(RiDeleteBin6Line)`
+  z-index: 5;
+  margin-right: 10px;
+  font-size: 17px;
+`;
+
 export default Sider;

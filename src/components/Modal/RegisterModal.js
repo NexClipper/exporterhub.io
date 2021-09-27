@@ -13,6 +13,7 @@ const RegisterModal = ({ cancleModal }) => {
   const [category, setCategory] = useState("Select category");
   const [failMessage, setFailMessage] = useState("");
   const [pluscategory, setPluscategory] = useState(false);
+  const [createCategory, setCreateCategory] = useState("");
   const dispatch = useDispatch();
 
   const registerExporter = () => {
@@ -74,20 +75,23 @@ const RegisterModal = ({ cancleModal }) => {
   };
 
   const handlePlusCategory = () => {
-    if (pluscategory === true) {
+    if (createCategory === "") {
       setFailMessage("write category name");
       return;
     } else {
       const isSame = categories.filter(
         (category) =>
-          category.category_name.toLowerCase() === pluscategory.toLowerCase()
+          category.category_name.toLowerCase() === createCategory.toLowerCase()
       );
       if (isSame.length === 0) {
+        let today = new Date();
+        let todayDate = today.toLocaleDateString();
         axios({
           method: "post",
           url: `${CATEGORIES_API}`,
           data: {
-            category: pluscategory,
+            category: createCategory,
+            date: todayDate,
           },
           headers: {
             Authorization: sessionStorage.getItem("access_token"),
@@ -96,6 +100,7 @@ const RegisterModal = ({ cancleModal }) => {
           .then(() => {
             getCategory();
             setPluscategory(false);
+            setCreateCategory("");
             setFailMessage("");
             setCategory("Select category");
             setExporterTitle("");
@@ -131,7 +136,7 @@ const RegisterModal = ({ cancleModal }) => {
           </select>
           {pluscategory ? (
             <input
-              onChange={({ target }) => setPluscategory(target.value)}
+              onChange={({ target }) => setCreateCategory(target.value)}
               placeholder="category name"
             />
           ) : (
