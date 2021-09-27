@@ -3,7 +3,6 @@ eBPF,eBPF Exporter,https://github.com/cloudflare/ebpf_exporter,0,Miscellaneous
 Ceph,Ceph Exporter,https://github.com/digitalocean/ceph_exporter,0,Storage
 cAdvisor,cAdvisor Exporter,https://github.com/google/cadvisor,0,Miscellaneous
 Kong API Gateway,Kong Prometheus Plugin,https://github.com/Kong/kong-plugin-prometheus,0,Software
-kube-state-metrics,kube-state-metrics,https://github.com/kubernetes/kube-state-metrics,0,Miscellaneous
 System Process,Process Exporter,https://github.com/ncabatoff/process-exporter,0,Miscellaneous
 NGINX,NGINX Exporter,https://github.com/nginxinc/nginx-prometheus-exporter,0,HTTP
 NVIDIA GPU Monitoring Tools,NVIDIA GPU Monitoring Tools,https://github.com/NVIDIA/gpu-monitoring-tools,0,Hardware
