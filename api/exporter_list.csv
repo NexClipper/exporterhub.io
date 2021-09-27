@@ -13,7 +13,6 @@ OpenStack,OpenStack Exporter,https://github.com/openstack-exporter/openstack-exp
 JSON,JSON Exporter,https://github.com/prometheus-community/json_exporter,0,Miscellaneous
 Google Stackdriver,Google Stackdriver Exporter,https://github.com/prometheus-community/stackdriver_exporter,0,Monitoring
 Windows system,Windows Exporter,https://github.com/prometheus-community/windows_exporter,0,Hardware
-Blackbox,Blackbox Exporter,https://github.com/prometheus/blackbox_exporter,1,Miscellaneous
 CloudWatch,CloudWatch Exporter,https://github.com/prometheus/cloudwatch_exporter,1,Monitoring
 Collectd,Collectd Exporter,https://github.com/prometheus/collectd_exporter,1,Monitoring
 Consul,Consul Exporter,https://github.com/prometheus/consul_exporter,1,Database
