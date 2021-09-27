@@ -141,10 +141,10 @@ const Permission = () => {
     }, 5000);
   };
 
-  const handleAdminAdd = ({ target }) => {
-    if (target.id === "user") {
-      setUserName(target.name);
-      setUserType(target.id);
+  const handleAdminAdd = ({ currentTarget }) => {
+    if (currentTarget.id === "user") {
+      setUserName(currentTarget.name);
+      setUserType(currentTarget.id);
       setIsAdminAddModalActive(true);
     }
   };

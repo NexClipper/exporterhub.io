@@ -1,36 +1,33 @@
-import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
-import { adminAdd, adminTypeAdd } from "../../store/actions/exporterActions";
 
 const UsersContent = ({ user, handleAdminAdd, handlePending }) => {
   return (
-    <>
-      <UserCard
-        onClick={(e) => handleAdminAdd(e)}
-        name={user.username}
-        id={user.usertype}
-        type={user.usertype === "user"}
-      >
-        {user.usertype !== "user" && <Disabled />}
-        <UserInfo>
-          <ProfileImg src={user.profileImageUrl} />
-          <Info>
-            <h4>{user.username}</h4>
-            <span>{user.usertype}</span>
-          </Info>
-        </UserInfo>
-        {user.usertype === "admin pending" && (
-          <UserInvitationCancel
-            name={user.username}
-            id={user.usertype}
-            onClick={handlePending}
-          >
-            Cancel
-          </UserInvitationCancel>
-        )}
-      </UserCard>
-    </>
+    <UserCard
+      onClick={(e) => {
+        handleAdminAdd(e);
+      }}
+      name={user.username}
+      id={user.usertype}
+      type={user.usertype === "user"}
+    >
+      {user.usertype !== "user" && <Disabled />}
+      <UserInfo>
+        <ProfileImg src={user.profileImageUrl} />
+        <Info>
+          <h4>{user.username}</h4>
+          <span>{user.usertype}</span>
+        </Info>
+      </UserInfo>
+      {user.usertype === "admin pending" && (
+        <UserInvitationCancel
+          name={user.username}
+          id={user.usertype}
+          onClick={handlePending}
+        >
+          Cancel
+        </UserInvitationCancel>
+      )}
+    </UserCard>
   );
 };
 
@@ -47,7 +44,6 @@ const UserCard = styled.button`
   background-color: #f7f9fc;
   padding: 10px;
   cursor: ${(props) => (props.type ? "pointer" : "default")};
-
   &:hover {
     border: ${(props) => props.type && "1px solid #808080"};
     border-radius: 4px;
@@ -94,7 +90,7 @@ const UserInvitationCancel = styled.button`
   border: 1px solid #d9dbdb;
   cursor: pointer;
   user-select: none;
-  z-index: 0.5;
+  z-index: 15;
   opacity: 0.6;
   &:hover {
     opacity: 1;
