@@ -28,7 +28,6 @@ SNMP,SNMP Exporter,https://github.com/prometheus/snmp_exporter,1,Monitoring
 Statsd,Statsd Exporter,https://github.com/prometheus/statsd_exporter,1,Monitoring
 Azure,Azure Metrics Exporter,https://github.com/RobustPerception/azure_metrics_exporter,0,Monitoring
 PostgreSQL,PostgreSQL Server Exporter,https://github.com/wrouesnel/postgres_exporter,0,Database
-Go Client,Go Client Library,https://github.com/prometheus/client_golang,1,Library
 Java Client,Java Client Library,https://github.com/prometheus/client_java,1,Library
 Python Client,Python Client Library,https://github.com/prometheus/client_python,1,Library
 Ruby Client,Ruby Client Library,https://github.com/prometheus/client_ruby,1,Library
