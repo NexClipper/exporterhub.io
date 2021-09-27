@@ -39,8 +39,6 @@ const MarkdownBody = styled.div`
   code {
     margin: 0;
     padding: 0.2em 0.4em;
-    /* background-color: ${(props) => (props.dark ? "#242526" : "#1b1f23")}; */
-    /* background-color: rgba(27, 31, 35, 0.05); */
     border-radius: 6px;
     font-size: 13px;
     font-family: "Noto Sans KR", sans-serif;
