@@ -15,6 +15,8 @@ import sortFilterReducer from "./sortFilterReducer";
 import darkThemeReducer from "./darkThemeReducer";
 import adminAddReducer from "./adminAddReducer";
 import adminAddTypeReducer from "./adminAddTypeReducer";
+import exporterTabBeforeEditReducer from "./exporterTabBeforeEditReducer";
+import exporterTabEdittingReducer from "./exporterTabEdittingReducer";
 export default combineReducers({
   categoryReducer,
   tokenReducer,
@@ -32,4 +34,6 @@ export default combineReducers({
   darkThemeReducer,
   adminAddReducer,
   adminAddTypeReducer,
+  exporterTabBeforeEditReducer,
+  exporterTabEdittingReducer,
 });

@@ -1,11 +1,13 @@
 import React, { useState } from "react";
+import { useHistory } from "react-router-dom";
 import axios from "axios";
 import styled from "styled-components";
-import { RiUserSettingsLine } from "react-icons/ri";
+import { RiUserSettingsLine, RiUserUnfollowLine } from "react-icons/ri";
 import { HiOutlineOfficeBuilding, HiOutlineMail } from "react-icons/hi";
 import { AiOutlineUser } from "react-icons/ai";
 import { API_SURVER } from "../../../config";
 import { useSelector } from "react-redux";
+import DeleteModal from "../../Modal/DeleteModal";
 
 const Profile = ({ userProfile }) => {
   const [isEditMode, setEditMode] = useState(false);
@@ -13,7 +15,13 @@ const Profile = ({ userProfile }) => {
   const [company, setCompany] = useState();
   const [email, setEmail] = useState();
   const [alertModal, setAlertModal] = useState(false);
+  const [userDelete, setUserDelete] = useState(false);
+  const [deleteDescription, setDeleteDescription] = useState(false);
   const changeTheme = useSelector((store) => store.darkThemeReducer);
+  const {
+    push,
+    // location: { pathname },
+  } = useHistory();
 
   const handleProfileEdit = () => {
     setEditMode(!isEditMode);
@@ -49,6 +57,37 @@ const Profile = ({ userProfile }) => {
       });
   };
 
+  const handleDelUser = (answer) => {
+    if (answer === "Yes") {
+      setDeleteDescription(true);
+      setUserDelete(false);
+    } else {
+      setUserDelete(false);
+    }
+  };
+
+  const handleDelUser2 = (answer) => {
+    if (answer === "확인") {
+      axios({
+        method: "DELETE",
+        url: `${API_SURVER}/user/profile`,
+        headers: {
+          Authorization: sessionStorage.getItem("access_token"),
+        },
+      })
+        .then((res) => {
+          sessionStorage.removeItem("access_token");
+          push("/");
+          window.location.reload();
+        })
+        .catch((err) => {
+          console.log("삭제 요청 실패");
+        });
+    } else {
+      setDeleteDescription(false);
+    }
+  };
+
   const showAlertModal = () => {
     setAlertModal(true);
 
@@ -76,7 +115,44 @@ const Profile = ({ userProfile }) => {
             </span>
             <span>Edit Profile</span>
           </Button>
+          {!isEditMode && (
+            <DelButton onClick={() => setUserDelete(true)}>
+              <span>
+                <RiUserUnfollowLine />
+              </span>
+
+              <span>Delete User</span>
+            </DelButton>
+          )}
         </div>
+        {userDelete && (
+          <DeleteModal
+            handleDelete={handleDelUser}
+            content="Delete your account?"
+          />
+        )}
+        {deleteDescription && (
+          <DeleteModal
+            handleDelete={handleDelUser2}
+            content="SUCCESS"
+            button2="확인"
+            deletebutton1={false}
+          >
+            <RevokeInfo>
+              If you want to revoke <br />
+              OAuth Authorization on GitHub,
+              <br /> please click below url
+            </RevokeInfo>
+            <RevokeUrl
+              href="https://github.com/settings/applications"
+              target="_blank"
+            >
+              GitHub URL
+            </RevokeUrl>
+
+            <RevokeImg src="/images/revoke.png" />
+          </DeleteModal>
+        )}
         <Introduce>{userProfile.intro}</Introduce>
         {userProfile.organization && (
           <Organization>
@@ -261,6 +337,56 @@ const Button = styled.button`
     right: 10px;
     top: 3px;
   }
+`;
+
+const DelButton = styled.button`
+  display: flex;
+  align-items: center;
+  padding: 5px 10px;
+  margin-left: 10px;
+  background: #ffffff;
+  box-shadow: 1px 1px 6px 1px rgba(0, 0, 0, 0.1);
+  border-radius: 5px;
+  font-size: 12px;
+  font-weight: 600;
+  user-select: none;
+
+  span {
+    font-size: 12px;
+
+    &:first-child {
+      position: relative;
+      right: -2px;
+      margin-right: 5px;
+      font-size: 13px;
+    }
+  }
+
+  @media ${({ theme }) => theme.media.mobile} {
+    position: relative;
+    right: 10px;
+    top: 3px;
+  }
+`;
+
+const RevokeInfo = styled.p`
+  margin-top: 10px;
+  font-size: 14px;
+  text-align: center;
+  line-height: 20px;
+`;
+
+const RevokeImg = styled.img`
+  margin-top: 10px;
+  width: 300px;
+`;
+
+const RevokeUrl = styled.a`
+  margin-top: 10px;
+  font-size: 16px;
+  font-weight: 500;
+  text-decoration: none;
+  color: #85dbc3;
 `;
 
 const Introduce = styled.p`

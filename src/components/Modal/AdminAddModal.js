@@ -13,7 +13,7 @@ const AdminAddModal = ({
     cancleAdminAddModal();
     setSearchUser("");
   };
-
+  console.log(userName, userType);
   return (
     <ModalContainer>
       <Div>
