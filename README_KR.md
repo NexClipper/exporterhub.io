@@ -23,12 +23,14 @@
 
 
 
-## Definition of [ExporterHub.io](https://exporterhub.io/)
+## [ExporterHub.io](https://exporterhub.io/)는 무엇입니까?
 
 
-### ExporterHub.io는 Prometheus Exporters 커뮤니티를 위한 응용 프로그램입니다.
-ExporterHub.io는 단순히 선별된 목록이 아니라 내보내기 설치 가이드, 경고 규칙 구성 및 대시보드 구성을 제공합니다. 
-각 Exporter의 페이지에는 다음이 포함됩니다.:
+### Prometheus Exporters 커뮤니티를 위한 애플리케이션
+ExporterHub.io는 Prometheus Exporters 커뮤니티를 위한 응용 프로그램입니다.  
+ExporterHub.io는 단순히 선별된 exporter의 나열하고 모아두는데 그치지 않습니다.  
+ExporterHub.io의 각 Exporter의 페이지에서 아래와 같은 내용을 제공합니다.  
+
 * Official GitHub (Origin Repository)
 * Resource (Install, Exported Metrics)
 * Alert-rule (Recommended)
@@ -37,12 +39,13 @@ ExporterHub.io는 단순히 선별된 목록이 아니라 내보내기 설치 �
 * Fork to bucket (linked to personal Github Repository)
 * Edit Dashboard and Alert-rule by Admin
 
-ExporterHub.io는 복잡하고 폐쇄적인 네트워크 보안 설정이 있는 엔터프라이즈 환경에서 Prometheus 모니터링 요구 사항을 지원하는 데 가장 적합한 exporter(s)를 권장합니다.
+복잡하고 폐쇄적인 네트워크 보안 설정이 갖춰진 엔터프라이즈 환경에서 Prometheus 모니터링 요구 사항을 충족하거나,  
+사용자의 Prometheus 모범사례 적용을 용이하게 하기 위하여  
+ExporterHub.io는 모니터링 중인 시스템으로부터 메트릭 데이터를 노출하는 데 사용할 수 있는 가장 적합한 exporter를 탐색 및 추천합니다.
 
-Prometheus를 지원하고 용이하게 하기 위해, ExporterHub.io는 모니터링 중인 특정 시스템 및 서비스의 메트릭 데이터를 노출하는 데 사용할 수 있는 가장 적합한 exporter(s)를 검색하고 권장합니다.
-### 다른 애플리케이션에 비해 차별화된 Exporterhub.io 의 특징:
+<br>
 
-
+### 다른 애플리케이션과 차별화된 Exporterhub.io:
 
 <!--lint disable no-undefined-references-->
 * [x] 설치 안내서, 메트릭 수집 플래그, 권장 경고 규칙
@@ -59,12 +62,18 @@ Prometheus를 지원하고 용이하게 하기 위해, ExporterHub.io는 모니�
   * [ ] 내 버킷 공유
   * [ ] 검색 창
 
-## Demo Video
-* 전체 예제 및 가이드를 보려면 이미지를 클릭하세요.:  
+<br>
+
+## 데모 영상
+* 전체 예제 및 가이드를 보려면 이미지를 클릭하세요.
   [![Demo](https://raw.githubusercontent.com/NexClipper/exporterhub.io/master/assets/demo_01.png)](https://youtu.be/wa4dknZk7Kk)
 
+<br>
+
 ## 개인 환경용 Exporterhub 설치 방법
-* [Install guide](./install_guide.md)
+* [설치 가이드](./install_guide.md)
+
+<br>
 
 ## References
 * [Official Exporters AND Integrations](https://prometheus.io/docs/instrumenting/exporters/)
@@ -74,16 +83,21 @@ Prometheus를 지원하고 용이하게 하기 위해, ExporterHub.io는 모니�
 * [Promcat](https://promcat.io/)
 * [Github Documentation](https://docs.github.com/en)
 
+<br>
+
 ## 오픈소스에 기여하는 방법!
 ### 기여를 환영합니다!
-[ExporterHub.io](https://exporterhub.io/) 에 기여할 특정 exporter가 있는 경우,
-자유롭게 [send issues](https://github.com/NexClipper/exporterhub.io/issues)를 보내거나
+[ExporterHub.io](https://exporterhub.io/) 에 기여할 특정 exporter가 있다면 자유롭게 [send issues](https://github.com/NexClipper/exporterhub.io/issues)를 보내거나
 [pull requests](https://github.com/NexClipper/exporterhub.io/pulls)를 보내주세요. 
-<br> Please join us!: https://app.slack.com/client/TC3DP3HPG/C01RTA59G66
+<br>
 
-### Easy to Update a list of exporters by Pull Request as below
-* https://github.com/NexClipper/exporterhub.io/blob/main/api/exporter_list.csv
+### 커뮤니티와 함께하세요.
+[Slack](https://app.slack.com/client/TC3DP3HPG/C01RTA59G66)
+<br>
 
+### Pull Request를 통해 exporter의 리스트를 업데이트할 수 있습니다.
+* [Exporter list](https://github.com/NexClipper/exporterhub.io/blob/main/api/exporter_list.csv)
+<br>
 
 ## Service Map
 ![servicemap](https://raw.githubusercontent.com/NexClipper/exporterhub.io/master/assets/exporterhub_v4.png)
