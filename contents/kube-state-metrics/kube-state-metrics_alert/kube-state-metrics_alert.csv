@@ -1,4 +1,0 @@
-"01","man,gs,df,asdf,safasdsafsadf", "./contents/kube-state-metrics/kube-state-metrics_alert/mango_alert.yaml" 
-"02","asdfsafsafasdf", "./contents/kube-state-metrics/kube-state-metrics_alert/dsafsadf_alert.yaml" 
-"03","Node memory is filling up (< 10% left)", "./contents/kube-state-metrics/kube-state-metrics_alert/Host out of memory _alert.yaml" 
-

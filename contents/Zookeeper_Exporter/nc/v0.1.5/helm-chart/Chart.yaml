@@ -1,6 +1,0 @@
-apiVersion: v2
-appVersion: "v0.1.5"
-description: A Helm chart to export the metrics from zookeeper in Prometheus format using the zookeeper-exporter.
-name: prometheus-zookeeper-exporter
-version: 0.1.5
-
