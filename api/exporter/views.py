@@ -650,7 +650,10 @@ class ExporterTabView(View):
             details = content.split('\n')
             details = [v for v in details if v]
             for detail in details:
-                csv_detail = detail.split(',')
+                csv_detail = detail.split('"')
+                csv_detail = [v for v in csv_detail if v]
+                csv_detail = [v for v in csv_detail if ',' != v]
+                csv_detail = [v for v in csv_detail if ', ' != v]
                 file_url = csv_detail[2].strip()
                 yaml_result = requests.get(f"https://api.github.com/repos/{repo}/contents/{file_url}", headers=headers)
                 if yaml_result.status_code == 200:
@@ -763,11 +766,11 @@ class ExporterTabView(View):
             for i, detail in enumerate(content_list):
                 if detail[0] == file_id:
                     bf_file_name       = detail[2].strip()
-                    content_list[i][1] = content.strip()
-                    content_list[i][2] = f'./contents/{app_name}/{app_name}_{content_type}/{file_name}_{content_type}.{type[content_type]} \n'
+                    content_list[i][1] = f"{content}"
+                    content_list[i][2] = f"./contents/{app_name}/{app_name}_{content_type}/{file_name}_{content_type}.{type[content_type]} \n"
                     count += 1
             if count == 0:
-                content_list.append([f'0{yaml_id},{content}, ./contents/{app_name}/{app_name}_{content_type}/{file_name}_{content_type}.{type[content_type]} \n'])
+                content_list.append([f'"0{yaml_id}","{content}", "./contents/{app_name}/{app_name}_{content_type}/{file_name}_{content_type}.{type[content_type]}" \n'])
                     
             for each_content in content_list:
                 response += ','.join(each_content) + '\n'
@@ -788,7 +791,7 @@ class ExporterTabView(View):
             return {'result' :result , 'bf_file_name': bf_file_name}
 
         elif data.status_code == 404:
-            response = f'01,{content}, ./contents/{app_name}/{app_name}_{content_type}/{file_name}_{content_type}.{type[content_type]} \n'
+            response = f'"01","{content}", "./contents/{app_name}/{app_name}_{content_type}/{file_name}_{content_type}.{type[content_type]}" \n'
             contents = json.dumps(
                     {
                         "csv_sha" : sha,
