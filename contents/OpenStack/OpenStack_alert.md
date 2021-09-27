@@ -1,0 +1,205 @@
+OpenStack Exporter Alertrule
+
+```yaml
+  groups:
+  - name: OpenStackCinder
+    rules:
+    - alert: CinderAgentDown
+      expr: |
+        openstack_cinder_agent_state != 1
+      labels:
+        severity: P4
+      annotations:
+        summary: "[`{{`{{$labels.hostname}}`}}`] `{{`{{$labels.exported_service}}`}}` down"
+        description: >
+          The service `{{`{{$labels.exported_service}}`}}` running on `{{`{{$labels.hostname}}`}}`
+          is being reported as down.
+
+    - alert: CinderAgentDown
+      for: 5m
+      expr: |
+        openstack_cinder_agent_state != 1
+      labels:
+        severity: P3
+      annotations:
+        summary: "[`{{`{{$labels.hostname}}`}}`] `{{`{{$labels.exported_service}}`}}` down"
+        description: >
+          The service `{{`{{$labels.exported_service}}`}}` running on `{{`{{$labels.hostname}}`}}`
+          is being reported as down for 5 minutes.  This can affect volume operations so it must
+          be resolved as quickly as possible.
+
+    - alert: CinderAgentDisabled
+      for: 1h
+      expr: |
+        openstack_cinder_agent_state{adminState!="enabled"}
+      labels:
+        severity: P5
+      annotations:
+        summary: "[`{{`{{$labels.hostname}}`}}`] `{{`{{$labels.exported_service}}`}}` disabled"
+        description: >
+          The service `{{`{{$labels.exported_service}}`}}` running on `{{`{{$labels.hostname}}`}}`
+          has been disabled for 60 minutes.  This can affect volume operations so it must be resolved
+          as quickly as possible.
+
+    - alert: CinderVolumeInError
+      for: 24h
+      expr: |
+        openstack_cinder_volume_status{status=~"error.*"}
+      labels:
+        severity: P4
+      annotations:
+        summary: "[`{{`{{$labels.id}}`}}`] Volume in ERROR state"
+        description: >
+          The volume `{{`{{$labels.id}}`}}` has been in ERROR state for over 24 hours.  It must
+          be cleaned up or removed in order to provide a consistent customer experience.
+
+
+  - name: OpenStackNeutron
+    rules:
+    - alert: NeutronAgentDown
+      expr: |
+        openstack_neutron_agent_state != 1
+      labels:
+        severity: P4
+      annotations:
+        summary: "[`{{`{{$labels.hostname}}`}}`] `{{`{{$labels.exported_service}}`}}` down"
+        description: >
+          The service `{{`{{$labels.exported_service}}`}}` running on `{{`{{$labels.hostname}}`}}`
+          is being reported as down.
+
+    - alert: NeutronAgentDown
+      for: 5m
+      expr: |
+        openstack_neutron_agent_state != 1
+      labels:
+        severity: P3
+      annotations:
+        summary: "[`{{`{{$labels.hostname}}`}}`] `{{`{{$labels.exported_service}}`}}` down"
+        description: >
+          The service `{{`{{$labels.exported_service}}`}}` running on `{{`{{$labels.hostname}}`}}`
+          is being reported as down for 5 minutes. This can affect network operations so it must
+          be resolved as quickly as possible.
+
+    - alert: NeutronAgentDisabled
+      for: 1h
+      expr: |
+        openstack_neutron_agent_state{adminState!="up"}
+      labels:
+        severity: P5
+      annotations:
+        summary: "[`{{`{{$labels.hostname}}`}}`] `{{`{{$labels.exported_service}}`}}` disabled"
+        description: >
+          The service `{{`{{$labels.exported_service}}`}}` running on `{{`{{$labels.hostname}}`}}`
+          has been disabled for 60 minutes.  This can affect network operations so it must be resolved
+          as quickly as possible.
+
+    - alert: NeutronBindingFailedPorts
+      expr: |
+        openstack_neutron_port{binding_vif_type="binding_failed"} != 0
+      labels:
+        severity: P3
+      annotations:
+        summary: "[`{{`{{$labels.device_owner}}`}}`] `{{`{{$labels.mac_address}}`}}` binding failed"
+        description: >
+          The NIC `{{`{{$labels.mac_address}}`}}` of `{{`{{$labels.device_owner}}`}}`
+          has binding failed port now.
+
+    - alert: NeutronNetworkOutOfIPs
+      expr: |
+        sum by (network_id) (openstack_neutron_network_ip_availabilities_used{project_id!=""}) / sum by (network_id) (openstack_neutron_network_ip_availabilities_total{project_id!=""}) * 100 > 80
+      labels:
+        severity: P4
+      annotations:
+        summary: "[`{{`{{$labels.network_name}}`}}`] `{{`{{$labels.subnet_name}}`}}` running out of IPs"
+        description: >
+          The subnet `{{`{{$labels.subnet_name}}`}}` within `{{`{{$labels.network_name}}`}}`
+          is currently at `{{`{{$value}}`}}`% utilization.  If the IP addresses run out, it will
+          impact the provisioning of new ports.
+
+
+  - name: OpenStackNova
+    rules:
+    - alert: NovaAgentDown
+      expr: |
+        openstack_nova_agent_state != 1
+      labels:
+        severity: P4
+      annotations:
+        summary: "[`{{`{{$labels.hostname}}`}}`] `{{`{{$labels.exported_service}}`}}` down"
+        description: >
+          The service `{{`{{$labels.exported_service}}`}}` running on `{{`{{$labels.hostname}}`}}`
+          is being reported as down.
+
+    - alert: NovaAgentDown
+      for: 5m
+      expr: |
+        openstack_nova_agent_state != 1
+      labels:
+        severity: P3
+      annotations:
+        summary: "[`{{`{{$labels.hostname}}`}}`] `{{`{{$labels.exported_service}}`}}` down"
+        description: >
+          The service `{{`{{$labels.exported_service}}`}}` running on `{{`{{$labels.hostname}}`}}`
+          is being reported as down.  This can affect compute operations so it must be resolved
+          as quickly as possible.
+
+    - alert: NovaAgentDisabled
+      for: 1h
+      expr: |
+        openstack_nova_agent_state{adminState!="enabled"}
+      labels:
+        severity: P5
+      annotations:
+        summary: "[`{{`{{$labels.hostname}}`}}`] `{{`{{$labels.exported_service}}`}}` disabled"
+        description: >
+          The service `{{`{{$labels.exported_service}}`}}` running on `{{`{{$labels.hostname}}`}}`
+          has been disabled for 60 minutes.  This can affect compute operations so it must be resolved
+          as quickly as possible.
+
+    - alert: NovaInstanceInError
+      for: 24h
+      expr: |
+        openstack_nova_server_status{status="ERROR"}
+      labels:
+        severity: P4
+      annotations:
+        summary: "[`{{`{{$labels.id}}`}}`] Instance in ERROR state"
+        description: >
+          The instance `{{`{{$labels.id}}`}}` has been in ERROR state for over 24 hours.  It must
+          be cleaned up or removed in order to provide a consistent customer experience.
+
+    - alert: NovaFailureRisk
+      for: 6h
+      expr: |
+        (sum(openstack_nova_memory_available_bytes-openstack_nova_memory_used_bytes) - max(openstack_nova_memory_used_bytes)) / sum(openstack_nova_memory_available_bytes-openstack_nova_memory_used_bytes) * 100 < 0.25
+      labels:
+        severity: P4
+      annotations:
+        summary: "[nova] Failure risk"
+        description: >
+          The cloud capacity will be at `{{`{{$value}}`}}` in the event of the failure of a single
+          hypervisor which puts the cloud at risk of not being able to recover should any hypervisor
+          failures occur.  Please ensure that adequate amount of infrastructure is assigned to this
+          deployment to prevent this.
+
+    - alert: NovaCapacity
+      for: 6h
+      expr: |
+        sum (
+            openstack_nova_memory_used_bytes
+          + on(hostname) group_left(adminState)
+            (0 * openstack_nova_agent_state{exported_service="nova-compute",adminState="enabled"})
+        ) / sum (
+            openstack_nova_memory_available_bytes
+          + on(hostname) group_left(adminState)
+            (0 * openstack_nova_agent_state{exported_service="nova-compute",adminState="enabled"})
+        ) * 100 > 75
+      labels:
+        severity: P4
+      annotations:
+        summary: "[nova] Capacity risk"
+        description: >
+          The cloud capacity is currently at `{{`{{$value}}`}}` which means there is a risk of running
+          out of capacity due to the timeline required to add new nodes.  Please ensure that adequate
+          amount of infrastructure is assigned to this deployment to prevent this.
+```

@@ -1,0 +1,65 @@
+### Ceph alerting rule sample
+```
+groups:
+- name: CEPH
+  rules:
+  - alert: CephMgrIsAbsent
+    annotations:
+      description: Ceph Manager has disappeared from Prometheus target discovery.
+      message: Storage metrics collector service not available anymore.
+      severity_level: critical
+      storage_type: ceph
+    expr: |
+      absent(ceph_health_status == 1)
+    for: 5m
+    labels:
+      severity: critical
+  - alert: CephMgrIsMissingReplicas
+    annotations:
+      description: Ceph Manager is missing replicas.
+      message: Storage metrics collector service doesn't have required no of replicas.
+      severity_level: warning
+      storage_type: ceph
+    expr: |
+      sum(ceph_osd_up) < 1
+    for: 5m
+    labels:
+      severity: warning
+  - alert: CephMdsMissingReplicas
+    annotations:
+      description: Minimum required replicas for storage metadata service not available.
+        Might affect the working of storage cluster.
+      message: Insufficient replicas for storage metadata service.
+      severity_level: warning
+      storage_type: ceph
+    expr: |
+      sum(ceph_mds_metadata == 1) < 2
+    for: 5m
+    labels:
+      severity: warning
+  - alert: CephMonQuorumAtRisk
+    annotations:
+      description: Storage cluster quorum is low. Contact Support.
+      message: Storage quorum at risk
+      severity_level: error
+      storage_type: ceph
+    expr: |
+      count(ceph_mon_quorum_status == 1) <= ((count(ceph_mon_metadata) % 2) + 1)
+    for: 15m
+    labels:
+      severity: critical
+  - alert: CephMonHighNumberOfLeaderChanges
+    annotations:
+      description: Ceph Monitor {{ $labels.ceph_daemon }} on host {{ $labels.hostname
+        }} has seen {{ $value | printf "%.2f" }} leader changes per minute recently.
+      message: Storage Cluster has seen many leader changes recently.
+      severity_level: warning
+      storage_type: ceph
+    expr: |
+      (ceph_mon_metadata * on (ceph_daemon) group_left() (rate(ceph_mon_num_elections[5m]) * 60)) > 0.95
+    for: 5m
+    labels:
+      severity: warning
+      ```
+      
+
