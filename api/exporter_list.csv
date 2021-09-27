@@ -8,7 +8,6 @@ Kong API Gateway,Kong Prometheus Plugin,https://github.com/Kong/kong-plugin-prom
 System Process,Process Exporter,https://github.com/ncabatoff/process-exporter,0,Miscellaneous,
 NGINX,NGINX Exporter,https://github.com/nginxinc/nginx-prometheus-exporter,0,HTTP,
 NVIDIA GPU Monitoring Tools,NVIDIA GPU Monitoring Tools,https://github.com/NVIDIA/gpu-monitoring-tools,0,Hardware,
-Redis,Redis Metrics Exporter,https://github.com/oliver006/redis_exporter,0,Database,
 OpenStack,OpenStack Exporter,https://github.com/openstack-exporter/openstack-exporter,0,Miscellaneous,
 JSON,JSON Exporter,https://github.com/prometheus-community/json_exporter,0,Miscellaneous,
 Google Stackdriver,Google Stackdriver Exporter,https://github.com/prometheus-community/stackdriver_exporter,0,Monitoring,
