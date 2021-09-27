@@ -229,15 +229,10 @@ class ExporterView(View):
                 'content' : base64.b64decode(data['content']).decode('utf-8'),
                 'sha'     : data['sha']
             }
+            return contents
+
         elif result.status_code == 404:
-            contents = {
-                'content' : None,   
-                'sha'     : None
-            }
-        else:
-            contents = "GITHUB_GET_REPO_ERROR"
-        
-        return contents
+            return "GITHUB_GET_REPO_ERROR"
 
     def push_to_github(self, token, message, content, sha):
         repo = f"{settings.ORGANIZATION}/exporterhub.io"
@@ -402,6 +397,9 @@ class ExporterView(View):
                 response += ','.join(detail)
             
             get_csv = self.get_csv(github_token)
+            if get_csv == 'GITHUB_GET_REPO_ERROR':
+                return JsonResponse({'message': 'GITHUB_API_FAIL'}, status=400)
+            
             content = base64.b64encode(response.encode('utf-8')).decode('utf-8')
             result  = self.push_to_github(token=github_token, message=message, content=content, sha=get_csv['sha'])
             
@@ -474,16 +472,7 @@ class ExporterDetailView(View):
             return content
 
         elif result.status_code == 404:
-            content = {
-                'sha'     : data['sha'],
-                'csv_file': None
-            }
-
-            return content
-
-        else:
-            csv_files = "GITHUB_GET_REPO_ERROR"
-            return csv_files
+            return "GITHUB_REPO_API_ERROR"
 
     def push_to_github(self, token, message, content, sha):
         repo = f"{settings.ORGANIZATION}/exporterhub.io"
@@ -528,10 +517,13 @@ class ExporterDetailView(View):
                 forked_repository_url = Bucket.objects.get(user_id=user.id, exporter_id=exporter.id).forked_repository_url
             else:
                 forked_repository_url = None
-                
-            detail_description = ''
-            get_csv            = self.get_csv(github_token)
+            
+            get_csv = self.get_csv(github_token)
+            if get_csv == 'GITHUB_GET_REPO_ERROR':
+                return JsonResponse({'message': 'GITHUB_API_FAIL'}, status=400)
+
             csv_file           = get_csv['csv_file']
+            detail_description = ''
             for row in csv_file:
                 if row[0] == str(exporter.id):
                     detail_description = row[2]  
