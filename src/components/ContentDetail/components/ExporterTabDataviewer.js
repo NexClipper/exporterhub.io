@@ -45,6 +45,14 @@ const ExporterTabDataviewer = ({
             csv_desc: "",
           },
         ];
+
+  const descriptionDecode = (description) => {
+    let descriptionDecodeValue = description
+      .replace(/@>@/g, "\n")
+      .replace(/@\$#/g, '"');
+    return descriptionDecodeValue;
+  };
+
   return (
     <>
       <Header>
@@ -86,7 +94,7 @@ const ExporterTabDataviewer = ({
                     </h1>
                     <div>
                       <h3>Description</h3>
-                      <p>{selectFileInfo[0].csv_desc}</p>
+                      {descriptionDecode(selectFileInfo[0].csv_desc)}
                     </div>
                     <Content dark={changeTheme}>
                       {selectFileInfo[0].file_content}
@@ -107,7 +115,7 @@ const ExporterTabDataviewer = ({
             )}
             exporterCsv={exporterCsv}
             setModify={setModify}
-            fileDescription={selectFileInfo[0].csv_desc}
+            fileDescription={descriptionDecode(selectFileInfo[0].csv_desc)}
             fileContent={selectFileInfo[0].file_content}
             fileSha={selectFileInfo[0].file_sha}
             csvSha={selectFileInfo[0].csv_sha}
