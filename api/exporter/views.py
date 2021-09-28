@@ -515,7 +515,7 @@ class ExporterDetailView(View):
                     request_content += f'"{row[0]}","{row[1]}","{row[2]}"' + '\n'
 
             if count == 0:
-                request_content += f'"{exporter_id}","{name}","{description}"'
+                request_content += f'"{exporter_id}","{name}","{description}"' + '\n'
                 
             content  = base64.b64encode(request_content.encode('utf-8')).decode('utf-8')
             contents = json.dumps({
@@ -526,6 +526,20 @@ class ExporterDetailView(View):
 
             result = requests.put(url, data=contents, headers={'Content-Type':'application/json','Authorization': 'token ' + token})  
 
+            return result
+        
+        elif result.status_code == 404:
+            request_content = '"exporter_id","exporter_name","description"' + '\n'
+            request_content += f'"{exporter_id}","{name}","{description}"' + '\n'
+            content  = base64.b64encode(request_content.encode('utf-8')).decode('utf-8')
+            
+            contents = json.dumps({
+                            "message" : message,
+                            "content" : content
+                        })
+            
+            result = requests.put(url, data=contents, headers={'Content-Type':'application/json','Authorization': 'token ' + token})  
+            
             return result
             
     @login_check
@@ -873,8 +887,8 @@ class ExporterTabView(View):
 
             file_sha       = data['file_sha']
             file_name      = data["file_name"]
-            file_content   = data["file_content"]
-            csv_desc       = data["csv_desc"]
+            file_content   = data["file_content"] 
+            csv_desc       = data["csv_desc"] if data["csv_desc"] else '-'
             csv_sha        = data['csv_sha']
             file_id        = data.get('file_id')
             
