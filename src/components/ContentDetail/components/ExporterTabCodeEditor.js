@@ -41,6 +41,13 @@ const ExporterTabCodeEditor = ({
   );
   const [sameFileName, setSameFileName] = useState(false);
 
+  const descriptionEncode = (description) => {
+    let descriptionEncodeValue = JSON.stringify(description)
+      .replace(/\\n/g, "@>@")
+      .replace(/\\"/g, "@$#");
+    return descriptionEncodeValue.slice(1).slice(0, -1);
+  };
+
   useEffect(() => {
     dispatch(
       beforeEdittingExporterTab(
@@ -124,7 +131,7 @@ const ExporterTabCodeEditor = ({
         file_name: edittingExporterFile.fileName,
         file_sha: fileSha,
         csv_sha: csvSha,
-        csv_desc: edittingExporterFile.description,
+        csv_desc: descriptionEncode(edittingExporterFile.description),
       },
     })
       .then((res) => {
@@ -171,7 +178,7 @@ const ExporterTabCodeEditor = ({
             placeholder="Description"
             value={edittingExporterFile.description}
             cols="150"
-            rows="3"
+            rows="5"
             dark={changeTheme}
             onChange={handleFileInfo}
           />
