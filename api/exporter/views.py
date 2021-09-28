@@ -873,8 +873,8 @@ class ExporterTabView(View):
 
             file_sha       = data['file_sha']
             file_name      = data["file_name"]
-            file_content   = data["file_content"]
-            csv_desc       = data["csv_desc"]
+            file_content   = data["file_content"] 
+            csv_desc       = data["csv_desc"] if data["csv_desc"] else '-'
             csv_sha        = data['csv_sha']
             file_id        = data.get('file_id')
             
