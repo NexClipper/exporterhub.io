@@ -1,7 +1,6 @@
 import React from "react";
 import { useHistory } from "react-router-dom";
 import Logo from "./Logo";
-import Search from "./Search";
 import HeaderMenu from "./HeaderMenu";
 import AdminMenu from "./AdminMenu";
 import styled from "styled-components";
@@ -31,7 +30,6 @@ const Header = () => {
             </Admin>
           )}
         </div>
-        <Search />
         {/* {pathname === "/" && <HeaderMenu />} */}
         {(PUBLIC_SERVICE === "n") & (pathname === "/admin") ? (
           <AdminMenu />
@@ -56,6 +54,7 @@ const HeaderBox = styled.header`
 const Div = styled.div`
   ${({ theme }) => theme.container};
   display: flex;
+  justify-content: space-between;
   .logoInfo {
     display: flex;
     align-items: center;
