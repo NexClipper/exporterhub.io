@@ -56,6 +56,13 @@ const ExporterDetailTabList = ({
     }
   };
 
+  const descriptionDecode = (description) => {
+    let descriptionDecodeValue = description
+      .replace(/@>@/g, "\n")
+      .replace(/@\$#/g, '"');
+    return descriptionDecodeValue;
+  };
+
   const handleSaveModal = () => {
     if (dontSaved) {
       setSaveEdit(true);
@@ -142,9 +149,11 @@ const ExporterDetailTabList = ({
           <div>
             {exporterCsv.length !== 0
               ? exporterCsv.map((file) => {
-                  let github = file.file_url.slice(
-                    file.file_url.lastIndexOf("/") + 1,
-                    file.file_url.lastIndexOf("_")
+                  let github = descriptionDecode(
+                    file.file_url.slice(
+                      file.file_url.lastIndexOf("/") + 1,
+                      file.file_url.lastIndexOf("_")
+                    )
                   );
                   return (
                     <Category
