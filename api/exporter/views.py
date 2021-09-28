@@ -472,7 +472,7 @@ class ExporterDetailView(View):
             return content
 
         elif result.status_code == 404:
-            return "GITHUB_REPO_API_ERROR"
+            return "GITHUB_URL_NON_EXISTED"
 
     def push_to_github(self, token, message, content, sha):
         repo = f"{settings.ORGANIZATION}/exporterhub.io"
@@ -519,8 +519,8 @@ class ExporterDetailView(View):
                 forked_repository_url = None
             
             get_csv = self.get_csv(github_token)
-            if get_csv == 'GITHUB_GET_REPO_ERROR':
-                return JsonResponse({'message': 'GITHUB_API_FAIL'}, status=400)
+            if get_csv == 'GITHUB_URL_NON_EXISTED':
+                return JsonResponse({'message': 'GITHUB_URL_NON_EXISTED'}, status=400)
 
             csv_file           = get_csv['csv_file']
             detail_description = ''
@@ -569,9 +569,12 @@ class ExporterDetailView(View):
             if not description:
                 return JsonResponse({'message':'FILL_THE_BLANK'}, status = 400)  
             
+            get_csv = self.get_csv(github_token)
+            if get_csv == 'GITHUB_URL_NON_EXISTED':
+                return JsonResponse({'message': 'GITHUB_URL_NON_EXISTED'}, status=400)
+
             request_content = ''
-            get_csv  = self.get_csv(github_token)
-            csv_file = get_csv['csv_file']
+            csv_file        = get_csv['csv_file']
             for row in csv_file:
                 if row[0] == exporter.id:
                     return JsonResponse({'message':'EXIST_EXPORTER'}, status = 400)
@@ -602,10 +605,13 @@ class ExporterDetailView(View):
             description  = data["description"]
             message      = f"{exporter.name} description update"
 
-            request_content = ''
-            response_description = ''
             get_csv   = self.get_csv(github_token)
-            csv_file = get_csv['csv_file']
+            if get_csv == 'GITHUB_URL_NON_EXISTED':
+                return JsonResponse({'message': 'GITHUB_URL_NON_EXISTED'}, status=400)
+
+            request_content      = ''
+            response_description = ''
+            csv_file             = get_csv['csv_file']
             for row in csv_file:
                 if row[0] == str(exporter.id) and description:                   
                     row[2] = description
