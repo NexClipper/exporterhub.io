@@ -734,8 +734,7 @@ class ExporterTabView(View):
             return result
 
     def csv_to_github(self, app_name, file_name, token, content_type, content, file_type, sha, file_id):
-        repo   = f"{settings.ORGANIZATION}/exporterhub.io"
-
+        repo         = f"{settings.ORGANIZATION}/exporterhub.io"
         csv_url      = f"https://api.github.com/repos/{repo}/contents/contents/{app_name}/{app_name}_{content_type}/{app_name}_{content_type}.{file_type}"
         data         = requests.get(csv_url, headers={'Content-Type': 'application/json', 'Authorization': 'token ' + token})
         response     = ''
