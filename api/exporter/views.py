@@ -515,7 +515,7 @@ class ExporterDetailView(View):
                     request_content += f'"{row[0]}","{row[1]}","{row[2]}"' + '\n'
 
             if count == 0:
-                request_content += f'"{exporter_id}","{name}","{description}"'
+                request_content += f'"{exporter_id}","{name}","{description}"' + '\n'
                 
             content  = base64.b64encode(request_content.encode('utf-8')).decode('utf-8')
             contents = json.dumps({
@@ -526,6 +526,20 @@ class ExporterDetailView(View):
 
             result = requests.put(url, data=contents, headers={'Content-Type':'application/json','Authorization': 'token ' + token})  
 
+            return result
+        
+        elif result.status_code == 404:
+            request_content = '"exporter_id","exporter_name","description"' + '\n'
+            request_content += f'"{exporter_id}","{name}","{description}"' + '\n'
+            content  = base64.b64encode(request_content.encode('utf-8')).decode('utf-8')
+            
+            contents = json.dumps({
+                            "message" : message,
+                            "content" : content
+                        })
+            
+            result = requests.put(url, data=contents, headers={'Content-Type':'application/json','Authorization': 'token ' + token})  
+            
             return result
             
     @login_check
