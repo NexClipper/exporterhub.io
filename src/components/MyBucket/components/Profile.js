@@ -59,15 +59,6 @@ const Profile = ({ userProfile }) => {
 
   const handleDelUser = (answer) => {
     if (answer === "Yes") {
-      setDeleteDescription(true);
-      setUserDelete(false);
-    } else {
-      setUserDelete(false);
-    }
-  };
-
-  const handleDelUser2 = (answer) => {
-    if (answer === "확인") {
       axios({
         method: "DELETE",
         url: `${API_SURVER}/user/profile`,
@@ -77,12 +68,20 @@ const Profile = ({ userProfile }) => {
       })
         .then((res) => {
           sessionStorage.removeItem("access_token");
-          push("/");
-          window.location.reload();
         })
         .catch((err) => {
           console.log("삭제 요청 실패");
         });
+      setDeleteDescription(true);
+    } else {
+      setUserDelete(false);
+    }
+  };
+
+  const handleDelUser2 = (answer) => {
+    if (answer === "확인") {
+      push("/");
+      window.location.reload();
     } else {
       setDeleteDescription(false);
     }
@@ -129,6 +128,7 @@ const Profile = ({ userProfile }) => {
           <DeleteModal
             handleDelete={handleDelUser}
             content="Delete your account?"
+            button1="Yes"
           />
         )}
         {deleteDescription && (
