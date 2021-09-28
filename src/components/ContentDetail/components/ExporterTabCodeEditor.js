@@ -48,6 +48,13 @@ const ExporterTabCodeEditor = ({
     return descriptionEncodeValue.slice(1).slice(0, -1);
   };
 
+  const descriptionDecode = (description) => {
+    let descriptionDecodeValue = description
+      .replace(/@>@/g, "\n")
+      .replace(/@\$#/g, '"');
+    return descriptionDecodeValue;
+  };
+
   useEffect(() => {
     dispatch(
       beforeEdittingExporterTab(
@@ -98,12 +105,14 @@ const ExporterTabCodeEditor = ({
       isSame = exporterCsv.filter(
         (file) =>
           edittingExporterFile.fileName.toLowerCase() ===
-          file.file_url
-            .slice(
-              file.file_url.lastIndexOf("/") + 1,
-              file.file_url.lastIndexOf("_")
-            )
-            .toLowerCase()
+          descriptionDecode(
+            file.file_url
+              .slice(
+                file.file_url.lastIndexOf("/") + 1,
+                file.file_url.lastIndexOf("_")
+              )
+              .toLowerCase()
+          )
       );
     }
     if (edittingExporterFile.fileName === "") {
@@ -128,7 +137,7 @@ const ExporterTabCodeEditor = ({
       data: {
         file_id: fileId,
         file_content: edittingExporterFile.content,
-        file_name: edittingExporterFile.fileName,
+        file_name: descriptionEncode(edittingExporterFile.fileName),
         file_sha: fileSha,
         csv_sha: csvSha,
         csv_desc: descriptionEncode(edittingExporterFile.description),

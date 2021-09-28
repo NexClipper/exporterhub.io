@@ -88,11 +88,13 @@ const ExporterTabDataviewer = ({
                 {emty === false && selectFileInfo.length !== 0 ? (
                   <ExporterContainer>
                     <h1>
-                      {selectFileInfo[0].file_url.slice(
-                        selectFileInfo[0].file_url.lastIndexOf("/") + 1
+                      {descriptionDecode(
+                        selectFileInfo[0].file_url.slice(
+                          selectFileInfo[0].file_url.lastIndexOf("/") + 1
+                        )
                       )}
                     </h1>
-                    <div>
+                    <div className="description">
                       <h3>Description</h3>
                       {descriptionDecode(selectFileInfo[0].csv_desc)}
                     </div>
@@ -110,8 +112,10 @@ const ExporterTabDataviewer = ({
           <ExporterTabCodeEditor
             setExporterCsv={setExporterCsv}
             type={type}
-            fileName={selectFileInfo[0].file_url.slice(
-              selectFileInfo[0].file_url.lastIndexOf("/") + 1
+            fileName={descriptionDecode(
+              selectFileInfo[0].file_url.slice(
+                selectFileInfo[0].file_url.lastIndexOf("/") + 1
+              )
             )}
             exporterCsv={exporterCsv}
             setModify={setModify}
@@ -177,11 +181,10 @@ const ExporterContainer = styled.div`
     }
   }
 
-  p {
+  .description {
     margin: auto;
     padding-bottom: 10px;
     border-bottom: 1px solid #eaecef;
-    white-space: normal;
     font-size: 16px;
     margin-bottom: 20px;
 
