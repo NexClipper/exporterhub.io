@@ -765,10 +765,10 @@ class ExporterTabView(View):
                 if detail[0] == file_id:
                     bf_file_name       = detail[2].strip()
                     content_list[i][1] = f"{content}"
-                    content_list[i][2] = f"./contents/{app_name}/{app_name}_{content_type}/{file_name}_{content_type}.{type[content_type]} \n"
+                    content_list[i][2] = f"./contents/{app_name}/{app_name}_{content_type}/{file_name}_{content_type}.{type[content_type]}, \n"
                     count += 1
             if count == 0:
-                content_list.append([f'"0{yaml_id}","{content}", "./contents/{app_name}/{app_name}_{content_type}/{file_name}_{content_type}.{type[content_type]}" \n'])
+                content_list.append([f'"0{yaml_id}","{content}", "./contents/{app_name}/{app_name}_{content_type}/{file_name}_{content_type}.{type[content_type]}", \n'])
                     
             for each_content in content_list:
                 response += ','.join(each_content) + '\n'
@@ -788,7 +788,7 @@ class ExporterTabView(View):
             return {'result' :result , 'bf_file_name': bf_file_name}
 
         elif data.status_code == 404:
-            response = f'"01","{content}", "./contents/{app_name}/{app_name}_{content_type}/{file_name}_{content_type}.{type[content_type]}" \n'
+            response = f'"01","{content}", "./contents/{app_name}/{app_name}_{content_type}/{file_name}_{content_type}.{type[content_type]}", \n'
             contents = json.dumps(
                     {
                         "csv_sha" : sha,
