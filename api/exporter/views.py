@@ -744,7 +744,8 @@ class ExporterTabView(View):
 
     def code_to_github(self, app_name, file_name, token, content_type, content, file_type, sha, bf_file_name):
         repo           = f"{settings.ORGANIZATION}/exporterhub.io"
-        url            = f"https://api.github.com/repos/{repo}/contents/{bf_file_name}"
+        old_file_name  = bf_file_name.strip('"')
+        url            = f"https://api.github.com/repos/{repo}/contents/{old_file_name}"
         delete_content = json.dumps({'sha': sha, 'message': 'delete_old_file'})
         delete         = requests.delete(url, data=delete_content, headers={'Authorization': 'token ' + token, 'Content-Type':'application/vnd.github.v3+json'})
             
@@ -757,6 +758,11 @@ class ExporterTabView(View):
                     'content': base64.b64encode(str(content).encode('utf-8')).decode('utf-8')
                             })
             result = requests.put(create_url, data=contents, headers={'Authorization': 'token ' + token, 'Content-Type':'application/vnd.github.v3+json'})
+
+            if result.status_code == 404:
+                return "GITHUB_REPO_API_ERROR" 
+
+            return result
 
         else:
             create_url = f"https://api.github.com/repos/{repo}/contents/contents/{app_name}/{app_name}_{content_type}/{file_name}_{content_type}.{file_type}"
@@ -802,14 +808,13 @@ class ExporterTabView(View):
             yaml_id  = len(content_list) + 1
 
             for i, detail in enumerate(content_list):
-                if detail[0] == file_id:
+                if detail[0] == f'"{file_id}"':
                     bf_file_name       = detail[2].strip()
-                    content_list[i][1] = f"{content}"
-                    content_list[i][2] = f'"./contents/{app_name}/{app_name}_{content_type}/{file_name}_{content_type}.{type[content_type]}", \n'
+                    content_list[i][1] = f'"{file_name}"'
+                    content_list[i][2] = f'"./contents/{app_name}/{app_name}_{content_type}/{file_name}_{content_type}.{type[content_type]}"'
                     count += 1
             if count == 0:
-                content_list.append([f'"0{yaml_id}","{content}", "./contents/{app_name}/{app_name}_{content_type}/{file_name}_{content_type}.{type[content_type]}", \n'])
-                    
+                content_list.append([f'"0{yaml_id}","{content}", "./contents/{app_name}/{app_name}_{content_type}/{file_name}_{content_type}.{type[content_type]}",'])
             for each_content in content_list:
                 response += ','.join(each_content) + '\n'
             contents = json.dumps(
@@ -889,10 +894,12 @@ class ExporterTabView(View):
             return JsonResponse({'message': 'KEY_ERROR'}, status=400) 
 
     def code_file_delete(self, app_name, content_type, file_type, token, yaml_url):
-        repo     = f"{settings.ORGANIZATION}/exporterhub.io"       
-        yaml_url = yaml_url.strip()
-        url      = f"https://api.github.com/repos/{repo}/contents/{yaml_url}"
-        data     = requests.get(url, headers={'Content-Type': 'application/json', 'Authorization': 'token ' + token})
+        repo        = f"{settings.ORGANIZATION}/exporterhub.io"  
+        yaml_urls   = yaml_url.replace('"','')
+        yaml_urls   = yaml_urls.strip()
+        url         = f"https://api.github.com/repos/{repo}/contents/{yaml_urls}"
+        data        = requests.get(url, headers={'Content-Type': 'application/json', 'Authorization': 'token ' + token})
+        
 
         if data.status_code == 404:
             return 'FILE_NOT_EXISTING' 
@@ -940,7 +947,7 @@ class ExporterTabView(View):
                 content_list.append(csv_contents)
 
             for i, detail in enumerate(content_list):
-                if detail[0] == file_id:
+                if detail[0] == f'"{file_id}"':
                     yaml_url = detail[2]
                 else:
                     results.append([detail[0], detail[1], detail[2], '\n'])
@@ -954,8 +961,8 @@ class ExporterTabView(View):
 
                 if csv_delete == 404:
                     return "GITHUB_REPO_API_ERROR"
-                    
-                return csv_delete
+                   
+                return {'result' : csv_delete, 'yaml_url' : yaml_url}
 
             for content in results:
                 response += ','.join(content)
