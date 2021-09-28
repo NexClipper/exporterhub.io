@@ -810,7 +810,7 @@ class ExporterTabView(View):
             for i, detail in enumerate(content_list):
                 if detail[0] == f'"{file_id}"':
                     bf_file_name       = detail[2].strip()
-                    content_list[i][1] = f'"{file_name}"'
+                    content_list[i][1] = f'"{content}"'
                     content_list[i][2] = f'"./contents/{app_name}/{app_name}_{content_type}/{file_name}_{content_type}.{type[content_type]}"'
                     count += 1
             if count == 0:
