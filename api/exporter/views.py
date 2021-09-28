@@ -733,6 +733,8 @@ class ExporterTabView(View):
 
             return result
 
+        return "GITHUB_REPO_API_ERROR"
+
     def csv_to_github(self, app_name, file_name, token, content_type, content, file_type, sha, file_id):
         repo         = f"{settings.ORGANIZATION}/exporterhub.io"
         csv_url      = f"https://api.github.com/repos/{repo}/contents/contents/{app_name}/{app_name}_{content_type}/{app_name}_{content_type}.{file_type}"
@@ -801,6 +803,9 @@ class ExporterTabView(View):
 
             return {'result' :result , 'bf_file_name': bf_file_name}
 
+        else:
+            return "GITHUB_REPO_API_ERROR" 
+
 
     @admin_decorator
     def post(self, request, exporter_id):
@@ -850,8 +855,7 @@ class ExporterTabView(View):
         data     = requests.get(url, headers={'Content-Type': 'application/json', 'Authorization': 'token ' + token})
 
         if data.status_code == 404:
-            result = 'GITHUB_REPO_API_ERROR' 
-            return result
+            return 'FILE_NOT_EXISTING' 
             
         elif data.status_code == 200:  
             data = data.json()
@@ -862,14 +866,16 @@ class ExporterTabView(View):
                     })
 
             code_result = requests.delete(url, data=contents, headers={'Authorization': 'token ' + token})
+
             if code_result.status_code == 404:
                 return "GITHUB_REPO_API_ERROR"
+
             return code_result
 
         else:
-            result = 'GITHUB_REPO_API_ERROR' 
-            return result
+            return 'GITHUB_REPO_API_ERROR' 
              
+
     def csv_file_delete(self, app_name, content_type, file_type, token, file_id):
         repo         = f"{settings.ORGANIZATION}/exporterhub.io"        
         url          = f"https://api.github.com/repos/{repo}/contents/contents/{app_name}/{app_name}_{content_type}/{app_name}_{content_type}.{file_type}"
@@ -923,6 +929,8 @@ class ExporterTabView(View):
             return {'result' : result, 'yaml_url' : yaml_url}
 
         return "GITHUB_REPO_API_ERROR"
+
+
     @admin_decorator
     def delete(self, request, exporter_id):
         try:
@@ -948,6 +956,9 @@ class ExporterTabView(View):
 
             if code_result == 'GITHUB_REPO_API_ERROR' or csv_result == 'GITHUB_REPO_API_ERROR':
                return JsonResponse({'message': 'GITHUB_REPO_API_ERROR'}, status=404)
+
+            if code_result == "FILE_NOT_EXISTING" or csv_result == "FILE_NOT_EXISTING":
+                return JsonResponse({'messasge':"FILE_NOT_EXISTING"}, status=404)
                
             return JsonResponse({'message': 'SUCCESS'}, status=200)
             
