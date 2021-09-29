@@ -1,11 +1,8 @@
-# Default values for mysql-exporter.
+# Default values for prometheus-mysql-exporter.
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 
 replicaCount: 1
-
-global:
-  managed: exporterhub
 
 image:
   repository: "prom/mysqld-exporter"
@@ -33,6 +30,13 @@ serviceMonitor:
   targetLabels: []
   podTargetLabels: []
   metricRelabelings: []
+
+serviceAccount:
+  # Specifies whether a ServiceAccount should be created
+  create: false
+  # The name of the ServiceAccount to use.
+  # If not set and create is true, a name is generated using the fullname template
+  name:
 
 resources: {}
   # We usually recommend not to specify default resources and to leave this as a conscious
@@ -109,17 +113,14 @@ collectors: {}
   # heartbeat.table: heartbeat
 
 # mysql connection params which build the DATA_SOURCE_NAME env var of the docker container
-# "{{ .Values.mysql.user }}:$(DB_PASSWORD)@{{ if .Values.mysql.protocol }}{{ .Values.mysql.protocol }}{{ end }}({{ .Values.mysql.host }}:{{ .Values.mysql.port }})/{{ if .Values.mysql.db }}{{ .Values.mysql.db }}{{ end }}{{ if .Values.mysql.param }}?{{ .Values.mysql.param }}{{ end }}"
 mysql:
   db: ""
-  # host: "wordpress-mysql.default.svc.cluster.local"
-  host: "{{ .Release.Name }}.{{ .Release.Namespace }}.svc.cluster.local"
+  host: "localhost"
   param: ""
-  # secret
-  pass: "password"
+  pass: "Xqhacer5Ds"
   port: 3306
   protocol: ""
-  user: "exporter"
+  user: "root"
   # secret with full DATA_SOURCE_NAME env var as stringdata
   existingSecret: ""
   # secret only containing the password
@@ -149,3 +150,4 @@ cloudsqlproxy:
     #   "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
     #   "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/user%40project.iam.gserviceaccount.com"
     # }
+
