@@ -1,23 +1,25 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ template "prometheus-mysql-exporter.fullname" . }}
+  name: {{ template "mysql-exporter.fullname" . }}
   labels:
-    {{- include "prometheus-mysql-exporter.labels" . | nindent 4 }}
+    {{- include "mysql-exporter.labels" . | nindent 4 }}
+    managed: {{ .Values.global.managed }}
 spec:
   replicas: {{ .Values.replicaCount }}
   selector:
     matchLabels:
-      {{- include "prometheus-mysql-exporter.selectorLabels" . | nindent 6 }}
+      {{- include "mysql-exporter.selectorLabels" . | nindent 6 }}
+      managed: {{ .Values.global.managed }}
   template:
     metadata:
       labels:
-        {{- include "prometheus-mysql-exporter.selectorLabels" . | nindent 8 }}
+        {{- include "mysql-exporter.selectorLabels" . | nindent 8 }}
+        managed: {{ .Values.global.managed }}
 {{- if .Values.podLabels }}
 {{ toYaml .Values.podLabels | trim | indent 8 }}
 {{- end }}
       annotations:
-        checksum/credentials: {{ include (print .Template.BasePath "/secret-env.yaml") . | sha256sum }}
       {{- if .Values.cloudsqlproxy.enabled }}
         checksum/config: {{ include (print .Template.BasePath "/secret.yaml") . | sha256sum }}
         {{- if .Values.annotations }}
@@ -27,7 +29,6 @@ spec:
 {{ toYaml .Values.annotations | indent 8 }}
       {{- end }}
     spec:
-      serviceAccountName: {{ template "prometheus-mysql-exporter.serviceAccountName" . }}
       securityContext:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}
       containers:
@@ -58,17 +59,18 @@ spec:
                   name: {{ .Values.mysql.existingPasswordSecret.name }}
                   key: {{ .Values.mysql.existingPasswordSecret.key }}
           {{- else }}
-                  name: {{ template "prometheus-mysql-exporter.fullname" . }}
+                  name: {{ template "mysql-exporter.fullname" . }}
                   key: password
           {{- end }}
           {{- end }}
           {{- if .Values.mysql.existingSecret }}
           envFrom:
             - secretRef:
-                name: {{ template "prometheus-mysql-exporter.secret" . }}
+                name: {{ template "mysql-exporter.secret" . }}
           {{- else }}
             - name: DATA_SOURCE_NAME
-              value: "{{ .Values.mysql.user }}:$(DB_PASSWORD)@{{ if .Values.mysql.protocol }}{{ .Values.mysql.protocol }}{{ end }}({{ .Values.mysql.host }}:{{ .Values.mysql.port }})/{{ if .Values.mysql.db }}{{ .Values.mysql.db }}{{ end }}{{ if .Values.mysql.param }}?{{ .Values.mysql.param }}{{ end }}"
+              # value: "{{ .Values.mysql.user }}:{{ .Values.mysql.pass }}@{{ if .Values.mysql.protocol }}{{ .Values.mysql.protocol }}{{ end }}({{ .Values.mysql.host }}:{{ .Values.mysql.port }})/{{ if .Values.mysql.db }}{{ .Values.mysql.db }}{{ end }}{{ if .Values.mysql.param }}?{{ .Values.mysql.param }}{{ end }}"
+              value: "{{ .Values.mysql.user }}:$(DB_PASSWORD)@{{ if .Values.mysql.protocol }}{{ .Values.mysql.protocol }}{{ end }}({{ tpl .Values.mysql.host . }}:{{ .Values.mysql.port }})/{{ if .Values.mysql.db }}{{ .Values.mysql.db }}{{ end }}{{ if .Values.mysql.param }}?{{ .Values.mysql.param }}{{ end }}"
           {{- end }}
           ports:
             - containerPort: {{ .Values.service.internalPort }}
@@ -113,5 +115,5 @@ spec:
       volumes:
         - name: cloudsql-proxy-sa-credentials
           secret:
-            secretName: {{ template "prometheus-mysql-exporter.cloudsqlsecret" . }}
+            secretName: {{ template "mysql-exporter.cloudsqlsecret" . }}
     {{- end }}
