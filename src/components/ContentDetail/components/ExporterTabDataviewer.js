@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { FiEdit } from "react-icons/fi";
 import { BiUndo } from "react-icons/bi";
 import ExporterTabCodeEditor from "./ExporterTabCodeEditor";
+import DeleteModal from "../../Modal/DeleteModal";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
 import NoData from "./NoData";
 import { Fragment } from "react";
@@ -17,10 +18,18 @@ const ExporterTabDataviewer = ({
   select,
   setModify,
   setExporterCsv,
+  saveEdit,
+  setSaveEdit,
 }) => {
   const isAdmin = useSelector((store) => store.adminReducer);
   const changeTheme = useSelector((store) => store.darkThemeReducer);
   const emty = exporterCsv !== "default" ? exporterCsv.length === 0 : false;
+  const edittingFile = useSelector((store) => store.exporterTabEdittingReducer);
+  const beforeEditFile = useSelector(
+    (store) => store.exporterTabBeforeEditReducer
+  );
+  const dontSaved =
+    modify && JSON.stringify(edittingFile) !== JSON.stringify(beforeEditFile);
   const selectFileInfo =
     select !== "New" && exporterCsv !== "default" && exporterCsv.length !== 0
       ? exporterCsv.filter((file) => file.file_id === select)
@@ -53,6 +62,23 @@ const ExporterTabDataviewer = ({
     return descriptionDecodeValue;
   };
 
+  const handleBack = () => {
+    if (dontSaved) {
+      setSaveEdit(true);
+    } else {
+      setIsEditMode((prev) => !prev);
+      setModify(false);
+    }
+  };
+
+  const handleSave = (answer) => {
+    if (answer === "Yes") {
+      setIsEditMode((prev) => !prev);
+      setModify(false);
+    }
+    setSaveEdit(false);
+  };
+
   return (
     <>
       <Header>
@@ -63,12 +89,7 @@ const ExporterTabDataviewer = ({
 
         {isAdmin && (
           <div>
-            <Button
-              onClick={() => {
-                setIsEditMode((prev) => !prev);
-                setModify(false);
-              }}
-            >
+            <Button onClick={handleBack}>
               <span>{!isEditMode ? <FiEdit /> : <BiUndo />}</span>
               <span>{!isEditMode ? "edit" : "Back"}</span>
             </Button>
@@ -128,6 +149,12 @@ const ExporterTabDataviewer = ({
           />
         )}
       </div>
+      {saveEdit && (
+        <DeleteModal
+          handleDelete={handleSave}
+          content="Don't you want to save the changes you made?"
+        ></DeleteModal>
+      )}
     </>
   );
 };

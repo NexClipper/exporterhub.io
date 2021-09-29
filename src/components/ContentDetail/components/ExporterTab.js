@@ -105,6 +105,8 @@ const ExporterTab = ({ title, type }) => {
           </MobileTabListbox>
         </div>
         <ExporterTabDataviewer
+          saveEdit={saveEdit}
+          setSaveEdit={setSaveEdit}
           setExporterCsv={setExporterCsv}
           setModify={setModify}
           select={select}
