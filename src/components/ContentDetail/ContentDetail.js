@@ -30,6 +30,15 @@ const ContentDetail = () => {
     2: <ExporterTab title={exporterInfo.title} type="_alert.yaml" />,
     3: <ExporterTab title={exporterInfo.title} type="_dashboard.json" />,
   };
+
+  const descriptionDecode = (description) => {
+    let descriptionDecodeValue = description
+      .replace(/@>@/g, "\n")
+      .replace(/@\$#/g, '"');
+
+    return descriptionDecodeValue;
+  };
+
   const TOKEN = sessionStorage.getItem("access_token");
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -51,7 +60,7 @@ const ContentDetail = () => {
         setForkState(res.data.data.is_bucket);
         setStarState(res.data.data.is_star);
         setStarNumber(res.data.data.stars);
-        setDesState(res.data.data.detail_description);
+        setDesState(descriptionDecode(res.data.data.detail_description));
       })
       .catch((err) => {
         console.log(err);

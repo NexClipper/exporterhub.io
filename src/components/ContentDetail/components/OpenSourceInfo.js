@@ -38,6 +38,20 @@ const OpenSourceInfo = ({
   const changeTheme = useSelector((store) => store.darkThemeReducer);
   const { id } = useParams();
 
+  const descriptionEncode = (description) => {
+    let descriptionEncodeValue = JSON.stringify(description)
+      .replace(/\\n/g, "@>@")
+      .replace(/\\"/g, "@$#");
+    return descriptionEncodeValue.slice(1).slice(0, -1);
+  };
+
+  const descriptionDecode = (description) => {
+    let descriptionDecodeValue = description
+      .replace(/@>@/g, "\n")
+      .replace(/@\$#/g, '"');
+    return descriptionDecodeValue;
+  };
+
   const handleSave = () => {
     if (desState === "") {
       axios({
@@ -47,11 +61,11 @@ const OpenSourceInfo = ({
           Authorization: sessionStorage.getItem("access_token"),
         },
         data: {
-          description: editState,
+          description: descriptionEncode(editState),
         },
       })
         .then((res) => {
-          setDesState(res.data.description);
+          setDesState(descriptionDecode(res.data.description));
           handleEdit();
         })
         .catch((err) => {
@@ -65,11 +79,11 @@ const OpenSourceInfo = ({
           Authorization: sessionStorage.getItem("access_token"),
         },
         data: {
-          description: editState,
+          description: descriptionEncode(editState),
         },
       })
         .then((res) => {
-          setDesState(res.data.description);
+          setDesState(descriptionDecode(res.data.description));
           handleEdit();
         })
         .catch((err) => {

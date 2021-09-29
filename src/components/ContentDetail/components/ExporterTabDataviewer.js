@@ -45,6 +45,14 @@ const ExporterTabDataviewer = ({
             csv_desc: "",
           },
         ];
+
+  const descriptionDecode = (description) => {
+    let descriptionDecodeValue = description
+      .replace(/@>@/g, "\n")
+      .replace(/@\$#/g, '"');
+    return descriptionDecodeValue;
+  };
+
   return (
     <>
       <Header>
@@ -80,13 +88,15 @@ const ExporterTabDataviewer = ({
                 {emty === false && selectFileInfo.length !== 0 ? (
                   <ExporterContainer>
                     <h1>
-                      {selectFileInfo[0].file_url.slice(
-                        selectFileInfo[0].file_url.lastIndexOf("/") + 1
+                      {descriptionDecode(
+                        selectFileInfo[0].file_url.slice(
+                          selectFileInfo[0].file_url.lastIndexOf("/") + 1
+                        )
                       )}
                     </h1>
-                    <div>
+                    <div className="description">
                       <h3>Description</h3>
-                      <p>{selectFileInfo[0].csv_desc}</p>
+                      {descriptionDecode(selectFileInfo[0].csv_desc)}
                     </div>
                     <Content dark={changeTheme}>
                       {selectFileInfo[0].file_content}
@@ -102,12 +112,14 @@ const ExporterTabDataviewer = ({
           <ExporterTabCodeEditor
             setExporterCsv={setExporterCsv}
             type={type}
-            fileName={selectFileInfo[0].file_url.slice(
-              selectFileInfo[0].file_url.lastIndexOf("/") + 1
+            fileName={descriptionDecode(
+              selectFileInfo[0].file_url.slice(
+                selectFileInfo[0].file_url.lastIndexOf("/") + 1
+              )
             )}
             exporterCsv={exporterCsv}
             setModify={setModify}
-            fileDescription={selectFileInfo[0].csv_desc}
+            fileDescription={descriptionDecode(selectFileInfo[0].csv_desc)}
             fileContent={selectFileInfo[0].file_content}
             fileSha={selectFileInfo[0].file_sha}
             csvSha={selectFileInfo[0].csv_sha}
@@ -169,11 +181,11 @@ const ExporterContainer = styled.div`
     }
   }
 
-  p {
+  .description {
+    white-space: pre-line;
     margin: auto;
     padding-bottom: 10px;
     border-bottom: 1px solid #eaecef;
-    white-space: normal;
     font-size: 16px;
     margin-bottom: 20px;
 
