@@ -33,7 +33,7 @@ const OpenSourceInfo = ({
   const TOKEN = sessionStorage.getItem("access_token");
   const [alertModal, setAlertModal] = useState(false);
   const [alertMsg, setAlertMsg] = useState();
-  const editBtnText = desState ? "Edit" : "Create";
+  const editBtnText = desState ? "Edit" : "Create a new profile";
   const [editState, setEditState] = useState("");
   const changeTheme = useSelector((store) => store.darkThemeReducer);
   const { id } = useParams();
@@ -225,13 +225,7 @@ const OpenSourceInfo = ({
           </HeaderBox>
         </HeaderInfo>
         {!isEditMode ? (
-          <Data>
-            {desState && (
-              <InputBox dark={changeTheme}>
-                <Content>{desState}</Content>
-              </InputBox>
-            )}
-          </Data>
+          desState && <Content dark={changeTheme}>{desState}</Content>
         ) : (
           <DescriiptionSave
             editState={editState}
@@ -470,32 +464,15 @@ const StarIcon = styled.span`
     font-size: 14px;
   }
 `;
-const Data = styled.pre`
-  font-family: "Noto Sans KR", sans-serif;
-  font-size: 14px;
-  line-height: 20px;
-  color: black;
-  border-radius: 5px;
-`;
 
 const Content = styled.div`
   width: 100%;
   height: 100%;
   overflow: auto;
   margin-top: 20px;
-  p {
-    white-space: normal;
-    word-break: break-all;
-  }
-`;
-const InputBox = styled.div`
-  p {
-    line-height: 1.8;
-    margin-bottom: 16px;
-    font-size: 15px;
-    white-space: normal;
-    color: ${(props) => props.dark && "#f5f6f7"};
-  }
+  white-space: pre-line;
+  line-height: 25px;
+  color: ${(props) => props.dark && "#f5f6f7"};
 `;
 
 const HeaderBox = styled.div`
