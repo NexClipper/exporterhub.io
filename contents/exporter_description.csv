@@ -1,3 +1,4 @@
 "exporter_id","exporter_name","description"
 "41","MongoDB Exporter","test"
 "6","Kong Prometheus Plugin","ㅁㄴㅇㄹㅁㄴㅇㄹㅁㄴㅇㄹㅁㄴㅇㄹ"
+"4","cAdvisor Exporter","test"
