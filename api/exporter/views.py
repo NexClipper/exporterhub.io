@@ -955,12 +955,12 @@ class ExporterTabView(View):
                     'helm'      : 'yaml',
                 }
 
-            file_sha       = data['file_sha']
+            file_sha       = data['file_sha'] if data['file_sha'] else ''
             file_name      = data["file_name"] if data['file_name'] else '-'
             file_content   = data["file_content"] 
             csv_desc       = data["csv_desc"] if data["csv_desc"] else '-'
-            csv_sha        = data['csv_sha']
-            file_id        = data.get('file_id')
+            csv_sha        = data['csv_sha'] if data['file_sha'] else ''
+            file_id        = data['file_id'] if data['file_id'] else ''
             version        = data['version']
             
             if content_type == 'helm':
