@@ -41,4 +41,3 @@ Query exporter,query-exporter,https://github.com/go-gywn/query-exporter,0,Databa
 Elasticsearch Exporter,Elasticsearch Exporter,https://github.com/prometheus-community/elasticsearch_exporter,0,Database,
 MongoDB,MongoDB Exporter,https://github.com/percona/mongodb_exporter,0,Database,
 Homestagram,23-2nd-Homestagram-frontend,https://github.com/minmin9324/23-2nd-Homestagram-frontend,0,test,
-casteT-Fany,23-2nd-caseT-Fany-backend,https://github.com/Samdaso-o/23-2nd-caseT-Fany-backend,0,test,
