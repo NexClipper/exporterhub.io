@@ -705,31 +705,36 @@ class ExporterTabView(View):
                     pass
                 else:
                     csv_data = requests.get(f"{url}{version}/{app_name}_{content_type}.{csv_file_type}", headers=headers)
-                    csv_data = csv_data.json()
-                    content  = base64.b64decode(csv_data['content']).decode('utf-8')
-                    details  = content.split('\n')
-                    details  = [v for v in details if v]
-                    for detail in details:
-                        csv_detail  = detail.split('"')
-                        csv_detail  = [v for v in csv_detail if v]
-                        csv_detail  = [v for v in csv_detail if ',' != v]
-                        csv_detail  = [v for v in csv_detail if ', ' != v]
-                        file_url    = csv_detail[2].strip()
-                        yaml_result = requests.get(f"https://api.github.com/repos/{repo}/contents/{file_url}", headers=headers)
+                    if csv_data.status_code == 200:
+                        csv_data = csv_data.json()
+                        content  = base64.b64decode(csv_data['content']).decode('utf-8')
+                        details  = content.split('\n')
+                        details  = [v for v in details if v]
+                        for detail in details:
+                            csv_detail  = detail.split('"')
+                            csv_detail  = [v for v in csv_detail if v]
+                            csv_detail  = [v for v in csv_detail if ',' != v]
+                            csv_detail  = [v for v in csv_detail if ', ' != v]
+                            file_url    = csv_detail[2].strip()
+                            yaml_result = requests.get(f"https://api.github.com/repos/{repo}/contents/{file_url}", headers=headers)
 
-                        if yaml_result.status_code == 200:
-                            yaml_data = yaml_result.json()
-                            csv_files.append(
-                                    {
-                                    'file_content' : base64.b64decode(yaml_data['content']).decode('utf-8'),
-                                    'file_sha'     : yaml_data['sha'],
-                                    'file_id'      : csv_detail[0],
-                                    'csv_desc'     : csv_detail[1].strip(),
-                                    'csv_sha'      : csv_data['sha'],
-                                    'file_url'     : csv_detail[2],
-                                    'version'      : version,
-                                    }
-                                    ) 
+                            if yaml_result.status_code == 200:
+                                yaml_data = yaml_result.json()
+                                csv_files.append(
+                                        {
+                                        'file_content' : base64.b64decode(yaml_data['content']).decode('utf-8'),
+                                        'file_sha'     : yaml_data['sha'],
+                                        'file_id'      : csv_detail[0],
+                                        'csv_desc'     : csv_detail[1].strip(),
+                                        'csv_sha'      : csv_data['sha'],
+                                        'file_url'     : csv_detail[2],
+                                        'version'      : version,
+                                        }
+                                        ) 
+                    else:
+                        csv_files = None
+                        return csv_files
+
             return csv_files
 
         elif result.status_code == 404:
@@ -814,7 +819,7 @@ class ExporterTabView(View):
         url        = f"https://api.github.com/repos/{repo}/contents/contents/{app_name}/nc/{content_type}/{version}"
         contents   = json.dumps({
                     'sha'    : sha,
-                    'message': 'update_csv_file',
+                    'message': 'update_helm_file',
                     'content': base64.b64encode(str(content).encode('utf-8')).decode('utf-8')
                             })
 
@@ -837,7 +842,7 @@ class ExporterTabView(View):
             contents   = json.dumps({
                     'name'   : file_name,
                     'sha'    : sha,
-                    'message': 'update_csv_file',
+                    'message': 'update_code_file',
                     'content': base64.b64encode(str(content).encode('utf-8')).decode('utf-8')
                             })
             result = requests.put(create_url, data=contents, headers={'Authorization': 'token ' + token, 'Content-Type':'application/vnd.github.v3+json'})
@@ -851,7 +856,7 @@ class ExporterTabView(View):
             create_url = f"https://api.github.com/repos/{repo}/contents/contents/{app_name}/nc/{version}/{file_name}_{content_type}.{file_type}"
             contents   = json.dumps({
                     'sha'    : sha,
-                    'message': 'update_csv_file',
+                    'message': 'create_code_file',
                     'content': base64.b64encode(str(content).encode('utf-8')).decode('utf-8')
                             })
 
@@ -862,7 +867,6 @@ class ExporterTabView(View):
 
             return result
 
-        return "GITHUB_REPO_API_ERROR"
 
     def csv_to_github(self, app_name, file_name, token, content_type, content, file_type, sha, file_id, version):
         repo         = f"{settings.ORGANIZATION}/exporterhub.io"
