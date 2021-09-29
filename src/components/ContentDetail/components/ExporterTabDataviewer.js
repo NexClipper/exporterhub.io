@@ -182,6 +182,7 @@ const ExporterContainer = styled.div`
   }
 
   .description {
+    white-space: pre-line;
     margin: auto;
     padding-bottom: 10px;
     border-bottom: 1px solid #eaecef;
