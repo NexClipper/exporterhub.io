@@ -759,7 +759,7 @@ class ExporterTabView(View):
                     'file_id'       : "",
                     'csv_desc'      : "",
                     'csv_sha'       : "",
-                    'version'       : "",
+                    'version'       : version,
                     })
 
             return helm_files
