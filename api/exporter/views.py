@@ -969,6 +969,8 @@ class ExporterTabView(View):
                 if helm_result == 'GITHUB_REPO_API_ERROR':
                     return JsonResponse({'message': 'GITHUB_REPO_API_ERROR'}, status=404)
 
+                return JsonResponse({'message': 'SUCCESS'}, status=200)
+
             else:
                 csv_result   = self.csv_to_github(app_name=app_name, file_name=file_name, token=token, content_type=content_type, content = csv_desc, file_type = 'csv', sha=csv_sha, file_id = file_id, version = version)
 
@@ -977,10 +979,10 @@ class ExporterTabView(View):
                 else:
                     code_result  = self.code_to_github(app_name=app_name, file_name=file_name, token=token, content_type=content_type, content = file_content, file_type = type[content_type], sha=file_sha, bf_file_name = "", version = version)
  
-            if code_result == 'GITHUB_REPO_API_ERROR' or csv_result == 'GITHUB_REPO_API_ERROR':
-                return JsonResponse({'message': 'GITHUB_REPO_API_ERROR'}, status=404)
+                if code_result == 'GITHUB_REPO_API_ERROR' or csv_result == 'GITHUB_REPO_API_ERROR':
+                    return JsonResponse({'message': 'GITHUB_REPO_API_ERROR'}, status=404)
 
-            return JsonResponse({'message': 'SUCCESS'}, status=200)
+                return JsonResponse({'message': 'SUCCESS'}, status=200)
 
         except KeyError:
             return JsonResponse({'message': 'KEY_ERROR'}, status=400)
