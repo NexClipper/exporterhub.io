@@ -39,7 +39,7 @@ const ExporterDetailTabList = ({
   const handleFileAdd = () => {
     if (exporterCsv.length !== 0) {
       if (select === "New") {
-        setSelect(exporterCsv[0].file_id);
+        setSelect(exporterCsv[0].file_id + exporterCsv[0].version);
         setModify(false);
       } else {
         setSelect("New");
@@ -101,7 +101,7 @@ const ExporterDetailTabList = ({
     const fileType = type.slice(1, type.lastIndexOf("."));
     axios({
       method: "DELETE",
-      url: `${API_SURVER}/exporter/${id}/tab?type=${fileType}&file_id=${select}`,
+      url: `${API_SURVER}/exporter/${id}/tab?type=${fileType}&file_id=${select}&version=${"version"}`,
       headers: {
         Authorization: sessionStorage.getItem("access_token"),
       },
@@ -157,24 +157,28 @@ const ExporterDetailTabList = ({
                   );
                   return (
                     <Category
-                      active={file.file_id === select}
+                      active={file.file_id + file.version === select}
                       dark={changeTheme}
                       isEditMode={isEditMode}
-                      key={file.file_id}
-                      title={file.file_url.slice(
-                        file.file_url.lastIndexOf("/") + 1
-                      )}
+                      key={file.file_id + file.version}
+                      title={github + file.version}
                     >
                       <Div
-                        active={file.file_id === select}
+                        active={file.file_id + file.version === select}
                         dark={changeTheme}
-                        fileName={isEditMode && file.file_id === select}
-                        onClick={() => handleChangeFile(file.file_id)}
+                        fileName={
+                          isEditMode && file.file_id + file.version === select
+                        }
+                        onClick={() =>
+                          handleChangeFile(file.file_id + file.version)
+                        }
                       >
-                        {github}
+                        {type !== "_helm.yaml"
+                          ? github + "." + file.version
+                          : file.version}
                       </Div>
 
-                      {isEditMode && file.file_id === select && (
+                      {isEditMode && file.file_id + file.version === select && (
                         <EditBox>
                           <EditIcon
                             as={TiPencil}

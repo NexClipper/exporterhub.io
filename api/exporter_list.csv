@@ -36,7 +36,6 @@ Ruby Client,Ruby Client Library,https://github.com/prometheus/client_ruby,1,Libr
 Push Gateway,Push Gateway,https://github.com/prometheus/pushgateway,1,Monitoring,
 k8s image availability,k8s-image-availability-exporter,https://github.com/flant/k8s-image-availability-exporter,0,Miscellaneous,
 Kubecost,Kubecost,https://github.com/kubecost/cost-model,0,Miscellaneous,
-dnsbl-exporter,dnsbl-exporter,https://github.com/Luzilla/dnsbl_exporter,0,Monitoring,
 Query exporter,query-exporter,https://github.com/go-gywn/query-exporter,0,Database,
 Elasticsearch Exporter,Elasticsearch Exporter,https://github.com/prometheus-community/elasticsearch_exporter,0,Database,
 MongoDB,MongoDB Exporter,https://github.com/percona/mongodb_exporter,0,Database,

@@ -28,11 +28,12 @@ const ExporterTabDataviewer = ({
   const beforeEditFile = useSelector(
     (store) => store.exporterTabBeforeEditReducer
   );
+  console.log(exporterCsv);
   const dontSaved =
     modify && JSON.stringify(edittingFile) !== JSON.stringify(beforeEditFile);
   const selectFileInfo =
     select !== "New" && exporterCsv !== "default" && exporterCsv.length !== 0
-      ? exporterCsv.filter((file) => file.file_id === select)
+      ? exporterCsv.filter((file) => file.file_id + file.version === select)
       : exporterCsv !== "default" && exporterCsv.length !== 0
       ? [
           {
@@ -78,7 +79,7 @@ const ExporterTabDataviewer = ({
     }
     setSaveEdit(false);
   };
-
+  console.log(type);
   return (
     <>
       <Header>
@@ -108,17 +109,26 @@ const ExporterTabDataviewer = ({
               <Fragment>
                 {emty === false && selectFileInfo.length !== 0 ? (
                   <ExporterContainer>
-                    <h1>
-                      {descriptionDecode(
-                        selectFileInfo[0].file_url.slice(
-                          selectFileInfo[0].file_url.lastIndexOf("/") + 1
-                        )
-                      )}
-                    </h1>
-                    <div className="description">
-                      <h3>Description</h3>
-                      {descriptionDecode(selectFileInfo[0].csv_desc)}
-                    </div>
+                    {type !== "_helm.yaml" ? (
+                      <Fragment>
+                        <h1>
+                          {selectFileInfo[0].file_url.slice(
+                            selectFileInfo[0].file_url.lastIndexOf("/") + 1
+                          ) +
+                            "  (v" +
+                            selectFileInfo[0].version +
+                            ")"}
+                        </h1>
+                        <div className="description">
+                          <h3>Description</h3>
+                          {descriptionDecode(selectFileInfo[0].csv_desc)}
+                        </div>
+                      </Fragment>
+                    ) : (
+                      <h1>
+                        {"Helm chart (" + selectFileInfo[0].version + ")"}
+                      </h1>
+                    )}
                     <Content dark={changeTheme}>
                       {selectFileInfo[0].file_content}
                     </Content>
@@ -144,7 +154,8 @@ const ExporterTabDataviewer = ({
             fileContent={selectFileInfo[0].file_content}
             fileSha={selectFileInfo[0].file_sha}
             csvSha={selectFileInfo[0].csv_sha}
-            fileId={selectFileInfo[0].file_id}
+            fileId={selectFileInfo[0].file_id + selectFileInfo[0].version}
+            fileVersion={selectFileInfo[0].version}
             handleMode={handleMode}
           />
         )}
