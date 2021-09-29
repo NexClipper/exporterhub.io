@@ -28,12 +28,13 @@ const ExporterTabDataviewer = ({
   const beforeEditFile = useSelector(
     (store) => store.exporterTabBeforeEditReducer
   );
-  console.log(exporterCsv);
   const dontSaved =
     modify && JSON.stringify(edittingFile) !== JSON.stringify(beforeEditFile);
   const selectFileInfo =
     select !== "New" && exporterCsv !== "default" && exporterCsv.length !== 0
-      ? exporterCsv.filter((file) => file.file_id + file.version === select)
+      ? exporterCsv.filter(
+          (file) => file.file_id + "/" + file.version === select
+        )
       : exporterCsv !== "default" && exporterCsv.length !== 0
       ? [
           {
@@ -43,6 +44,7 @@ const ExporterTabDataviewer = ({
             csv_sha: exporterCsv[0].csv_sha,
             file_id: "",
             csv_desc: "",
+            version: "",
           },
         ]
       : [
@@ -53,6 +55,7 @@ const ExporterTabDataviewer = ({
             csv_sha: "",
             file_id: "",
             csv_desc: "",
+            version: "",
           },
         ];
 
@@ -79,7 +82,7 @@ const ExporterTabDataviewer = ({
     }
     setSaveEdit(false);
   };
-  console.log(type);
+
   return (
     <>
       <Header>
@@ -154,7 +157,7 @@ const ExporterTabDataviewer = ({
             fileContent={selectFileInfo[0].file_content}
             fileSha={selectFileInfo[0].file_sha}
             csvSha={selectFileInfo[0].csv_sha}
-            fileId={selectFileInfo[0].file_id + selectFileInfo[0].version}
+            fileId={selectFileInfo[0].file_id + "/" + selectFileInfo[0].version}
             fileVersion={selectFileInfo[0].version}
             handleMode={handleMode}
           />

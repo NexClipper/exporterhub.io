@@ -38,26 +38,30 @@ const ExporterTab = ({ title, type }) => {
     const HEADER = TOKEN && { Authorization: TOKEN };
     const fileType = type.slice(1, type.lastIndexOf("."));
 
-    // axios({
-    //   method: "GET",
-    //   url: `${API_SURVER}/exporter/${id}/tab?type=${fileType}`,
-    //   headers: HEADER,
-    // })
-    //   .then((res) => {
-    //     setExporterCsv(
-    //       res.data.message === "No_Content" ? [] : res.data.message
-    //     );
-    //     res.data.message !== "No_Content"
-    //       ? setSelect(res.data.message[0].file_id + res.data.message[0].version)
-    //       : setSelect(0);
-    //   })
-    //   .catch((err) => {
-    //     console.log(err);
-    //   });
+    axios({
+      method: "GET",
+      url: `${API_SURVER}/exporter/${id}/tab?type=${fileType}`,
+      headers: HEADER,
+    })
+      .then((res) => {
+        console.log(res);
+        setExporterCsv(
+          res.data.message === "No_Content" ? [] : res.data.message
+        );
+        res.data.message !== "No_Content"
+          ? setSelect(
+              res.data.message[0].file_id + "/" + res.data.message[0].version
+            )
+          : setSelect(0);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+
     // const fileTab = halm;
-    const fileTab = file;
-    setExporterCsv(fileTab);
-    setSelect(fileTab[0].file_id + fileTab[0].version);
+    // const fileTab = file;
+    // setExporterCsv(fileTab);
+    // setSelect(fileTab[0].file_id + "/" + fileTab[0].version);
   };
 
   return (
@@ -192,7 +196,7 @@ const file = [
     csv_desc: "dd",
     csv_sha: "6923eb1e412d7f0e59f9fa0108b04fb8db6efb08",
     file_url: "./contents/JMX Exporter/nc/0.2.1/d_alert.yaml",
-    version: "0.2.1",
+    version: "0.2.4",
   },
   {
     file_content: "sdafsadfdsf",
@@ -201,7 +205,7 @@ const file = [
     csv_desc: "sadfsadf",
     csv_sha: "6923eb1e412d7f0e59f9fa0108b04fb8db6efb08",
     file_url: "./contents/JMX Exporter/nc/0.2.1/sadf_alert.yaml",
-    version: "0.2.1",
+    version: "0.3.1",
   },
 ];
 

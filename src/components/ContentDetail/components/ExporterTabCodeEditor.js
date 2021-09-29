@@ -84,6 +84,7 @@ const ExporterTabCodeEditor = ({
         fileId === "" ? "" : fileName.slice(0, fileName.lastIndexOf("_"))
       )
     );
+
     dispatch(edittingExporterTabVersion(fileId === "" ? "" : fileVersion));
   }, [fileName]);
 
@@ -131,21 +132,15 @@ const ExporterTabCodeEditor = ({
         (file) => edittingExporterFile.version === file.version
       );
     }
-    console.log(isSameVersion);
 
     if (type !== "_helm.yaml" && edittingExporterFile.version !== "") {
       if (edittingExporterFile.fileName === "") {
-        console.log(1);
         setSameFileName("Enter the file name.");
       } else if (isSame.length === 0 || isSameVersion.length === 0) {
         setExporterCsv("default");
-        console.log(2);
-
         setModify(false);
         handlefetchGithub();
       } else {
-        console.log(3);
-
         setSameFileName("The same file name exists in same version");
       }
     } else if (
@@ -171,7 +166,7 @@ const ExporterTabCodeEditor = ({
         Authorization: sessionStorage.getItem("access_token"),
       },
       data: {
-        file_id: fileId,
+        file_id: fileId.slice(0, fileId.lastIndexOf("/")),
         file_content: edittingExporterFile.content,
         file_name: descriptionEncode(edittingExporterFile.fileName),
         file_sha: fileSha,
