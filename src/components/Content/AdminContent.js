@@ -89,6 +89,6 @@ const AdminResign = styled.button`
   user-select: none;
 
   &:hover {
-    background-color: #c6474e;
+    background-color: #f1f1f1;
   }
 `;
