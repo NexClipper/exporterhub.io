@@ -1,6 +1,6 @@
 title,project_name,github_url,offcial,category,
 eBPF,eBPF Exporter,https://github.com/cloudflare/ebpf_exporter,0,Miscellaneous,
-Ceph,Ceph Exporter,https://github.com/digitalocean/ceph_exporter,0,Storage,
+Ceph,Ceph Exporter,https://github.com/digitalocean/ceph_exporter,0,OS,
 Grok,Grok Exporter,https://github.com/fstab/grok_exporter,0,Logging,
 cAdvisor,cAdvisor Exporter,https://github.com/google/cadvisor,0,Miscellaneous,
 RabbitMQ,RabbitMQ Exporter,https://github.com/kbudde/rabbitmq_exporter,0,Messaging,
