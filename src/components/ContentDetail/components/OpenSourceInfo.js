@@ -99,6 +99,7 @@ const OpenSourceInfo = ({
       return;
     }
     if (!forkState) {
+      setForkState(true);
       await axios({
         method: "POST",
         url: `${BUCKET_API}`,
@@ -110,7 +111,6 @@ const OpenSourceInfo = ({
         },
       })
         .then(() => {
-          setForkState(true);
           setAlertMsg("This Exporter has been forked with Github");
         })
         .then(() => {
@@ -175,14 +175,13 @@ const OpenSourceInfo = ({
               <Name dark={changeTheme}>{exporterInfo.name}</Name>
             </HeaderTitle>
             <Category dark={changeTheme}>{exporterInfo.category}</Category>
-            <Button
-              dark={changeTheme}
-              onClick={() => addToFork(exporterInfo)}
-              forkState={forkState}
-              fork="fork"
-            >
-              <span>{!forkState && <RiShoppingBasketLine />}</span>
-              {forkState ? (
+            {forkState ? (
+              <Button
+                dark={changeTheme}
+                onClick={() => addToFork(exporterInfo)}
+                forkState={forkState}
+                fork="fork"
+              >
                 <a
                   href={exporterInfo.forked_repository_url}
                   target="_blank"
@@ -191,10 +190,22 @@ const OpenSourceInfo = ({
                   <ImLink className="link" />
                   Link to forked Exporter
                 </a>
-              ) : (
-                <span>Fork</span>
-              )}
-            </Button>
+              </Button>
+            ) : (
+              <Button
+                dark={changeTheme}
+                onClick={() => addToFork(exporterInfo)}
+                forkState={forkState}
+                fork="fork"
+              >
+                <Fragment>
+                  <span>
+                    <RiShoppingBasketLine />
+                  </span>
+                  <span>Fork</span>
+                </Fragment>
+              </Button>
+            )}
 
             <StarIcon
               dark={changeTheme}
