@@ -44,7 +44,6 @@ const ExporterTab = ({ title, type }) => {
       headers: HEADER,
     })
       .then((res) => {
-        console.log(res);
         setExporterCsv(
           res.data.message === "No_Content" ? [] : res.data.message
         );
