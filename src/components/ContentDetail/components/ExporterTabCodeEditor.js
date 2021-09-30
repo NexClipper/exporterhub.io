@@ -104,7 +104,7 @@ const ExporterTabCodeEditor = ({
       dispatch(edittingExporterTabVersion(target.value));
       beforeEditFile.version !== "" && target.value !== beforeEditFile.version
         ? setSameFileName(
-            "A new file is created when the version number changes"
+            "*A new file is created when the version number changes"
           )
         : setSameFileName(false);
     }
@@ -140,6 +140,8 @@ const ExporterTabCodeEditor = ({
     if (type !== "_helm.yaml" && edittingExporterFile.version !== "") {
       if (edittingExporterFile.fileName === "") {
         setSameFileName("Enter the file name.");
+      } else if (isSameVersion.length === 0 && isSame.length !== 0) {
+        setSameFileName("The same file name exists in same version");
       } else if (isSame.length === 0 || isSameVersion.length === 0) {
         setExporterCsv("default");
         setModify(false);
@@ -249,7 +251,7 @@ const ExporterTabCodeEditor = ({
             </Same>
           )}
           {sameFileName ===
-            "A new file is created when the version number changes" && (
+            "* A new file is created when the version number changes" && (
             <Same type={type} version="version" change="change">
               {sameFileName}
             </Same>
@@ -257,20 +259,22 @@ const ExporterTabCodeEditor = ({
           {sameFileName === "The same version exists." && (
             <Same type={type}>{sameFileName}</Same>
           )}
-          <Input
-            IsEdit={
-              beforeEditFile.description !== edittingExporterFile.description
-            }
-            id="description"
-            as="textarea"
-            name="content"
-            placeholder="Description"
-            value={edittingExporterFile.description}
-            cols="150"
-            rows="5"
-            dark={changeTheme}
-            onChange={handleFileInfo}
-          />
+          {type !== "_helm.yaml" && (
+            <Input
+              IsEdit={
+                beforeEditFile.description !== edittingExporterFile.description
+              }
+              id="description"
+              as="textarea"
+              name="content"
+              placeholder="Description"
+              value={edittingExporterFile.description}
+              cols="150"
+              rows="5"
+              dark={changeTheme}
+              onChange={handleFileInfo}
+            />
+          )}
         </Inputbox>
         <AceEditor
           className="editer"
@@ -436,7 +440,7 @@ const FileInputbox = styled.div`
 const Same = styled.p`
   width: 100%;
   color: ${({ change }) => (change === "change" ? "black" : "red")};
-  margin: 0px 8px 5px 1px;
+  margin: 0px 8px 10px 1px;
   text-align: ${({ version, type }) =>
     type !== "_helm.yaml" && version === "version" && "right"};
 `;

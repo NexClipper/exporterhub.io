@@ -60,12 +60,6 @@ const ExporterTab = ({ title, type }) => {
       .catch((err) => {
         console.log(err);
       });
-
-    // const fileTab = halm;
-    // const fileTab = file;
-    // setExporterCsv(fileTab);
-    // setTarget(fileTab[0].version);
-    // setSelect(fileTab[0].file_id + "/" + fileTab[0].version);
   };
 
   return (
@@ -171,72 +165,3 @@ const Container = styled.div`
   position: relative;
   width: 800px;
 `;
-
-const file = [
-  {
-    file_content: "testtest",
-    file_sha: "4b0a21d6fc27b50db43f673b02254a9c8871c1d9",
-    file_id: "01",
-    csv_desc: "test",
-    csv_sha: "a837dff5ef8f09cd64b9131e3b47777544f2f240",
-    file_url: "./contents/JMX Exporter/nc/0.1.1/test_alert.yaml",
-    version: "0.1.1",
-  },
-  {
-    file_content: "mango",
-    file_sha: "4d5e62525ad7c834de7e1acc010da4743d4affd5",
-    file_id: "01",
-    csv_desc: "mango",
-    csv_sha: "6923eb1e412d7f0e59f9fa0108b04fb8db6efb08",
-    file_url: "./contents/JMX Exporter/nc/0.2.1/mango_alert.yaml",
-    version: "0.2.1",
-  },
-  {
-    file_content: "dd",
-    file_sha: "9233c1a47d531a76b514363c615dab9a92ece9bc",
-    file_id: "02",
-    csv_desc: "dd",
-    csv_sha: "6923eb1e412d7f0e59f9fa0108b04fb8db6efb08",
-    file_url: "./contents/JMX Exporter/nc/0.2.1/d_alert.yaml",
-    version: "0.2.4",
-  },
-  {
-    file_content: "sdafsadfdsf",
-    file_sha: "0ca2a3bae89e10abdd20d4f27b94c108e2020ec6",
-    file_id: "03",
-    csv_desc: "sadfsadf",
-    csv_sha: "6923eb1e412d7f0e59f9fa0108b04fb8db6efb08",
-    file_url: "./contents/JMX Exporter/nc/0.2.1/sadf_alert.yaml",
-    version: "0.3.1",
-  },
-  {
-    file_content: "sdafsadfdsf",
-    file_sha: "0ca2a3bae89e10abdd20d4f27b94c108e2020ec6",
-    file_id: "04",
-    csv_desc: "sadfsadf",
-    csv_sha: "6923eb1e412d7f0e59f9fa0108b04fb8db6efb08",
-    file_url: "./contents/JMX Exporter/nc/0.2.1/마마마_alert.yaml",
-    version: "0.3.1",
-  },
-];
-
-const halm = [
-  {
-    file_content: "testtest",
-    file_sha: "4b0a21d6fc27b50db43f673b02254a9c8871c1d9",
-    file_id: "",
-    csv_desc: "",
-    csv_sha: "",
-    file_url: "./contents/JMX Exporter/nc/helm/0.1.1",
-    version: "0.2.1",
-  },
-  {
-    file_content: "mango",
-    file_sha: "4d5e62525ad7c834de7e1acc010da4743d4affd5",
-    file_id: "",
-    csv_desc: "",
-    csv_sha: "",
-    file_url: "./contents/JMX Exporter/nc/helm/0.2.1",
-    version: "0.3.1",
-  },
-];
