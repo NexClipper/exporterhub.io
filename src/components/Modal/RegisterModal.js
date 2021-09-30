@@ -102,7 +102,7 @@ const RegisterModal = ({ cancleModal }) => {
             setPluscategory(false);
             setCreateCategory("");
             setFailMessage("");
-            setCategory("Select category");
+            setCategory(createCategory);
             setExporterTitle("");
             setRepoUrl("");
           })
