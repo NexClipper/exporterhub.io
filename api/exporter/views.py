@@ -526,7 +526,7 @@ class ExporterDetailView(View):
                         })
 
             result = requests.put(url, data=contents, headers={'Content-Type':'application/json','Authorization': 'token ' + token})  
-
+            
             return result
         
         elif result.status_code == 404:
@@ -576,7 +576,6 @@ class ExporterDetailView(View):
             
             detail_description = ''
             get_csv            = self.get_csv(github_token)
-
             if get_csv == 'GITHUB_GET_REPO_ERROR':
                 return JsonResponse({'message': 'GITHUB_API_FAIL'}, status=400)   
             elif not get_csv:
@@ -639,7 +638,7 @@ class ExporterDetailView(View):
                     name        = exporter.name,
                     description = description,
                 )
-                  
+                
                 if result.status_code == 201 or 200:
                     response = {
                         "exporter_id"   : exporter.id,
