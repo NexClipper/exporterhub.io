@@ -965,7 +965,8 @@ class ExporterTabView(View):
             csv_desc       = data["csv_desc"] if data["csv_desc"] else '-'
             csv_sha        = data['csv_sha'] if data['file_sha'] else ''
             file_id        = data['file_id'] if data['file_id'] else ''
-            version        = data['version']
+            #version        = data['version']
+            version = "1.0.1"
             
             if content_type == 'helm':
                 helm_result = self.helm_to_github(app_name=app_name, token=token, content_type=content_type, content = file_content, file_type = type[content_type], sha=file_sha, version = version)
