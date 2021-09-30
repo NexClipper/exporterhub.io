@@ -260,6 +260,7 @@ const ExporterDetailTabList = ({
                           dark={changeTheme}
                           isEditMode={true}
                           active={target === versionName}
+                          version="version"
                         >
                           <Div
                             dark={changeTheme}
@@ -277,6 +278,7 @@ const ExporterDetailTabList = ({
                           fileName_version.map((ele) => {
                             return (
                               <Category
+                                fileName="fileName"
                                 active={
                                   ele.file_id + "/" + ele.version === select
                                 }
@@ -295,12 +297,14 @@ const ExporterDetailTabList = ({
                                   }}
                                 >
                                   <Arrow />
-                                  {descriptionDecode(
-                                    ele.file_url.slice(
-                                      ele.file_url.lastIndexOf("/") + 1,
-                                      ele.file_url.lastIndexOf("_")
-                                    )
-                                  )}
+                                  <FileName>
+                                    {descriptionDecode(
+                                      ele.file_url.slice(
+                                        ele.file_url.lastIndexOf("/") + 1,
+                                        ele.file_url.lastIndexOf("_")
+                                      )
+                                    )}
+                                  </FileName>
                                 </Div>
                                 {isEditMode &&
                                   ele.file_id + "/" + ele.version ===
@@ -403,22 +407,27 @@ const Category = styled.li`
   justify-content: ${({ addIcon }) => addIcon && "center"};
   margin-left: 0px;
   position: relative;
-  background: ${({ active }) => active && "#eee"};
+  background: ${({ version, active, fileName }) =>
+    active
+      ? version === "version"
+        ? "#f4f4f4"
+        : "#eee"
+      : fileName === "fileName" && "#f4f4f4"};
   cursor: pointer;
-  color: ${(props) => (props.dark ? "#f5f6f7" : "#999")};
+  color: ${(props) => (props.dark ? "#999" : "#999")};
   color: ${({ active }) => active && "black"};
 
   @media ${({ theme }) => theme.media.mobile} {
     justify-content: start;
     margin-left: ${({ addIcon }) => (addIcon ? "5px" : "24px")};
-    color: ${(props) => (props.dark ? "#949697" : "#black")};
-    color: ${({ active }) => active && "white"};
+    color: ${({ active, dark }) =>
+      dark ? (active ? "white" : "#949697") : active ? "eee" : "#black"};
     background: transparent;
     border-bottom: none;
   }
 
   &:hover {
-    background: #eee;
+    background: ${(props) => (props.dark ? "#eee" : "#black")};
     color: black;
     @media ${({ theme }) => theme.media.mobile} {
       background: transparent;
@@ -445,11 +454,19 @@ const Category = styled.li`
     }
   }
 `;
-
+const FileName = styled.div`
+  width: 120px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+`;
 const Div = styled.div`
   flex: 8;
+  display: flex;
+
   padding: ${(props) =>
-    props.fileName ? "3px 5px 3px 10px" : "3px 30px 3px 10px"};
+    props.fileName ? "3px 5px 3px 10px" : "3px 0px 3px 10px"};
+  width: 100%;
   text-overflow: ellipsis;
   overflow: hidden;
 
