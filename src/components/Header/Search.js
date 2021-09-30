@@ -3,17 +3,25 @@ import { useDispatch, useSelector } from "react-redux";
 import { filterBySearch } from "../../store/actions/exporterActions";
 import styled from "styled-components";
 import { SearchOutlined } from "@ant-design/icons";
+
 const Search = () => {
   const changeTheme = useSelector((store) => store.darkThemeReducer);
+  const searchKeyValue = useSelector((store) => store.searchFilterReducer);
   const dispatch = useDispatch();
   const inputHandler = (e) => {
     const payload = e.target.value.toLowerCase();
     dispatch(filterBySearch(payload));
   };
+
   return (
     <Div dark={changeTheme}>
       <SearchOutlined className="search_icon" />
-      <input onChange={inputHandler} type="text" placeholder="Search" />
+      <input
+        onChange={inputHandler}
+        type="text"
+        placeholder="Search"
+        value={searchKeyValue}
+      />
     </Div>
   );
 };

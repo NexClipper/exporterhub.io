@@ -41,6 +41,20 @@ const ExporterTabCodeEditor = ({
   );
   const [sameFileName, setSameFileName] = useState(false);
 
+  const descriptionEncode = (description) => {
+    let descriptionEncodeValue = JSON.stringify(description)
+      .replace(/\\n/g, "@>@")
+      .replace(/\\"/g, "@$#");
+    return descriptionEncodeValue.slice(1).slice(0, -1);
+  };
+
+  const descriptionDecode = (description) => {
+    let descriptionDecodeValue = description
+      .replace(/@>@/g, "\n")
+      .replace(/@\$#/g, '"');
+    return descriptionDecodeValue;
+  };
+
   useEffect(() => {
     dispatch(
       beforeEdittingExporterTab(
@@ -91,12 +105,14 @@ const ExporterTabCodeEditor = ({
       isSame = exporterCsv.filter(
         (file) =>
           edittingExporterFile.fileName.toLowerCase() ===
-          file.file_url
-            .slice(
-              file.file_url.lastIndexOf("/") + 1,
-              file.file_url.lastIndexOf("_")
-            )
-            .toLowerCase()
+          descriptionDecode(
+            file.file_url
+              .slice(
+                file.file_url.lastIndexOf("/") + 1,
+                file.file_url.lastIndexOf("_")
+              )
+              .toLowerCase()
+          )
       );
     }
     if (edittingExporterFile.fileName === "") {
@@ -121,10 +137,10 @@ const ExporterTabCodeEditor = ({
       data: {
         file_id: fileId,
         file_content: edittingExporterFile.content,
-        file_name: edittingExporterFile.fileName,
+        file_name: descriptionEncode(edittingExporterFile.fileName),
         file_sha: fileSha,
         csv_sha: csvSha,
-        csv_desc: edittingExporterFile.description,
+        csv_desc: descriptionEncode(edittingExporterFile.description),
       },
     })
       .then((res) => {
@@ -171,7 +187,7 @@ const ExporterTabCodeEditor = ({
             placeholder="Description"
             value={edittingExporterFile.description}
             cols="150"
-            rows="3"
+            rows="5"
             dark={changeTheme}
             onChange={handleFileInfo}
           />
