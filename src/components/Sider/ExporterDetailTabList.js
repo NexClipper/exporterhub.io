@@ -3,11 +3,17 @@ import { useSelector } from "react-redux";
 import axios from "axios";
 import { TiPencil } from "react-icons/ti";
 import { FiPlus } from "react-icons/fi";
-import { RiDeleteBin6Line } from "react-icons/ri";
+import {
+  RiDeleteBin6Line,
+  RiFolderTransferLine,
+  RiFolderDownloadLine,
+} from "react-icons/ri";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
+import { BsArrowReturnRight } from "react-icons/bs";
 import DeleteModal from "../Modal/DeleteModal";
 import { API_SURVER } from "../../config";
 import { set } from "js-cookie";
+import { Fragment, useState, useEffect } from "react";
 
 const ExporterDetailTabList = ({
   setExporterCsv,
@@ -21,18 +27,40 @@ const ExporterDetailTabList = ({
   setModify,
   handleMode,
   mobile,
-  saveEdit,
-  setSaveEdit,
   moveId,
   setMoveId,
   deleteFile,
   setDeleteFile,
+  target,
+  setTarget,
 }) => {
   const changeTheme = useSelector((store) => store.darkThemeReducer);
   const edittingFile = useSelector((store) => store.exporterTabEdittingReducer);
   const beforeEditFile = useSelector(
     (store) => store.exporterTabBeforeEditReducer
   );
+  const [saveEdit, setSaveEdit] = useState(false);
+
+  const uni = () => {
+    let versions = [];
+    for (let i in exporterCsv) {
+      versions.push(exporterCsv[i].version);
+    }
+    let uniqueVersion = Array.from(new Set(versions));
+    return uniqueVersion;
+  };
+
+  const fil = () => {
+    let list = [];
+    list =
+      exporterCsv !== "default" &&
+      exporterCsv.filter((file) => file.version === target);
+
+    return list;
+  };
+
+  const versionValue = uni();
+  const mmm = fil(versionValue);
 
   const dontSaved =
     modify && JSON.stringify(edittingFile) !== JSON.stringify(beforeEditFile);
@@ -40,17 +68,21 @@ const ExporterDetailTabList = ({
     if (exporterCsv.length !== 0) {
       if (select === "New") {
         setSelect(exporterCsv[0].file_id + "/" + exporterCsv[0].version);
+        setTarget(versionValue[0]);
         setModify(false);
       } else {
+        setTarget("");
         setSelect("New");
         setModify(true);
       }
     } else {
       if (select === "New") {
         setSelect(0);
+        setTarget("");
         setModify(false);
       } else {
         setSelect("New");
+        setTarget("New");
         setModify(true);
       }
     }
@@ -72,13 +104,20 @@ const ExporterDetailTabList = ({
     }
   };
 
-  const handleSave = (answer) => {
+  const handleSaveAnswer = (answer) => {
     if (answer === "Yes") {
       if (moveId === "New") {
         handleFileAdd();
       } else {
-        setSelect(moveId);
-        setModify(false);
+        if (type === "_helm.yaml") {
+          setSelect(moveId);
+          setModify(false);
+        } else {
+          const list = exporterCsv.filter((file) => file.version === moveId);
+          setTarget(moveId);
+          setSelect(list[0].file_id + "/" + list[0].version);
+          setModify(false);
+        }
       }
     }
     setSaveEdit(false);
@@ -99,7 +138,6 @@ const ExporterDetailTabList = ({
 
   const handleDelete = () => {
     const fileType = type.slice(1, type.lastIndexOf("."));
-
     axios({
       method: "DELETE",
       url: `${API_SURVER}/exporter/${id}/tab?type=${fileType}&file_id=${select.slice(
@@ -129,6 +167,22 @@ const ExporterDetailTabList = ({
     }
   };
 
+  const handleVersionFile = (version) => {
+    if (dontSaved) {
+      setMoveId(version);
+      setSaveEdit(true);
+    } else {
+      const list = exporterCsv.filter((file) => file.version === version);
+      setTarget(version);
+      setSelect(list[0].file_id + "/" + list[0].version);
+      setModify(false);
+    }
+  };
+
+  const handleFileInVersion = (fileIdInVersion) => {
+    setSelect(fileIdInVersion + "/" + target);
+  };
+
   return (
     <>
       <Title dark={changeTheme}>
@@ -156,60 +210,121 @@ const ExporterDetailTabList = ({
         <CategoryBox>
           <div>
             {exporterCsv.length !== 0
-              ? exporterCsv.map((file) => {
-                  let github = descriptionDecode(
-                    file.file_url.slice(
-                      file.file_url.lastIndexOf("/") + 1,
-                      file.file_url.lastIndexOf("_")
-                    )
-                  );
-                  return (
-                    <Category
-                      active={file.file_id + "/" + file.version === select}
-                      dark={changeTheme}
-                      isEditMode={isEditMode}
-                      key={file.file_id + file.version}
-                      title={
-                        type !== "_helm.yaml"
-                          ? github + "." + file.version
-                          : file.version
-                      }
-                    >
-                      <Div
+              ? type === "_helm.yaml"
+                ? exporterCsv.map((file) => {
+                    return (
+                      <Category
                         active={file.file_id + "/" + file.version === select}
                         dark={changeTheme}
-                        fileName={
-                          isEditMode &&
-                          file.file_id + "/" + file.version === select
-                        }
-                        onClick={() =>
-                          handleChangeFile(file.file_id + "/" + file.version)
-                        }
+                        isEditMode={isEditMode}
+                        key={file.file_id + file.version}
+                        title={file.version}
                       >
-                        {type !== "_helm.yaml"
-                          ? github + "." + file.version
-                          : file.version}
-                      </Div>
+                        <Div
+                          active={file.file_id + "/" + file.version === select}
+                          dark={changeTheme}
+                          fileName={
+                            isEditMode &&
+                            file.file_id + "/" + file.version === select
+                          }
+                          onClick={() =>
+                            handleChangeFile(file.file_id + "/" + file.version)
+                          }
+                        >
+                          {file.version}
+                        </Div>
 
-                      {isEditMode &&
-                        file.file_id + "/" + file.version === select && (
-                          <EditBox>
-                            <EditIcon
-                              as={TiPencil}
-                              className="edit"
-                              onClick={() => setModify(true)}
-                            />
-                            <EditIcon
-                              className="edit"
-                              onClick={() => {
-                                setDeleteFile(true);
-                              }}
-                            />
-                          </EditBox>
-                        )}
-                    </Category>
-                  );
-                })
+                        {isEditMode &&
+                          file.file_id + "/" + file.version === select && (
+                            <EditBox>
+                              <EditIcon
+                                as={TiPencil}
+                                className="edit"
+                                onClick={() => setModify(true)}
+                              />
+                              <EditIcon
+                                className="edit"
+                                onClick={() => {
+                                  setDeleteFile(true);
+                                }}
+                              />
+                            </EditBox>
+                          )}
+                      </Category>
+                    );
+                  })
+                : versionValue.map((versionName) => {
+                    return (
+                      <Fragment key={versionName}>
+                        <Category
+                          dark={changeTheme}
+                          isEditMode={true}
+                          active={target === versionName}
+                        >
+                          <Div
+                            dark={changeTheme}
+                            onClick={() => handleVersionFile(versionName)}
+                          >
+                            {target !== versionName ? (
+                              <VersionFolder1 />
+                            ) : (
+                              <VersionFolder2 />
+                            )}
+                            {versionName}
+                          </Div>
+                        </Category>
+                        {versionName === target &&
+                          mmm.map((ele) => {
+                            return (
+                              <Category
+                                active={
+                                  ele.file_id + "/" + ele.version === select
+                                }
+                                dark={changeTheme}
+                                isEditMode={isEditMode}
+                                key={ele.file_id + ele.version}
+                              >
+                                <Div
+                                  active={
+                                    ele.file_id + "/" + ele.version === select
+                                  }
+                                  dark={changeTheme}
+                                  onClick={(e) => {
+                                    e.stopPropagation();
+                                    handleFileInVersion(ele.file_id);
+                                  }}
+                                >
+                                  <Arrow />
+                                  {descriptionDecode(
+                                    ele.file_url.slice(
+                                      ele.file_url.lastIndexOf("/") + 1,
+                                      ele.file_url.lastIndexOf("_")
+                                    )
+                                  )}
+                                </Div>
+                                {isEditMode &&
+                                  ele.file_id + "/" + ele.version ===
+                                    select && (
+                                    <EditBox>
+                                      <EditIcon
+                                        as={TiPencil}
+                                        className="edit"
+                                        onClick={() => setModify(true)}
+                                      />
+                                      <EditIcon
+                                        className="edit"
+                                        onClick={() => {
+                                          setDeleteFile(true);
+                                        }}
+                                      />
+                                    </EditBox>
+                                  )}
+                              </Category>
+                            );
+                          })}
+                      </Fragment>
+                    );
+                  })
               : select !== "New" && (
                   <Category>
                     <Div dark={changeTheme}>
@@ -217,7 +332,6 @@ const ExporterDetailTabList = ({
                     </Div>
                   </Category>
                 )}
-
             {isEditMode && select === "New" && (
               <Category
                 dark={changeTheme}
@@ -243,7 +357,7 @@ const ExporterDetailTabList = ({
       )}
       {saveEdit && (
         <DeleteModal
-          handleDelete={handleSave}
+          handleDelete={handleSaveAnswer}
           content="Don't you want to save the changes you made?"
         ></DeleteModal>
       )}
@@ -297,8 +411,10 @@ const Category = styled.li`
   @media ${({ theme }) => theme.media.mobile} {
     justify-content: start;
     margin-left: ${({ addIcon }) => (addIcon ? "5px" : "24px")};
-    color: ${(props) => (props.dark ? "#f5f6f7" : "#black")};
+    color: ${(props) => (props.dark ? "#949697" : "#black")};
+    color: ${({ active }) => active && "white"};
     background: transparent;
+    border-bottom: none;
   }
 
   &:hover {
@@ -306,7 +422,7 @@ const Category = styled.li`
     color: black;
     @media ${({ theme }) => theme.media.mobile} {
       background: transparent;
-      color: ${(props) => (props.dark ? "#f5f6f7" : "#black")};
+      color: ${(props) => (props.dark ? "white" : "#black")};
     }
   }
 
@@ -341,8 +457,8 @@ const Div = styled.div`
     flex: none;
     font-size: 13px;
     padding: 0;
-    border-bottom: ${({ dark, active }) =>
-      active ? (dark ? "1px solid #f5f6f7" : "1px solid black") : ""};
+    /* border-bottom: ${({ dark, active }) =>
+      active ? (dark ? "1px solid #f5f6f7" : "1px solid black") : ""}; */
   }
 `;
 
@@ -380,4 +496,18 @@ const Loading = styled.div`
 
 const EditIcon = styled(RiDeleteBin6Line)`
   z-index: 3;
+`;
+
+const Arrow = styled(BsArrowReturnRight)`
+  margin: 0px 3px 0px 20px;
+  @media ${({ theme }) => theme.media.mobile} {
+    margin: 0px 3px 0px 30px;
+  }
+`;
+
+const VersionFolder1 = styled(RiFolderTransferLine)`
+  margin: 0px 10px 0px 2px;
+`;
+const VersionFolder2 = styled(RiFolderDownloadLine)`
+  margin: 0px 10px 0px 2px;
 `;

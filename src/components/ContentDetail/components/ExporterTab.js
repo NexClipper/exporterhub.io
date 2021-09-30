@@ -14,9 +14,9 @@ const ExporterTab = ({ title, type }) => {
   const [isEditMode, setIsEditMode] = useState(false);
   const [modify, setModify] = useState(false);
   const [select, setSelect] = useState(0);
-  const [saveEdit, setSaveEdit] = useState(false);
   const [moveId, setMoveId] = useState(false);
   const [deleteFile, setDeleteFile] = useState(false);
+  const [target, setTarget] = useState("");
 
   const handleMode = () => {
     if (isEditMode) {
@@ -38,30 +38,31 @@ const ExporterTab = ({ title, type }) => {
     const HEADER = TOKEN && { Authorization: TOKEN };
     const fileType = type.slice(1, type.lastIndexOf("."));
 
-    axios({
-      method: "GET",
-      url: `${API_SURVER}/exporter/${id}/tab?type=${fileType}`,
-      headers: HEADER,
-    })
-      .then((res) => {
-        console.log(res);
-        setExporterCsv(
-          res.data.message === "No_Content" ? [] : res.data.message
-        );
-        res.data.message !== "No_Content"
-          ? setSelect(
-              res.data.message[0].file_id + "/" + res.data.message[0].version
-            )
-          : setSelect(0);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    // axios({
+    //   method: "GET",
+    //   url: `${API_SURVER}/exporter/${id}/tab?type=${fileType}`,
+    //   headers: HEADER,
+    // })
+    //   .then((res) => {
+    //     console.log(res);
+    //     setExporterCsv(
+    //       res.data.message === "No_Content" ? [] : res.data.message
+    //     );
+    //     res.data.message !== "No_Content"
+    //       ? setSelect(
+    //           res.data.message[0].file_id + "/" + res.data.message[0].version
+    //         )
+    //       : setSelect(0);
+    //   })
+    //   .catch((err) => {
+    //     console.log(err);
+    //   });
 
     // const fileTab = halm;
-    // const fileTab = file;
-    // setExporterCsv(fileTab);
-    // setSelect(fileTab[0].file_id + "/" + fileTab[0].version);
+    const fileTab = file;
+    setExporterCsv(fileTab);
+    setTarget(fileTab[0].version);
+    setSelect(fileTab[0].file_id + "/" + fileTab[0].version);
   };
 
   return (
@@ -79,12 +80,12 @@ const ExporterTab = ({ title, type }) => {
             setModify={setModify}
             handleMode={handleMode}
             setExporterCsv={setExporterCsv}
-            saveEdit={saveEdit}
-            setSaveEdit={setSaveEdit}
             moveId={moveId}
             setMoveId={setMoveId}
             deleteFile={deleteFile}
             setDeleteFile={setDeleteFile}
+            target={target}
+            setTarget={setTarget}
           />
         </TabListbox>
       </div>
@@ -103,18 +104,16 @@ const ExporterTab = ({ title, type }) => {
               setModify={setModify}
               handleMode={handleMode}
               setExporterCsv={setExporterCsv}
-              saveEdit={saveEdit}
-              setSaveEdit={setSaveEdit}
               moveId={moveId}
               setMoveId={setMoveId}
               deleteFile={deleteFile}
               setDeleteFile={setDeleteFile}
+              target={target}
+              setTarget={setTarget}
             />
           </MobileTabListbox>
         </div>
         <ExporterTabDataviewer
-          saveEdit={saveEdit}
-          setSaveEdit={setSaveEdit}
           setExporterCsv={setExporterCsv}
           setModify={setModify}
           select={select}
@@ -205,6 +204,15 @@ const file = [
     csv_desc: "sadfsadf",
     csv_sha: "6923eb1e412d7f0e59f9fa0108b04fb8db6efb08",
     file_url: "./contents/JMX Exporter/nc/0.2.1/sadf_alert.yaml",
+    version: "0.3.1",
+  },
+  {
+    file_content: "sdafsadfdsf",
+    file_sha: "0ca2a3bae89e10abdd20d4f27b94c108e2020ec6",
+    file_id: "04",
+    csv_desc: "sadfsadf",
+    csv_sha: "6923eb1e412d7f0e59f9fa0108b04fb8db6efb08",
+    file_url: "./contents/JMX Exporter/nc/0.2.1/마마마_alert.yaml",
     version: "0.3.1",
   },
 ];

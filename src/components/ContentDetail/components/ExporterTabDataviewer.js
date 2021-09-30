@@ -6,7 +6,7 @@ import ExporterTabCodeEditor from "./ExporterTabCodeEditor";
 import DeleteModal from "../../Modal/DeleteModal";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
 import NoData from "./NoData";
-import { Fragment } from "react";
+import { Fragment, useState } from "react";
 const ExporterTabDataviewer = ({
   modify,
   handleMode,
@@ -18,9 +18,8 @@ const ExporterTabDataviewer = ({
   select,
   setModify,
   setExporterCsv,
-  saveEdit,
-  setSaveEdit,
 }) => {
+  const [saveEdit, setSaveEdit] = useState(false);
   const isAdmin = useSelector((store) => store.adminReducer);
   const changeTheme = useSelector((store) => store.darkThemeReducer);
   const emty = exporterCsv !== "default" ? exporterCsv.length === 0 : false;

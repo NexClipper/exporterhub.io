@@ -102,7 +102,11 @@ const ExporterTabCodeEditor = ({
       dispatch(edittingExporterTabDescription(target.value));
     } else if (target.id === "version") {
       dispatch(edittingExporterTabVersion(target.value));
-      setSameFileName(false);
+      beforeEditFile.version !== "" && target.value !== beforeEditFile.version
+        ? setSameFileName(
+            "A new file is created when the version number changes"
+          )
+        : setSameFileName(false);
     }
   };
 
@@ -156,7 +160,13 @@ const ExporterTabCodeEditor = ({
       setSameFileName("The same version exists.");
     }
   };
-
+  // console.log(`file_id:${fileId},
+  //       file_content: ${edittingExporterFile.content},
+  //       file_name: ${descriptionEncode(edittingExporterFile.fileName)},
+  //       file_sha: ${fileSha},
+  //       csv_sha: ${csvSha},
+  //       csv_desc: ${descriptionEncode(edittingExporterFile.description)},
+  //       version: ${edittingExporterFile.version},`);
   const handlefetchGithub = () => {
     const fileType = type.slice(1, type.lastIndexOf("."));
     axios({
@@ -235,6 +245,12 @@ const ExporterTabCodeEditor = ({
           )}
           {sameFileName === "Enter the version." && (
             <Same type={type} version="version">
+              {sameFileName}
+            </Same>
+          )}
+          {sameFileName ===
+            "A new file is created when the version number changes" && (
+            <Same type={type} version="version" change="change">
               {sameFileName}
             </Same>
           )}
@@ -419,8 +435,8 @@ const FileInputbox = styled.div`
 
 const Same = styled.p`
   width: 100%;
-  color: red;
-  margin: 0px 5px 5px;
+  color: ${({ change }) => (change === "change" ? "black" : "red")};
+  margin: 0px 8px 5px 1px;
   text-align: ${({ version, type }) =>
     type !== "_helm.yaml" && version === "version" && "right"};
 `;
