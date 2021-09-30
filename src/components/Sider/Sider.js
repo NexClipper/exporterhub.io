@@ -191,21 +191,21 @@ const Sider = () => {
                 edit={edit}
                 dark={changeTheme}
                 active={category.category_id === categoryAct}
+                onClick={() => {
+                  handleClickCategoryAct(category.category_id);
+                  callDispatch(category.category_name);
+                  alert !== false && setAlert(false);
+                }}
               >
                 <Div
                   select={categoryAct === category.category_id}
                   title={category.category_name}
-                  onClick={() => {
-                    handleClickCategoryAct(category.category_id);
-                    callDispatch(category.category_name);
-                    alert !== false && setAlert(false);
-                  }}
                 >
                   <span className="categoryName">{category.category_name}</span>
                   {isNew && <span className="new">New</span>}
                 </Div>
 
-                {edit && categoryAct === category.category_id && (
+                {edit && (
                   <DeleteIcon
                     onClick={() => {
                       addCategory(category);

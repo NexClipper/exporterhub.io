@@ -335,7 +335,11 @@ const Button = styled.button`
   box-shadow: 1px 1px 6px 1px rgba(0, 0, 0, 0.1);
   border-radius: 5px;
   font-size: 12px;
-  font-weight: 300;
+  font-weight: 400;
+  &:hover {
+    background-color: #85dbc3;
+    color: #fff;
+  }
 `;
 
 const Sort = styled.div`
