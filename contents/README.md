@@ -1,4 +1,4 @@
-## update here for Alert & Dashboard contents
+# Update here for Alert & Dashboard contents
 
 ## Naming & directory convention
 * Host (1) exporter and (2) helm, (3) alert file, (4) Grafana dashboard and (5) Review & key metrics introduction (compliant with NexClipper) in ExporterHub for NexClipper to use for exporter, rule and dashboard installation.
