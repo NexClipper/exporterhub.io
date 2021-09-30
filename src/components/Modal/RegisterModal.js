@@ -9,7 +9,7 @@ import { Fragment } from "react";
 const RegisterModal = ({ cancleModal }) => {
   const categories = useSelector((store) => store.categoryReducer);
   const [exporterTitle, setExporterTitle] = useState("");
-  const [repoUrl, setRepoUrl] = useState("Default");
+  const [repoUrl, setRepoUrl] = useState("");
   const [category, setCategory] = useState("Select category");
   const [failMessage, setFailMessage] = useState("");
   const [pluscategory, setPluscategory] = useState(false);
@@ -102,9 +102,9 @@ const RegisterModal = ({ cancleModal }) => {
             setPluscategory(false);
             setCreateCategory("");
             setFailMessage("");
-            setCategory("Select category");
-            setExporterTitle("");
-            setRepoUrl("");
+            setCategory(createCategory);
+            setExporterTitle(exporterTitle);
+            setRepoUrl(repoUrl);
           })
           .catch((error) => {});
       } else {
@@ -145,11 +145,13 @@ const RegisterModal = ({ cancleModal }) => {
                 className="inputDiv"
                 onChange={inputExporterTitle}
                 placeholder="exporter title"
+                value={exporterTitle}
               ></input>
               <input
                 className="inputDiv"
                 onChange={inputRepoUrl}
                 placeholder="repository url"
+                value={repoUrl}
               ></input>
             </Fragment>
           )}
@@ -167,8 +169,8 @@ const RegisterModal = ({ cancleModal }) => {
                 setPluscategory(false);
                 setCategory("Select category");
                 setFailMessage("");
-                setExporterTitle("");
-                setRepoUrl("");
+                setExporterTitle(exporterTitle);
+                setRepoUrl(repoUrl);
               }}
             >
               Back
