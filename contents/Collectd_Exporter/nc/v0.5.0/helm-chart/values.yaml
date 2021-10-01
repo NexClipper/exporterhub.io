@@ -1,0 +1,134 @@
+# Default values for prometheus-collectd-exporter.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+image:
+  repository: prom/collectd-exporter
+  tag: v0.5.0
+  pullPolicy: IfNotPresent
+
+hostPort: 9103
+
+
+network_plugin:
+  enabled: true
+  port: 25826
+
+
+prometheus:
+  monitor:
+    enabled: false
+    additionalLabels: {}
+    namespace: ""
+    scheme: http
+    bearerTokenFile:
+    tlsConfig: {}
+
+    ## proxyUrl: URL of a proxy that should be used for scraping.
+    ##
+    proxyUrl: ""
+
+    relabelings: []
+    scrapeTimeout: 10s
+
+## Customize the updateStrategy if set
+updateStrategy:
+  type: RollingUpdate
+  rollingUpdate:
+    maxUnavailable: 1
+
+resources: {}
+  # We usually recommend not to specify default resources and to leave this as a conscious
+  # choice for the user. This also increases chances charts run on environments with little
+  # resources, such as Minikube. If you do want to specify resources, uncomment the following
+  # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
+  # limits:
+  #   cpu: 200m
+  #   memory: 50Mi
+  # requests:
+  #   cpu: 100m
+  #   memory: 30Mi
+
+
+securityContext: {}
+#  fsGroup: 65534
+#  runAsGroup: 65534
+#  runAsNonRoot: true
+#  runAsUser: 65534
+
+containerSecurityContext: {}
+  # capabilities:
+  #   add:
+  #   - SYS_TIME
+
+
+
+# for deployments that have node_exporter deployed outside of the cluster, list
+# their addresses here
+endpoints: []
+
+# Expose the service to the host network
+hostNetwork: true
+
+# Share the host process ID namespace
+hostPID: true
+
+
+## Assign a group of affinity scheduling rules
+##
+affinity: {}
+#   nodeAffinity:
+#     requiredDuringSchedulingIgnoredDuringExecution:
+#       nodeSelectorTerms:
+#         - matchFields:
+#             - key: metadata.name
+#               operator: In
+#               values:
+#                 - target-host-name
+
+# Annotations to be added to node exporter pods
+podAnnotations:
+  # Fix for very slow GKE cluster upgrades
+  cluster-autoscaler.kubernetes.io/safe-to-evict: "true"
+  prometheus.io/scrape: "true"
+  prometheus.io/path: "metrics"
+  prometheus.io/port: "9103"
+
+# Extra labels to be added to node exporter pods
+podLabels: {}
+
+# Custom DNS configuration to be added to prometheus-collectd-exporter pods
+dnsConfig: {}
+# nameservers:
+#   - 1.2.3.4
+# searches:
+#   - ns1.svc.cluster-domain.example
+#   - my.dns.search.suffix
+# options:
+#   - name: ndots
+#     value: "2"
+#   - name: edns0
+
+## Assign a nodeSelector if operating a hybrid cluster
+##
+nodeSelector: {}
+#   beta.kubernetes.io/arch: amd64
+#   beta.kubernetes.io/os: linux
+
+tolerations:
+  - effect: NoSchedule
+    operator: Exists
+
+## Assign a PriorityClassName to pods if set
+# priorityClassName: ""
+
+## Additional container arguments
+##
+extraArgs: []
+
+
+namespaceOverride: ""
+
+
+## Additional InitContainers to initialize the pod
+##
+extraInitContainers: []
