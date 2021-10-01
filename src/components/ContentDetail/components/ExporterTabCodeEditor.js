@@ -12,6 +12,7 @@ import {
   edittingExporterTabContent,
   edittingExporterTabFileName,
   edittingExporterTabDescription,
+  edittingExporterTabVersion,
   beforeEdittingExporterTab,
 } from "../../../store/actions/exporterActions";
 import { API_SURVER } from "../../../config";
@@ -27,6 +28,7 @@ const ExporterTabCodeEditor = ({
   fileSha,
   csvSha,
   fileId,
+  fileVersion,
   setModify,
   exporterCsv,
 }) => {
@@ -63,23 +65,27 @@ const ExporterTabCodeEditor = ({
               fileName: "",
               description: "",
               content: "",
+              version: "",
             }
           : {
               fileName: fileName.slice(0, fileName.lastIndexOf("_")),
               description: fileDescription,
               content: fileContent,
+              version: fileVersion,
             }
       )
     );
-    dispatch(edittingExporterTabContent(fileName === "" ? "" : fileContent));
+    dispatch(edittingExporterTabContent(fileId === "" ? "" : fileContent));
     dispatch(
-      edittingExporterTabDescription(fileName === "" ? "" : fileDescription)
+      edittingExporterTabDescription(fileId === "" ? "" : fileDescription)
     );
     dispatch(
       edittingExporterTabFileName(
-        fileName === "" ? "" : fileName.slice(0, fileName.lastIndexOf("_"))
+        fileId === "" ? "" : fileName.slice(0, fileName.lastIndexOf("_"))
       )
     );
+
+    dispatch(edittingExporterTabVersion(fileId === "" ? "" : fileVersion));
   }, [fileName]);
 
   const onChange = (value) => {
@@ -94,6 +100,13 @@ const ExporterTabCodeEditor = ({
       dispatch(edittingExporterTabFileName(target.value));
     } else if (target.id === "description") {
       dispatch(edittingExporterTabDescription(target.value));
+    } else if (target.id === "version") {
+      dispatch(edittingExporterTabVersion(target.value));
+      beforeEditFile.version !== "" && target.value !== beforeEditFile.version
+        ? setSameFileName(
+            "* A new file is created when the version number changes"
+          )
+        : setSameFileName(false);
     }
   };
 
@@ -115,14 +128,62 @@ const ExporterTabCodeEditor = ({
           )
       );
     }
-    if (edittingExporterFile.fileName === "") {
-      setSameFileName("Enter the file name.");
-    } else if (isSame.length === 0) {
+    let isSameVersion = [];
+    if (beforeEditFile.version === edittingExporterFile.version) {
+      isSameVersion = [];
+    } else {
+      isSameVersion = exporterCsv.filter(
+        (file) => edittingExporterFile.version === file.version
+      );
+    }
+    let bothSame = [];
+    bothSame = exporterCsv.filter(
+      (file) =>
+        edittingExporterFile.version === file.version &&
+        edittingExporterFile.fileName.toLowerCase() ===
+          descriptionDecode(
+            file.file_url
+              .slice(
+                file.file_url.lastIndexOf("/") + 1,
+                file.file_url.lastIndexOf("_")
+              )
+              .toLowerCase()
+          )
+    );
+
+    if (type !== "_helm.yaml" && edittingExporterFile.version !== "") {
+      if (edittingExporterFile.fileName === "") {
+        setSameFileName("Enter the file name.");
+      } else if (isSameVersion.length === 0 && isSame.length !== 0) {
+        if (bothSame.length === 0) {
+          setExporterCsv("default");
+          setModify(false);
+          handlefetchGithub();
+        }
+        setSameFileName("The same file name exists in same version");
+      } else if (isSame.length === 0 || isSameVersion.length === 0) {
+        setExporterCsv("default");
+        setModify(false);
+        handlefetchGithub();
+      } else {
+        if (bothSame.length === 0) {
+          setExporterCsv("default");
+          setModify(false);
+          handlefetchGithub();
+        }
+        setSameFileName("The same file name exists in same version");
+      }
+    } else if (
+      isSameVersion.length === 0 &&
+      edittingExporterFile.version !== ""
+    ) {
       setExporterCsv("default");
       setModify(false);
       handlefetchGithub();
+    } else if (edittingExporterFile.version === "") {
+      setSameFileName("Enter the version.");
     } else {
-      setSameFileName("The same file name exists.");
+      setSameFileName("The same version exists.");
     }
   };
 
@@ -135,12 +196,13 @@ const ExporterTabCodeEditor = ({
         Authorization: sessionStorage.getItem("access_token"),
       },
       data: {
-        file_id: fileId,
+        file_id: fileId.slice(0, fileId.lastIndexOf("/")),
         file_content: edittingExporterFile.content,
         file_name: descriptionEncode(edittingExporterFile.fileName),
         file_sha: fileSha,
         csv_sha: csvSha,
         csv_desc: descriptionEncode(edittingExporterFile.description),
+        version: edittingExporterFile.version,
       },
     })
       .then((res) => {
@@ -159,38 +221,78 @@ const ExporterTabCodeEditor = ({
     >
       <EditorContainer>
         <Inputbox className="prevent">
-          <FileName dark={changeTheme}>
-            <Input
-              IsEdit={beforeEditFile.fileName !== edittingExporterFile.fileName}
-              id="fileName"
-              value={edittingExporterFile.fileName}
-              type="text"
-              placeholder="FileName"
-              dark={changeTheme}
-              onChange={handleFileInfo}
-            />
-            <p> {type}</p>
-          </FileName>
-          {sameFileName === "The same file name exists." && (
+          {type !== "_helm.yaml" ? (
+            <FileName dark={changeTheme}>
+              <FileInputbox>
+                <Input
+                  IsEdit={
+                    beforeEditFile.fileName !== edittingExporterFile.fileName
+                  }
+                  id="fileName"
+                  value={edittingExporterFile.fileName}
+                  type="text"
+                  placeholder="FileName"
+                  dark={changeTheme}
+                  onChange={handleFileInfo}
+                />
+                <p> {type}</p>
+              </FileInputbox>
+              <Input
+                onChange={handleFileInfo}
+                value={edittingExporterFile.version}
+                id="version"
+                placeholder="version number 0.0.0"
+              />
+            </FileName>
+          ) : (
+            <FileName dark={changeTheme}>
+              <FileInputbox>
+                {"Helm chart  "}
+                <Input
+                  onChange={handleFileInfo}
+                  value={edittingExporterFile.version}
+                  id="version"
+                  placeholder="version number 0.0.0"
+                />
+              </FileInputbox>
+            </FileName>
+          )}
+          {sameFileName === "The same file name exists in same version" && (
             <Same>{sameFileName}</Same>
           )}
           {sameFileName === "Enter the file name." && (
             <Same>{sameFileName}</Same>
           )}
-          <Input
-            IsEdit={
-              beforeEditFile.description !== edittingExporterFile.description
-            }
-            id="description"
-            as="textarea"
-            name="content"
-            placeholder="Description"
-            value={edittingExporterFile.description}
-            cols="150"
-            rows="5"
-            dark={changeTheme}
-            onChange={handleFileInfo}
-          />
+          {sameFileName === "Enter the version." && (
+            <Same type={type} version="version">
+              {sameFileName}
+            </Same>
+          )}
+          {sameFileName ===
+            "* A new file is created when the version number changes" && (
+            <Same type={type} version="version" change="change">
+              {sameFileName}
+            </Same>
+          )}
+          {sameFileName === "The same version exists." && (
+            <Same type={type}>{sameFileName}</Same>
+          )}
+          {type !== "_helm.yaml" && (
+            <Input
+              IsEdit={
+                beforeEditFile.description !== edittingExporterFile.description
+              }
+              id="description"
+              as="textarea"
+              name="content"
+              placeholder="Description"
+              value={edittingExporterFile.description}
+              cols="150"
+              rows="5"
+              dark={changeTheme}
+              onChange={handleFileInfo}
+            />
+          )}
         </Inputbox>
         <AceEditor
           className="editer"
@@ -248,9 +350,11 @@ const Container = styled.div`
   .ace_editor {
     border: ${(props) =>
       props.dark
-        ? "1px solid #ffffff"
+        ? props.IsEdit
+          ? "1px solid #f89d9e"
+          : "1px solid #ffffff"
         : props.IsEdit
-        ? "1px solid #69c4a6"
+        ? "1px solid #f89d9e"
         : "1px solid rgba(0, 0, 0, 0.2)"};
     border-radius: 4px;
   }
@@ -305,6 +409,8 @@ const Inputbox = styled.div`
 
 const FileName = styled.div`
   display: flex;
+  justify-content: space-between;
+  width: 100%;
   align-items: center;
   margin: 5px 0px 5px;
   font-size: 20px;
@@ -316,22 +422,22 @@ const FileName = styled.div`
 `;
 
 const Input = styled.input`
-  @media ${({ theme }) => theme.media.mobile} {
-    width: 100%;
-    margin: 5px 0px;
-  }
   width: ${(props) => (props.placeholder === "FileName" ? "400px" : "100%")};
+  width: ${(props) =>
+    props.placeholder === "version number 0.0.0" ? "200px" : "100%"};
   height: ${(props) => (props.as ? "" : "30px")};
   resize: ${(props) => (props.as ? "none" : "")};
   word-break: keep-all;
   margin: ${(props) => props.placeholder !== "FileName" && "10px 0px 15px"};
+  margin: ${(props) =>
+    props.placeholder === "version number 0.0.0" && "10px 0px 10px 15px"};
   border: ${(props) =>
     props.dark
       ? props.IsEdit
-        ? "1px solid #69c4a6"
+        ? "1px solid #f89d9e"
         : "1px solid #ffffff"
       : props.IsEdit
-      ? "1px solid #69c4a6"
+      ? "1px solid #f89d9e"
       : "1px solid rgba(0, 0, 0, 0.2)"};
   border-radius: 4px;
   padding-left: 5px;
@@ -340,9 +446,29 @@ const Input = styled.input`
   font-size: ${(props) => (props.placeholder === "FileName" ? "20px" : "15px")};
   letter-spacing: 0.08rem;
   outline: none;
+  @media ${({ theme }) => theme.media.mobile} {
+    width: 100%;
+    margin: 5px 0px;
+    /* width: ${(props) =>
+      props.placeholder === "FileName" ? "400px" : "100%"}; */
+    width: ${(props) =>
+      props.placeholder === "version number 0.0.0"
+        ? "30%"
+        : props.placeholder === "FileName"
+        ? "70%"
+        : "100%"};
+  }
+`;
+
+const FileInputbox = styled.div`
+  display: flex;
+  align-items: center;
 `;
 
 const Same = styled.p`
-  color: red;
-  margin: 0px 5px 5px;
+  width: 100%;
+  color: ${({ change }) => (change === "change" ? "black" : "red")};
+  margin: 0px 8px 10px 1px;
+  text-align: ${({ version, type }) =>
+    type !== "_helm.yaml" && version === "version" && "right"};
 `;
