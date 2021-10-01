@@ -2,10 +2,19 @@
 
 A Prometheus exporter for zookeeper.
 
+### What is zookeeper?
+ZooKeeper is a centralized service for maintaining configuration information, naming, providing distributed synchronization, and providing group services. All of these kinds of services are used in some form or another by distributed applications.
+
+Kafka internally use zookeeper.
+
+This exporter can be used independently as well as with kafka to get the detailed metrics for the kafka cluster.
+
+You can find all the metrics supported by the exporter in the "Zookeeper_Exporter_sample_metrics.md" file in the repository.
+
+
 ### Usage:
 
 Exports mntr zookeeper's stats in prometheus format. zk_followers, zk_synced_followers and zk_pending_syncs metrics are available only on cluster leader.
-
 
 Note: starting from zookeeper v3.4.10 it's required to have mntr command whitelisted (details: 4lw.commands.whitelist).
 
