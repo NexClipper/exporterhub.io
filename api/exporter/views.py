@@ -956,9 +956,9 @@ class ExporterTabView(View):
                 return JsonResponse({'message': 'TITLE_REQUIRED'}, status=400)
             
             type    = {
-                    'alert'     : 'yaml',
-                    'dashboard' : 'json',
-                    'helm'      : 'yaml',
+                    'alert'      : 'yaml',
+                    'dashboard'  : 'json',
+                    'helm-chart' : 'yaml',
                 }
 
             file_sha       = data['file_sha'] if data['file_sha'] else ''
@@ -969,7 +969,7 @@ class ExporterTabView(View):
             file_id        = data['file_id'] if data['file_id'] else ''
             version        = data['version']
             
-            if content_type == 'helm':
+            if content_type == 'helm-chart':
                 helm_result = self.helm_to_github(app_name=app_name, token=token, content_type=content_type, content = file_content, file_type = type[content_type], sha=file_sha, version = version)
 
                 if helm_result == 'GITHUB_REPO_API_ERROR':
