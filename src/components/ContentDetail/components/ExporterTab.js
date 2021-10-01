@@ -14,9 +14,9 @@ const ExporterTab = ({ title, type }) => {
   const [isEditMode, setIsEditMode] = useState(false);
   const [modify, setModify] = useState(false);
   const [select, setSelect] = useState(0);
-  const [saveEdit, setSaveEdit] = useState(false);
   const [moveId, setMoveId] = useState(false);
   const [deleteFile, setDeleteFile] = useState(false);
+  const [target, setTarget] = useState("");
 
   const handleMode = () => {
     if (isEditMode) {
@@ -48,8 +48,13 @@ const ExporterTab = ({ title, type }) => {
           res.data.message === "No_Content" ? [] : res.data.message
         );
         res.data.message !== "No_Content"
-          ? setSelect(res.data.message[0].file_id)
+          ? setSelect(
+              res.data.message[0].file_id + "/" + res.data.message[0].version
+            )
           : setSelect(0);
+        setTarget(
+          res.data.message === "No_Content" ? "0" : res.data.message[0].version
+        );
       })
       .catch((err) => {
         console.log(err);
@@ -71,12 +76,12 @@ const ExporterTab = ({ title, type }) => {
             setModify={setModify}
             handleMode={handleMode}
             setExporterCsv={setExporterCsv}
-            saveEdit={saveEdit}
-            setSaveEdit={setSaveEdit}
             moveId={moveId}
             setMoveId={setMoveId}
             deleteFile={deleteFile}
             setDeleteFile={setDeleteFile}
+            target={target}
+            setTarget={setTarget}
           />
         </TabListbox>
       </div>
@@ -95,12 +100,12 @@ const ExporterTab = ({ title, type }) => {
               setModify={setModify}
               handleMode={handleMode}
               setExporterCsv={setExporterCsv}
-              saveEdit={saveEdit}
-              setSaveEdit={setSaveEdit}
               moveId={moveId}
               setMoveId={setMoveId}
               deleteFile={deleteFile}
               setDeleteFile={setDeleteFile}
+              target={target}
+              setTarget={setTarget}
             />
           </MobileTabListbox>
         </div>

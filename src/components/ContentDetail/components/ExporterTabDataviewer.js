@@ -3,9 +3,10 @@ import styled from "styled-components";
 import { FiEdit } from "react-icons/fi";
 import { BiUndo } from "react-icons/bi";
 import ExporterTabCodeEditor from "./ExporterTabCodeEditor";
+import DeleteModal from "../../Modal/DeleteModal";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
 import NoData from "./NoData";
-import { Fragment } from "react";
+import { Fragment, useState } from "react";
 const ExporterTabDataviewer = ({
   modify,
   handleMode,
@@ -18,12 +19,21 @@ const ExporterTabDataviewer = ({
   setModify,
   setExporterCsv,
 }) => {
+  const [saveEdit, setSaveEdit] = useState(false);
   const isAdmin = useSelector((store) => store.adminReducer);
   const changeTheme = useSelector((store) => store.darkThemeReducer);
   const emty = exporterCsv !== "default" ? exporterCsv.length === 0 : false;
+  const edittingFile = useSelector((store) => store.exporterTabEdittingReducer);
+  const beforeEditFile = useSelector(
+    (store) => store.exporterTabBeforeEditReducer
+  );
+  const dontSaved =
+    modify && JSON.stringify(edittingFile) !== JSON.stringify(beforeEditFile);
   const selectFileInfo =
     select !== "New" && exporterCsv !== "default" && exporterCsv.length !== 0
-      ? exporterCsv.filter((file) => file.file_id === select)
+      ? exporterCsv.filter(
+          (file) => file.file_id + "/" + file.version === select
+        )
       : exporterCsv !== "default" && exporterCsv.length !== 0
       ? [
           {
@@ -33,6 +43,7 @@ const ExporterTabDataviewer = ({
             csv_sha: exporterCsv[0].csv_sha,
             file_id: "",
             csv_desc: "",
+            version: "",
           },
         ]
       : [
@@ -43,6 +54,7 @@ const ExporterTabDataviewer = ({
             csv_sha: "",
             file_id: "",
             csv_desc: "",
+            version: "",
           },
         ];
 
@@ -51,6 +63,23 @@ const ExporterTabDataviewer = ({
       .replace(/@>@/g, "\n")
       .replace(/@\$#/g, '"');
     return descriptionDecodeValue;
+  };
+
+  const handleBack = () => {
+    if (dontSaved) {
+      setSaveEdit(true);
+    } else {
+      setIsEditMode((prev) => !prev);
+      setModify(false);
+    }
+  };
+
+  const handleSave = (answer) => {
+    if (answer === "Yes") {
+      setIsEditMode((prev) => !prev);
+      setModify(false);
+    }
+    setSaveEdit(false);
   };
 
   return (
@@ -63,12 +92,7 @@ const ExporterTabDataviewer = ({
 
         {isAdmin && (
           <div>
-            <Button
-              onClick={() => {
-                setIsEditMode((prev) => !prev);
-                setModify(false);
-              }}
-            >
+            <Button onClick={handleBack}>
               <span>{!isEditMode ? <FiEdit /> : <BiUndo />}</span>
               <span>{!isEditMode ? "edit" : "Back"}</span>
             </Button>
@@ -87,17 +111,26 @@ const ExporterTabDataviewer = ({
               <Fragment>
                 {emty === false && selectFileInfo.length !== 0 ? (
                   <ExporterContainer>
-                    <h1>
-                      {descriptionDecode(
-                        selectFileInfo[0].file_url.slice(
-                          selectFileInfo[0].file_url.lastIndexOf("/") + 1
-                        )
-                      )}
-                    </h1>
-                    <div className="description">
-                      <h3>Description</h3>
-                      {descriptionDecode(selectFileInfo[0].csv_desc)}
-                    </div>
+                    {type !== "_helm.yaml" ? (
+                      <Fragment>
+                        <h1>
+                          {selectFileInfo[0].file_url.slice(
+                            selectFileInfo[0].file_url.lastIndexOf("/") + 1
+                          ) +
+                            "  (" +
+                            selectFileInfo[0].version +
+                            ")"}
+                        </h1>
+                        <div className="description">
+                          <h3>Description</h3>
+                          {descriptionDecode(selectFileInfo[0].csv_desc)}
+                        </div>
+                      </Fragment>
+                    ) : (
+                      <h1>
+                        {"Helm chart (" + selectFileInfo[0].version + ")"}
+                      </h1>
+                    )}
                     <Content dark={changeTheme}>
                       {selectFileInfo[0].file_content}
                     </Content>
@@ -123,11 +156,18 @@ const ExporterTabDataviewer = ({
             fileContent={selectFileInfo[0].file_content}
             fileSha={selectFileInfo[0].file_sha}
             csvSha={selectFileInfo[0].csv_sha}
-            fileId={selectFileInfo[0].file_id}
+            fileId={selectFileInfo[0].file_id + "/" + selectFileInfo[0].version}
+            fileVersion={selectFileInfo[0].version}
             handleMode={handleMode}
           />
         )}
       </div>
+      {saveEdit && (
+        <DeleteModal
+          handleDelete={handleSave}
+          content="Don't you want to save the changes you made?"
+        ></DeleteModal>
+      )}
     </>
   );
 };
@@ -157,6 +197,7 @@ const ContentTitle = styled.h1`
 `;
 
 const ExporterContainer = styled.div`
+  margin-top: 10px;
   width: 100%;
   height: 100%;
   overflow: auto;
