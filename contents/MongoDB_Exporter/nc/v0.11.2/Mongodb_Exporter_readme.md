@@ -2,6 +2,13 @@
 
 A Prometheus exporter for MongoDB including sharding, replication and storage engines
 
+### What is mongodb?
+
+MongoDB is a source-available cross-platform document-oriented database program. Classified as a NoSQL database program, MongoDB uses JSON-like documents with optional schemas.
+
+Mongo db Exporter gives you the most desirable metrics to monitor the activities going in mongoDB. 
+
+All the metrics supported my the exporter are listed in "Mongodb_Exporter_sample_metrics.md" file in the repository.
 
 ### Usage:
 
