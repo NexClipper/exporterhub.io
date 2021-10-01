@@ -117,7 +117,7 @@ const ExporterTabDataviewer = ({
                           {selectFileInfo[0].file_url.slice(
                             selectFileInfo[0].file_url.lastIndexOf("/") + 1
                           ) +
-                            "  (v" +
+                            "  (" +
                             selectFileInfo[0].version +
                             ")"}
                         </h1>
