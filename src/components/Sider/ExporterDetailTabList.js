@@ -416,6 +416,7 @@ const Category = styled.li`
   cursor: pointer;
   color: ${(props) => (props.dark ? "#999" : "#999")};
   color: ${({ active }) => active && "black"};
+  color: ${({ addIcon }) => addIcon && "#f89d9e"};
 
   @media ${({ theme }) => theme.media.mobile} {
     justify-content: start;
@@ -433,6 +434,7 @@ const Category = styled.li`
       background: transparent;
       color: ${(props) => (props.dark ? "white" : "#black")};
     }
+    color: ${({ addIcon }) => addIcon && "red"};
   }
 
   &:after {

@@ -150,45 +150,54 @@ const ExporterTabCodeEditor = ({
               .toLowerCase()
           )
     );
-
-    if (type !== "_helm.yaml" && edittingExporterFile.version !== "") {
-      if (edittingExporterFile.fileName === "") {
-        setSameFileName("Enter the file name.");
-      } else if (isSameVersion.length === 0 && isSame.length !== 0) {
-        if (bothSame.length === 0) {
+    if (edittingExporterFile.version[0] !== "v") {
+      setSameFileName("The version type starts with v");
+    } else {
+      if (type !== "_helm.yaml" && edittingExporterFile.version !== "") {
+        if (edittingExporterFile.fileName === "") {
+          setSameFileName("Enter the file name.");
+        } else if (isSameVersion.length === 0 && isSame.length !== 0) {
+          if (bothSame.length === 0) {
+            setExporterCsv("default");
+            setModify(false);
+            handlefetchGithub();
+          }
+          setSameFileName("The same file name exists in same version");
+        } else if (isSame.length === 0 || isSameVersion.length === 0) {
           setExporterCsv("default");
           setModify(false);
           handlefetchGithub();
+        } else {
+          if (bothSame.length === 0) {
+            setExporterCsv("default");
+            setModify(false);
+            handlefetchGithub();
+          }
+          setSameFileName("The same file name exists in same version");
         }
-        setSameFileName("The same file name exists in same version");
-      } else if (isSame.length === 0 || isSameVersion.length === 0) {
+      } else if (
+        isSameVersion.length === 0 &&
+        edittingExporterFile.version !== ""
+      ) {
         setExporterCsv("default");
         setModify(false);
         handlefetchGithub();
+      } else if (edittingExporterFile.version === "") {
+        setSameFileName("Enter the version.");
       } else {
-        if (bothSame.length === 0) {
-          setExporterCsv("default");
-          setModify(false);
-          handlefetchGithub();
-        }
-        setSameFileName("The same file name exists in same version");
+        setSameFileName("The same version exists.");
       }
-    } else if (
-      isSameVersion.length === 0 &&
-      edittingExporterFile.version !== ""
-    ) {
-      setExporterCsv("default");
-      setModify(false);
-      handlefetchGithub();
-    } else if (edittingExporterFile.version === "") {
-      setSameFileName("Enter the version.");
-    } else {
-      setSameFileName("The same version exists.");
     }
   };
 
   const handlefetchGithub = () => {
-    const fileType = type.slice(1, type.lastIndexOf("."));
+    let fileType;
+    if (type === "_helm.yaml") {
+      fileType = type.slice(1, type.lastIndexOf(".")) + "-chart";
+    } else {
+      fileType = type.slice(1, type.lastIndexOf("."));
+    }
+
     axios({
       method: "POST",
       url: `${API_SURVER}/exporter/${id}/tab?type=${fileType}`,
@@ -241,18 +250,18 @@ const ExporterTabCodeEditor = ({
                 onChange={handleFileInfo}
                 value={edittingExporterFile.version}
                 id="version"
-                placeholder="version number 0.0.0"
+                placeholder="version v0.0.0"
               />
             </FileName>
           ) : (
             <FileName dark={changeTheme}>
-              <FileInputbox>
-                {"Helm chart  "}
+              <FileInputbox helm="helm">
+                {"Helm chart   "}
                 <Input
                   onChange={handleFileInfo}
                   value={edittingExporterFile.version}
                   id="version"
-                  placeholder="version number 0.0.0"
+                  placeholder="version v0.0.0"
                 />
               </FileInputbox>
             </FileName>
@@ -271,6 +280,11 @@ const ExporterTabCodeEditor = ({
           {sameFileName ===
             "* A new file is created when the version number changes" && (
             <Same type={type} version="version" change="change">
+              {sameFileName}
+            </Same>
+          )}
+          {sameFileName === "The version type starts with v" && (
+            <Same type={type} version="version">
               {sameFileName}
             </Same>
           )}
@@ -414,23 +428,19 @@ const FileName = styled.div`
   align-items: center;
   margin: 5px 0px 5px;
   font-size: 20px;
-
-  p {
-    padding-left: 7px;
-    color: ${(props) => (props.dark ? "#ffffff" : "#black")};
-  }
+  color: ${(props) => (props.dark ? "#ffffff" : "#black")};
 `;
 
 const Input = styled.input`
   width: ${(props) => (props.placeholder === "FileName" ? "400px" : "100%")};
   width: ${(props) =>
-    props.placeholder === "version number 0.0.0" ? "200px" : "100%"};
+    props.placeholder === "version v0.0.0" ? "200px" : "100%"};
   height: ${(props) => (props.as ? "" : "30px")};
   resize: ${(props) => (props.as ? "none" : "")};
   word-break: keep-all;
   margin: ${(props) => props.placeholder !== "FileName" && "10px 0px 15px"};
   margin: ${(props) =>
-    props.placeholder === "version number 0.0.0" && "10px 0px 10px 15px"};
+    props.placeholder === "version v0.0.0" && "10px 0px 10px 15px"};
   border: ${(props) =>
     props.dark
       ? props.IsEdit
@@ -452,17 +462,20 @@ const Input = styled.input`
     /* width: ${(props) =>
       props.placeholder === "FileName" ? "400px" : "100%"}; */
     width: ${(props) =>
-      props.placeholder === "version number 0.0.0"
+      props.placeholder === "version v0.0.0"
         ? "30%"
         : props.placeholder === "FileName"
         ? "70%"
         : "100%"};
+    margin: ${(props) =>
+      props.placeholder === "version v0.0.0" && "10px 0px 10px 15px"};
   }
 `;
 
 const FileInputbox = styled.div`
   display: flex;
   align-items: center;
+  width: ${({ helm }) => helm === "helm" && "100%"};
 `;
 
 const Same = styled.p`
