@@ -1115,19 +1115,14 @@ class ExporterTabView(View):
             app_name       = exporter.name
 
             if not app_name:
-                    return JsonResponse({'message': 'TITLE_REQUIRED'}, status=400)
-
-            type    = {
-                    'alert'     : 'yaml',
-                    'dashboard' : 'json',
-                    'helm'      : 'yaml',
-                }
+                return JsonResponse({'message': 'TITLE_REQUIRED'}, status=400)
 
             version   = request.GET['version']
 
             if content_type == 'helm':
-                helm_result = self.helm_file_delete(app_name = app_name, content_type = content_type, file_type = type[content_type], token = token, version=version)
-
+                content_type = 'helm-chart'
+                helm_result = self.helm_file_delete(app_name = app_name, content_type = content_type, file_type = 'yaml', token = token, version=version)
+                
                 if helm_result == 'GITHUB_REPO_API_ERROR':
                     return JsonResponse({'message': 'GITHUB_REPO_API_ERROR'}, status=404)
 
