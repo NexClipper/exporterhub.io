@@ -1,6 +1,6 @@
 docker_version="latest"
-front_tag="release-fe0.3.17-5"
-api_tag="release-api0.3.17-5"
+front_tag="release-fe0.3.17-6"
+api_tag="release-api0.3.17-6"
 
 hello:
 	#

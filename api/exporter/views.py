@@ -789,6 +789,7 @@ class ExporterTabView(View):
             content_type = request.GET['type']
 
             if content_type == 'helm':
+                content_type = 'helm-chart'
                 helm_result = self.get_helm(app_name=exporter.name, content_type=content_type, file_type='yaml', headers=headers)
 
                 if helm_result == 'GITHUB_GET_REPO_ERROR':
