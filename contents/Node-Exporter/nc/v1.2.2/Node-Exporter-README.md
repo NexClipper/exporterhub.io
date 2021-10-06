@@ -1,6 +1,7 @@
 # Node Exporter
 
-
+### What is node exporter?
+Node Exporter is a Prometheus exporter for server level and OS level metrics with configurable metric collectors. It helps us in measuring various server resources such as RAM, disk space, and CPU utilization. Node exporter is a good solution to collect all the Linux server related metrics and statistics for monitoring.
 
 ### Usage:
 
