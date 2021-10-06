@@ -1,0 +1,92 @@
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: {{ template "prometheus-collectd-exporter.fullname" . }}
+  namespace: {{ template "prometheus-collectd-exporter.namespace" . }}
+  labels: {{ include "prometheus-collectd-exporter.labels" . | indent 4 }}
+spec:
+  selector:
+    matchLabels:
+      app: {{ template "prometheus-collectd-exporter.name" . }}
+      release: {{ .Release.Name }}
+  {{- if .Values.updateStrategy }}
+  updateStrategy:
+{{ toYaml .Values.updateStrategy | indent 4 }}
+  {{- end }}
+  template:
+    metadata:
+      labels: {{ include "prometheus-collectd-exporter.labels" . | indent 8 }}
+      {{- if .Values.podAnnotations }}
+      annotations:
+      {{- toYaml .Values.podAnnotations | nindent 8 }}
+      {{- end }}
+    spec:
+{{- if .Values.securityContext }}
+      securityContext:
+{{ toYaml .Values.securityContext | indent 8 }}
+{{- end }}
+{{- if .Values.priorityClassName }}
+      priorityClassName: {{ .Values.priorityClassName }}
+{{- end }}
+      {{- if .Values.extraInitContainers }}
+      initContainers:
+      {{ toYaml .Values.extraInitContainers | nindent 6 }}
+      {{- end }}
+      containers:
+        - name: collectd-exporter
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          args:
+            - "--collectd.listen-address=$(HOST_IP):{{ .Values.hostPort }}"
+{{- if .Values.extraArgs }}
+{{ toYaml .Values.extraArgs | indent 12 }}
+{{- end }}
+          {{- with .Values.containerSecurityContext }}
+          securityContext: {{ toYaml . | nindent 12 }}
+          {{- end }}
+          env:
+          - name: HOST_IP
+            valueFrom:
+              fieldRef:
+                apiVersion: v1
+                fieldPath: status.hostIP
+          ports:
+            {{ if .Values.network_plugin.enabled }}
+            - name: network
+              containerPort: {{ .Values.network_plugin.port }}
+              hostPort: {{ .Values.network_plugin.port }}
+              protocol: UDP
+            {{ end }}
+            - name: metrics
+              containerPort:  {{ .Values.hostPort }}
+              hostPort: {{ .Values.hostPort }}
+              protocol: TCP
+          livenessProbe:
+            httpGet:
+              path: /metrics
+              port: {{ .Values.hostPort }}
+          readinessProbe:
+            httpGet:
+              path: /metrics
+              port: {{ .Values.hostPort }}
+          resources:
+{{ toYaml .Values.resources | indent 12 }}
+
+      hostNetwork: {{ .Values.hostNetwork }}
+      hostPID: {{ .Values.hostPID }}
+{{- if .Values.affinity }}
+      affinity:
+{{ toYaml .Values.affinity | indent 8 }}
+{{- end }}
+{{- with .Values.dnsConfig }}
+      dnsConfig:
+{{ toYaml . | indent 8 }}
+{{- end }}
+{{- if .Values.nodeSelector }}
+      nodeSelector:
+{{ toYaml .Values.nodeSelector | indent 8 }}
+{{- end }}
+    {{- with .Values.tolerations }}
+      tolerations:
+{{ toYaml . | indent 8 }}
+    {{- end }}
