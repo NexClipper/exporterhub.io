@@ -4,6 +4,15 @@ A Prometheus exporter for [Apacher Kafka](https://kafka.apache.org/) metrics.
 
 This chart bootstraps a [Kafka Exporter](https://github.com/danielqsj/kafka_exporter) deployment on a [Kubernetes](http://kubernetes.io) cluster using the [Helm](https://helm.sh) package manager.
 
+### What is kafka?
+
+Apache Kafka is an open-source distributed event streaming platform used by thousands of companies for high-performance data pipelines, streaming analytics, data integration, and mission-critical applications.
+Kafka uses Zookeeper to manage service discovery for Kafka Brokers that form the cluster. Zookeeper sends changes of the topology to Kafka, so each node in the cluster knows when a new broker joined, a Broker died, a topic was removed or a topic was added, etc.
+
+This exporter exports metrics from the kafka such as topics, brokers, lag and many more.
+
+You can see the details of the metrics exported by the exporter in "Kafka_Exporter_sample_metrics.md" file in the repository.  
+
 ### Usage:
 
 The Kafka Exporter collects and exports kafka metrics such as consumer group lags, partitions and replications. 
