@@ -1,0 +1,73 @@
+```  - alert: PostgresqlDown
+    expr: pg_up == 0
+    for: 0m
+    labels:
+      severity: critical
+    annotations:
+      summary: Postgresql down (instance {{ $labels.instance }})
+      description: "Postgresql instance is down\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
+  - alert: PostgresqlRestarted
+    expr: time() - pg_postmaster_start_time_seconds < 60
+    for: 0m
+    labels:
+      severity: critical
+    annotations:
+      summary: Postgresql restarted (instance {{ $labels.instance }})
+      description: "Postgresql restarted\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
+  - alert: PostgresqlExporterError
+    expr: pg_exporter_last_scrape_error > 0
+    for: 0m
+    labels:
+      severity: critical
+    annotations:
+      summary: Postgresql exporter error (instance {{ $labels.instance }})
+      description: "Postgresql exporter is showing errors. A query may be buggy in query.yaml\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
+  - alert: PostgresqlReplicationLag
+    expr: pg_replication_lag > 30 
+    for: 0m
+    labels:
+      severity: critical
+    annotations:
+      summary: Postgresql replication lag (instance {{ $labels.instance }})
+      description: "PostgreSQL replication lag is going up (> 30s)\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
+  - alert: PostgresqlTooManyConnections
+    expr: sum by (datname) (pg_stat_activity_count{datname!~"template.*|postgres"}) > pg_settings_max_connections * 0.8
+    for: 2m
+    labels:
+      severity: warning
+    annotations:
+      summary: Postgresql too many connections (instance {{ $labels.instance }})
+      description: "PostgreSQL instance has too many connections (> 80%).\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
+  - alert: PostgresqlNotEnoughConnections
+    expr: sum by (datname) (pg_stat_activity_count{datname!~"template.*|postgres"}) < 5
+    for: 2m
+    labels:
+      severity: warning
+    annotations:
+      summary: Postgresql not enough connections (instance {{ $labels.instance }})
+      description: "PostgreSQL instance should have more connections (> 5)\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
+  - alert: PostgresqlDeadLocks
+    expr: increase(pg_stat_database_deadlocks{datname!~"template.*|postgres"}[1m]) > 5
+    for: 0m
+    labels:
+      severity: warning
+    annotations:
+      summary: Postgresql dead locks (instance {{ $labels.instance }})
+      description: "PostgreSQL has dead-locks\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
+  - alert: PostgresqlHighRollbackRate
+    expr: rate(pg_stat_database_xact_rollback{datname!~"template.*"}[3m]) / rate(pg_stat_database_xact_commit{datname!~"template.*"}[3m]) > 0.02
+    for: 0m
+    labels:
+      severity: warning
+    annotations:
+      summary: Postgresql high rollback rate (instance {{ $labels.instance }})
+      description: "Ratio of transactions being aborted compared to committed is > 2 %\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
+  - alert: PostgresqlCommitRateLow
+    expr: rate(pg_stat_database_xact_commit[1m]) < 10
+    for: 2m
+    labels:
+      severity: critical
+    annotations:
+      summary: Postgresql commit rate low (instance {{ $labels.instance }})
+      description: "Postgres seems to be processing very few transactions\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
+```
