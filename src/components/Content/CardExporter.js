@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { withRouter } from "react-router-dom";
+import { withRouter, Link } from "react-router-dom";
 import axios from "axios";
 import styled from "styled-components";
 import { AiFillStar } from "react-icons/ai";
@@ -11,7 +11,6 @@ import { EXPORTER_API } from "../../config";
 
 const CardExporter = ({
   exporter,
-  cardClick,
   fork,
   mybucket,
   setIsForkModalActive,
@@ -86,7 +85,8 @@ const CardExporter = ({
           )}
         </span>
       </header>
-      <Article onClick={() => cardClick(exporter_id)}>
+			<Article>
+				<Link to={ `/detail/${exporter_id}` }>
         <div>
           <img src={logo_url} alt={name} />
         </div>
@@ -98,7 +98,8 @@ const CardExporter = ({
           </div>
           <p>{description}</p>
         </Section>
-      </Article>
+				</Link>
+			</Article>
       {fork && (
         <Unfork onClick={(e) => unforkRepo(e, exporter_id)} className="unfork">
           <div>
