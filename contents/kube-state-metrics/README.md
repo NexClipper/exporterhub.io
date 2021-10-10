@@ -35,4 +35,6 @@ helm install [release_name] .
 
 ## How to see
 
-1. Download dashboard by [exporterhub.io](http://exporterhub.io/)
+1. Download dashboard about kube-state-metrics by [exporterhub.io](http://exporterhub.io/)
+2. Check grafana dashboard
+![image](https://user-images.githubusercontent.com/52230415/136691956-3fe755a5-fd8a-4d6f-ab83-a359ac1b7581.png)
