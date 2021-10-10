@@ -1,0 +1,4 @@
+1. Get the application URL by running these commands:
+  export POD_NAME=$(kubectl get pods --namespace {{ template "prometheus-collectd-exporter.namespace" . }} -l "app={{ template "prometheus-collectd-exporter.name" . }},release={{ .Release.Name }}" -o jsonpath="{.items[0].metadata.name}")
+  echo "Visit http://127.0.0.1:9103 to use your application"
+  kubectl port-forward --namespace {{ template "prometheus-collectd-exporter.namespace" . }} $POD_NAME 9103

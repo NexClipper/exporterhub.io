@@ -4,9 +4,7 @@ import useLocalStorage from "react-use-localstorage";
 import axios from "axios";
 import styled from "styled-components";
 import Exporter from "./components/Exporter";
-import Dashboard from "./components/Dashboard";
-import Alert from "./components/Alert";
-import Helm from "./components/Helm";
+import ExporterTab from "./components/ExporterTab";
 import { EXPORTER_API } from "../../config";
 import OpenSourceInfo from "./components/OpenSourceInfo";
 import { useSelector } from "react-redux";
@@ -23,13 +21,24 @@ const ContentDetail = () => {
   const [forkState, setForkState] = useState();
   const [starState, setStarState] = useState();
   const [starNumber, setStarNumber] = useState();
+  const [isEditMode, setEditMode] = useState(false);
+  const [desState, setDesState] = useState("");
   const changeTheme = useSelector((store) => store.darkThemeReducer);
   const ACTIVECONTENT_OBJ = {
     0: <Exporter readmeContent={exporterInfo.readme} />,
-    1: <Helm title={exporterInfo.title} />,
-    2: <Alert title={exporterInfo.title} />,
-    3: <Dashboard title={exporterInfo.title} />,
+    1: <ExporterTab title={exporterInfo.title} type="_helm.yaml" />,
+    2: <ExporterTab title={exporterInfo.title} type="_alert.yaml" />,
+    3: <ExporterTab title={exporterInfo.title} type="_dashboard.json" />,
   };
+
+  const descriptionDecode = (description) => {
+    let descriptionDecodeValue = description
+      .replace(/@>@/g, "\n")
+      .replace(/@\$#/g, '"');
+
+    return descriptionDecodeValue;
+  };
+
   const TOKEN = sessionStorage.getItem("access_token");
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -38,6 +47,7 @@ const ContentDetail = () => {
   useEffect(() => {
     fetchData();
   }, [forkState]);
+
   const fetchData = () => {
     const HEADER = TOKEN && { Authorization: TOKEN };
     axios({
@@ -50,23 +60,28 @@ const ContentDetail = () => {
         setForkState(res.data.data.is_bucket);
         setStarState(res.data.data.is_star);
         setStarNumber(res.data.data.stars);
+        setDesState(descriptionDecode(res.data.data.detail_description));
       })
       .catch((err) => {
         console.log(err);
       });
   };
+
   const handleActiveTab = (id) => {
     setTest(id);
   };
+
   window.onpopstate = function (event) {
     localStorage.setItem("activeTab", 0);
   };
+
   return (
     <>
       <Header dark={changeTheme}>
         <Container>
           {exporterInfo && (
             <OpenSourceInfo
+              EXPORTER_API={EXPORTER_API}
               exporterInfo={exporterInfo}
               forkState={forkState}
               starState={starState}
@@ -74,6 +89,12 @@ const ContentDetail = () => {
               setForkState={setForkState}
               starNumber={starNumber}
               setStarNumber={setStarNumber}
+              desState={desState}
+              setDesState={setDesState}
+              isEditMode={isEditMode}
+              setEditMode={setEditMode}
+              file=".csv"
+              type="text"
             />
           )}
         </Container>

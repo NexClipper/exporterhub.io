@@ -13,6 +13,12 @@ const GET_LOGIN_STATE = "GET_LOGIN_STATE";
 const TARGET_UNFORK_REPO = "TARGET_UNFORK_REPO";
 const GET_ADMIN_STATE = "GET_ADMIN_STATE";
 const GET_DARK_THEME = "GET_DARK_THEME";
+const BEFORE_EDIT_EXPORTER_TAB = "BEFORE_EDIT_EXPORTER_TAB";
+const EDITTING_EXPORTER_TAB_CONTENT = "EDITTING_EXPORTER_TAB_CONTENT";
+const EDITTING_EXPORTER_TAB_FILENAME = "EDITTING_EXPORTER_TAB_FILENAME";
+const EDITTING_EXPORTER_TAB_DESCRIPTION = "EDITTING_EXPORTER_TAB_DESCRIPTION";
+const EDITTING_EXPORTER_TAB_VERSION = "EDITTING_EXPORTER_TAB_VERSION";
+
 export const adminTypeAdd = (payload) => ({
   type: ADD_ADMIN_TYPE_STATE,
   payload,
@@ -74,5 +80,25 @@ export const targetUnforkRepo = (payload) => ({
 });
 export const getAdminState = (payload) => ({
   type: GET_ADMIN_STATE,
+  payload,
+});
+export const edittingExporterTabContent = (payload) => ({
+  type: EDITTING_EXPORTER_TAB_CONTENT,
+  payload,
+});
+export const edittingExporterTabFileName = (payload) => ({
+  type: EDITTING_EXPORTER_TAB_FILENAME,
+  payload,
+});
+export const edittingExporterTabDescription = (payload) => ({
+  type: EDITTING_EXPORTER_TAB_DESCRIPTION,
+  payload,
+});
+export const edittingExporterTabVersion = (payload) => ({
+  type: EDITTING_EXPORTER_TAB_VERSION,
+  payload,
+});
+export const beforeEdittingExporterTab = (payload) => ({
+  type: BEFORE_EDIT_EXPORTER_TAB,
   payload,
 });

@@ -1,22 +1,29 @@
 import { useState } from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { loadCategoriesData } from "../../store/actions/exporterActions";
 import axios from "axios";
 import styled from "styled-components";
-import { EXPORTER_ADMIN_API } from "../../config";
+import { EXPORTER_ADMIN_API, CATEGORIES_API } from "../../config";
+import { Fragment } from "react";
 
 const RegisterModal = ({ cancleModal }) => {
   const categories = useSelector((store) => store.categoryReducer);
   const [exporterTitle, setExporterTitle] = useState("");
-  const [repoUrl, setRepoUrl] = useState("Default");
-  const [category, setCategory] = useState("Default");
+  const [repoUrl, setRepoUrl] = useState("");
+  const [category, setCategory] = useState("Select category");
   const [failMessage, setFailMessage] = useState("");
+  const [pluscategory, setPluscategory] = useState(false);
+  const [createCategory, setCreateCategory] = useState("");
+  const dispatch = useDispatch();
 
   const registerExporter = () => {
     if (exporterTitle.length === 0) {
       setFailMessage("WRONG_EXPORTER_TITLE");
       return;
+    } else if (category === "Select category") {
+      setFailMessage("Select category");
+      return;
     }
-
     axios({
       method: "POST",
       url: `${EXPORTER_ADMIN_API}`,
@@ -37,6 +44,17 @@ const RegisterModal = ({ cancleModal }) => {
       });
   };
 
+  const getCategory = () => {
+    axios({
+      method: "GET",
+      url: `${CATEGORIES_API}`,
+    })
+      .then((res) => {
+        dispatch(loadCategoriesData(res.data.categories));
+      })
+      .catch((err) => console.log(err));
+  };
+
   const inputExporterTitle = (e) => {
     setExporterTitle(e.target.value);
   };
@@ -46,7 +64,53 @@ const RegisterModal = ({ cancleModal }) => {
   };
 
   const selectCategory = (e) => {
-    setCategory(e.target.value);
+    if (e.target.value === "+ New category !") {
+      setCategory(e.target.value);
+      setPluscategory(true);
+    } else {
+      setPluscategory(false);
+      setCategory(e.target.value);
+    }
+    setFailMessage("");
+  };
+
+  const handlePlusCategory = () => {
+    if (createCategory === "") {
+      setFailMessage("write category name");
+      return;
+    } else {
+      const isSame = categories.filter(
+        (category) =>
+          category.category_name.toLowerCase() === createCategory.toLowerCase()
+      );
+      if (isSame.length === 0) {
+        let today = new Date();
+        let todayDate = today.toLocaleDateString();
+        axios({
+          method: "post",
+          url: `${CATEGORIES_API}`,
+          data: {
+            category: createCategory,
+            date: todayDate,
+          },
+          headers: {
+            Authorization: sessionStorage.getItem("access_token"),
+          },
+        })
+          .then(() => {
+            getCategory();
+            setPluscategory(false);
+            setCreateCategory("");
+            setFailMessage("");
+            setCategory(createCategory);
+            setExporterTitle(exporterTitle);
+            setRepoUrl(repoUrl);
+          })
+          .catch((error) => {});
+      } else {
+        setFailMessage("This name already exists.");
+      }
+    }
   };
 
   return (
@@ -55,27 +119,64 @@ const RegisterModal = ({ cancleModal }) => {
         <img src="assets/image.png" alt="modal" />
         <Container>
           <div>{failMessage}</div>
-          <input
+          <select
             className="inputDiv"
-            onChange={inputExporterTitle}
-            placeholder="exporter title"
-          ></input>
-          <input
-            className="inputDiv"
-            onChange={inputRepoUrl}
-            placeholder="repository url"
-          ></input>
-          <select className="inputDiv" onChange={selectCategory}>
+            value={category}
+            onChange={selectCategory}
+          >
             <option>Select category</option>
+            <option>+ New category !</option>
             {categories.map((category) => {
-              return <option>{category.category_name}</option>;
+              return (
+                <option key={category.category_id}>
+                  {category.category_name}
+                </option>
+              );
             })}
           </select>
-          <button className="inputDiv" onClick={registerExporter}>
-            Register
-          </button>
+          {pluscategory ? (
+            <input
+              onChange={({ target }) => setCreateCategory(target.value)}
+              placeholder="category name"
+            />
+          ) : (
+            <Fragment>
+              <input
+                className="inputDiv"
+                onChange={inputExporterTitle}
+                placeholder="exporter title"
+                value={exporterTitle}
+              ></input>
+              <input
+                className="inputDiv"
+                onChange={inputRepoUrl}
+                placeholder="repository url"
+                value={repoUrl}
+              ></input>
+            </Fragment>
+          )}
         </Container>
-        <Back onClick={cancleModal}>Back</Back>
+        {!pluscategory ? (
+          <Fragment>
+            <Button onClick={registerExporter}>Register</Button>
+            <Button onClick={cancleModal}>Back</Button>
+          </Fragment>
+        ) : (
+          <Fragment>
+            <Button onClick={handlePlusCategory}>add</Button>
+            <Button
+              onClick={() => {
+                setPluscategory(false);
+                setCategory("Select category");
+                setFailMessage("");
+                setExporterTitle(exporterTitle);
+                setRepoUrl(repoUrl);
+              }}
+            >
+              Back
+            </Button>
+          </Fragment>
+        )}
       </Div>
     </ModalContainer>
   );
@@ -110,7 +211,8 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin: 20px 0 40px 0;
+  margin: 20px 0 20px 0;
+
   div {
     height: 20px;
     margin-bottom: 20px;
@@ -118,23 +220,22 @@ const Container = styled.div`
     font-size: 13px;
     color: #ff0000;
   }
+
   input {
-    ${({ theme }) => theme.ModalButton}
-    margin-bottom : 10px
+    ${({ theme }) => theme.ModalButton};
+    margin-top: 10px;
   }
+
   select {
+    margin-top: 10px;
     ${({ theme }) => theme.ModalButton}
-  }
-  button {
-    ${({ theme }) => theme.ModalButton}
-    background-color: #efeeee;
-    margin-top: 20px;
   }
 `;
 
-const Back = styled.div`
+const Button = styled.div`
   width: 230px;
   height: 35px;
+  margin-bottom: 10px;
   border-radius: 20px;
   background-color: #85dbc3;
   color: #ffffff;

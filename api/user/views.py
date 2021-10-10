@@ -9,6 +9,7 @@ from django.http             import JsonResponse
 from django.db.models        import Q
 from django.conf             import settings
 from django.core.exceptions  import ObjectDoesNotExist
+from requests.api import delete
 
 from .models                 import User, UserType, Bucket 
 from exporter.models         import Exporter
@@ -352,6 +353,24 @@ class AdminView(View):
             username = data['username']
             headers  = {'Authorization' : 'token ' + user.github_token}
             result   = requests.delete(f'https://api.github.com/orgs/{settings.ORGANIZATION}/members/{username}', headers=headers)
+            
+            if result.status_code != 204:
+                return JsonResponse({'message' : 'GITHUB_API_FAIL'}, status=400)
+
+            User.objects.filter(username=username).update(type_id=USER_CODE)
+
+            return JsonResponse({'message' : 'SUCCESS'}, status=204)
+
+        except KeyError:
+            return JsonResponse({'message' : 'KEY_ERROR'}, status=400)
+
+    @admin_decorator
+    def delete(self, request):
+        try:
+            user     = request.user  
+            username = request.GET['username']
+            headers  = {'Authorization' : 'token ' + user.github_token}
+            result   = requests.delete(f'https://api.github.com/orgs/{settings.ORGANIZATION}/memberships/{username}', headers=headers)
             
             if result.status_code != 204:
                 return JsonResponse({'message' : 'GITHUB_API_FAIL'}, status=400)

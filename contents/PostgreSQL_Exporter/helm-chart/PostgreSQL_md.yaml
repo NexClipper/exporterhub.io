@@ -1,0 +1,63 @@
+# Prometheus Postgres Exporter
+
+Prometheus exporter for [PostgreSQL](https://www.postgresql.org/about/servers/) server metrics.
+
+This chart bootstraps a prometheus [postgres exporter](https://github.com/prometheus-community/postgres_exporter) deployment on a [Kubernetes](http://kubernetes.io/) cluster using the [Helm](https://helm.sh/) package manager.
+
+### Prerequisites
+
+- Kubernetes 1.16+
+- Helm 3+
+
+### Get Repo Info
+
+```bash
+helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
+helm repo update
+```
+
+*See helm repo for command documentation.*
+
+### Install Chart
+
+```bash
+helm install [RELEASE_NAME] prometheus-community/prometheus-postgres-exporter
+```
+
+*See configuration below.*
+
+*See helm install for command documentation.*
+
+### Uninstall Chart
+
+```bash
+helm uninstall [RELEASE_NAME]
+```
+
+This removes all the Kubernetes components associated with the chart and deletes the release.
+
+*See helm uninstall for command documentation.*
+
+### Upgrading
+
+### To 2.0.0
+
+```bash
+kubectl patch deployment prometheus-postgres-exporter --type=json -p='[{"op": "remove", "path": "/spec/selector/matchLabels/chart"}]'
+```
+
+### Other minor version upgrade
+
+```bash
+helm upgrade [RELEASE_NAME] [CHART] --install
+```
+
+*See helm upgrade for command documentation.*
+
+### Configuring
+
+See [Customizing the Chart Before Installing](https://helm.sh/docs/intro/using_helm/#customizing-the-chart-before-installing). To see all configurable options with detailed comments, visit the chart's values.yaml, or run these configuration commands:
+
+```bash
+helm show values prometheus-community/prometheus-postgres-exporter
+```

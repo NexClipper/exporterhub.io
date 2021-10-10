@@ -1,0 +1,3 @@
+"exporter_id","exporter_name","description"
+"41","MongoDB Exporter","custom exporter of MongDB "
+"39","query-exporter","This is a Query exporter when you use & need to get information for the Mysql or MariaDB"
