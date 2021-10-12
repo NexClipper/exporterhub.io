@@ -14,10 +14,10 @@
 <!--lint disable awesome-toc-->
 ## Contents
 * [Definition of ExporterHub.io](https://github.com/NexClipper/exporterhub.io#Definition-of-exporterhubio)
-* [Demo Video](https://github.com/NexClipper/exporterhub.io#Demo)
+* [Demo Video](https://github.com/NexClipper/exporterhub.io#demo-video)
 * [Diagram Overview](https://github.com/NexClipper/exporterhub.io#diagram-overview)
 * [Kick-start](https://github.com/NexClipper/exporterhub.io#kickstart)
-* [Contribute](https://github.com/NexClipper/exporterhub.io#contribute)
+* [Contribute](https://github.com/NexClipper/exporterhub.io#how-to-contribute-the-project)
 * [References](https://github.com/NexClipper/exporterhub.io#references)
 * [License](https://github.com/NexClipper/exporterhub.io#license)
 
