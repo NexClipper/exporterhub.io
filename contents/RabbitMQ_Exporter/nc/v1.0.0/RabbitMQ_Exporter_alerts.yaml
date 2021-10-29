@@ -1,0 +1,54 @@
+  - alert: RabbitmqTooManyConnections
+    expr: rabbitmq_connections > 1000
+    for: 2m
+    labels:
+      severity: warning
+    annotations:
+      summary: Rabbitmq too many connections (instance {{ $labels.instance }})
+      description: "The total connections of a node is too high\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
+      
+  - alert: RabbitmqDown
+    expr: rabbitmq_up == 0
+    for: 0m
+    labels:
+      severity: critical
+    annotations:
+      summary: Rabbitmq down (instance {{ $labels.instance }})
+      description: "RabbitMQ node down\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
+
+  - alert: RabbitmqOutOfMemory
+    expr: rabbitmq_node_mem_used / rabbitmq_node_mem_limit * 100 > 90
+    for: 2m
+    labels:
+      severity: warning
+    annotations:
+      summary: Rabbitmq out of memory (instance {{ $labels.instance }})
+      description: "Memory available for RabbmitMQ is low (< 10%)\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
+
+  - alert: RabbitmqClusterPartition
+    expr: rabbitmq_partitions > 0
+    for: 0m
+    labels:
+      severity: critical
+    annotations:
+      summary: Rabbitmq cluster partition (instance {{ $labels.instance }})
+      description: "Cluster partition\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
+
+  - alert: RabbitmqTooManyConnections
+    expr: rabbitmq_connectionsTotal > 1000
+    for: 2m
+    labels:
+      severity: warning
+    annotations:
+      summary: Rabbitmq too many connections (instance {{ $labels.instance }})
+      description: "RabbitMQ instance has too many connections (> 1000)\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
+
+  - alert: RabbitmqTooManyMessagesInQueue
+    expr: rabbitmq_queue_messages_ready_total > 1000
+    for: 2m
+    labels:
+      severity: warning
+    annotations:
+      summary: Rabbitmq too many messages in queue (instance {{ $labels.instance }})
+      description: "Queue is filling up (> 1000 msgs)\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
+
