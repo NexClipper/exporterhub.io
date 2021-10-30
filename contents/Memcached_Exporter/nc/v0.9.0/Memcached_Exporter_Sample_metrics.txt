@@ -1,0 +1,332 @@
+# HELP go_gc_duration_seconds A summary of the pause duration of garbage collection cycles.
+# TYPE go_gc_duration_seconds summary
+go_gc_duration_seconds{quantile="0"} 3.8591e-05
+go_gc_duration_seconds{quantile="0.25"} 6.2827e-05
+go_gc_duration_seconds{quantile="0.5"} 8.5183e-05
+go_gc_duration_seconds{quantile="0.75"} 0.000123019
+go_gc_duration_seconds{quantile="1"} 0.000807992
+go_gc_duration_seconds_sum 0.168303146
+go_gc_duration_seconds_count 1601
+# HELP go_goroutines Number of goroutines that currently exist.
+# TYPE go_goroutines gauge
+go_goroutines 11
+# HELP go_info Information about the Go environment.
+# TYPE go_info gauge
+go_info{version="go1.16.2"} 1
+# HELP go_memstats_alloc_bytes Number of bytes allocated and still in use.
+# TYPE go_memstats_alloc_bytes gauge
+go_memstats_alloc_bytes 2.6272e+06
+# HELP go_memstats_alloc_bytes_total Total number of bytes allocated, even if freed.
+# TYPE go_memstats_alloc_bytes_total counter
+go_memstats_alloc_bytes_total 2.27232916e+09
+# HELP go_memstats_buck_hash_sys_bytes Number of bytes used by the profiling bucket hash table.
+# TYPE go_memstats_buck_hash_sys_bytes gauge
+go_memstats_buck_hash_sys_bytes 1.500732e+06
+# HELP go_memstats_frees_total Total number of frees.
+# TYPE go_memstats_frees_total counter
+go_memstats_frees_total 6.553361e+06
+# HELP go_memstats_gc_cpu_fraction The fraction of this program's available CPU time used by the GC since the program started.
+# TYPE go_memstats_gc_cpu_fraction gauge
+go_memstats_gc_cpu_fraction 2.51137019581076e-06
+# HELP go_memstats_gc_sys_bytes Number of bytes used for garbage collection system metadata.
+# TYPE go_memstats_gc_sys_bytes gauge
+go_memstats_gc_sys_bytes 4.859904e+06
+# HELP go_memstats_heap_alloc_bytes Number of heap bytes allocated and still in use.
+# TYPE go_memstats_heap_alloc_bytes gauge
+go_memstats_heap_alloc_bytes 2.6272e+06
+# HELP go_memstats_heap_idle_bytes Number of heap bytes waiting to be used.
+# TYPE go_memstats_heap_idle_bytes gauge
+go_memstats_heap_idle_bytes 6.2439424e+07
+# HELP go_memstats_heap_inuse_bytes Number of heap bytes that are in use.
+# TYPE go_memstats_heap_inuse_bytes gauge
+go_memstats_heap_inuse_bytes 4.01408e+06
+# HELP go_memstats_heap_objects Number of allocated objects.
+# TYPE go_memstats_heap_objects gauge
+go_memstats_heap_objects 5533
+# HELP go_memstats_heap_released_bytes Number of heap bytes released to OS.
+# TYPE go_memstats_heap_released_bytes gauge
+go_memstats_heap_released_bytes 6.2128128e+07
+# HELP go_memstats_heap_sys_bytes Number of heap bytes obtained from system.
+# TYPE go_memstats_heap_sys_bytes gauge
+go_memstats_heap_sys_bytes 6.6453504e+07
+# HELP go_memstats_last_gc_time_seconds Number of seconds since 1970 of last garbage collection.
+# TYPE go_memstats_last_gc_time_seconds gauge
+go_memstats_last_gc_time_seconds 1.6341336002168608e+09
+# HELP go_memstats_lookups_total Total number of pointer lookups.
+# TYPE go_memstats_lookups_total counter
+go_memstats_lookups_total 0
+# HELP go_memstats_mallocs_total Total number of mallocs.
+# TYPE go_memstats_mallocs_total counter
+go_memstats_mallocs_total 6.558894e+06
+# HELP go_memstats_mcache_inuse_bytes Number of bytes in use by mcache structures.
+# TYPE go_memstats_mcache_inuse_bytes gauge
+go_memstats_mcache_inuse_bytes 4800
+# HELP go_memstats_mcache_sys_bytes Number of bytes used for mcache structures obtained from system.
+# TYPE go_memstats_mcache_sys_bytes gauge
+go_memstats_mcache_sys_bytes 16384
+# HELP go_memstats_mspan_inuse_bytes Number of bytes in use by mspan structures.
+# TYPE go_memstats_mspan_inuse_bytes gauge
+go_memstats_mspan_inuse_bytes 77520
+# HELP go_memstats_mspan_sys_bytes Number of bytes used for mspan structures obtained from system.
+# TYPE go_memstats_mspan_sys_bytes gauge
+go_memstats_mspan_sys_bytes 98304
+# HELP go_memstats_next_gc_bytes Number of heap bytes when next garbage collection will take place.
+# TYPE go_memstats_next_gc_bytes gauge
+go_memstats_next_gc_bytes 4.390864e+06
+# HELP go_memstats_other_sys_bytes Number of bytes used for other system allocations.
+# TYPE go_memstats_other_sys_bytes gauge
+go_memstats_other_sys_bytes 947660
+# HELP go_memstats_stack_inuse_bytes Number of bytes in use by the stack allocator.
+# TYPE go_memstats_stack_inuse_bytes gauge
+go_memstats_stack_inuse_bytes 655360
+# HELP go_memstats_stack_sys_bytes Number of bytes obtained from system for stack allocator.
+# TYPE go_memstats_stack_sys_bytes gauge
+go_memstats_stack_sys_bytes 655360
+# HELP go_memstats_sys_bytes Number of bytes obtained from system.
+# TYPE go_memstats_sys_bytes gauge
+go_memstats_sys_bytes 7.4531848e+07
+# HELP go_threads Number of OS threads created.
+# TYPE go_threads gauge
+go_threads 8
+# HELP memcached_commands_total Total number of all requests broken down by command (get, set, etc.) and status.
+# TYPE memcached_commands_total counter
+memcached_commands_total{command="cas",status="badval"} 0
+memcached_commands_total{command="cas",status="hit"} 0
+memcached_commands_total{command="cas",status="miss"} 0
+memcached_commands_total{command="decr",status="hit"} 0
+memcached_commands_total{command="decr",status="miss"} 0
+memcached_commands_total{command="delete",status="hit"} 0
+memcached_commands_total{command="delete",status="miss"} 0
+memcached_commands_total{command="flush",status="hit"} 0
+memcached_commands_total{command="get",status="hit"} 8
+memcached_commands_total{command="get",status="miss"} 0
+memcached_commands_total{command="incr",status="hit"} 0
+memcached_commands_total{command="incr",status="miss"} 0
+memcached_commands_total{command="set",status="hit"} 4
+memcached_commands_total{command="touch",status="hit"} 0
+memcached_commands_total{command="touch",status="miss"} 0
+# HELP memcached_connections_listener_disabled_total Number of times that memcached has hit its connections limit and disabled its listener.
+# TYPE memcached_connections_listener_disabled_total counter
+memcached_connections_listener_disabled_total 0
+# HELP memcached_connections_total Total number of connections opened since the server started running.
+# TYPE memcached_connections_total counter
+memcached_connections_total 158158
+# HELP memcached_connections_yielded_total Total number of connections yielded running due to hitting the memcached's -R limit.
+# TYPE memcached_connections_yielded_total counter
+memcached_connections_yielded_total 0
+# HELP memcached_current_bytes Current number of bytes used to store items.
+# TYPE memcached_current_bytes gauge
+memcached_current_bytes 316
+# HELP memcached_current_connections Current number of open connections.
+# TYPE memcached_current_connections gauge
+memcached_current_connections 3
+# HELP memcached_current_items Current number of items stored by this instance.
+# TYPE memcached_current_items gauge
+memcached_current_items 4
+# HELP memcached_exporter_build_info A metric with a constant '1' value labeled by version, revision, branch, and goversion from which memcached_exporter was built.
+# TYPE memcached_exporter_build_info gauge
+memcached_exporter_build_info{branch="HEAD",goversion="go1.16.2",revision="887a783c7d6d7a53cd1e626789b8a276f3accde1",version="0.9.0"} 1
+# HELP memcached_items_evicted_total Total number of valid items removed from cache to free memory for new items.
+# TYPE memcached_items_evicted_total counter
+memcached_items_evicted_total 0
+# HELP memcached_items_reclaimed_total Total number of times an entry was stored using memory from an expired entry.
+# TYPE memcached_items_reclaimed_total counter
+memcached_items_reclaimed_total 0
+# HELP memcached_items_total Total number of items stored during the life of this instance.
+# TYPE memcached_items_total counter
+memcached_items_total 4
+# HELP memcached_limit_bytes Number of bytes this server is allowed to use for storage.
+# TYPE memcached_limit_bytes gauge
+memcached_limit_bytes 6.7108864e+07
+# HELP memcached_lru_crawler_enabled Whether the LRU crawler is enabled.
+# TYPE memcached_lru_crawler_enabled gauge
+memcached_lru_crawler_enabled 1
+# HELP memcached_lru_crawler_hot_max_factor Set idle age of HOT LRU to COLD age * this
+# TYPE memcached_lru_crawler_hot_max_factor gauge
+memcached_lru_crawler_hot_max_factor 0.2
+# HELP memcached_lru_crawler_hot_percent Percent of slab memory reserved for HOT LRU.
+# TYPE memcached_lru_crawler_hot_percent gauge
+memcached_lru_crawler_hot_percent 20
+# HELP memcached_lru_crawler_items_checked_total Total items examined by LRU Crawler.
+# TYPE memcached_lru_crawler_items_checked_total counter
+memcached_lru_crawler_items_checked_total 4
+# HELP memcached_lru_crawler_maintainer_thread Split LRU mode and background threads.
+# TYPE memcached_lru_crawler_maintainer_thread gauge
+memcached_lru_crawler_maintainer_thread 1
+# HELP memcached_lru_crawler_moves_to_cold_total Total number of items moved from HOT/WARM to COLD LRU's.
+# TYPE memcached_lru_crawler_moves_to_cold_total counter
+memcached_lru_crawler_moves_to_cold_total 4
+# HELP memcached_lru_crawler_moves_to_warm_total Total number of items moved from COLD to WARM LRU.
+# TYPE memcached_lru_crawler_moves_to_warm_total counter
+memcached_lru_crawler_moves_to_warm_total 1
+# HELP memcached_lru_crawler_moves_within_lru_total Total number of items reshuffled within HOT or WARM LRU's.
+# TYPE memcached_lru_crawler_moves_within_lru_total counter
+memcached_lru_crawler_moves_within_lru_total 6
+# HELP memcached_lru_crawler_reclaimed_total Total items freed by LRU Crawler.
+# TYPE memcached_lru_crawler_reclaimed_total counter
+memcached_lru_crawler_reclaimed_total 0
+# HELP memcached_lru_crawler_sleep Microseconds to sleep between LRU crawls.
+# TYPE memcached_lru_crawler_sleep gauge
+memcached_lru_crawler_sleep 100
+# HELP memcached_lru_crawler_starts_total Times an LRU crawler was started.
+# TYPE memcached_lru_crawler_starts_total counter
+memcached_lru_crawler_starts_total 173
+# HELP memcached_lru_crawler_to_crawl Max items to crawl per slab per run.
+# TYPE memcached_lru_crawler_to_crawl gauge
+memcached_lru_crawler_to_crawl 0
+# HELP memcached_lru_crawler_warm_max_factor Set idle age of WARM LRU to COLD age * this
+# TYPE memcached_lru_crawler_warm_max_factor gauge
+memcached_lru_crawler_warm_max_factor 2
+# HELP memcached_lru_crawler_warm_percent Percent of slab memory reserved for WARM LRU.
+# TYPE memcached_lru_crawler_warm_percent gauge
+memcached_lru_crawler_warm_percent 40
+# HELP memcached_malloced_bytes Number of bytes of memory allocated to slab pages.
+# TYPE memcached_malloced_bytes gauge
+memcached_malloced_bytes 1.048576e+06
+# HELP memcached_max_connections Maximum number of clients allowed.
+# TYPE memcached_max_connections gauge
+memcached_max_connections 1024
+# HELP memcached_read_bytes_total Total number of bytes read by this server from network.
+# TYPE memcached_read_bytes_total counter
+memcached_read_bytes_total 162432
+# HELP memcached_slab_chunk_size_bytes Number of bytes allocated to each chunk within this slab class.
+# TYPE memcached_slab_chunk_size_bytes gauge
+memcached_slab_chunk_size_bytes{slab="1"} 96
+# HELP memcached_slab_chunks_free Number of chunks not yet allocated items.
+# TYPE memcached_slab_chunks_free gauge
+memcached_slab_chunks_free{slab="1"} 10918
+# HELP memcached_slab_chunks_free_end Number of free chunks at the end of the last allocated page.
+# TYPE memcached_slab_chunks_free_end gauge
+memcached_slab_chunks_free_end{slab="1"} 0
+# HELP memcached_slab_chunks_per_page Number of chunks within a single page for this slab class.
+# TYPE memcached_slab_chunks_per_page gauge
+memcached_slab_chunks_per_page{slab="1"} 10922
+# HELP memcached_slab_chunks_used Number of chunks allocated to an item.
+# TYPE memcached_slab_chunks_used gauge
+memcached_slab_chunks_used{slab="1"} 4
+# HELP memcached_slab_cold_items Number of items presently stored in the COLD LRU.
+# TYPE memcached_slab_cold_items gauge
+memcached_slab_cold_items{slab="1"} 3
+# HELP memcached_slab_commands_total Total number of all requests broken down by command (get, set, etc.) and status per slab.
+# TYPE memcached_slab_commands_total counter
+memcached_slab_commands_total{command="cas",slab="1",status="badval"} 0
+memcached_slab_commands_total{command="cas",slab="1",status="hit"} 0
+memcached_slab_commands_total{command="decr",slab="1",status="hit"} 0
+memcached_slab_commands_total{command="delete",slab="1",status="hit"} 0
+memcached_slab_commands_total{command="get",slab="1",status="hit"} 8
+memcached_slab_commands_total{command="incr",slab="1",status="hit"} 0
+memcached_slab_commands_total{command="set",slab="1",status="hit"} 4
+memcached_slab_commands_total{command="touch",slab="1",status="hit"} 0
+# HELP memcached_slab_current_chunks Number of chunks allocated to this slab class.
+# TYPE memcached_slab_current_chunks gauge
+memcached_slab_current_chunks{slab="1"} 10922
+# HELP memcached_slab_current_items Number of items currently stored in this slab class.
+# TYPE memcached_slab_current_items gauge
+memcached_slab_current_items{slab="1"} 4
+# HELP memcached_slab_current_pages Number of pages allocated to this slab class.
+# TYPE memcached_slab_current_pages gauge
+memcached_slab_current_pages{slab="1"} 1
+# HELP memcached_slab_hot_age_seconds Age of the oldest item in HOT LRU.
+# TYPE memcached_slab_hot_age_seconds gauge
+memcached_slab_hot_age_seconds{slab="1"} 0
+# HELP memcached_slab_hot_items Number of items presently stored in the HOT LRU.
+# TYPE memcached_slab_hot_items gauge
+memcached_slab_hot_items{slab="1"} 0
+# HELP memcached_slab_items_age_seconds Number of seconds the oldest item has been in the slab class.
+# TYPE memcached_slab_items_age_seconds gauge
+memcached_slab_items_age_seconds{slab="1"} 2476
+# HELP memcached_slab_items_crawler_reclaimed_total Number of items freed by the LRU Crawler.
+# TYPE memcached_slab_items_crawler_reclaimed_total counter
+memcached_slab_items_crawler_reclaimed_total{slab="1"} 0
+# HELP memcached_slab_items_evicted_nonzero_total Total number of times an item which had an explicit expire time set had to be evicted from the LRU before it expired.
+# TYPE memcached_slab_items_evicted_nonzero_total counter
+memcached_slab_items_evicted_nonzero_total{slab="1"} 0
+# HELP memcached_slab_items_evicted_time_seconds Seconds since the last access for the most recent item evicted from this class.
+# TYPE memcached_slab_items_evicted_time_seconds counter
+memcached_slab_items_evicted_time_seconds{slab="1"} 0
+# HELP memcached_slab_items_evicted_total Total number of times an item had to be evicted from the LRU before it expired.
+# TYPE memcached_slab_items_evicted_total counter
+memcached_slab_items_evicted_total{slab="1"} 0
+# HELP memcached_slab_items_evicted_unfetched_total Total nmber of items evicted and never fetched.
+# TYPE memcached_slab_items_evicted_unfetched_total counter
+memcached_slab_items_evicted_unfetched_total{slab="1"} 0
+# HELP memcached_slab_items_expired_unfetched_total Total number of valid items evicted from the LRU which were never touched after being set.
+# TYPE memcached_slab_items_expired_unfetched_total counter
+memcached_slab_items_expired_unfetched_total{slab="1"} 0
+# HELP memcached_slab_items_moves_to_cold Number of items moved from HOT or WARM into COLD.
+# TYPE memcached_slab_items_moves_to_cold counter
+memcached_slab_items_moves_to_cold{slab="1"} 4
+# HELP memcached_slab_items_moves_to_warm Number of items moves from COLD into WARM.
+# TYPE memcached_slab_items_moves_to_warm counter
+memcached_slab_items_moves_to_warm{slab="1"} 1
+# HELP memcached_slab_items_moves_within_lru Number of times active items were bumped within HOT or WARM.
+# TYPE memcached_slab_items_moves_within_lru counter
+memcached_slab_items_moves_within_lru{slab="1"} 6
+# HELP memcached_slab_items_outofmemory_total Total number of items for this slab class that have triggered an out of memory error.
+# TYPE memcached_slab_items_outofmemory_total counter
+memcached_slab_items_outofmemory_total{slab="1"} 0
+# HELP memcached_slab_items_reclaimed_total Total number of items reclaimed.
+# TYPE memcached_slab_items_reclaimed_total counter
+memcached_slab_items_reclaimed_total{slab="1"} 0
+# HELP memcached_slab_items_tailrepairs_total Total number of times the entries for a particular ID need repairing.
+# TYPE memcached_slab_items_tailrepairs_total counter
+memcached_slab_items_tailrepairs_total{slab="1"} 0
+# HELP memcached_slab_lru_hits_total Number of get_hits to the LRU.
+# TYPE memcached_slab_lru_hits_total counter
+memcached_slab_lru_hits_total{lru="cold",slab="1"} 2
+memcached_slab_lru_hits_total{lru="hot",slab="1"} 0
+memcached_slab_lru_hits_total{lru="temporary",slab="1"} 0
+memcached_slab_lru_hits_total{lru="warm",slab="1"} 6
+# HELP memcached_slab_mem_requested_bytes Number of bytes of memory actual items take up within a slab.
+# TYPE memcached_slab_mem_requested_bytes counter
+memcached_slab_mem_requested_bytes{slab="1"} 316
+# HELP memcached_slab_warm_age_seconds Age of the oldest item in HOT LRU.
+# TYPE memcached_slab_warm_age_seconds gauge
+memcached_slab_warm_age_seconds{slab="1"} 2449
+# HELP memcached_slab_warm_items Number of items presently stored in the WARM LRU.
+# TYPE memcached_slab_warm_items gauge
+memcached_slab_warm_items{slab="1"} 1
+# HELP memcached_time_seconds current UNIX time according to the server.
+# TYPE memcached_time_seconds gauge
+memcached_time_seconds 1.634133663e+09
+# HELP memcached_up Could the memcached server be reached.
+# TYPE memcached_up gauge
+memcached_up 1
+# HELP memcached_uptime_seconds Number of seconds since the server started.
+# TYPE memcached_uptime_seconds counter
+memcached_uptime_seconds 516165
+# HELP memcached_version The version of this memcached server.
+# TYPE memcached_version gauge
+memcached_version{version="1.6.10"} 1
+# HELP memcached_written_bytes_total Total number of bytes sent by this server to network.
+# TYPE memcached_written_bytes_total counter
+memcached_written_bytes_total 1.263131e+07
+# HELP process_cpu_seconds_total Total user and system CPU time spent in seconds.
+# TYPE process_cpu_seconds_total counter
+process_cpu_seconds_total 26.69
+# HELP process_max_fds Maximum number of open file descriptors.
+# TYPE process_max_fds gauge
+process_max_fds 1.048576e+06
+# HELP process_open_fds Number of open file descriptors.
+# TYPE process_open_fds gauge
+process_open_fds 12
+# HELP process_resident_memory_bytes Resident memory size in bytes.
+# TYPE process_resident_memory_bytes gauge
+process_resident_memory_bytes 2.0922368e+07
+# HELP process_start_time_seconds Start time of the process since unix epoch in seconds.
+# TYPE process_start_time_seconds gauge
+process_start_time_seconds 1.63393574813e+09
+# HELP process_virtual_memory_bytes Virtual memory size in bytes.
+# TYPE process_virtual_memory_bytes gauge
+process_virtual_memory_bytes 7.31795456e+08
+# HELP process_virtual_memory_max_bytes Maximum amount of virtual memory available in bytes.
+# TYPE process_virtual_memory_max_bytes gauge
+process_virtual_memory_max_bytes 1.8446744073709552e+19
+# HELP promhttp_metric_handler_requests_in_flight Current number of scrapes being served.
+# TYPE promhttp_metric_handler_requests_in_flight gauge
+promhttp_metric_handler_requests_in_flight 1
+# HELP promhttp_metric_handler_requests_total Total number of scrapes by HTTP status code.
+# TYPE promhttp_metric_handler_requests_total counter
+promhttp_metric_handler_requests_total{code="200"} 3300
+promhttp_metric_handler_requests_total{code="500"} 0
+promhttp_metric_handler_requests_total{code="503"} 0
