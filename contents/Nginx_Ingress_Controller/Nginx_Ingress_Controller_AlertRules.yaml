@@ -1,0 +1,27 @@
+ - alert: LastReloadUnsuccessful
+    expr: nginx_ingress_controller_config_last_reload_successful == 0
+    for: 5m
+    labels:
+      severity: warning
+    annotations:
+      summary: Last Reload wasn't successful (instance {{ $labels.instance }})
+      description: "Last config reload wasn't successful"
+
+
+ - alert: SSLExpire
+    expr: nginx_ingress_controller_ssl_expire_time_seconds{kubernetes_pod_name=~"$controller",namespace=~"$namespace",ingress=~"$ingress"} - time() < 2
+    for: 1w
+    labels:
+      severity: warning
+    annotations:
+      summary: SSL certificate is expiring for (instance {{ $labels.instance }})
+      description: "SSL will get expired soon"
+  
+ - alert: LowSuccessRate
+    expr: sum(rate(nginx_ingress_controller_requests{controller_pod=~"$controller",controller_class=~"$controller_class",namespace=~"$namespace",status!~"[4-5].*"}[2m])) / sum(rate(nginx_ingress_controller_requests{controller_pod=~"$controller",controller_class=~"$controller_class",namespace=~"$namespace"}[2m])) < 20 
+    for: 1m
+    labels:
+      severity: warning
+    annotations:
+      summary: Success Rate is low  (instance {{ $labels.instance }})
+      description: "Success Rate is  low , High Error Rate"
