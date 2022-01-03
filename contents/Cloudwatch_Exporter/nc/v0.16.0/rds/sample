@@ -1,0 +1,63 @@
+# HELP tagging_api_requests_total API requests made to the Resource Groups Tagging API
+# TYPE tagging_api_requests_total counter
+# HELP cloudwatch_requests_total API requests made to CloudWatch
+# TYPE cloudwatch_requests_total counter
+cloudwatch_requests_total{action="listMetrics",namespace="AWS/RDS",} 15.0
+cloudwatch_requests_total{action="getMetricStatistics",namespace="AWS/RDS",} 15.0
+# HELP aws_rds_database_connections_maximum CloudWatch metric AWS/RDS DatabaseConnections Dimensions: [DBInstanceIdentifier] Statistic: Maximum Unit: Count
+# TYPE aws_rds_database_connections_maximum gauge
+aws_rds_database_connections_maximum{job="aws_rds",instance="",dbinstance_identifier="database-1",} 0.0 1641208380000
+# HELP aws_rds_free_storage_space_average CloudWatch metric AWS/RDS FreeStorageSpace Dimensions: [DBInstanceIdentifier] Statistic: Average Unit: Bytes
+# TYPE aws_rds_free_storage_space_average gauge
+aws_rds_free_storage_space_average{job="aws_rds",instance="",dbinstance_identifier="database-1",} 2.0337606656E10 1641208380000
+# HELP aws_rds_freeable_memory_average CloudWatch metric AWS/RDS FreeableMemory Dimensions: [DBInstanceIdentifier] Statistic: Average Unit: Bytes
+# TYPE aws_rds_freeable_memory_average gauge
+aws_rds_freeable_memory_average{job="aws_rds",instance="",dbinstance_identifier="database-1",} 2.79478272E8 1641208380000
+# HELP aws_rds_cpuutilization_average CloudWatch metric AWS/RDS CPUUtilization Dimensions: [DBInstanceIdentifier] Statistic: Average Unit: Percent
+# TYPE aws_rds_cpuutilization_average gauge
+aws_rds_cpuutilization_average{job="aws_rds",instance="",dbinstance_identifier="database-1",} 5.25423728813563 1641208380000
+# HELP aws_rds_read_iops_sum CloudWatch metric AWS/RDS ReadIOPS Dimensions: [DBInstanceIdentifier] Statistic: Sum Unit: Count/Second
+# TYPE aws_rds_read_iops_sum gauge
+aws_rds_read_iops_sum{job="aws_rds",instance="",dbinstance_identifier="database-1",} 0.0 1641208380000
+# HELP aws_rds_write_iops_sum CloudWatch metric AWS/RDS WriteIOPS Dimensions: [DBInstanceIdentifier] Statistic: Sum Unit: Count/Second
+# TYPE aws_rds_write_iops_sum gauge
+aws_rds_write_iops_sum{job="aws_rds",instance="",dbinstance_identifier="database-1",} 0.049862877088007976 1641208380000
+# HELP aws_rds_read_latency_average CloudWatch metric AWS/RDS ReadLatency Dimensions: [DBInstanceIdentifier] Statistic: Average Unit: Seconds
+# TYPE aws_rds_read_latency_average gauge
+aws_rds_read_latency_average{job="aws_rds",instance="",dbinstance_identifier="database-1",} 0.0 1641208380000
+# HELP aws_rds_write_latency_average CloudWatch metric AWS/RDS WriteLatency Dimensions: [DBInstanceIdentifier] Statistic: Average Unit: Seconds
+# TYPE aws_rds_write_latency_average gauge
+aws_rds_write_latency_average{job="aws_rds",instance="",dbinstance_identifier="database-1",} 0.0 1641208380000
+# HELP aws_rds_read_throughput_average CloudWatch metric AWS/RDS ReadThroughput Dimensions: [DBInstanceIdentifier] Statistic: Average Unit: Bytes/Second
+# TYPE aws_rds_read_throughput_average gauge
+aws_rds_read_throughput_average{job="aws_rds",instance="",dbinstance_identifier="database-1",} 0.0 1641208380000
+# HELP aws_rds_write_throughput_average CloudWatch metric AWS/RDS WriteThroughput Dimensions: [DBInstanceIdentifier] Statistic: Average Unit: Bytes/Second
+# TYPE aws_rds_write_throughput_average gauge
+aws_rds_write_throughput_average{job="aws_rds",instance="",dbinstance_identifier="database-1",} 340.39724092080115 1641208380000
+# HELP aws_rds_cpucredit_usage_average CloudWatch metric AWS/RDS CPUCreditUsage Dimensions: [DBInstanceIdentifier] Statistic: Average Unit: Count
+# TYPE aws_rds_cpucredit_usage_average gauge
+aws_rds_cpucredit_usage_average{job="aws_rds",instance="",dbinstance_identifier="database-1",} 0.279798 1641208200000
+# HELP aws_rds_cpucredit_balance_average CloudWatch metric AWS/RDS CPUCreditBalance Dimensions: [DBInstanceIdentifier] Statistic: Average Unit: Count
+# TYPE aws_rds_cpucredit_balance_average gauge
+aws_rds_cpucredit_balance_average{job="aws_rds",instance="",dbinstance_identifier="database-1",} 8.26788 1641208200000
+# HELP aws_rds_disk_queue_depth_average CloudWatch metric AWS/RDS DiskQueueDepth Dimensions: [DBInstanceIdentifier] Statistic: Average Unit: Count
+# TYPE aws_rds_disk_queue_depth_average gauge
+aws_rds_disk_queue_depth_average{job="aws_rds",instance="",dbinstance_identifier="database-1",} 0.0 1641208380000
+# HELP aws_rds_network_transmit_throughput_average CloudWatch metric AWS/RDS NetworkTransmitThroughput Dimensions: [DBInstanceIdentifier] Statistic: Average Unit: Bytes/Second
+# TYPE aws_rds_network_transmit_throughput_average gauge
+aws_rds_network_transmit_throughput_average{job="aws_rds",instance="",dbinstance_identifier="database-1",} 5605.844026328036 1641208380000
+# HELP aws_rds_network_receive_throughput_average CloudWatch metric AWS/RDS NetworkReceiveThroughput Dimensions: [DBInstanceIdentifier] Statistic: Average Unit: Bytes/Second
+# TYPE aws_rds_network_receive_throughput_average gauge
+aws_rds_network_receive_throughput_average{job="aws_rds",instance="",dbinstance_identifier="database-1",} 654.976397845888 1641208380000
+# HELP aws_resource_info AWS information available for resource
+# TYPE aws_resource_info gauge
+# HELP cloudwatch_exporter_scrape_duration_seconds Time this CloudWatch scrape took, in seconds.
+# TYPE cloudwatch_exporter_scrape_duration_seconds gauge
+cloudwatch_exporter_scrape_duration_seconds 13.832245426
+# HELP cloudwatch_exporter_scrape_error Non-zero if this scrape failed.
+# TYPE cloudwatch_exporter_scrape_error gauge
+cloudwatch_exporter_scrape_error 0.0
+# HELP cloudwatch_requests_created API requests made to CloudWatch
+# TYPE cloudwatch_requests_created gauge
+cloudwatch_requests_created{action="listMetrics",namespace="AWS/RDS",} 1.641209039179E9
+cloudwatch_requests_created{action="getMetricStatistics",namespace="AWS/RDS",} 1.64120903953E9

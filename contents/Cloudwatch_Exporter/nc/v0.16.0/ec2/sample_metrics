@@ -1,0 +1,36 @@
+# HELP aws_ec2_cpuutilization_average CloudWatch metric AWS/EC2 CPUUtilization Dimensions: [InstanceId] Statistic: Average Unit: Percent
+# TYPE aws_ec2_cpuutilization_average gauge
+aws_ec2_cpuutilization_average{job="aws_ec2",instance="",instance_id="i-0bae0a57c0a14838c",} 0.0994720755765494 1641215820000
+# HELP aws_ec2_network_in_average CloudWatch metric AWS/EC2 NetworkIn Dimensions: [InstanceId] Statistic: Average Unit: Bytes
+# TYPE aws_ec2_network_in_average gauge
+aws_ec2_network_in_average{job="aws_ec2",instance="",instance_id="i-0bae0a57c0a14838c",} 1878.4 1641215820000
+# HELP aws_ec2_network_out_average CloudWatch metric AWS/EC2 NetworkOut Dimensions: [InstanceId] Statistic: Average Unit: Bytes
+# TYPE aws_ec2_network_out_average gauge
+aws_ec2_network_out_average{job="aws_ec2",instance="",instance_id="i-0bae0a57c0a14838c",} 1934.2 1641215820000
+# HELP aws_ec2_status_check_failed_sum CloudWatch metric AWS/EC2 StatusCheckFailed Dimensions: [InstanceId] Statistic: Sum Unit: Count
+# TYPE aws_ec2_status_check_failed_sum gauge
+aws_ec2_status_check_failed_sum{job="aws_ec2",instance="",instance_id="i-0bae0a57c0a14838c",} 0.0 1641215940000
+# HELP aws_ec2_cpucredit_usage_average CloudWatch metric AWS/EC2 CPUCreditUsage Dimensions: [InstanceId] Statistic: Average Unit: Count
+# TYPE aws_ec2_cpucredit_usage_average gauge
+aws_ec2_cpucredit_usage_average{job="aws_ec2",instance="",instance_id="i-0bae0a57c0a14838c",} 0.003663 1641215700000
+# HELP aws_ec2_disk_read_bytes_average CloudWatch metric AWS/EC2 DiskReadBytes Dimensions: [InstanceId] Statistic: Average Unit: Bytes
+# TYPE aws_ec2_disk_read_bytes_average gauge
+aws_ec2_disk_read_bytes_average{job="aws_ec2",instance="",instance_id="i-0bae0a57c0a14838c",} 0.0 1641215820000
+# HELP aws_resource_info AWS information available for resource
+# TYPE aws_resource_info gauge
+# HELP cloudwatch_exporter_scrape_duration_seconds Time this CloudWatch scrape took, in seconds.
+# TYPE cloudwatch_exporter_scrape_duration_seconds gauge
+cloudwatch_exporter_scrape_duration_seconds 5.917381953
+# HELP cloudwatch_exporter_scrape_error Non-zero if this scrape failed.
+# TYPE cloudwatch_exporter_scrape_error gauge
+cloudwatch_exporter_scrape_error 0.0
+# HELP tagging_api_requests_total API requests made to the Resource Groups Tagging API
+# TYPE tagging_api_requests_total counter
+# HELP cloudwatch_requests_total API requests made to CloudWatch
+# TYPE cloudwatch_requests_total counter
+cloudwatch_requests_total{action="getMetricStatistics",namespace="AWS/EC2",} 42.0
+cloudwatch_requests_total{action="listMetrics",namespace="AWS/EC2",} 42.0
+# HELP cloudwatch_requests_created API requests made to CloudWatch
+# TYPE cloudwatch_requests_created gauge
+cloudwatch_requests_created{action="getMetricStatistics",namespace="AWS/EC2",} 1.641216317805E9
+cloudwatch_requests_created{action="listMetrics",namespace="AWS/EC2",} 1.641216317505E9
