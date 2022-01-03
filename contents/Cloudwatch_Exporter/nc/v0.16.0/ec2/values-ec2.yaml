@@ -69,8 +69,8 @@ aws:
     includesSessionToken: false
 
   # Note: Do not specify the aws_access_key_id and aws_secret_access_key if you specified role or secret.name before
-  aws_access_key_id: AKIARKLATG2POOMES4FP
-  aws_secret_access_key: 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
+  aws_access_key_id: 
+  aws_secret_access_key: 
 
 serviceAccount:
   # Specifies whether a ServiceAccount should be created
