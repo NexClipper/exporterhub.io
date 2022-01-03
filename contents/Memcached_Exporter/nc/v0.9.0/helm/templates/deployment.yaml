@@ -1,0 +1,75 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ template "prometheus-memcached-exporter.fullname" . }}
+  labels:
+{{ include "prometheus-memcached-exporter.labels" . | indent 4 }}
+  annotations:
+{{ toYaml .Values.annotations | indent 8 }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app: {{ template "prometheus-memcached-exporter.name" . }}
+      release: {{ .Release.Name }}
+  template:
+    metadata:
+      annotations:
+{{ toYaml .Values.annotations | indent 8 }}
+      labels:
+{{ include "prometheus-memcached-exporter.labels" . | indent 8 }}
+      {{- if .Values.labels }}
+{{ toYaml .Values.labels | indent 8 }}
+      {{- end }}
+    spec:
+      serviceAccountName: {{ template "prometheus-memcached-exporter.serviceAccountName" . }}
+      {{- if .Values.image.pullSecrets }}
+      imagePullSecrets:
+      {{- range .Values.image.pullSecrets }}
+        - name: {{ . }}
+      {{- end}}
+      {{- end }}
+      containers:
+        - name: {{ .Chart.Name }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          args:
+            - --memcached.address={{ .Values.memcachedAddress }}
+          {{- range $key, $value := .Values.extraArgs }}
+            - --{{ $key }}={{ $value }}
+          {{- end }}
+          securityContext:
+          {{- range $key, $value := .Values.securityContext }}
+            {{ $key }}: {{ $value }}
+          {{- end }}
+          ports:
+            - name: exporter-port
+              containerPort: {{ .Values.service.port }}
+          env: []
+
+{{- if .Values.env }}
+{{ toYaml .Values.env | indent 12 }}
+{{- end }}
+          livenessProbe:
+            httpGet:
+              path: /
+              port: exporter-port
+          readinessProbe:
+            httpGet:
+              path: /
+              port: exporter-port
+          resources:
+{{ toYaml .Values.resources | indent 12 }}
+
+    {{- if .Values.nodeSelector }}
+      nodeSelector:
+{{ toYaml .Values.nodeSelector | indent 8 }}
+    {{- end }}
+    {{- with .Values.affinity }}
+      affinity:
+{{ toYaml . | indent 8 }}
+    {{- end }}
+    {{- with .Values.tolerations }}
+      tolerations:
+{{ toYaml . | indent 8 }}
+    {{- end }}

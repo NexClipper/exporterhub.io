@@ -1,0 +1,15 @@
+{{- if .Values.rbac.create }}
+apiVersion: {{ template "rbac.apiVersion" . }}
+kind: Role
+metadata:
+  name: {{ template "prometheus-memcached-exporter.fullname" . }}
+  labels:
+{{ include "prometheus-memcached-exporter.labels" . | indent 4 }}
+{{- if .Values.rbac.pspEnabled }}
+rules:
+- apiGroups:      ['extensions']
+  resources:      ['podsecuritypolicies']
+  verbs:          ['use']
+  resourceNames:  [{{ template "prometheus-memcached-exporter.fullname" . }}]
+{{- end }}
+{{- end }}

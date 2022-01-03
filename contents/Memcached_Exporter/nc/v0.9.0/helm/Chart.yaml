@@ -1,0 +1,11 @@
+apiVersion: v2
+appVersion: v0.9.0
+description: Prometheus exporter for memcached metrics
+name: nc-prometheus-memcached-exporter
+version: 0.9.0
+
+keywords:
+  - prometheus
+  - memcached
+
+type: application
