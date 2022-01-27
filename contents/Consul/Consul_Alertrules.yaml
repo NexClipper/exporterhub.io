@@ -1,0 +1,76 @@
+ - alert: NoLeaderFound
+    expr: (COUNT by (consul_raft_state_leader == 1)) == 0
+    for: 1m
+    labels:
+      severity: critical
+    annotations:
+      summary: No Leader Found (instance {{ $labels.instance }})
+      description: "No Leader was found in the service"
+
+ - alert: ConsulUP
+    expr: (up{app="consul"}) == 0
+    for: 1m
+    labels:
+      severity: critical
+    annotations:
+      summary: Consul is down
+      description: "Consul service is not working" 
+
+  - alert: HighCPUusage
+    expr: rate(process_cpu_seconds_total{instance="$consul"}[5m]) / 12 * 100 > 80
+    for: 5m
+    labels:
+      severity: warning  
+    annotations:
+      summary: High CPU usage (instance {{ $labels.instance }})
+      description: "High CPU utilization > 80% for (instance {{ $labels.instance }})" 
+
+  - alert: ServersUnhealthy
+    expr: consul_autopilot_healthy == 0
+    for: 1m
+    labels:
+      severity: warning  
+    annotations:
+      summary: Consul Servers are Unhealthy (instance {{ $labels.instance }})
+      description: "AutoPilot is detecting unhealthy servers for (instance {{ $labels.instance }})" 
+
+      consul_raft_leader_lastContact > 0
+
+
+ - alert: HighTimeCheckLease
+    expr: consul_raft_leader_lastContact > 200
+    for: 1m
+    labels:
+      severity: warning  
+    annotations:
+      summary: Consul Servers are Unhealthy (instance {{ $labels.instance }})
+      description: "AutoPilot is detecting unhealthy servers for (instance {{ $labels.instance }})" 
+
+      
+  - alert: UnStableLeader
+    expr: rate(consul_raft_state_leader[5m]) > 5
+    for: 5m
+    labels:
+      severity: warning  
+    annotations:
+      summary: Consul leader is not stable
+      description: "Leader is not stable different leaders are being elected" 
+
+  - alert: ManyElections
+    expr: rate(consul_raft_state_candidate[5m]) > 5
+    for: 5m
+    labels:
+      severity: warning  
+    annotations:
+      summary: Consul leader is not stable
+      description: "Leader is not stable elections are frequently happening" 
+
+
+  - alert: HighCommitTime
+    expr: consul_raft_commitTime > 200
+    for: 1m
+    labels:
+      severity: warning  
+    annotations:
+      summary: Taking too much time to commit
+      description: "Taking Too much time to commit updates" 
