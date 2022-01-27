@@ -14,17 +14,12 @@ const ContentExporters = ({
     location: { pathname },
   } = useHistory();
 
-  const goToDetail = (id) => {
-    push(`/detail/${id}`);
-  };
-
   return (
     <ExporterContainer fork={fork} mybucket={mybucket}>
       {exporters &&
         exporters.map((exporter) => (
           <CardExporter
             key={exporter.exporter_id}
-            cardClick={pathname === "/" ? goToDetail : goToDetail}
             fork={fork}
             mybucket={mybucket}
             setIsForkModalActive={setIsForkModalActive}
