@@ -13,5 +13,5 @@ six==1.15.0
 sqlparse==0.4.2
 tzlocal==2.1
 urllib3==1.26.5
-PyJWT==2.0.1
+PyJWT==2.4.0
 SQLAlchemy==1.4.8
