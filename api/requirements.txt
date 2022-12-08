@@ -1,6 +1,6 @@
 APScheduler==3.6.3
 asgiref==3.3.1
-certifi==2020.6.20
+certifi==2022.12.7
 chardet==3.0.4
 Django==3.1.13
 django-apscheduler==0.5.1
