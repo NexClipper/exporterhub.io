@@ -69,7 +69,7 @@ To help and ease you with best-practice Prometheus, ExporterHub.io discovers and
 
 ## References
 * [Official Exporters AND Integrations](https://prometheus.io/docs/instrumenting/exporters/)
-* [Awesome Prometheus alerts](https://awesome-prometheus-alerts.grep.to/)
+* [Awesome Prometheus alerts](https://samber.github.io/awesome-prometheus-alerts/)
 * [SLOs with Prometheus](https://promtools.dev/)
 * [Awesome Prometheus](https://github.com/roaldnefs/awesome-prometheus)
 * [Promcat](https://promcat.io/)
